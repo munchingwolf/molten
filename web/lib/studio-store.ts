@@ -1,6 +1,7 @@
 import { create } from "zustand"
 import { newId, toIdent, type Item, type Layout, type Scene, type Vec3 } from "./layout.ts"
 import { liveFilled, matchSlot, placeFromSlot, posed, toLocal, toSlots, toWorld, type Filled, type Slot, type Template } from "./guides.ts"
+import { carryOver, replaced, type Specs } from "./replace.ts"
 
 /** What undo/redo restores: the editable document, not view settings or live values. */
 type Doc = { scenes: Scene[]; sceneId: string; items: Item[]; environment?: string }
@@ -68,8 +69,13 @@ type StudioState = {
   // --- guided templates (lib/guides.ts) ---
   /** Add the template's empty root (free frame) and show its slots as ghosts (+ its environment); no components yet. */
   startGuide: (template: Template) => void
-  /** Put the slot's component exactly in its slot (a child of the root), wired, as one undo step; returns the new item id. */
-  placeSlot: (slotId: string) => string | null
+  /**
+   * Put the slot's component (or `as.component`, dropped onto the slot) exactly in its slot (a child of the root), wired,
+   * as one undo step; returns the new item id. Another component keeps only the slot wiring/props it has (same name + type).
+   */
+  placeSlot: (slotId: string, as?: { component: string; specs: Specs }) => string | null
+  /** Swap an item for another component in place (same id, parent, transform; matching wiring carried) as one undo step. */
+  replaceItem: (id: string, component: string, specs: Specs) => void
   /** After a drop/release (which already made its undo step): snap the item into a matching nearby slot. */
   claimSlot: (itemId: string) => boolean
   endGuide: () => void
@@ -347,7 +353,7 @@ export const useStudio = create<StudioState>((set, get) => {
         guide: { slug: t.slug ?? t.id ?? t.name, name: t.name, slots: toSlots(t.items), filled: {}, rootId: root.id },
       }))
     },
-    placeSlot: (slotId) => {
+    placeSlot: (slotId, as) => {
       const { guide, items } = get()
       const slot = guide?.slots.find((sl) => sl.id === slotId)
       if (!guide || !slot) return null
@@ -355,7 +361,11 @@ export const useStudio = create<StudioState>((set, get) => {
       if (taken) return taken
       checkpoint()
       const root = items.find((i) => i.id === guide.rootId) ?? templateRoot(guide.name) // root deleted/undone: start a new one
-      const item: Item = { id: newId(), component: slot.component, ...slotPlacement(guide, items, root.id, slotId) }
+      const p = slotPlacement(guide, items, root.id, slotId)
+      const component = as?.component ?? slot.component
+      const item: Item =
+        component === slot.component ? { id: newId(), component, ...p }
+        : { id: newId(), component, position: p.position, rotation: p.rotation, scale: p.scale, parentId: p.parentId, ...carryOver(slot, component, as!.specs) }
       set((s) => ({
         items: [...s.items, ...(s.items.includes(root) ? [] : [root]), item], selectedId: item.id, selectedIds: [item.id],
         guide: s.guide && { ...s.guide, rootId: root.id, filled: { ...s.guide.filled, [slotId]: item.id } },
@@ -381,6 +391,13 @@ export const useStudio = create<StudioState>((set, get) => {
         guide: s.guide && { ...s.guide, rootId: root.id, filled: { ...s.guide.filled, [slot.id]: itemId } },
       }))
       return true
+    },
+    replaceItem: (id, component, specs) => {
+      const old = get().items.find((i) => i.id === id)
+      if (!old) return
+      checkpoint()
+      const next = replaced(old, component, specs)
+      set((s) => ({ items: s.items.map((i) => (i.id === id ? next : i)), selectedId: id, selectedIds: [id] }))
     },
     endGuide: () => set({ guide: null }),
     insertAll: (t, at = [0, 0, 0], yaw = 0) => {

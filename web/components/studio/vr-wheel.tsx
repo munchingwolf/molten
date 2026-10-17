@@ -12,6 +12,7 @@ import { useStudio } from "@/lib/studio-store"
 import { useFavorites } from "@/lib/favorites"
 import { SafeBoundary } from "@/components/site/preview"
 import { xr } from "./xr-theme"
+import { aimDrop, dropOnto } from "./drop-target"
 
 /** Wheel open/closed + which page it shows; the toolbar's wheel button toggles it. */
 export const useWheel = create<{ open: boolean; page: string; toggle: () => void; setPage: (p: string) => void }>((set) => ({
@@ -163,13 +164,15 @@ function Slot({ entry, angle, ring }: { entry: Entry; angle: number; ring: React
     d.at.copy(e.point)
     // The mini follows your hand while you drag it out of the ring.
     g.position.copy(ring.current.worldToLocal(e.point.clone()))
+    if (d.at.distanceTo(d.start) > 0.08) aimDrop(e.point.toArray()) // guide slot / item under your hand glows
   }
   const up = () => {
     const d = drag.current
     drag.current = null
     slot.current?.position.set(...home)
     if (!d || !ring.current) return
-    if (d.at.distanceTo(d.start) > 0.08) return place(d.at)
+    aimDrop(null)
+    if (d.at.distanceTo(d.start) > 0.08) return void (dropOnto(entry.name, d.at.toArray()) || place(d.at)) // fill a slot / replace an item, else place
     // A poke: drop it just outside the ring, in the same direction, at working height.
     const out = ring.current.localToWorld(new Vector3(Math.sin(angle) * (RADIUS + 0.45), 0.2, -Math.cos(angle) * (RADIUS + 0.45)))
     place(out)

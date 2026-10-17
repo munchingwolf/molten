@@ -7,16 +7,20 @@ const MAX_BYTES = 256_000
 
 const isObj = (v: unknown): v is Record<string, unknown> => typeof v === "object" && v !== null && !Array.isArray(v)
 const isVec3 = (v: unknown) => Array.isArray(v) && v.length === 3 && v.every((n) => typeof n === "number" && Number.isFinite(n))
+// component names become import paths and prop keys JSX attributes in generated code (lib/codegen.ts).
+const COMPONENT = /^[a-z0-9-]+$/
+const PROP_KEY = /^[A-Za-z_][A-Za-z0-9_]*$/
 const isItem = (i: unknown) =>
   isObj(i) &&
   typeof i.component === "string" &&
+  COMPONENT.test(i.component) &&
   isVec3(i.position) &&
   isVec3(i.rotation) &&
   typeof i.scale === "number" &&
   Number.isFinite(i.scale) &&
   isObj(i.bind) &&
   Object.values(i.bind).every((n) => typeof n === "string") &&
-  (i.props === undefined || isObj(i.props))
+  (i.props === undefined || (isObj(i.props) && Object.keys(i.props).every((k) => PROP_KEY.test(k))))
 
 export async function POST(req: Request) {
   const text = await req.text()

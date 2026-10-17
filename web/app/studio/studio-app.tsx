@@ -7,6 +7,7 @@ import { registry, matches, findEntry, type Entry } from "@/lib/registry"
 import { useStudio } from "@/lib/studio-store"
 import { bindablesOf } from "@/components/studio/layout-renderer"
 import { StudioScene, dropAt, previewDrop, seatOnFloor } from "@/components/studio/scene"
+import { aimDrop, aimLabel, dropOnto } from "@/components/studio/drop-target"
 import { propsOf } from "@/components/studio/prop-controls"
 import type { Item } from "@/lib/layout"
 import { EnterXRButtons } from "@/components/studio/xr-controls"
@@ -107,7 +108,7 @@ function TemplatePicker() {
               <h2 className="font-display text-lg font-bold">Template Library</h2>
               <button onClick={() => setOpen(false)} className={`${btn} border border-border`} autoFocus>Close</button>
             </div>
-            <p className="mt-1 text-sm text-muted">Build with guide shows a glowing slot where each part goes. Insert all drops everything in at once.</p>
+            <p className="mt-1 text-sm text-muted">Use template lays out a glowing empty area where each part goes: drag any component onto one to fill it. Fill everything drops it all in at once.</p>
             <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className="flex flex-col rounded-lg border border-dashed border-border bg-bg p-4">
                 <h3 className="font-display text-base font-bold">Blank</h3>
@@ -133,10 +134,10 @@ function TemplatePicker() {
                       onClick={() => (useStudio.getState().startGuide(t), setOpen(false))}
                       className={`${btn} bg-accent text-on-accent`}
                     >
-                      Build with guide
+                      Use template
                     </button>
                     <button onClick={() => (useStudio.getState().insertAll(t), setOpen(false))} className={`${btn} border border-border`}>
-                      Insert all
+                      Fill everything
                     </button>
                   </div>
                 </div>
@@ -285,16 +286,20 @@ function Library() {
       if (!dragged.current && Math.hypot(e.clientX - x0, e.clientY - y0) < 6) return
       dragged.current = true
       setPeek(null)
-      setGhost({ label: entry.displayName, x: e.clientX, y: e.clientY, over: previewDrop(e.clientX, e.clientY, floor) })
+      const over = previewDrop(e.clientX, e.clientY, floor)
+      const aim = aimLabel(aimDrop(over ? dropAt(e.clientX, e.clientY, floor)?.hit : null)) // slot / item under the cursor glows
+      setGhost({ label: aim ? `${entry.displayName} ${aim.replace(/^Drop /, "")}` : entry.displayName, x: e.clientX, y: e.clientY, over })
     }
     const up = (e: PointerEvent) => {
       window.removeEventListener("pointermove", move)
       window.removeEventListener("pointerup", up)
       previewDrop(null)
       setGhost(null)
+      aimDrop(null)
       if (!dragged.current) return
       const at = dropAt(e.clientX, e.clientY, floor)
       if (!at) return
+      if (dropOnto(entry.name, at.hit)) return // onto a guide slot (fills it) or a placed item (replaces it)
       add(entry.name, at.position, { rotation: [0, at.yaw, 0] })
       const id = useStudio.getState().selectedId
       if (id && useStudio.getState().claimSlot(id)) return // dropped near its guide slot: snapped in and wired

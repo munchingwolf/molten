@@ -91,7 +91,8 @@ const FLOOR = new Plane(new Vector3(0, 1, 0), 0)
 const WORK = new Plane(new Vector3(0, 1, 0), -1.25) // y = 1.25 m: panels float at a comfortable working height
 const hitPoint = new Vector3()
 
-export type Drop = { position: Vec3; yaw: number; onItem: boolean }
+/** `hit`: the exact ray hit on a component or guide slot (drop-target.ts tests it against slot/item bounds). */
+export type Drop = { position: Vec3; yaw: number; onItem: boolean; hit?: Vec3 }
 
 /**
  * World spot under a screen point: in front of a placed component if you point at one, else on the working plane
@@ -108,7 +109,7 @@ export function dropAt(clientX: number, clientY: number, floor = false): Drop | 
   if (hit) {
     const n = hit.face!.normal.clone().transformDirection(hit.object.matrixWorld)
     const p = hit.point.clone().addScaledVector(n, 0.06)
-    return { position: [p.x, p.y, p.z], yaw: yawTo(p), onItem: true }
+    return { position: [p.x, p.y, p.z], yaw: yawTo(p), onItem: true, hit: hit.point.toArray() as Vec3 }
   }
   const p = ray.ray.intersectPlane(floor ? FLOOR : WORK, hitPoint) ?? ray.ray.at(2, hitPoint)
   const d = Math.hypot(p.x - cam.x, p.z - cam.z)

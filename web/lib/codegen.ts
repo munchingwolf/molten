@@ -4,6 +4,8 @@ import { initialValues, toIdent as ident, type Bindable, type Item, type Layout,
 const pascal = (name: string) => name.split(/[^A-Za-z0-9]+/).filter(Boolean).map((w) => w[0].toUpperCase() + w.slice(1)).join("")
 const vec = (v: number[]) => `[${v.map((n) => +n.toFixed(3)).join(", ")}]`
 const setterOf = (n: string) => `set${n[0].toUpperCase()}${n.slice(1)}`
+/** Prop keys become JSX attribute names: anything else (a crafted layout) would inject code, so it's skipped. */
+export const PROP_KEY = /^[A-Za-z_][A-Za-z0-9_]*$/
 
 /**
  * Layout → a self-contained React scene file a developer (or Claude) drops into their project.
@@ -27,7 +29,7 @@ export function generateCode(layout: Layout, bindablesOf: (component: string) =>
 
   const propsOf = (item: Item) => {
     const props: string[] = []
-    for (const [k, v] of Object.entries(item.props ?? {})) props.push(`${k}={${JSON.stringify(v)}}`)
+    for (const [k, v] of Object.entries(item.props ?? {})) if (PROP_KEY.test(k)) props.push(`${k}={${JSON.stringify(v)}}`)
     for (const b of bindablesOf(item.component)) {
       const name = item.bind[b.prop]
       if (!name) continue
@@ -50,7 +52,8 @@ export function generateCode(layout: Layout, bindablesOf: (component: string) =>
     }
     if (children.length) {
       out.push(`${inner}<${tag}${propsOf(item)}>`)
-      for (const c of children) renderItem(c, items, inner + "  ", true)
+      // A free frame (a template) doesn't place its children: each keeps its own transform in a <group>.
+      for (const c of children) renderItem(c, items, inner + "  ", item.props?.direction !== "free")
       out.push(`${inner}</${tag}>`)
     } else out.push(`${inner}<${tag}${propsOf(item)} />`)
     if (!inFrame) out.push(`${pad}</group>`)
@@ -65,7 +68,7 @@ export function generateCode(layout: Layout, bindablesOf: (component: string) =>
   const multi = scenes.length > 1
   out.push('"use client"', "")
   if (state.size) out.push('import { useState } from "react"')
-  for (const c of imports) out.push(`import ${pascal(c)} from "@/components/spatial/${c}"`)
+  for (const c of imports) out.push(`import ${pascal(c)} from ${JSON.stringify(`@/components/spatial/${c}`)}`)
   out.push("")
   if (multi) out.push(`/** Scenes: ${scenes.map((s, i) => `${i} = ${s.name}`).join(", ")} */`)
   out.push(`export default function ${pascal(layout.name) || "SpatialScene"}(${multi ? "{ scene = 0 }: { scene?: number }" : ""}) {`)

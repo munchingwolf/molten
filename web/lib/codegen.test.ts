@@ -76,3 +76,17 @@ test("environment renders first; multi-scene takes a scene prop", () => {
   assert.match(code, /export default function Site\(\{ scene = 0 \}: \{ scene\?: number \}\)/)
   assert.match(code, /\{scene === 1 && \(\n\s+<>\n\s+<EnvForest \/>/)
 })
+
+test("children of a free frame (a template) keep their own transform in a <group>", () => {
+  const root: Item = { ...item("frame"), id: "r", position: [0, 0, 0], props: { direction: "free", background: false } }
+  const pads: Item = { ...item("slider"), id: "p", parentId: "r", position: [0.22, 0.94, -1.08], rotation: [0, 0.2, 0], scale: 1.5 }
+  const code = generateCode({ name: "x", items: [root, pads] }, of)
+  assert.match(code, /<Frame direction=\{"free"\} background=\{false\}>\n\s+<group position=\{\[0\.22, 0\.94, -1\.08\]\} rotation=\{\[0, 0\.2, 0\]\} scale=\{1\.5\}>\n\s+<Slider \/>\n\s+<\/group>\n\s+<\/Frame>/)
+})
+
+test("prop keys that aren't identifiers are skipped (no code injection)", () => {
+  const evil: Item = { ...item("slider"), props: { 'x={alert(1)} y': 1, "a-b": 2, ok_1: 3 } }
+  const code = generateCode({ name: "x", items: [evil] }, of)
+  assert.doesNotMatch(code, /alert|a-b/)
+  assert.match(code, /<Slider ok_1=\{3\} \/>/)
+})
