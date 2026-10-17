@@ -7,6 +7,7 @@ import { createScreenCameraStore } from "@pmndrs/handle"
 import { useStudio } from "@/lib/studio-store"
 import { LayoutRenderer } from "./layout-renderer"
 import { VRShelf } from "./vr-shelf"
+import { VRWorkspace } from "./vr-workspace"
 import { xrStore } from "./xr-store"
 
 // Laptop camera orbits the area where components are placed (eye height, ~1.2 m ahead).
@@ -35,6 +36,7 @@ export function StudioScene() {
           onMove={(id, position) => update(id, { position })}
         />
         <VRShelf />
+        <VRWorkspace />
       </XR>
     </Canvas>
   )
