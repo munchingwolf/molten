@@ -14,7 +14,7 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 ## Log
 
 ### 2:50: Evan: **visual QA of all 150 components** → 79 good / 37 ok / 30 ugly / 4 broken (`web/registry/qa-report.md`)
-- Fixed globally: marketplace previews now have lights + auto-framing (`components/site/preview.tsx` `Stage`: drei `<Bounds fit>`, camera slightly above). That cures the ~12 black objects, tiny controls and clipped big objects. **Danny: heads-up, I edited your preview.tsx (Stage wrapper only).**
+- Marketplace preview lighting + auto-framing: Danny's aa7f7ac already does this (kept his version over mine). That cures the ~12 black objects, tiny controls and clipped big objects.
 - Fixed: glyphs the uikit font lacks (curly quotes, ·, ×, …, —, →, ✓) swapped for ASCII in 61 component files.
 - Hidden as "soon" until fixed (`registry/qa-broken.json`, honoured by merge-registry): `tabs` (uikit throws), `kinetic-title` + `spotlight-text` (text never renders). Rug was only seen edge-on (fixed by the new camera).
 - Remaining "ugly" list (framing/palette nits) is in qa-report.md for Danny's polish pass.
