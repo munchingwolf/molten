@@ -1,0 +1,148 @@
+{
+  "name": "Music Studio",
+  "slug": "music-studio",
+  "category": "music",
+  "description": "A pre-wired DAW: one tempo knob drives the transport and the display, keys and a drum machine play straight away, a synth and a mixer flank you.",
+  "environment": "env-concert-stage",
+  "items": [
+    {
+      "id": "transport",
+      "component": "transport",
+      "position": [
+        -0.32,
+        1.62,
+        -1.15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {
+        "bpm": "tempo"
+      }
+    },
+    {
+      "id": "tempo-knob",
+      "name": "Tempo",
+      "component": "knob",
+      "position": [
+        0.02,
+        1.62,
+        -1.15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1.6,
+      "bind": {
+        "value": "tempo"
+      },
+      "props": {
+        "min": 60,
+        "max": 180
+      }
+    },
+    {
+      "id": "tempo-display",
+      "component": "tempo-display",
+      "position": [
+        0.34,
+        1.62,
+        -1.15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {
+        "value": "tempo"
+      }
+    },
+    {
+      "id": "sequencer",
+      "component": "step-sequencer",
+      "position": [
+        0,
+        1.3,
+        -1.2
+      ],
+      "rotation": [
+        -0.15,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "keys",
+      "component": "piano-keys",
+      "position": [
+        0,
+        1.02,
+        -0.62
+      ],
+      "rotation": [
+        -0.6,
+        0,
+        0
+      ],
+      "scale": 1.4,
+      "bind": {}
+    },
+    {
+      "id": "drums",
+      "component": "drum-machine",
+      "position": [
+        0.78,
+        1.25,
+        -0.95
+      ],
+      "rotation": [
+        0,
+        -0.6,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "synth",
+      "component": "synth",
+      "position": [
+        -0.78,
+        1.25,
+        -0.95
+      ],
+      "rotation": [
+        0,
+        0.6,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "meter",
+      "component": "vu-meter",
+      "position": [
+        0.62,
+        1.68,
+        -1.2
+      ],
+      "rotation": [
+        0,
+        -0.3,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    }
+  ]
+}
