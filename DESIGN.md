@@ -1,152 +1,139 @@
 ---
 # gstack: design-md-format=spec
 name: Spatial
-description: A photographer's grey-card studio where XR components sit like lit hardware on a demo bench; the site steps aside so the previews carry the page.
+description: Night studio. Dark graphite ground where live 3D component previews are the brightest, most vivid things on the page; the site steps aside.
 colors:
-  ground: "#B4B5AF"
-  bench: "#A3A49D"
-  text: "#0E0F0D"
-  text-muted: "#3A3B37"
-  tape: "#ECE9DF"
-  letterbox: "#1A1B18"
-  primary: "#1FB54A"
-  on-primary: "#0E0F0D"
-  surface: "#ECE9DF"
-  accent: "#1FB54A"
+  bg: "#0B0C10"
+  bg-2: "#101218"
+  surface: "#15171E"
+  border: "#242833"
+  border-2: "#323745"
+  text: "#EEF0F4"
+  text-muted: "#9AA0AD"
+  text-faint: "#6B7180"
+  accent: "#9FE7D2"
+  on-accent: "#06221B"
+  stage: "#0D0F14"
+  warm: "#F2B48A"
 typography:
   display:
-    fontFamily: Cabinet Grotesk
-    fontWeight: 800
-    fontSize: clamp(2.6rem, 5.6vw, 4.75rem)
-    letterSpacing: -0.035em
+    fontFamily: Familjen Grotesk
+    fontWeight: 700
+    fontSize: clamp(2.6rem, 5.4vw, 4.6rem)
+    letterSpacing: -0.04em
   heading:
-    fontFamily: Cabinet Grotesk
-    fontWeight: 800
-    fontSize: 2rem
-    letterSpacing: -0.025em
+    fontFamily: Familjen Grotesk
+    fontWeight: 700
+    fontSize: clamp(2rem, 3.6vw, 3rem)
+    letterSpacing: -0.035em
+  accent-word:
+    fontFamily: Instrument Serif
+    fontStyle: italic
+    fontWeight: 400
   body:
-    fontFamily: Switzer
+    fontFamily: Hanken Grotesk
     fontSize: 1rem
-    lineHeight: 1.5
-  label:
-    fontFamily: Switzer
-    fontWeight: 600
-    fontSize: 0.875rem
+    lineHeight: 1.55
   mono:
     fontFamily: JetBrains Mono
-    fontSize: 0.875rem
-    fontFeature: tnum
+    fontSize: 0.8rem
 rounded:
-  none: 0px
-  sm: 2px
+  sm: 6px
+  md: 9px
+  lg: 14px
+  xl: 18px
 spacing:
-  grid-gap: 2px
   xs: 4px
   sm: 8px
   md: 16px
   lg: 24px
   xl: 40px
-  2xl: 72px
+  section: 104px
 components:
   button-primary:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-primary}"
-    borderColor: "{colors.text}"
-    rounded: "{rounded.none}"
+    backgroundColor: "{colors.accent}"
+    textColor: "{colors.on-accent}"
+    rounded: "{rounded.md}"
   button-secondary:
-    backgroundColor: transparent
+    backgroundColor: "{colors.surface}"
+    borderColor: "{colors.border-2}"
     textColor: "{colors.text}"
-    borderColor: "{colors.text}"
-    rounded: "{rounded.none}"
-  chip:
-    borderColor: "{colors.text}"
-    rounded: "{rounded.none}"
-  chip-active:
-    backgroundColor: "{colors.primary}"
-  input:
-    backgroundColor: "{colors.tape}"
-    borderColor: "{colors.text}"
-    rounded: "{rounded.none}"
-  tile:
-    backgroundColor: "{colors.letterbox}"
-    rounded: "{rounded.none}"
-  tape-label:
-    backgroundColor: "{colors.tape}"
-    textColor: "{colors.text}"
+    rounded: "{rounded.md}"
+  card-stage:
+    backgroundColor: "{colors.stage}"
+    borderColor: "{colors.border}"
+    rounded: "{rounded.lg}"
   code-block:
-    backgroundColor: "{colors.letterbox}"
-    textColor: "{colors.tape}"
+    backgroundColor: "{colors.bg}"
+    textColor: "{colors.text-muted}"
 ---
 
 # Spatial
 
 ## Overview
 
-**Creative North Star:** Grey Card Stage. The site is a neutral studio backdrop and every component preview is a lit piece of gear on the bench, because the one thing a visitor should remember is "these components look incredible."
-**Product context:** Visual registry of XR/spatial UI components (21st.dev / shadcn for XR) for Unity + Quest developers, with an MCP install path. Peers: 21st.dev, shadcn/ui, Magic UI, Aceternity UI, Meta Horizon OS UI Set.
-**Mode per surface:** Home: Persuade (hero) then Operate (search, filter, browse). Component page: Operate (evaluate, copy prompt). Docs/README: Read.
-**Reference sites:** https://21st.dev , https://ui.aceternity.com , https://developers.meta.com/horizon/design/components/
+**Creative North Star:** Night studio. The page is a dark room and every component preview is a lit object in it, so the one thing a visitor remembers is the sentence below.
+**The check every design choice must pass:** "These XR components look incredible, and I can drop one into my project with one paste." (It also serves the judging criterion "clear in seconds".)
+**Product context:** Marketplace for XR/spatial UI components (21st.dev for WebXR + React Three Fiber), plus the Spatial Studio and an MCP server. Peers: 21st.dev, Aceternity UI, Magic UI, Spline Community.
+**Mode per surface:** Home: Persuade, then Operate (browse). Browse: Operate. Component page: Operate (evaluate, copy). Studio / apps: Evan's tool screens, out of scope here.
+**Reference sites:** https://21st.dev, https://ui.aceternity.com, https://community.spline.design, https://magicui.design
 **Key characteristics:**
-- Mid-grey ground; dark preview tiles are the brightest, most saturated things on screen
-- Contact-sheet grid: edge-to-edge tiles, 2px gaps, square corners, no card frames
-- Off-white tape-strip label on each tile, the only decorative device
-- One accent, chroma-key green, reserved for the install action and the active filter
+- Live 3D previews on dark stages; they are the highest-contrast thing on screen.
+- A faint perspective floor grid behind the hero and the CTA band: the site already feels like a headset.
+- One accent, mint, only where the user acts.
+- 21st.dev structure: hero, preview strips with tabs, agent cards, FAQ, footer.
 
 ## Colors
 
-**Strategy:** Restrained. Neutrals carry the page; chroma-key green appears only where the user acts (Copy install prompt, active chip, focus rings).
-**Light or dark:** Neither, deliberately mid. The use scene is a projector (lifts blacks to mud, blows out white) plus laptops. A grey-card ground keeps its value in both, and the dark in-headset preview loops stay the highest-contrast objects on screen.
-Text is always `text` (9.3:1 on ground) or `text-muted` (5.5:1). Never put muted text on `bench` for body copy. Green carries ink text (7.1:1), never white. `letterbox` is only for media and code. Depth comes from value steps (ground → bench → letterbox), not shadows.
+**Strategy:** Restrained. Graphite neutrals carry the page; mint `accent` appears only on the primary action (Copy prompt, Browse components, Open Studio), the active filter or style, focus rings, and the hero accent word.
+**Light or dark:** Dark, single theme. The use scene is laptops, a demo video and the Quest browser, where previews read best as lit objects on a dark ground. Projectors lift near-black: keep borders at `border-2` where an edge must survive a projector or recording.
+All colors live as role tokens in `web/app/globals.css` (`bg`, `surface`, `border`, `text`, `muted`, `faint`, `accent`...). Components never use raw hex; a restyle is a values-only change there. In-headset UI uses the same values via `web/components/studio/xr-theme.ts`.
 
 ## Typography
 
-Cabinet Grotesk 800 (Fontshare, ITF Free Font License) is the display voice: hero line, section headings, component names on tape strips and the detail page. Tight negative tracking, never above 4.75rem. Switzer (Fontshare) handles body and UI at 400/500/600. JetBrains Mono (Google Fonts, OFL) is only for commands, prompts and code, set at body-ish size, never as tiny tracked labels.
-Loading: `https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800&f[]=switzer@400,500,600&display=swap` and `https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap` (or self-host via next/font/local).
-Scale: display clamp(2.6rem, 5.6vw, 4.75rem) / heading 2rem / detail title 2.6rem / tape name 1.15rem / body 1rem / label 0.875rem.
+Familjen Grotesk 700 (Google Fonts) is the display voice: hero, section headings, component names. Hanken Grotesk 400/500/600 for body and UI. Instrument Serif italic for **one accent word, in the hero only**. JetBrains Mono for code, prompts, install lines and small technical labels (LIVE 3D, XR). All loaded with `next/font/google` in `web/app/layout.tsx`.
 
 ## Layout
 
-Max content width 1320px, page gutters 40px (16px under 640px). Hero and text left-aligned. The preview grid breaks the gutter: it sits on a full-width `bench` strip, 3 columns ≥960px, 2 columns ≥600px, 1 column below, 16:10 tiles, 2px gaps. Roomy page margins against a tight grid is intentional. Detail page: 1.5fr preview / 1fr spec column, stacking under 900px.
+Max width 1240px, 20px gutters. Strips: section count + tabs + "View all" on one line, then a card grid (3-up for sections, 4-up for components; 2-up under 1000px, 1-up on phones). Sections are separated by ~104px of space, not by rules.
 
 ## Elevation & Depth
 
-No drop shadows and no glows. Depth is value: ground, recessed bench, dark letterbox. The tape strip sits at a -0.6deg rotation to read as a physical label; that is the only "lift."
+Depth comes from the 3D content itself (perspective, floating panels) and from value steps (bg → bg-2 → surface → stage). Flat chrome: no drop shadows on site UI, no glow halos.
 
 ## Shapes
 
-Square corners everywhere (0px). 2px radius allowed only for keyboard hint `kbd` if needed. Borders are 1.5-2px solid ink on interactive controls.
+Radii: 6 (chips, tags), 9 (buttons, inputs), 14 (preview stages), 18 (big tiles). Nothing pill-shaped except status dots.
 
 ## Components
 
-- **Tile:** letterbox background, `<video muted loop playsinline preload="metadata">` with poster image; plays on hover/focus, pauses on leave. Tape label bottom-left: name in Cabinet Grotesk 800, meta line (platform · device · inputs) in Switzer 500 muted. Hover: tape straightens and lifts 2px. Focus-visible: 3px green outline, 2px offset. Missing preview: letterbox with mono "preview pending" text, never a gray placeholder pretending to be content.
-- **Chip:** 1.5px ink border, transparent. Hover: tape fill. Active (`aria-pressed=true`): green fill. Disabled: 45% opacity, not-allowed cursor.
-- **Search:** tape fill, 2px ink border, `/` keyboard hint. Focus: green outline on the wrapper.
-- **Primary button (Copy install prompt):** green fill, ink text, 2px ink border, full width in the spec column. On click: ink wipes left-to-right over 200ms and the label becomes "Copied. Paste into Claude Code" in green, reverting after ~2s.
-- **Secondary button:** transparent with ink border; hover tape fill.
-- **Code block:** letterbox background, tape text, green `$` prompt, horizontal scroll, never wraps.
-- **Patch bay (compatibility):** table, rows = input types (Hands, Controller, Ray, Poke), columns = Unity, OpenXR, Quest 3, Quest 3S. Cells are 12px square jacks: filled ink = supported, hollow = not supported. Always show the legend under it.
-- **Empty state:** dashed muted border, plain sentence naming the query, a suggestion to try a category or ask Claude via the MCP.
+- **Preview card:** stage (`stage-bg`, 4:3), `LIVE 3D` mono tag when ready, name + price/XR badge, one muted description line. Hover: border lifts to `border-2`. "Coming soon" cards render at 70% opacity with a mono placeholder and are not links.
+- **Primary button:** mint fill, `on-accent` text. Secondary: surface fill, `border-2` edge.
+- **Code / prompt blocks:** `bg` fill, mono, horizontal scroll, never wrap.
+- **Component page:** title, description, tags, actions (Copy prompt primary), style switcher (active = accent), framed live preview with Preview/Code tabs and **View in headset** (only where WebXR VR is supported).
+- **States:** empty search names the query; coming soon; missing preview shows a mono placeholder; reduced motion shows still 3D (no drift).
 
 ## Do's and Don'ts
 
-- Do keep green only on the install action, active filter and focus rings.
-- Do let previews run edge to edge in the grid; the tape strip is the only thing on top of them.
-- Do left-align hero and section text.
-- Do design the empty, loading (poster frame) and missing-preview states.
-- Don't add rounded cards, drop shadows, glows, gradients or frosted panels to site chrome. Glass belongs to the components, not the site.
-- Don't go dark mode "because it's a dev tool"; the grey ground is the decision.
-- Don't put white text on green or muted text on bench.
-- Don't add feature grids, testimonial rows, logo strips or stat counters to the home page.
+- Do keep previews the brightest, most saturated thing on screen.
+- Do use mint only where the user acts.
+- Do use role tokens only; no new hex in components.
+- Do design empty, loading, coming-soon and reduced-motion states.
+- Don't repeat the serif accent word outside the hero (once is a signature, five times is a template).
+- Don't add glows, gradient text, avatar walls, fake stats or logo strips.
+- Don't rely on hover alone: Quest hands have no hover, so every hover affordance needs a visible default.
 
 ## Motion
 
-- **Approach:** minimal-functional
-- **Easing:** enter(ease-out) exit(ease-in) move(ease-in-out)
-- **Duration:** micro(50-100ms) short(150-250ms) medium(250-400ms) long(400-700ms)
-- **The one authored moment:** the Copy install prompt ink wipe (200ms ease-out). Video play-on-hover is the only other motion; respect `prefers-reduced-motion` by showing posters and disabling autoplay.
+- **Approach:** intentional. One orchestrated page-load moment (hero text staggers in), then quiet.
+- **3D:** hero panels drift slowly (`useFrame`), honoring `prefers-reduced-motion`.
+- **Easing:** enter ease-out, exit ease-in. Durations 150–400ms.
+- **The one authored moment:** the hero load: headline, then the three live panels settle into place.
 
 ## Decisions Log
 | Date | Decision | Rationale |
 |------|----------|-----------|
-| 2026-10-17 | Initial design system created | Created by /design-consultation from SPEC.md, web research (21st.dev, shadcn ecosystem, Meta UI Set) and an independent Claude subagent proposal that converged on the same grey-studio + chroma-green direction |
-| 2026-10-17 | Ground lightened from #9C9D97 to #B4B5AF | Muted text on #9C9D97 only reached 3.2:1; #B4B5AF gives 9.3:1 ink and 5.5:1 muted |
+| 2026-10-17 | Initial "Grey Card Stage" system | /design-consultation (superseded below) |
+| 2026-10-17 | Switched to night studio | Approved homepage mockup; replicates 21st.dev's structure with a dark, 3D-first look |
+| 2026-10-17 | Display font Familjen Grotesk | Picked from a 4-way comparison (Bricolage, Schibsted, Familjen, Onest) |
+| 2026-10-17 | Serif accent word on the hero only | Evan's DESIGN-PIPELINE.md: repeating it reads as templated |

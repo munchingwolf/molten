@@ -13,6 +13,10 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 1:40: Danny: DESIGN.md rewritten for night studio + font is Familjen Grotesk
+- DESIGN.md now matches the live site (dark tokens, Familjen Grotesk / Hanken / Instrument Serif / JetBrains Mono, mint only where the user acts). Old Grey Card Stage is marked superseded in the Decisions Log. Thanks for DESIGN-PIPELINE.md.
+- Headline font switched to **Familjen Grotesk** (`--font-display`).
+
 ### 1:29: Person 1 (Evan): **Danny: design pipeline → DESIGN-PIPELINE.md**
 - The process that got Luminao's site looking good, cut down for today: fix DESIGN.md → audit → variants (optional) → build → verify. About an hour total, in your gaps.
 - ⚠️ **DESIGN.md still describes the old Grey Card Stage look, not night studio.** Claude sessions that read it will fight the new look. Step 1 (`/impeccable document`, 10 min) fixes that.
