@@ -19,15 +19,8 @@ import { ImportModelButton } from "@/components/studio/import-model"
 import { Preview } from "@/components/site/preview"
 import { toggleFavorite, useFavorites } from "@/lib/favorites"
 
-// The three demo worlds are fetched once on open so switching to them is instant (browser cache).
-const PRELOAD_WORLDS = ["/hdri/music_hall_02_2k.hdr", "/hdri/park_music_stage_2k.hdr", "/hdri/poly_haven_studio_2k.hdr"]
-
 export function StudioApp() {
   useGestureKeys()
-  useEffect(() => {
-    const t = setTimeout(() => PRELOAD_WORLDS.forEach((u) => fetch(u).catch(() => {})), 1500)
-    return () => clearTimeout(t)
-  }, [])
 
   // /studio?layout=latest (or an id): open a saved layout, e.g. on the Quest after building on the laptop.
   useEffect(() => {

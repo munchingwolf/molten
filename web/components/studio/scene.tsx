@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, type ComponentType } from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
-import { Box3, Plane, Raycaster, Vector2, Vector3, type Camera, type Mesh, type Object3D, type Scene } from "three"
+import { Box3, Plane, Raycaster, Vector2, Vector3, type Camera, type Mesh, type Object3D, type PerspectiveCamera, type Scene } from "three"
 import type { Vec3 } from "@/lib/layout"
 import { IfInSessionMode, NotInXR, PointerEvents, XR, noEvents } from "@react-three/xr"
 import { OrbitHandles } from "@react-three/handle"
@@ -34,7 +34,10 @@ export function StudioScene() {
       <PointerEvents />
       <XR store={xrStore}>
         <NotInXR>
-          <OrbitHandles store={cameraStore} />
+          {/* Left drag orbits, wheel zooms. Pan is ours (ScreenPan): Space+drag, middle-drag or Shift+wheel, so it also
+              works over components, which swallow left/right clicks. */}
+          <OrbitHandles store={cameraStore} pan={false} />
+          <ScreenPan />
         </NotInXR>
         {/* An environment brings its own sky/lights; X-ray strips it back to the bare stage. Without one: dark studio on
             the laptop, your real room (passthrough) in AR. */}
@@ -166,4 +169,87 @@ function DropProbe() {
       <meshBasicMaterial color="#4fbfa0" transparent opacity={0.9} depthTest={false} />
     </mesh>
   )
+}
+
+const right = new Vector3()
+const up = new Vector3()
+
+/** Figma-style pan for the laptop camera; captured before components see the pointer, so hovering one never blocks it. */
+function ScreenPan() {
+  const gl = useThree((s) => s.gl)
+  const camera = useThree((s) => s.camera)
+  useEffect(() => {
+    const canvas = gl.domElement
+    let space = false
+    let last: { x: number; y: number } | null = null
+    const typing = (e: Event) => !!(e.target as HTMLElement | null)?.closest?.("input, textarea, select, [contenteditable=true]")
+    // Move the orbit origin (and the camera with it) across the screen plane, scaled so the scene tracks the cursor.
+    const pan = (dx: number, dy: number) => {
+      const s = cameraStore.getState()
+      const fov = "fov" in camera ? ((camera as PerspectiveCamera).fov * Math.PI) / 180 : Math.PI / 4
+      const k = (2 * s.distance * Math.tan(fov / 2)) / canvas.clientHeight
+      right.setFromMatrixColumn(camera.matrixWorld, 0).multiplyScalar(-dx * k)
+      up.setFromMatrixColumn(camera.matrixWorld, 1).multiplyScalar(dy * k)
+      const [x, y, z] = s.origin
+      s.setOriginPosition(x + right.x + up.x, y + right.y + up.y, z + right.z + up.z, true)
+    }
+    const keydown = (e: KeyboardEvent) => {
+      if (e.code !== "Space" || typing(e)) return
+      e.preventDefault() // no page scroll / button press while held
+      space = true
+      canvas.style.cursor = last ? "grabbing" : "grab"
+    }
+    const keyup = (e: KeyboardEvent) => {
+      if (e.code !== "Space") return
+      space = false
+      if (!last) canvas.style.cursor = ""
+    }
+    const down = (e: PointerEvent) => {
+      if (e.target !== canvas || !(e.button === 1 || (e.button === 0 && space))) return
+      e.preventDefault()
+      e.stopImmediatePropagation() // window capture runs first: components and orbit never see this drag
+      last = { x: e.clientX, y: e.clientY }
+      canvas.style.cursor = "grabbing"
+    }
+    const move = (e: PointerEvent) => {
+      if (!last) return
+      e.stopImmediatePropagation()
+      pan(e.clientX - last.x, e.clientY - last.y)
+      last = { x: e.clientX, y: e.clientY }
+    }
+    const end = (e: PointerEvent) => {
+      if (!last) return
+      e.stopImmediatePropagation()
+      last = null
+      canvas.style.cursor = space ? "grab" : ""
+    }
+    const wheel = (e: WheelEvent) => {
+      if (e.target !== canvas || !e.shiftKey) return
+      e.preventDefault()
+      e.stopImmediatePropagation()
+      // Shift turns vertical wheel into horizontal on some systems; use whichever axis moved.
+      pan(-(e.deltaX || e.deltaY), 0)
+    }
+    const aux = (e: MouseEvent) => e.button === 1 && e.target === canvas && e.preventDefault() // no autoscroll icon
+    const opts = { capture: true }
+    window.addEventListener("keydown", keydown)
+    window.addEventListener("keyup", keyup)
+    window.addEventListener("pointerdown", down, opts)
+    window.addEventListener("pointermove", move, opts)
+    window.addEventListener("pointerup", end, opts)
+    window.addEventListener("pointercancel", end, opts)
+    window.addEventListener("wheel", wheel, { capture: true, passive: false })
+    window.addEventListener("mousedown", aux, opts)
+    return () => {
+      window.removeEventListener("keydown", keydown)
+      window.removeEventListener("keyup", keyup)
+      window.removeEventListener("pointerdown", down, opts)
+      window.removeEventListener("pointermove", move, opts)
+      window.removeEventListener("pointerup", end, opts)
+      window.removeEventListener("pointercancel", end, opts)
+      window.removeEventListener("wheel", wheel, opts)
+      window.removeEventListener("mousedown", aux, opts)
+    }
+  }, [gl, camera])
+  return null
 }

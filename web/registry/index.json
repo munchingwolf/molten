@@ -8898,7 +8898,7 @@
     "category": "environments",
     "kind": "environment",
     "description": "Sunny, flat meadow under a clear midday sky. A real photo projected onto level ground, so components stand flat.",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -8940,7 +8940,7 @@
     "category": "environments",
     "kind": "environment",
     "description": "Wide, flat sand beach on a clear morning, sea on the horizon. A real photo projected onto level ground.",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -8981,7 +8981,7 @@
     "category": "environments",
     "kind": "environment",
     "description": "Empty, flat open lot under a big cloudy sky: lots of room to build. A real photo projected onto level ground.",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -9021,7 +9021,7 @@
     "category": "environments",
     "kind": "environment",
     "description": "Flat desert floor ringed by rocky hills, under a deep blue sky. A real photo projected onto level ground.",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -9061,7 +9061,7 @@
     "category": "environments",
     "kind": "environment",
     "description": "Flat field at night: starry sky and town glow on the horizon. A real photo projected onto level ground.",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -12264,7 +12264,7 @@
     "kind": "environment",
     "description": "Ornate concert hall with warm stage lights and rows of seats. A real Poly Haven photo projected onto level ground.",
     "file": "components/spatial/env-music-hall.tsx",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -12304,7 +12304,7 @@
     "kind": "environment",
     "description": "Open-air band shell in a park, daylight, lawn in front of the stage. A real Poly Haven photo projected onto level ground.",
     "file": "components/spatial/env-park-music-stage.tsx",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -12343,7 +12343,7 @@
     "kind": "environment",
     "description": "Bright working creative studio with big windows and desks. A real Poly Haven photo projected onto level ground.",
     "file": "components/spatial/env-creative-studio.tsx",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -12382,7 +12382,7 @@
     "kind": "environment",
     "description": "Golden sunset over Venetian rooftops and canals. A real Poly Haven photo projected onto level ground.",
     "file": "components/spatial/env-venice-sunset.tsx",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -12421,7 +12421,7 @@
     "kind": "environment",
     "description": "Forest clearing lit by a low orange sun. A real Poly Haven photo projected onto level ground.",
     "file": "components/spatial/env-sunset-forest.tsx",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -12460,7 +12460,7 @@
     "kind": "environment",
     "description": "Green forest path in soft daylight. A real Poly Haven photo projected onto level ground.",
     "file": "components/spatial/env-nature-reserve.tsx",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -12499,7 +12499,7 @@
     "kind": "environment",
     "description": "Sunlit forest hillside among tall trees. A real Poly Haven photo projected onto level ground.",
     "file": "components/spatial/env-forest-slope.tsx",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -12538,7 +12538,7 @@
     "kind": "environment",
     "description": "Wide open park with grass and scattered trees under a clear sky. A real Poly Haven photo projected onto level ground.",
     "file": "components/spatial/env-rooitou-park.tsx",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -12577,7 +12577,7 @@
     "kind": "environment",
     "description": "Open landscape at first light, pastel sky. A real Poly Haven photo projected onto level ground.",
     "file": "components/spatial/env-dawn-landscape.tsx",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -12617,7 +12617,7 @@
     "kind": "environment",
     "description": "Savanna under a starry night sky. A real Poly Haven photo projected onto level ground.",
     "file": "components/spatial/env-night-landscape.tsx",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -12656,7 +12656,7 @@
     "kind": "environment",
     "description": "Big empty industrial warehouse with skylights. A real Poly Haven photo projected onto level ground.",
     "file": "components/spatial/env-empty-warehouse.tsx",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -12695,7 +12695,7 @@
     "kind": "environment",
     "description": "Modern apartment living room with large windows. A real Poly Haven photo projected onto level ground.",
     "file": "components/spatial/env-apartment.tsx",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -12734,7 +12734,7 @@
     "kind": "environment",
     "description": "City plaza surrounded by modern buildings. A real Poly Haven photo projected onto level ground.",
     "file": "components/spatial/env-urban-plaza.tsx",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -12773,7 +12773,7 @@
     "kind": "environment",
     "description": "Old stone and timber interior with daylight through small windows. A real Poly Haven photo projected onto level ground.",
     "file": "components/spatial/env-historic-interior.tsx",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -12812,7 +12812,7 @@
     "kind": "environment",
     "description": "Painter's studio with skylights and easels. A real Poly Haven photo projected onto level ground.",
     "file": "components/spatial/env-art-studio.tsx",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -12851,7 +12851,7 @@
     "kind": "environment",
     "description": "Photo studio with softboxes and a plain backdrop. A real Poly Haven photo projected onto level ground.",
     "file": "components/spatial/env-photo-studio.tsx",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {
@@ -12891,7 +12891,7 @@
     "kind": "environment",
     "description": "Clean white seamless studio, even light. A real Poly Haven photo projected onto level ground.",
     "file": "components/spatial/env-white-studio.tsx",
-    "status": "ready",
+    "status": "soon",
     "bindable": [],
     "props": [
       {

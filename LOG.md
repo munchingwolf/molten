@@ -29,6 +29,10 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 - Sounds: kick/snare/clap/toms/cowbell/perc/crash generated with ElevenLabs Sound Effects in `web/public/sounds/night-kit/` (credited in SOURCES.md); other voices synthesised.
 - Verified in Chromium: 8/8 slots place, code panel wires `tempo`, `keys`, `drums`, 8 bus channels live, 0 errors. **Not verified: by ear, on a Quest.** Run-sheet for the video + table: `DEMO.md`.
 - Also: layouts persist to `.data/layouts` (launch links survive restarts); MCP verified end to end with headless Claude Code (`mcp/README.md`).
+### 4:35: Danny: **photo backgrounds out, Figma-style pan, agents on assistant/voice/wheel**
+- Danny: photo/HDRI backgrounds look low-res, use real 3D only. Removed my 17 HDRI envs + `public/hdri`; Evan's 5 photo envs (meadow, beach, open-lot, desert, night-field) added to `registry/qa-broken.json` so they show as soon (files untouched; no template uses them). Replacements coming: Kenney-kit 3D scenes (recording studio, park stage, music hall…) + procedural A-Frame-style worlds (tron, japan, moon…).
+- **Laptop pan** (`scene.tsx` `ScreenPan`): OrbitHandles `pan={false}`; pan = **Space+drag**, **middle-drag**, **Shift+wheel**, captured on window before components, so hovering a component no longer blocks it. Left-drag orbit / wheel zoom unchanged.
+- Evan FYI: agents are debugging the **assistant placement** (camera-aware "in front of me", "it" = last added, "show me X") and **voice hold-to-talk** (desktop + Quest). They avoid studio-store / layout-renderer / mixing-console; I'll log exactly what they change.
 
 ### 4:27: Evan: **voice editor audited end to end: 31/32**, 3 fixes (local qwen2.5 only, no Claude)
 - ElevenLabs Scribe STT verified with real audio, but `web/.env.local` currently holds a key **ID**; needs the `sk_…` key or STT returns 400.
