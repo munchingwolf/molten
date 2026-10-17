@@ -33,6 +33,13 @@ test("arc: middle child at origin facing forward; outer ones turn inward", () =>
   assert.ok(placements[0].position[2] > 0) // curves toward the viewer
 })
 
+test("free: no placements and no panel, whatever the children (they keep their own transforms)", () => {
+  const out = layoutFrame({ ...base, direction: "free" }, [[0.4, 0.3], [1.2, 0.8]])
+  assert.deepEqual(out.placements, [])
+  assert.deepEqual(out.size, [0, 0])
+  assert.deepEqual(layoutFrame({ ...base, direction: "free" }, []).size, [0, 0])
+})
+
 test("empty frame has a placeholder size", () => {
   assert.deepEqual(layoutFrame({ ...base, direction: "row" }, []).placements, [])
 })

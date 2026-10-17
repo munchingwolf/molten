@@ -3293,7 +3293,8 @@
           "row",
           "column",
           "grid",
-          "arc"
+          "arc",
+          "free"
         ],
         "default": "row"
       },

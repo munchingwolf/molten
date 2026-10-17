@@ -2,7 +2,7 @@
 import type { Vec3 } from "./layout.ts"
 
 export type FrameProps = {
-  direction: "row" | "column" | "grid" | "arc"
+  direction: "row" | "column" | "grid" | "arc" | "free"
   gap: number
   padding: number
   /** grid only */
@@ -19,6 +19,8 @@ export type Placement = { position: Vec3; rotation: Vec3 }
 
 /** Child placements in the frame's local space, centred on the frame origin, plus the frame's content box size. */
 export function layoutFrame(p: FrameProps, sizes: Size[]): { placements: Placement[]; size: Size } {
+  // free: children keep their own transforms (a template wrapped as one movable group); nothing to place, no panel.
+  if (p.direction === "free") return { placements: [], size: [0, 0] }
   const n = sizes.length
   if (!n) return { placements: [], size: [0.4 + 2 * p.padding, 0.25 + 2 * p.padding] }
 
