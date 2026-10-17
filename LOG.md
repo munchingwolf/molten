@@ -13,6 +13,11 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 1:03: Person 1: MCP server done (`mcp/`)
+- Install: `claude mcp add spatial -- node /path/to/molten/mcp/server.mjs` (add `-e SPATIAL_URL=https://<deployed-url>` to read saved layouts from the deployed site). See `mcp/README.md` (Cursor JSON too).
+- Tools: `search_components`, `get_component` (entry + source + npm deps), `add_component` (copies into `<project>/components/spatial/`), `get_layout`, `list_categories`. Re-reads `web/registry/index.json` on every call, so new components show up live.
+- Tests: `cd mcp && npm test` (6 pass). Studio, API and XR layer land next.
+
 ### 1:05: Person 1: interaction split + core done
 - **New split (user's call):** Person 1 owns **XR interaction** (hand tracking, poke, pinch, grab, ray, hover cursor, controllers, laptop mouse). Person 2 owns **look and feel** (animation, effects, formatting). See SPEC §41 "XR interaction layer" + **interaction contract for components** (use R3F pointer events only; buttons on `onClick`; press effects on `onPointerDown/Up`; hover on `onPointerOver/Out`; no `stopPropagation`).
 - Done: `web/lib/layout.ts`, `web/lib/codegen.ts` + tests (7/7 pass, `node --test web/lib/codegen.test.ts`). tsconfig now has `allowImportingTsExtensions`.

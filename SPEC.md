@@ -1843,7 +1843,7 @@ Plan detail: `/Users/ek/.claude/plans/delegated-forging-moth.md` (local). Order:
 - Use R3F pointer events only (`onClick`, `onPointerDown/Up`, `onPointerOver/Out`, `onPointerMove`), never DOM events. Hands, controllers and mouse all arrive as these.
 - Buttons fire on `onClick` (poke and pinch both produce it). Press-depth / hold effects use `onPointerDown` / `onPointerUp`. Note: `click` only fires if up happens on the same object within 300 ms.
 - Hover states via `onPointerOver/Out` (fingertip approach + ray hover).
-- Hit targets ≥ 2 cm (≈ 10 uikit px at `pixelSize 0.002`… use ≥ 40 px). Don't `stopPropagation` (the Studio needs selection clicks).
+- Hit targets ≥ 2 cm: at `pixelSize 0.002` that's ≥ 10 px, so aim for 20+ px controls and 44 px rows. Don't `stopPropagation` (the Studio needs selection clicks).
 
 ## Person 2: Components + marketplace website
 

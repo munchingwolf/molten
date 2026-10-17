@@ -1,0 +1,16 @@
+{
+  "name": "spatial-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MCP server for the Spatial XR component marketplace: search, read and install React Three Fiber components, and fetch saved Studio layouts.",
+  "type": "module",
+  "bin": { "spatial-mcp": "./server.mjs" },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.0",
+    "zod": "^3.25.0"
+  }
+}
