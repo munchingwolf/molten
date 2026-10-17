@@ -13,6 +13,13 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 3:31: Evan: **pitch research + red team in `reports/`. Read before judging, both of us**
+- `reports/Spatial XR pitch market research.md`: MOLTEN rubric (5 equal criteria, business NOT scored, tiebreak "It works in space"), competitors, why-not-Claude-Code evidence, demand, 18 judge questions with honest answers.
+- `reports/Spatial holes and counterarguments.md`: pre-mortem, score per criterion today (~12–14/25), repo holes with file:line, ranked fixes for the next 3 h.
+- **Biggest threat: Meta Immersive Web SDK 1.0 (Oct 14):** free, uikit-based UI, MCP + agent skills + a desktop-browser scene editor, no component registry, no in-headset building. Our answer: we're the hands-first studio + tested component layer, not an engine.
+- **Top holes:** wiring/Play/Launch are laptop-only (not in the VR UI or voice); nothing since 1:42 tested on a Quest; layouts in server memory (restart wipes `/apps/<id>`); demo components knob/drum-pad/piano-keys/vu-meter rated "ugly" in QA; MCP never run with real Claude Code; no LICENSE file; COMPONENTS.md mojibake.
+- **Demo order:** open in the headset Studio, not the website (rubric gives "a 2D tool moved into a headset" a 1).
+
 ### 3:30: Danny: **Studio library: ★ favorites pinned on top + hover preview**
 - `web/lib/favorites.ts` (`useFavorites`, `toggleFavorite`, per-browser localStorage). Seeded with 23 music-demo picks (transport, drum-pad, step-sequencer, piano-keys, synth, arpeggiator, knob, fader, mixer-strip, xy-pad, tempo-display, vu-meter, audio-visualizer, waveform, loop-player, hardware-synth, studio-monitors, press-button, slider, glass-card, label, acoustic-panels, neon-sign). Edit `DEFAULT_FAVORITES` to change the demo set.
 - `app/studio/studio-app.tsx` Library only: ☆/★ button per row, "★ Favorites" group first, hovering a ready row floats a live `<Preview>` (one extra canvas) with its description beside the panel. Drag/add logic untouched.
