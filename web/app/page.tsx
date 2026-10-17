@@ -7,9 +7,11 @@ import { Reveal, Stagger, StaggerItem } from "@/components/site/motion"
 import { Preview } from "@/components/site/preview"
 import { registry } from "@/lib/registry"
 
-const sections = registry.filter((e) => e.kind === "section")
-// Drift row renders each card twice (seamless loop), so 4 live cards = 8 WebGL canvases; keep the page under ~16.
-const general = registry.filter((e) => e.kind === "basic" && e.status === "ready").slice(0, 4)
+// Browsers keep ~16 live WebGL canvases and silently drop the oldest (the hero). Budget for this page:
+// hero 1 + sections 3 + drift row 3×2 (it renders its cards twice for a seamless loop) + three looks 3 = 13.
+const sections = registry.filter((e) => e.kind === "section" && e.status === "ready").slice(0, 3)
+const looks = registry.filter((e) => e.kind === "section" && e.category === "settings").slice(0, 3)
+const general = registry.filter((e) => e.kind === "basic" && e.status === "ready").slice(0, 3)
 const readyCount = registry.filter((e) => e.status === "ready").length
 
 const faqs = [
@@ -69,7 +71,7 @@ export default function Home() {
           </Reveal>
         </div>
 
-        <Strip title="Sections" note={`${sections.length} ready`} href="/components?kind=section">
+        <Strip title="Sections" note={`${registry.filter((e) => e.kind === "section").length}`} href="/components?kind=section">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {sections.map((e, i) => (
               <Reveal key={e.name} delay={i * 0.07}>
@@ -80,7 +82,7 @@ export default function Home() {
         </Strip>
       </section>
 
-      <Strip title="Components" note={`${registry.length - sections.length} · ${readyCount} live`} href="/components">
+      <Strip title="Components" note={`${registry.length} · ${readyCount} live`} href="/components">
         <DriftRow speed={36}>
           {general.map((e) => (
             <div key={e.name} className="w-[300px] shrink-0">
@@ -135,7 +137,7 @@ export default function Home() {
           <p className="mt-3.5 max-w-[52ch] text-[17px] text-muted">Switch styles without touching your app&apos;s state. Same props, same events, different material.</p>
         </Reveal>
         <Reveal delay={0.1} className="mt-10 grid gap-5 md:grid-cols-3">
-          {sections.map((e) => (
+          {looks.map((e) => (
             <Link key={e.name} href={`/components/${e.name}`} className="group overflow-hidden rounded-[18px] border border-border bg-bg-2 hover:border-border-2">
               <div className="stage-bg aspect-[16/10]">
                 <Preview name={e.name} />
