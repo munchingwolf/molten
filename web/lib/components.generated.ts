@@ -202,6 +202,23 @@ const C_grand_piano = lazy(() => import("@/components/spatial/grand-piano"))
 const C_pendant_light = lazy(() => import("@/components/spatial/pendant-light"))
 const C_room_shell = lazy(() => import("@/components/spatial/room-shell"))
 const C_string_lights = lazy(() => import("@/components/spatial/string-lights"))
+const C_env_music_hall = lazy(() => import("@/components/spatial/env-music-hall"))
+const C_env_park_music_stage = lazy(() => import("@/components/spatial/env-park-music-stage"))
+const C_env_creative_studio = lazy(() => import("@/components/spatial/env-creative-studio"))
+const C_env_venice_sunset = lazy(() => import("@/components/spatial/env-venice-sunset"))
+const C_env_sunset_forest = lazy(() => import("@/components/spatial/env-sunset-forest"))
+const C_env_nature_reserve = lazy(() => import("@/components/spatial/env-nature-reserve"))
+const C_env_forest_slope = lazy(() => import("@/components/spatial/env-forest-slope"))
+const C_env_rooitou_park = lazy(() => import("@/components/spatial/env-rooitou-park"))
+const C_env_dawn_landscape = lazy(() => import("@/components/spatial/env-dawn-landscape"))
+const C_env_night_landscape = lazy(() => import("@/components/spatial/env-night-landscape"))
+const C_env_empty_warehouse = lazy(() => import("@/components/spatial/env-empty-warehouse"))
+const C_env_apartment = lazy(() => import("@/components/spatial/env-apartment"))
+const C_env_urban_plaza = lazy(() => import("@/components/spatial/env-urban-plaza"))
+const C_env_historic_interior = lazy(() => import("@/components/spatial/env-historic-interior"))
+const C_env_art_studio = lazy(() => import("@/components/spatial/env-art-studio"))
+const C_env_photo_studio = lazy(() => import("@/components/spatial/env-photo-studio"))
+const C_env_white_studio = lazy(() => import("@/components/spatial/env-white-studio"))
 
 export const components: Record<string, ComponentType> = {
   "settings-default": C_settings_default as ComponentType,
@@ -404,4 +421,21 @@ export const components: Record<string, ComponentType> = {
   "pendant-light": C_pendant_light as ComponentType,
   "room-shell": C_room_shell as ComponentType,
   "string-lights": C_string_lights as ComponentType,
+  "env-music-hall": C_env_music_hall as ComponentType,
+  "env-park-music-stage": C_env_park_music_stage as ComponentType,
+  "env-creative-studio": C_env_creative_studio as ComponentType,
+  "env-venice-sunset": C_env_venice_sunset as ComponentType,
+  "env-sunset-forest": C_env_sunset_forest as ComponentType,
+  "env-nature-reserve": C_env_nature_reserve as ComponentType,
+  "env-forest-slope": C_env_forest_slope as ComponentType,
+  "env-rooitou-park": C_env_rooitou_park as ComponentType,
+  "env-dawn-landscape": C_env_dawn_landscape as ComponentType,
+  "env-night-landscape": C_env_night_landscape as ComponentType,
+  "env-empty-warehouse": C_env_empty_warehouse as ComponentType,
+  "env-apartment": C_env_apartment as ComponentType,
+  "env-urban-plaza": C_env_urban_plaza as ComponentType,
+  "env-historic-interior": C_env_historic_interior as ComponentType,
+  "env-art-studio": C_env_art_studio as ComponentType,
+  "env-photo-studio": C_env_photo_studio as ComponentType,
+  "env-white-studio": C_env_white_studio as ComponentType,
 }

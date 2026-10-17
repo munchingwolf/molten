@@ -12,6 +12,7 @@ import { useStudio } from "@/lib/studio-store"
 import { LayoutRenderer } from "./layout-renderer"
 import { VRShelf } from "./vr-shelf"
 import { VRWorkspace } from "./vr-workspace"
+import { VRWheel } from "./vr-wheel"
 import { XRayOverlay } from "./xray"
 import { VRAssistant } from "./vr-assistant"
 import Mascot from "@/components/spatial/mascot"
@@ -65,6 +66,7 @@ export function StudioScene() {
         <DropProbe />
         <VRShelf />
         <VRWorkspace />
+        <VRWheel />
         <VRAssistant mascot={<VRPix />} />
       </XR>
     </Canvas>

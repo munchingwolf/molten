@@ -12218,5 +12218,672 @@
       }
     ],
     "file": "components/spatial/string-lights.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "photo",
+      "hdri",
+      "music",
+      "concert",
+      "hall",
+      "stage",
+      "indoor"
+    ],
+    "aliases": [
+      "music hall",
+      "music",
+      "concert"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-music-hall",
+    "displayName": "Music Hall",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Ornate concert hall with warm stage lights and rows of seats. A real Poly Haven photo projected onto level ground.",
+    "file": "components/spatial/env-music-hall.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "photo",
+      "hdri",
+      "music",
+      "stage",
+      "outdoor",
+      "park",
+      "concert"
+    ],
+    "aliases": [
+      "outdoor music stage",
+      "music",
+      "stage"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-park-music-stage",
+    "displayName": "Outdoor Music Stage",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Open-air band shell in a park, daylight, lawn in front of the stage. A real Poly Haven photo projected onto level ground.",
+    "file": "components/spatial/env-park-music-stage.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "photo",
+      "hdri",
+      "studio",
+      "indoor",
+      "creative",
+      "workspace"
+    ],
+    "aliases": [
+      "creative studio",
+      "studio",
+      "indoor"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-creative-studio",
+    "displayName": "Creative Studio",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Bright working creative studio with big windows and desks. A real Poly Haven photo projected onto level ground.",
+    "file": "components/spatial/env-creative-studio.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "photo",
+      "hdri",
+      "sunset",
+      "city",
+      "warm",
+      "outdoor"
+    ],
+    "aliases": [
+      "venice sunset",
+      "sunset",
+      "city"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-venice-sunset",
+    "displayName": "Venice Sunset",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Golden sunset over Venetian rooftops and canals. A real Poly Haven photo projected onto level ground.",
+    "file": "components/spatial/env-venice-sunset.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "photo",
+      "hdri",
+      "forest",
+      "sunset",
+      "nature",
+      "outdoor"
+    ],
+    "aliases": [
+      "sunset forest",
+      "forest",
+      "sunset"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-sunset-forest",
+    "displayName": "Sunset Forest",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Forest clearing lit by a low orange sun. A real Poly Haven photo projected onto level ground.",
+    "file": "components/spatial/env-sunset-forest.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "photo",
+      "hdri",
+      "forest",
+      "nature",
+      "green",
+      "outdoor"
+    ],
+    "aliases": [
+      "nature reserve forest",
+      "forest",
+      "nature"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-nature-reserve",
+    "displayName": "Nature Reserve Forest",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Green forest path in soft daylight. A real Poly Haven photo projected onto level ground.",
+    "file": "components/spatial/env-nature-reserve.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "photo",
+      "hdri",
+      "forest",
+      "hill",
+      "nature",
+      "outdoor"
+    ],
+    "aliases": [
+      "forest slope",
+      "forest",
+      "hill"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-forest-slope",
+    "displayName": "Forest Slope",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Sunlit forest hillside among tall trees. A real Poly Haven photo projected onto level ground.",
+    "file": "components/spatial/env-forest-slope.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "photo",
+      "hdri",
+      "park",
+      "grass",
+      "open",
+      "outdoor"
+    ],
+    "aliases": [
+      "rooitou park",
+      "park",
+      "grass"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-rooitou-park",
+    "displayName": "Rooitou Park",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Wide open park with grass and scattered trees under a clear sky. A real Poly Haven photo projected onto level ground.",
+    "file": "components/spatial/env-rooitou-park.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "photo",
+      "hdri",
+      "dawn",
+      "morning",
+      "landscape",
+      "outdoor"
+    ],
+    "aliases": [
+      "dawn landscape",
+      "dawn",
+      "morning"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-dawn-landscape",
+    "displayName": "Dawn Landscape",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Open landscape at first light, pastel sky. A real Poly Haven photo projected onto level ground.",
+    "file": "components/spatial/env-dawn-landscape.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "photo",
+      "hdri",
+      "night",
+      "stars",
+      "landscape",
+      "outdoor",
+      "dark"
+    ],
+    "aliases": [
+      "night landscape",
+      "night",
+      "stars"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-night-landscape",
+    "displayName": "Night Landscape",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Savanna under a starry night sky. A real Poly Haven photo projected onto level ground.",
+    "file": "components/spatial/env-night-landscape.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "photo",
+      "hdri",
+      "warehouse",
+      "industrial",
+      "indoor",
+      "loft"
+    ],
+    "aliases": [
+      "empty warehouse",
+      "warehouse",
+      "industrial"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-empty-warehouse",
+    "displayName": "Empty Warehouse",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Big empty industrial warehouse with skylights. A real Poly Haven photo projected onto level ground.",
+    "file": "components/spatial/env-empty-warehouse.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "photo",
+      "hdri",
+      "apartment",
+      "home",
+      "interior",
+      "indoor"
+    ],
+    "aliases": [
+      "apartment interior",
+      "apartment",
+      "home"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-apartment",
+    "displayName": "Apartment Interior",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Modern apartment living room with large windows. A real Poly Haven photo projected onto level ground.",
+    "file": "components/spatial/env-apartment.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "photo",
+      "hdri",
+      "city",
+      "urban",
+      "plaza",
+      "outdoor"
+    ],
+    "aliases": [
+      "urban plaza",
+      "city",
+      "urban"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-urban-plaza",
+    "displayName": "Urban Plaza",
+    "category": "environments",
+    "kind": "environment",
+    "description": "City plaza surrounded by modern buildings. A real Poly Haven photo projected onto level ground.",
+    "file": "components/spatial/env-urban-plaza.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "photo",
+      "hdri",
+      "historic",
+      "interior",
+      "indoor",
+      "old"
+    ],
+    "aliases": [
+      "historic interior",
+      "historic",
+      "interior"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-historic-interior",
+    "displayName": "Historic Interior",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Old stone and timber interior with daylight through small windows. A real Poly Haven photo projected onto level ground.",
+    "file": "components/spatial/env-historic-interior.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "photo",
+      "hdri",
+      "art",
+      "studio",
+      "indoor",
+      "creative"
+    ],
+    "aliases": [
+      "art studio",
+      "art",
+      "studio"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-art-studio",
+    "displayName": "Art Studio",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Painter's studio with skylights and easels. A real Poly Haven photo projected onto level ground.",
+    "file": "components/spatial/env-art-studio.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "photo",
+      "hdri",
+      "photo",
+      "studio",
+      "indoor",
+      "softbox"
+    ],
+    "aliases": [
+      "photography studio",
+      "photo",
+      "studio"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-photo-studio",
+    "displayName": "Photography Studio",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Photo studio with softboxes and a plain backdrop. A real Poly Haven photo projected onto level ground.",
+    "file": "components/spatial/env-photo-studio.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "photo",
+      "hdri",
+      "white",
+      "studio",
+      "clean",
+      "minimal",
+      "indoor"
+    ],
+    "aliases": [
+      "white studio",
+      "white",
+      "studio"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-white-studio",
+    "displayName": "White Studio",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Clean white seamless studio, even light. A real Poly Haven photo projected onto level ground.",
+    "file": "components/spatial/env-white-studio.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
   }
 ]
