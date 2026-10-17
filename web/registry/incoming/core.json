@@ -1,0 +1,46 @@
+[
+  {
+    "name": "gltf-model",
+    "displayName": "3D Model (glTF)",
+    "category": "objects",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "model",
+      "glb",
+      "gltf",
+      "import",
+      "surface"
+    ],
+    "aliases": [
+      "model",
+      "glb",
+      "upload",
+      "my app",
+      "3d file"
+    ],
+    "description": "Any .glb/.gltf model as an editable object: centred, auto-sized, and a surface you can build components onto.",
+    "file": "components/spatial/gltf-model.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "url",
+        "type": "string",
+        "default": "https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.1,
+        "max": 10,
+        "default": 1
+      }
+    ]
+  }
+]

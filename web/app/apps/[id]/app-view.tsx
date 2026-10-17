@@ -1,5 +1,7 @@
 "use client"
 
+import { unlockAudio } from "@/lib/unlock-audio"
+
 import { useEffect, useState } from "react"
 import { Canvas } from "@react-three/fiber"
 import { NotInXR, PointerEvents, XR, noEvents } from "@react-three/xr"
@@ -13,6 +15,11 @@ import { Message } from "./app-loader"
 const cameraStore = createScreenCameraStore({ origin: [0, 1.25, -1.2], distance: 2.6, pitch: 0.12, yaw: 0 })
 
 export default function AppView({ id }: { id: string }) {
+  // First tap anywhere (laptop) unlocks audio so the app's instruments play on their first press.
+  useEffect(() => {
+    window.addEventListener("pointerdown", unlockAudio, { capture: true })
+    return () => window.removeEventListener("pointerdown", unlockAudio, { capture: true })
+  }, [])
   const [layout, setLayout] = useState<Layout | "loading" | "missing" | "error">("loading")
   const [values, setValues] = useState<Record<string, unknown>>({})
 
@@ -55,14 +62,14 @@ export default function AppView({ id }: { id: string }) {
       <div className="absolute right-4 top-4 flex gap-2">
         <button
           type="button"
-          onClick={() => xrStore.enterAR()}
+          onClick={() => (unlockAudio(), xrStore.enterAR())}
           className="rounded-md border border-stage-text/40 bg-accent px-4 py-2 text-sm font-semibold text-on-accent"
         >
           Enter AR
         </button>
         <button
           type="button"
-          onClick={() => xrStore.enterVR()}
+          onClick={() => (unlockAudio(), xrStore.enterVR())}
           className="rounded-md border border-border bg-surface px-4 py-2 text-sm font-semibold text-text"
         >
           Enter VR

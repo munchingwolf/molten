@@ -1,5 +1,7 @@
 "use client"
 
+import { Mascot2D, useAssistantMood } from "./mascot-2d"
+
 import { useEffect, useRef, useState } from "react"
 import { useAssistant } from "@/lib/assistant-store"
 import { VoiceButton } from "./voice"
@@ -27,7 +29,7 @@ export function AssistantPanel() {
 
   return (
     <section aria-label="Assistant" className="flex h-full min-h-0 flex-col bg-bg font-mono text-sm text-text">
-      <div id="assistant-mascot" />
+      <Mascot2D mood={useAssistantMood()} size={32} />
       <header className="flex items-center justify-between border-b border-border px-3 py-2">
         <span className="flex items-center gap-2 font-medium">
           <span aria-hidden className={`size-2 rounded-full ${status === "idle" ? "bg-faint" : "animate-pulse bg-accent"}`} />

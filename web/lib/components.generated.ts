@@ -93,6 +93,30 @@ const C_minimap = lazy(() => import("@/components/spatial/minimap"))
 const C_lever_switch = lazy(() => import("@/components/spatial/lever-switch"))
 const C_pressure_plate = lazy(() => import("@/components/spatial/pressure-plate"))
 const C_xylophone = lazy(() => import("@/components/spatial/xylophone"))
+const C_sidebar_nav = lazy(() => import("@/components/spatial/sidebar-nav"))
+const C_command_palette = lazy(() => import("@/components/spatial/command-palette"))
+const C_file_browser = lazy(() => import("@/components/spatial/file-browser"))
+const C_calendar = lazy(() => import("@/components/spatial/calendar"))
+const C_kanban_board = lazy(() => import("@/components/spatial/kanban-board"))
+const C_chat_panel = lazy(() => import("@/components/spatial/chat-panel"))
+const C_notification_center = lazy(() => import("@/components/spatial/notification-center"))
+const C_login_form = lazy(() => import("@/components/spatial/login-form"))
+const C_profile_card = lazy(() => import("@/components/spatial/profile-card"))
+const C_data_table = lazy(() => import("@/components/spatial/data-table"))
+const C_tree_view = lazy(() => import("@/components/spatial/tree-view"))
+const C_breadcrumbs = lazy(() => import("@/components/spatial/breadcrumbs"))
+const C_pagination = lazy(() => import("@/components/spatial/pagination"))
+const C_avatar_group = lazy(() => import("@/components/spatial/avatar-group"))
+const C_toolbar = lazy(() => import("@/components/spatial/toolbar"))
+const C_context_menu = lazy(() => import("@/components/spatial/context-menu"))
+const C_activity_timeline = lazy(() => import("@/components/spatial/activity-timeline"))
+const C_search_bar = lazy(() => import("@/components/spatial/search-bar"))
+const C_weather_widget = lazy(() => import("@/components/spatial/weather-widget"))
+const C_music_now_playing = lazy(() => import("@/components/spatial/music-now-playing"))
+const C_todo_list = lazy(() => import("@/components/spatial/todo-list"))
+const C_clock_widget = lazy(() => import("@/components/spatial/clock-widget"))
+const C_mascot = lazy(() => import("@/components/spatial/mascot"))
+const C_gltf_model = lazy(() => import("@/components/spatial/gltf-model"))
 
 export const components: Record<string, ComponentType> = {
   "settings-default": C_settings_default as ComponentType,
@@ -186,4 +210,28 @@ export const components: Record<string, ComponentType> = {
   "lever-switch": C_lever_switch as ComponentType,
   "pressure-plate": C_pressure_plate as ComponentType,
   "xylophone": C_xylophone as ComponentType,
+  "sidebar-nav": C_sidebar_nav as ComponentType,
+  "command-palette": C_command_palette as ComponentType,
+  "file-browser": C_file_browser as ComponentType,
+  "calendar": C_calendar as ComponentType,
+  "kanban-board": C_kanban_board as ComponentType,
+  "chat-panel": C_chat_panel as ComponentType,
+  "notification-center": C_notification_center as ComponentType,
+  "login-form": C_login_form as ComponentType,
+  "profile-card": C_profile_card as ComponentType,
+  "data-table": C_data_table as ComponentType,
+  "tree-view": C_tree_view as ComponentType,
+  "breadcrumbs": C_breadcrumbs as ComponentType,
+  "pagination": C_pagination as ComponentType,
+  "avatar-group": C_avatar_group as ComponentType,
+  "toolbar": C_toolbar as ComponentType,
+  "context-menu": C_context_menu as ComponentType,
+  "activity-timeline": C_activity_timeline as ComponentType,
+  "search-bar": C_search_bar as ComponentType,
+  "weather-widget": C_weather_widget as ComponentType,
+  "music-now-playing": C_music_now_playing as ComponentType,
+  "todo-list": C_todo_list as ComponentType,
+  "clock-widget": C_clock_widget as ComponentType,
+  "mascot": C_mascot as ComponentType,
+  "gltf-model": C_gltf_model as ComponentType,
 }

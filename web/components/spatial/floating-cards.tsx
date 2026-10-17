@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef } from "react"
 import * as THREE from "three"
-import { useFrame, type ThreeEvent } from "@react-three/fiber"
+import { useFrame, useThree, type ThreeEvent } from "@react-three/fiber"
 import { Container, Text, withOpacity } from "@react-three/uikit"
 
 type Item = { title?: string; subtitle?: string; color?: string }
@@ -140,6 +140,7 @@ function Card({
   intensity: number
   onTap: () => void
 }) {
+  const still = useThree((s) => s.frameloop) !== "always" // static previews skip the deal-out
   const group = useRef<THREE.Group>(null)
   const icon = useRef<THREE.Mesh>(null)
   const plate = useMemo(
@@ -162,7 +163,7 @@ function Card({
   }, [color, plate])
 
   // one spring per channel: x, y, z, rotY, rotZ, scale
-  const spring = useRef({ v: [0, 0, 0, 0, 0, 1], dv: [0, 0, 0, 0, 0, 0], active: 0, hover: 0, dim: 0 })
+  const spring = useRef({ v: [0, 0, 0, 0, 0, 1], dv: [0, 0, 0, 0, 0, 0], active: 0, hover: 0, dim: 0, init: false })
 
   useFrame((_, delta) => {
     const dt = Math.min(delta, 0.05)
@@ -204,6 +205,11 @@ function Card({
       sc *= 1.04
     }
     const target = [x, y, z, ry, rz, sc]
+    if (!sp.init) {
+      // first frame: live scenes deal the cards out from the centre, static previews start fanned
+      sp.init = true
+      if (still) sp.v = target.slice()
+    }
     for (let c = 0; c < 6; c++) {
       sp.dv[c] += (150 * (target[c] - sp.v[c]) - 15 * sp.dv[c]) * dt
       sp.v[c] += sp.dv[c] * dt

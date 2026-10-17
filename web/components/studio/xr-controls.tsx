@@ -1,5 +1,7 @@
 "use client"
 
+import { unlockAudio } from "@/lib/unlock-audio"
+
 import { useEffect, useState } from "react"
 import { useStore } from "zustand"
 import { xrStore } from "./xr-store"
@@ -11,8 +13,10 @@ const secondary = "border border-border bg-surface rounded-md px-3 py-1.5 font-m
 const supported = (mode: XRSessionMode) =>
   navigator.xr?.isSessionSupported(mode).catch(() => false) ?? Promise.resolve(false)
 
-const enter = (mode: XRSessionMode) =>
+const enter = (mode: XRSessionMode) => {
+  unlockAudio() // inside the click: lets instruments play in the headset
   xrStore.enterXR(mode).catch((e) => console.error(`Couldn't start ${mode}`, e))
+}
 
 /** Enter AR / Enter VR / Exit for the HTML top bar. Lives outside the Canvas, so it reads the XR store directly. */
 export function EnterXRButtons({ className }: { className?: string }) {

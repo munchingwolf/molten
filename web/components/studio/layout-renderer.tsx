@@ -111,8 +111,8 @@ function Placed({ item, items, values, setValue, editable, selectedId, onSelect,
       apply={apply}
       onClick={editable ? () => onSelect?.(item.id) : undefined}
     >
-      {editable && selectedId === item.id && <PivotHandlesHandles fixed={false} size={0.35} />}
-      {editable ? (
+      {editable && !item.locked && selectedId === item.id && <PivotHandlesHandles fixed={false} size={0.35} />}
+      {editable && !item.locked ? (
         <GrabHandle target={ref} content={content} selected={selectedId === item.id} apply={apply}>
           <group ref={content}>{body}</group>
         </GrabHandle>

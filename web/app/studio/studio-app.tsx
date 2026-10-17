@@ -11,10 +11,21 @@ import { EnterXRButtons } from "@/components/studio/xr-controls"
 import { AssistantPanel } from "@/components/studio/assistant-panel"
 import { VoiceButton } from "@/components/studio/voice"
 import { useGestureKeys } from "@/components/studio/use-gesture-keys"
+import { ImportModelButton } from "@/components/studio/import-model"
 
 export function StudioApp() {
   useGestureKeys()
   const { selectedId, remove, select } = useStudio()
+
+  // /studio?layout=latest (or an id): open a saved layout, e.g. on the Quest after building on the laptop.
+  useEffect(() => {
+    const id = new URLSearchParams(window.location.search).get("layout")
+    if (!id) return
+    fetch(`/api/layout/${encodeURIComponent(id)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((l) => l && useStudio.getState().load(l))
+      .catch(() => {})
+  }, [])
 
   // Delete/Backspace removes the selected item, Escape deselects (ignored while typing in an input).
   useEffect(() => {
@@ -41,6 +52,26 @@ export function StudioApp() {
       <Inspector />
       <CodePanel />
     </div>
+  )
+}
+
+/** Pick the world you build in; "None" = dark studio on the laptop / your real room in AR. */
+function EnvironmentPicker() {
+  const environment = useStudio((s) => s.environment)
+  const setEnvironment = useStudio((s) => s.setEnvironment)
+  const envs = registry.filter((e) => e.category === "environments" && e.status === "ready")
+  return (
+    <select
+      aria-label="Environment"
+      value={environment ?? ""}
+      onChange={(e) => setEnvironment(e.target.value || null)}
+      className="rounded-md border border-border bg-bg px-2 py-1.5 text-sm"
+    >
+      <option value="">No landscape</option>
+      {envs.map((e) => (
+        <option key={e.name} value={e.name}>{e.displayName}</option>
+      ))}
+    </select>
   )
 }
 
@@ -79,6 +110,8 @@ function TopBar() {
         className="w-48 rounded-md border border-border bg-bg px-2 py-1 text-sm"
       />
       <span className="ml-auto font-mono text-xs text-muted" aria-live="polite">{status}</span>
+      <EnvironmentPicker />
+      <ImportModelButton />
       <VoiceButton />
       <EnterXRButtons />
       <button onClick={() => save(false)} className="rounded-md border border-border bg-surface px-3 py-1.5 text-sm font-medium">

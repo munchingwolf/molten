@@ -13,6 +13,15 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 2:20: Evan: **GLB import → editable object**, Lock works, environment picker, sound after Launch, Pix mascot, 115 components
+- **Import 3D** (Studio top bar) or **drop a .glb/.gltf anywhere** on the Studio → `POST /api/assets` (stored in repo-root `.data/assets/`, shortcut: laptop disk, not Vercel) → placed as component **`gltf-model`** (centred, auto-sized, tagged `surface` so components snap onto it). Tested with a 2.9 MB glb.
+- **Lock is enforced**: locked items keep click-select but lose the gizmo + grab, so an imported app stays put while you build on it.
+- **Environment picker** in the laptop top bar ("No landscape" = dark studio on laptop / your real room in AR).
+- **Quest opens what you built on the laptop:** `/studio?layout=latest` (or an id). Save on the laptop first.
+- **Sound after Launch:** `lib/unlock-audio.ts` runs `Tone.start()` inside the Enter AR/VR click and on the first tap in `/apps/<id>`, so piano keys, drum pads etc. play on the laptop and in the headset.
+- **Pix** (voxel mascot) shows in the laptop assistant panel; 3D Pix (`components/spatial/mascot.tsx`) is ready to mount on `VRAssistant mascot={…}`.
+- Library: app kit (22) + game kit (19) + mascot merged → **115 ready**. Motion + room/hardware agents still running.
+
 ### 2:16: Evan: **DANNY: START HERE → `VR-UX-SPEC.md`** (complete VR UI/UX build spec, 16 sections, acceptance checks per section)
 - Build order is §14 (demo-critical first, time-boxed to 5:15 PM). Architecture/status table is §13. Top decisions: `vr-workspace.tsx` is the one dock (`vr-dock.tsx` = parts only, its PropControl already extracted to `prop-controls.tsx`); dock + assistant share one lazy-follow anchor; Edit keeps components live (grab pointer only moves), Play = `editable={false}`; VR Launch = Save + Play in place; push-to-talk goes through `useAssistant`.
 - The banner at the top lists what landed after it was written. Code wins over the doc; log conflicts here.

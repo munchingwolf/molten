@@ -23,6 +23,8 @@ type Props = {
   onPress?: () => void
 }
 
+const noRaycast = () => null
+
 /** Spiral galaxy of glowing particles. Inner stars orbit faster; the cloud swirls toward your pointer or fingertip; tap to burst it. */
 export default function ParticleField({
   count = 2400,
@@ -93,7 +95,7 @@ export default function ParticleField({
   return (
     <group rotation={[0.62, 0, 0.1]}>
       <group ref={disk}>
-        <points geometry={geometry} frustumCulled={false}>
+        <points geometry={geometry} frustumCulled={false} raycast={noRaycast}>
           <shaderMaterial
             uniforms={u}
             vertexShader={STAR_VERT}
@@ -118,7 +120,7 @@ export default function ParticleField({
           <meshBasicMaterial transparent opacity={0} depthWrite={false} side={THREE.DoubleSide} />
         </mesh>
       </group>
-      <mesh renderOrder={-1}>
+      <mesh renderOrder={-1} raycast={noRaycast}>
         <planeGeometry args={[radius * 1.1, radius * 1.1]} />
         <shaderMaterial
           uniforms={core}
