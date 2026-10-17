@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/site/header";
 
 const mono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
@@ -27,7 +28,10 @@ export default function RootLayout({
           href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800&f[]=switzer@400,500,600&display=swap"
         />
       </head>
-      <body className={`${mono.variable} antialiased`}>{children}</body>
+      <body className={`${mono.variable} antialiased`}>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

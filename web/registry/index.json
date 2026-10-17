@@ -1,0 +1,1009 @@
+[
+  {
+    "name": "settings-default",
+    "displayName": "Settings Panel",
+    "category": "settings",
+    "kind": "section",
+    "style": "default",
+    "tags": [
+      "settings",
+      "panel",
+      "slider",
+      "toggle"
+    ],
+    "aliases": [
+      "preferences",
+      "options",
+      "control panel"
+    ],
+    "description": "A settings panel with master volume, reverb, tempo and haptics. Clean shadcn-style look.",
+    "file": "components/spatial/settings-default.tsx",
+    "status": "ready"
+  },
+  {
+    "name": "settings-glass",
+    "displayName": "Glass Settings",
+    "category": "settings",
+    "kind": "section",
+    "style": "glass",
+    "tags": [
+      "settings",
+      "panel",
+      "glass",
+      "frosted"
+    ],
+    "aliases": [
+      "preferences",
+      "options",
+      "vision pro settings"
+    ],
+    "description": "The same settings, on a frosted glass panel that floats over your scene.",
+    "file": "components/spatial/settings-glass.tsx",
+    "status": "ready"
+  },
+  {
+    "name": "settings-horizon",
+    "displayName": "Horizon Settings",
+    "category": "settings",
+    "kind": "section",
+    "style": "horizon",
+    "tags": [
+      "settings",
+      "panel",
+      "quest",
+      "horizon"
+    ],
+    "aliases": [
+      "preferences",
+      "options",
+      "quest settings"
+    ],
+    "description": "The same settings in a Quest-native Horizon style.",
+    "file": "components/spatial/settings-horizon.tsx",
+    "status": "ready"
+  },
+  {
+    "name": "press-button",
+    "displayName": "Press Button",
+    "category": "buttons with effects",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "buttons with effects"
+    ],
+    "aliases": [],
+    "description": "Physically depresses on poke, springs back",
+    "file": "components/spatial/press-button.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": true
+  },
+  {
+    "name": "glow-button",
+    "displayName": "Glow Button",
+    "category": "buttons with effects",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "buttons with effects"
+    ],
+    "aliases": [],
+    "description": "Glows as fingertip approaches",
+    "file": "components/spatial/glow-button.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": true
+  },
+  {
+    "name": "glass-button",
+    "displayName": "Glass Button",
+    "category": "buttons with effects",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "buttons with effects"
+    ],
+    "aliases": [],
+    "description": "drei `MeshTransmissionMaterial`",
+    "file": "components/spatial/glass-button.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": false
+  },
+  {
+    "name": "neon-button",
+    "displayName": "Neon Button",
+    "category": "buttons with effects",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "buttons with effects"
+    ],
+    "aliases": [],
+    "description": "Pulsing outline",
+    "file": "components/spatial/neon-button.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": false
+  },
+  {
+    "name": "ripple-button",
+    "displayName": "Ripple Button",
+    "category": "buttons with effects",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "buttons with effects"
+    ],
+    "aliases": [],
+    "description": "Ring ripples from touch point",
+    "file": "components/spatial/ripple-button.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": true
+  },
+  {
+    "name": "magnetic-button",
+    "displayName": "Magnetic Button",
+    "category": "buttons with effects",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "buttons with effects"
+    ],
+    "aliases": [],
+    "description": "Leans toward fingertip",
+    "file": "components/spatial/magnetic-button.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": true
+  },
+  {
+    "name": "holo-button",
+    "displayName": "Holo Button",
+    "category": "buttons with effects",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "buttons with effects"
+    ],
+    "aliases": [],
+    "description": "Shimmer shifts with head angle",
+    "file": "components/spatial/holo-button.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": true
+  },
+  {
+    "name": "icon-button",
+    "displayName": "Icon Button",
+    "category": "buttons with effects",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "buttons with effects"
+    ],
+    "aliases": [],
+    "description": "uikit + lucide",
+    "file": "components/spatial/icon-button.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": false
+  },
+  {
+    "name": "slider",
+    "displayName": "Slider",
+    "category": "controls",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "controls"
+    ],
+    "aliases": [],
+    "description": "kit",
+    "file": "components/spatial/slider.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": false
+  },
+  {
+    "name": "knob",
+    "displayName": "Knob / Dial",
+    "category": "controls",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "controls"
+    ],
+    "aliases": [],
+    "description": "Grab and twist (reused for music later)",
+    "file": "components/spatial/knob.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": true
+  },
+  {
+    "name": "spring-toggle",
+    "displayName": "Spring Toggle",
+    "category": "controls",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "controls"
+    ],
+    "aliases": [],
+    "description": "Bouncy snap",
+    "file": "components/spatial/spring-toggle.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": false
+  },
+  {
+    "name": "checkbox",
+    "displayName": "Checkbox / Radio",
+    "category": "controls",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "controls"
+    ],
+    "aliases": [],
+    "description": "kit",
+    "file": "components/spatial/checkbox.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": false
+  },
+  {
+    "name": "segmented-tabs",
+    "displayName": "Segmented Tabs",
+    "category": "controls",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "controls"
+    ],
+    "aliases": [],
+    "description": "kit",
+    "file": "components/spatial/segmented-tabs.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": false
+  },
+  {
+    "name": "stepper",
+    "displayName": "Stepper",
+    "category": "controls",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "controls"
+    ],
+    "aliases": [],
+    "description": "− / value / +",
+    "file": "components/spatial/stepper.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": false
+  },
+  {
+    "name": "glass-card",
+    "displayName": "Glass Card",
+    "category": "containers and feedback",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "containers and feedback"
+    ],
+    "aliases": [],
+    "description": "apfel",
+    "file": "components/spatial/glass-card.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": false
+  },
+  {
+    "name": "flip-card",
+    "displayName": "Flip Card",
+    "category": "containers and feedback",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "containers and feedback"
+    ],
+    "aliases": [],
+    "description": "3D flip",
+    "file": "components/spatial/flip-card.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": true
+  },
+  {
+    "name": "tooltip",
+    "displayName": "Tooltip",
+    "category": "containers and feedback",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "containers and feedback"
+    ],
+    "aliases": [],
+    "description": "kit",
+    "file": "components/spatial/tooltip.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": false
+  },
+  {
+    "name": "toast",
+    "displayName": "Toast",
+    "category": "containers and feedback",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "containers and feedback"
+    ],
+    "aliases": [],
+    "description": "Pops into view",
+    "file": "components/spatial/toast.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": false
+  },
+  {
+    "name": "progress-ring",
+    "displayName": "Progress Ring",
+    "category": "containers and feedback",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "containers and feedback"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/progress-ring.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": false
+  },
+  {
+    "name": "dialog",
+    "displayName": "Dialog",
+    "category": "containers and feedback",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "containers and feedback"
+    ],
+    "aliases": [],
+    "description": "kit",
+    "file": "components/spatial/dialog.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": false
+  },
+  {
+    "name": "window",
+    "displayName": "Window",
+    "category": "xr-native picks",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "xr-native picks"
+    ],
+    "aliases": [],
+    "description": "Grab bar + close + resize. Wraps anything",
+    "file": "components/spatial/window.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": true
+  },
+  {
+    "name": "wrist-menu",
+    "displayName": "Wrist Menu",
+    "category": "xr-native picks",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "xr-native picks"
+    ],
+    "aliases": [],
+    "description": "Attached to the hand, shows when you look at it",
+    "file": "components/spatial/wrist-menu.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": true
+  },
+  {
+    "name": "radial-menu",
+    "displayName": "Radial Menu",
+    "category": "xr-native picks",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "xr-native picks"
+    ],
+    "aliases": [],
+    "description": "Pinch and pull to an option",
+    "file": "components/spatial/radial-menu.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": true
+  },
+  {
+    "name": "billboard",
+    "displayName": "Billboard",
+    "category": "xr-native picks",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "xr-native picks"
+    ],
+    "aliases": [],
+    "description": "Always faces you (wrapper)",
+    "file": "components/spatial/billboard.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": true
+  },
+  {
+    "name": "lazy-follow",
+    "displayName": "Lazy Follow",
+    "category": "xr-native picks",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "xr-native picks"
+    ],
+    "aliases": [],
+    "description": "Drifts after you (wrapper)",
+    "file": "components/spatial/lazy-follow.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": true
+  },
+  {
+    "name": "hold-to-confirm",
+    "displayName": "Hold-to-Confirm",
+    "category": "xr-native picks",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "xr-native picks"
+    ],
+    "aliases": [],
+    "description": "Ring fills while held",
+    "file": "components/spatial/hold-to-confirm.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": true
+  },
+  {
+    "name": "particle-burst",
+    "displayName": "Particle Burst",
+    "category": "xr-native picks",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "xr-native picks"
+    ],
+    "aliases": [],
+    "description": "Sparks on press (wrapper)",
+    "file": "components/spatial/particle-burst.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": true
+  },
+  {
+    "name": "model-viewer",
+    "displayName": "3D Model Viewer",
+    "category": "xr-native picks",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "xr-native picks"
+    ],
+    "aliases": [],
+    "description": "Grab to spin; Kaedim model",
+    "file": "components/spatial/model-viewer.tsx",
+    "status": "soon",
+    "tier": 1,
+    "xrOnly": true
+  },
+  {
+    "name": "palm-menu",
+    "displayName": "Palm Menu",
+    "category": "navigation",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "navigation"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/palm-menu.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": true
+  },
+  {
+    "name": "orbiter-toolbar",
+    "displayName": "Orbiter Toolbar",
+    "category": "navigation",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "navigation"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/orbiter-toolbar.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": true
+  },
+  {
+    "name": "dock",
+    "displayName": "Dock",
+    "category": "navigation",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "navigation"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/dock.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": false
+  },
+  {
+    "name": "vertical-tab-bar",
+    "displayName": "Vertical Tab Bar",
+    "category": "navigation",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "navigation"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/vertical-tab-bar.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": false
+  },
+  {
+    "name": "curved-panel",
+    "displayName": "Curved Panel",
+    "category": "spatial behaviors",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "spatial behaviors"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/curved-panel.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": true
+  },
+  {
+    "name": "wall-anchor",
+    "displayName": "Wall Anchor",
+    "category": "spatial behaviors",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "spatial behaviors"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/wall-anchor.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": true
+  },
+  {
+    "name": "grab-handle",
+    "displayName": "Grab Handle",
+    "category": "spatial behaviors",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "spatial behaviors"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/grab-handle.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": true
+  },
+  {
+    "name": "spatial-keyboard",
+    "displayName": "Spatial Keyboard",
+    "category": "input",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "input"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/spatial-keyboard.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": true
+  },
+  {
+    "name": "number-pad",
+    "displayName": "Number Pad",
+    "category": "input",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "input"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/number-pad.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": false
+  },
+  {
+    "name": "color-picker",
+    "displayName": "3D Color Picker",
+    "category": "input",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "input"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/color-picker.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": true
+  },
+  {
+    "name": "xy-pad",
+    "displayName": "XY Pad",
+    "category": "input",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "input"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/xy-pad.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": false
+  },
+  {
+    "name": "select",
+    "displayName": "Dropdown / Select",
+    "category": "input",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "input"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/select.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": false
+  },
+  {
+    "name": "range-slider",
+    "displayName": "Range Slider",
+    "category": "input",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "input"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/range-slider.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": false
+  },
+  {
+    "name": "hover-highlight",
+    "displayName": "Hover Highlight",
+    "category": "feedback",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "feedback"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/hover-highlight.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": true
+  },
+  {
+    "name": "click-sound",
+    "displayName": "Click Sound (spatial audio)",
+    "category": "feedback",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "feedback"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/click-sound.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": true
+  },
+  {
+    "name": "haptic-pulse",
+    "displayName": "Haptic Pulse",
+    "category": "feedback",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "feedback"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/haptic-pulse.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": true
+  },
+  {
+    "name": "badge",
+    "displayName": "Badge",
+    "category": "feedback",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "feedback"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/badge.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": false
+  },
+  {
+    "name": "skeleton",
+    "displayName": "Skeleton Loader",
+    "category": "feedback",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "feedback"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/skeleton.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": false
+  },
+  {
+    "name": "spinner-3d",
+    "displayName": "3D Spinner",
+    "category": "feedback",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "feedback"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/spinner-3d.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": false
+  },
+  {
+    "name": "bar-chart-3d",
+    "displayName": "3D Bar Chart",
+    "category": "data",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "data"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/bar-chart-3d.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": true
+  },
+  {
+    "name": "gauge",
+    "displayName": "Gauge / Meter",
+    "category": "data",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "data"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/gauge.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": false
+  },
+  {
+    "name": "stat-card",
+    "displayName": "Stat Card",
+    "category": "data",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "data"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/stat-card.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": false
+  },
+  {
+    "name": "sparkline",
+    "displayName": "Sparkline",
+    "category": "data",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "data"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/sparkline.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": false
+  },
+  {
+    "name": "timeline-scrubber",
+    "displayName": "Timeline Scrubber",
+    "category": "data",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "data"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/timeline-scrubber.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": false
+  },
+  {
+    "name": "video-panel",
+    "displayName": "Video Panel",
+    "category": "media",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "media"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/video-panel.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": false
+  },
+  {
+    "name": "curved-gallery",
+    "displayName": "Curved Gallery",
+    "category": "media",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "media"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/curved-gallery.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": true
+  },
+  {
+    "name": "audio-player",
+    "displayName": "Audio Player Card",
+    "category": "media",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "media"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/audio-player.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": false
+  },
+  {
+    "name": "aurora-backdrop",
+    "displayName": "Aurora Gradient",
+    "category": "backdrops",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "backdrops"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/aurora-backdrop.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": false
+  },
+  {
+    "name": "grid-floor",
+    "displayName": "Grid Floor",
+    "category": "backdrops",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "backdrops"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/grid-floor.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": false
+  },
+  {
+    "name": "hand-spotlight",
+    "displayName": "Hand Spotlight",
+    "category": "backdrops",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "backdrops"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/hand-spotlight.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": true
+  },
+  {
+    "name": "frosted-backplate",
+    "displayName": "Frosted Backplate",
+    "category": "backdrops",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "backdrops"
+    ],
+    "aliases": [],
+    "description": "",
+    "file": "components/spatial/frosted-backplate.tsx",
+    "status": "soon",
+    "tier": 2,
+    "xrOnly": false
+  }
+]

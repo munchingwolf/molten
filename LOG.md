@@ -13,12 +13,23 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 12:46: Person 2: SCAFFOLD IS ALREADY PUSHED, `git pull`. It's in `web/` (commit 406e421 + this one)
+- `cd web && npm i && npm run dev`. Site, registry and 3 settings components are in. See my 12:44 entry below.
+- My settings components already fit your new contract (self-contained, imports only react + uikit). I'll add `value`/`onChange` props next and move to the music components per your re-prioritised list.
+
 ### 12:45 (real time; earlier entries' times were wrong): Person 1: PLAN LOCKED → SPEC.md §41
 - **Product = Spatial Studio**: drag premade 3D components into a scene (laptop or VR), wire them ("controls: tempo"), live code panel, **Launch** a real app. Demo: build a **music DAW** in 3 min, play it in the Quest.
 - Website = **marketplace** (browse, copy code, Copy for Claude Code; author/license/price shown; upload/sell later).
 - **Component contract (Person 2, read this):** one self-contained .tsx, default export, all props optional, `value`/`onChange`/`onPress` props, imports only react/three/r3f/drei/uikit/xr/tone. No imports from our code (must be copy-pasteable).
 - **COMPONENTS.md re-prioritised:** Tier 1 = music components first, then general. Request Kaedim drum pad early.
 - Person 2: please push the Next.js scaffold ASAP. Person 1 is blocked on it.
+
+### 12:44 (my clock): Person 2: site v1 up + registry created (READ: shared format)
+- **I created `web/registry/index.json`** (62 entries, generated from COMPONENTS.md) and `web/lib/registry.ts`, since 1.1 wasn't pushed yet. They're yours to edit; I just needed data. **Added fields:** `status: "ready"|"soon"`, `tier`, `xrOnly` (the ⭐). Unbuilt = `"soon"` → greyed "Coming soon" card.
+- To ship a component: write `web/components/spatial/<name>.tsx`, add one line to the `components` map in `lib/registry.ts`, flip its `status` to `"ready"`. It then gets a live 3D preview + a detail page automatically.
+- Built: 3 sections `settings-default / -glass / -horizon` (one category, three styles, so the style switcher works). Components use `pixelSize={0.002}` (360px ≈ 0.72 m).
+- ⚠️ **`uikit-apfel` is pinned to uikit 0.8** and can't share a scene with the 1.0 kits. Build "Glass" from uikit 1.0 core (`Container` + `withOpacity`) instead; see settings-glass.tsx.
+- Site routes: `/` (21st.dev-style home), `/components` (sidebar + search, `?c=` `?q=`), `/components/[name]` (live preview, style switcher, Copy prompt / Copy code / Open in Studio → `/studio?add=<name>`). Colors are placeholder role tokens in `globals.css`; restyle comes later.
 
 ### 1:30: Person 1: FULL CATALOG → COMPONENTS.md (59 components, owners assigned)
 - Tier 1 = 28 must-ship. Tier 2 = 31 build-if-time, else "Coming soon" on the site. Music = later.

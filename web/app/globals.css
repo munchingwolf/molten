@@ -1,29 +1,30 @@
 @import "tailwindcss";
 
-/* Tokens from /DESIGN.md ("Grey Card Stage"). Single mid-grey theme by design, no dark mode. */
+/* Colour ROLES. Components only use these names, so a restyle is a values-only change here.
+   shortcut: neutral placeholder values for the 21st.dev-style layout, swap for the final palette later. */
 @theme {
-  --color-ground: #B4B5AF;
-  --color-bench: #A3A49D;
-  --color-ink: #0E0F0D;
-  --color-ink-2: #3A3B37;
-  --color-tape: #ECE9DF;
-  --color-letterbox: #1A1B18;
-  --color-key: #1FB54A;
+  --color-bg: #F4F4F4;
+  --color-surface: #FFFFFF;
+  --color-border: #E5E5E5;
+  --color-text: #0A0A0A;
+  --color-muted: #6B6B6B;
+  --color-accent: #0A0A0A;
+  --color-on-accent: #FFFFFF;
+  --color-stage: #111214;
+  --color-stage-text: #F4F4F4;
 
   --font-display: "Cabinet Grotesk", "Switzer", sans-serif;
   --font-sans: "Switzer", "Helvetica Neue", sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
-
-  --radius-*: initial;
 }
 
 body {
-  background: var(--color-ground);
-  color: var(--color-ink);
+  background: var(--color-bg);
+  color: var(--color-text);
   font-family: var(--font-sans);
 }
 
 :focus-visible {
-  outline: 3px solid var(--color-key);
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
