@@ -130,7 +130,7 @@ test("applyOps edits the store in order", () => {
     update: (id, patch) => { state = { ...state, items: state.items.map((i) => (i.id === id ? { ...i, ...patch } : i)) } },
     remove: (id) => { state = { ...state, items: state.items.filter((i) => i.id !== id) } },
     select: (id) => { state = { ...state, selectedId: id } },
-    setEnvironment: (n) => { env = n },
+    setEnvironment: (n) => { env = n ?? "room" },
   }
   const n = applyOps([
     { op: "scale", target: "k1", amount: 1.25 },

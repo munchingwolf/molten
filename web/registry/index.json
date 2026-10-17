@@ -111,144 +111,404 @@
     ]
   },
   {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit"
+    ],
+    "tags": [
+      "glow",
+      "button",
+      "hover",
+      "press"
+    ],
+    "aliases": [
+      "glowing button",
+      "light button"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "glow-button",
     "displayName": "Glow Button",
-    "category": "buttons with effects",
+    "category": "buttons",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "buttons with effects"
-    ],
-    "aliases": [],
-    "description": "Glows as fingertip approaches",
+    "description": "A 16 cm button that glows brighter as your fingertip approaches, sinks when pressed and flashes on click.",
     "file": "components/spatial/glow-button.tsx",
     "status": "ready",
-    "tier": 1,
     "xrOnly": true,
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Glow"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit"
+    ],
+    "tags": [
+      "glass",
+      "button",
+      "frosted",
+      "transmission"
+    ],
+    "aliases": [
+      "frosted button",
+      "glassmorphism button"
+    ],
+    "tier": 1,
+    "style": "glass",
     "name": "glass-button",
     "displayName": "Glass Button",
-    "category": "buttons with effects",
+    "category": "buttons",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "buttons with effects"
-    ],
-    "aliases": [],
-    "description": "drei `MeshTransmissionMaterial`",
+    "description": "A frosted-glass slab over a glowing core that lifts toward your finger and squashes when pressed.",
     "file": "components/spatial/glass-button.tsx",
     "status": "ready",
-    "tier": 1,
     "xrOnly": false,
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Glass"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "tint",
+        "type": "color",
+        "default": "#DDE6F2"
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit"
+    ],
+    "tags": [
+      "neon",
+      "button",
+      "outline",
+      "glow"
+    ],
+    "aliases": [
+      "neon sign button",
+      "outline button"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "neon-button",
     "displayName": "Neon Button",
-    "category": "buttons with effects",
+    "category": "buttons",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "buttons with effects"
-    ],
-    "aliases": [],
-    "description": "Pulsing outline",
+    "description": "A dark button with a neon-tube outline that breathes at rest, burns steady on hover and flares on press.",
     "file": "components/spatial/neon-button.tsx",
     "status": "ready",
-    "tier": 2,
     "xrOnly": false,
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Neon"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit"
+    ],
+    "tags": [
+      "ripple",
+      "button",
+      "touch",
+      "rings"
+    ],
+    "aliases": [
+      "water button",
+      "material button"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "ripple-button",
     "displayName": "Ripple Button",
-    "category": "buttons with effects",
+    "category": "buttons",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "buttons with effects"
-    ],
-    "aliases": [],
-    "description": "Ring ripples from touch point",
+    "description": "A button that sends rings rippling out from the exact point you touch it.",
     "file": "components/spatial/ripple-button.tsx",
     "status": "ready",
-    "tier": 2,
     "xrOnly": true,
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Ripple"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit"
+    ],
+    "tags": [
+      "magnetic",
+      "button",
+      "lean",
+      "spring"
+    ],
+    "aliases": [
+      "attract button",
+      "lean button"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "magnetic-button",
     "displayName": "Magnetic Button",
-    "category": "buttons with effects",
+    "category": "buttons",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "buttons with effects"
-    ],
-    "aliases": [],
-    "description": "Leans toward fingertip",
+    "description": "A button that leans, slides and lifts toward your fingertip or ray, then springs back when you leave.",
     "file": "components/spatial/magnetic-button.tsx",
     "status": "ready",
-    "tier": 2,
     "xrOnly": true,
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Magnetic"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "strength",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit"
+    ],
+    "tags": [
+      "holographic",
+      "iridescent",
+      "button",
+      "shimmer"
+    ],
+    "aliases": [
+      "hologram button",
+      "iridescent button"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "holo-button",
     "displayName": "Holo Button",
-    "category": "buttons with effects",
+    "category": "buttons",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "buttons with effects"
-    ],
-    "aliases": [],
-    "description": "Shimmer shifts with head angle",
+    "description": "A floating hologram button whose iridescent shimmer shifts as you move your head.",
     "file": "components/spatial/holo-button.tsx",
     "status": "ready",
-    "tier": 2,
     "xrOnly": true,
-    "author": "Spatial",
-    "license": "MIT",
-    "price": "free",
-    "deps": []
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Holo"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
   },
   {
-    "name": "icon-button",
-    "displayName": "Icon Button",
-    "category": "buttons with effects",
-    "kind": "basic",
-    "style": "default",
-    "tags": [
-      "buttons with effects"
-    ],
-    "aliases": [],
-    "description": "uikit + lucide",
-    "file": "components/spatial/icon-button.tsx",
-    "status": "ready",
-    "tier": 2,
-    "xrOnly": false,
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit",
+      "@react-three/uikit-lucide"
+    ],
+    "tags": [
+      "icon",
+      "button",
+      "round",
+      "lucide"
+    ],
+    "aliases": [
+      "round button",
+      "play button",
+      "media button"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "icon-button",
+    "displayName": "Icon Button",
+    "category": "buttons",
+    "kind": "basic",
+    "description": "A 6.4 cm round key showing any of 29 lucide icons, with a ring that lights as you approach.",
+    "file": "components/spatial/icon-button.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [],
+    "props": [
+      {
+        "name": "icon",
+        "type": "enum",
+        "options": [
+          "play",
+          "pause",
+          "stop",
+          "next",
+          "previous",
+          "plus",
+          "close",
+          "check",
+          "heart",
+          "star",
+          "settings",
+          "home",
+          "mic",
+          "mic-off",
+          "volume",
+          "mute",
+          "camera",
+          "trash",
+          "search",
+          "bell",
+          "share",
+          "back",
+          "forward",
+          "undo",
+          "power",
+          "music",
+          "sun",
+          "moon",
+          "lock"
+        ],
+        "default": "play"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
   },
   {
     "author": "Spatial",
@@ -354,64 +614,207 @@
     ]
   },
   {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit",
+      "@react-three/uikit-lucide"
+    ],
+    "tags": [
+      "checkbox",
+      "radio",
+      "toggle",
+      "boolean"
+    ],
+    "aliases": [
+      "tick box",
+      "radio button",
+      "option"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "checkbox",
     "displayName": "Checkbox / Radio",
-    "category": "controls",
+    "category": "inputs",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "controls"
-    ],
-    "aliases": [],
-    "description": "kit",
+    "description": "A 3D checkbox (or radio dot) with a label; tap either to toggle and the check springs in.",
     "file": "components/spatial/checkbox.tsx",
     "status": "ready",
-    "tier": 2,
     "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Snap to grid"
+      },
+      {
+        "name": "shape",
+        "type": "enum",
+        "options": [
+          "square",
+          "round"
+        ],
+        "default": "square"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [],
+    "tags": [
+      "tabs",
+      "segmented control",
+      "navigation",
+      "switcher"
+    ],
+    "aliases": [
+      "segmented control",
+      "tab bar",
+      "toggle group",
+      "switcher"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "tabs",
     "displayName": "Segmented Tabs",
-    "category": "controls",
+    "category": "navigation",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "controls"
-    ],
-    "aliases": [],
-    "description": "kit",
+    "description": "Segmented tabs whose mint pill springs to the tab you poke, pinch or click.",
     "file": "components/spatial/tabs.tsx",
     "status": "ready",
-    "tier": 1,
     "xrOnly": false,
-    "author": "Spatial",
-    "license": "MIT",
-    "price": "free",
-    "deps": []
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 5,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "items",
+        "type": "string",
+        "default": "Overview, Library, Settings"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "min": 0.2,
+        "max": 0.7,
+        "default": 0.42
+      }
+    ]
   },
   {
-    "name": "stepper",
-    "displayName": "Stepper",
-    "category": "controls",
-    "kind": "basic",
-    "style": "default",
-    "tags": [
-      "controls"
-    ],
-    "aliases": [],
-    "description": "− / value / +",
-    "file": "components/spatial/stepper.tsx",
-    "status": "ready",
-    "tier": 2,
-    "xrOnly": false,
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit",
+      "@react-three/uikit-lucide"
+    ],
+    "tags": [
+      "stepper",
+      "number",
+      "increment",
+      "counter"
+    ],
+    "aliases": [
+      "plus minus",
+      "counter",
+      "quantity"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "stepper",
+    "displayName": "Stepper",
+    "category": "inputs",
+    "kind": "basic",
+    "description": "A minus / value / plus control with pokeable 3D keys and a number that pops on change.",
+    "file": "components/spatial/stepper.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 10,
+        "default": 1,
+        "range": true
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Quantity"
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "default": 0
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "default": 10
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "min": 0.01,
+        "default": 1
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
   },
   {
     "author": "Spatial",
@@ -449,164 +852,501 @@
     ]
   },
   {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "card",
+      "flip",
+      "3d",
+      "front back",
+      "container"
+    ],
+    "aliases": [
+      "flip card",
+      "flashcard",
+      "trading card",
+      "reveal card"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "flip-card",
     "displayName": "Flip Card",
-    "category": "containers and feedback",
+    "category": "containers",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "containers and feedback"
-    ],
-    "aliases": [],
-    "description": "3D flip",
+    "description": "A 6 mm thick card that flips over with a little lift when you poke, pinch or click it.",
     "file": "components/spatial/flip-card.tsx",
     "status": "ready",
-    "tier": 2,
     "xrOnly": true,
+    "bindable": [
+      {
+        "prop": "flipped",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Neon Drift"
+      },
+      {
+        "name": "subtitle",
+        "type": "string",
+        "default": "Synth preset · 124 BPM"
+      },
+      {
+        "name": "backTitle",
+        "type": "string",
+        "default": "About this preset"
+      },
+      {
+        "name": "backText",
+        "type": "string",
+        "default": "Detuned saws through a slow filter sweep. Sits best under a four-on-the-floor kick."
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "min": 0.2,
+        "max": 0.5,
+        "default": 0.32
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "min": 0.25,
+        "max": 0.6,
+        "default": 0.44
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [],
+    "tags": [
+      "tooltip",
+      "hint",
+      "label",
+      "popover",
+      "help"
+    ],
+    "aliases": [
+      "hint",
+      "popover",
+      "info bubble",
+      "help label"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "tooltip",
     "displayName": "Tooltip",
-    "category": "containers and feedback",
+    "category": "feedback",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "containers and feedback"
-    ],
-    "aliases": [],
-    "description": "kit",
+    "description": "Label bubble that springs up above its anchor on hover, or pins open on a press for hands.",
     "file": "components/spatial/tooltip.tsx",
     "status": "ready",
-    "tier": 2,
     "xrOnly": false,
+    "bindable": [],
+    "props": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "Pinch to grab, twist to rotate"
+      },
+      {
+        "name": "offset",
+        "type": "number",
+        "min": 0.02,
+        "max": 0.2,
+        "default": 0.05
+      },
+      {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [],
+    "tags": [
+      "toast",
+      "notification",
+      "snackbar",
+      "alert",
+      "feedback"
+    ],
+    "aliases": [
+      "snackbar",
+      "notification",
+      "banner",
+      "message"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "toast",
     "displayName": "Toast",
-    "category": "containers and feedback",
+    "category": "feedback",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "containers and feedback"
-    ],
-    "aliases": [],
-    "description": "Pops into view",
+    "description": "Toast that pops up, counts down along its edge and dismisses itself (pointing at it pauses the timer).",
     "file": "components/spatial/toast.tsx",
     "status": "ready",
-    "tier": 2,
     "xrOnly": false,
+    "bindable": [],
+    "props": [
+      {
+        "name": "message",
+        "type": "string",
+        "default": "Scene saved"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "Synced to your headset"
+      },
+      {
+        "name": "variant",
+        "type": "enum",
+        "options": [
+          "success",
+          "info",
+          "warning"
+        ],
+        "default": "success"
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "min": 1,
+        "max": 10,
+        "default": 4
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "min": 0.3,
+        "max": 0.6,
+        "default": 0.44
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [],
+    "tags": [
+      "progress",
+      "ring",
+      "loader",
+      "percentage",
+      "feedback"
+    ],
+    "aliases": [
+      "circular progress",
+      "progress circle",
+      "radial progress",
+      "download progress"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "progress-ring",
     "displayName": "Progress Ring",
-    "category": "containers and feedback",
+    "category": "feedback",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "containers and feedback"
-    ],
-    "aliases": [],
-    "description": "",
+    "description": "Glossy 3D ring that sweeps clockwise to the value, with a live percentage inside.",
     "file": "components/spatial/progress-ring.tsx",
-    "status": "soon",
-    "tier": 2,
+    "status": "ready",
     "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.72
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Uploading"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.06,
+        "max": 0.4,
+        "default": 0.16
+      },
+      {
+        "name": "showValue",
+        "type": "boolean",
+        "default": true
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [],
+    "tags": [
+      "dialog",
+      "modal",
+      "confirm",
+      "alert",
+      "prompt"
+    ],
+    "aliases": [
+      "modal",
+      "confirm dialog",
+      "alert dialog",
+      "popup"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "dialog",
     "displayName": "Dialog",
-    "category": "containers and feedback",
-    "kind": "basic",
-    "style": "default",
-    "tags": [
-      "containers and feedback"
-    ],
-    "aliases": [],
-    "description": "kit",
+    "category": "containers",
+    "kind": "section",
+    "description": "Confirm or cancel dialog that springs in, with a warm confirm button for destructive actions.",
     "file": "components/spatial/dialog.tsx",
     "status": "ready",
-    "tier": 2,
     "xrOnly": false,
+    "bindable": [],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Delete track?"
+      },
+      {
+        "name": "message",
+        "type": "string",
+        "default": "“Drums 2” and its 12 clips will be removed. You can't undo this."
+      },
+      {
+        "name": "confirmLabel",
+        "type": "string",
+        "default": "Delete"
+      },
+      {
+        "name": "cancelLabel",
+        "type": "string",
+        "default": "Cancel"
+      },
+      {
+        "name": "tone",
+        "type": "enum",
+        "options": [
+          "danger",
+          "default"
+        ],
+        "default": "danger"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "min": 0.3,
+        "max": 0.6,
+        "default": 0.44
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [],
+    "tags": [
+      "window",
+      "panel",
+      "container",
+      "title bar",
+      "close"
+    ],
+    "aliases": [
+      "panel",
+      "app window",
+      "frame",
+      "card window"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "window",
     "displayName": "Window",
-    "category": "xr-native picks",
-    "kind": "basic",
-    "style": "default",
-    "tags": [
-      "xr-native picks"
-    ],
-    "aliases": [],
-    "description": "Grab bar + close + resize. Wraps anything",
+    "category": "containers",
+    "kind": "section",
+    "description": "Floating window with a title bar, close button, scrolling content area and a halo that glows on hover.",
     "file": "components/spatial/window.tsx",
     "status": "ready",
-    "tier": 1,
     "xrOnly": true,
+    "bindable": [],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Mixdown"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "min": 0.25,
+        "max": 0.8,
+        "default": 0.5
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "min": 0.2,
+        "max": 0.6,
+        "default": 0.34
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [],
+    "tags": [
+      "wrist",
+      "hand menu",
+      "menu",
+      "quick menu",
+      "navigation"
+    ],
+    "aliases": [
+      "hand menu",
+      "palm menu",
+      "watch menu",
+      "quick actions"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "wrist-menu",
     "displayName": "Wrist Menu",
-    "category": "xr-native picks",
+    "category": "navigation",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "xr-native picks"
-    ],
-    "aliases": [],
-    "description": "Attached to the hand, shows when you look at it",
+    "description": "Compact vertical menu with a clock header, sized to sit on your wrist.",
     "file": "components/spatial/wrist-menu.tsx",
-    "status": "soon",
-    "tier": 2,
+    "status": "ready",
     "xrOnly": true,
-    "author": "Spatial",
-    "license": "MIT",
-    "price": "free",
-    "deps": []
+    "bindable": [],
+    "props": [
+      {
+        "name": "items",
+        "type": "string",
+        "default": "Home, Recenter, Mute mic, Settings, Exit"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "min": 0.16,
+        "max": 0.32,
+        "default": 0.24
+      }
+    ]
   },
   {
-    "name": "radial-menu",
-    "displayName": "Radial Menu",
-    "category": "xr-native picks",
-    "kind": "basic",
-    "style": "default",
-    "tags": [
-      "xr-native picks"
-    ],
-    "aliases": [],
-    "description": "Pinch and pull to an option",
-    "file": "components/spatial/radial-menu.tsx",
-    "status": "ready",
-    "tier": 2,
-    "xrOnly": true,
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
+    "deps": [],
+    "tags": [
+      "radial",
+      "pie menu",
+      "ring",
+      "menu",
+      "navigation"
+    ],
+    "aliases": [
+      "pie menu",
+      "ring menu",
+      "circular menu",
+      "marking menu"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "radial-menu",
+    "displayName": "Radial Menu",
+    "category": "navigation",
+    "kind": "basic",
+    "description": "Press or pinch the hub and options spring out on a ring around it.",
+    "file": "components/spatial/radial-menu.tsx",
+    "status": "ready",
+    "xrOnly": true,
+    "bindable": [],
+    "props": [
+      {
+        "name": "items",
+        "type": "string",
+        "default": "Draw, Copy, Layers, Share, Delete"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "radius",
+        "type": "number",
+        "min": 0.08,
+        "max": 0.25,
+        "default": 0.13
+      },
+      {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "default": true
+      }
+    ]
   },
   {
     "name": "billboard",
@@ -649,24 +1389,64 @@
     "deps": []
   },
   {
-    "name": "hold-to-confirm",
-    "displayName": "Hold-to-Confirm",
-    "category": "xr-native picks",
-    "kind": "basic",
-    "style": "default",
-    "tags": [
-      "xr-native picks"
-    ],
-    "aliases": [],
-    "description": "Ring fills while held",
-    "file": "components/spatial/hold-to-confirm.tsx",
-    "status": "ready",
-    "tier": 2,
-    "xrOnly": true,
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit",
+      "@react-three/uikit-lucide"
+    ],
+    "tags": [
+      "hold",
+      "confirm",
+      "ring",
+      "destructive",
+      "safety"
+    ],
+    "aliases": [
+      "long press",
+      "press and hold",
+      "confirm button"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "hold-to-confirm",
+    "displayName": "Hold-to-Confirm",
+    "category": "buttons",
+    "kind": "basic",
+    "description": "An 8 cm disc you press and hold while a ring fills, so important actions only fire on purpose.",
+    "file": "components/spatial/hold-to-confirm.tsx",
+    "status": "ready",
+    "xrOnly": true,
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Hold to confirm"
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "min": 0.3,
+        "max": 5,
+        "default": 1.2
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#F2B48A"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
   },
   {
     "name": "particle-burst",
@@ -689,24 +1469,55 @@
     "deps": []
   },
   {
-    "name": "model-viewer",
-    "displayName": "3D Model Viewer",
-    "category": "xr-native picks",
-    "kind": "basic",
-    "style": "default",
-    "tags": [
-      "xr-native picks"
-    ],
-    "aliases": [],
-    "description": "Grab to spin; Kaedim model",
-    "file": "components/spatial/model-viewer.tsx",
-    "status": "soon",
-    "tier": 2,
-    "xrOnly": true,
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
+    "deps": [],
+    "tags": [
+      "media",
+      "3d",
+      "model",
+      "glb",
+      "turntable"
+    ],
+    "aliases": [
+      "glb viewer",
+      "turntable",
+      "product viewer"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "model-viewer",
+    "displayName": "3D Model Viewer",
+    "category": "media",
+    "kind": "basic",
+    "description": "Turntable for any GLB: grab and drag to spin it, let go and it coasts.",
+    "file": "components/spatial/model-viewer.tsx",
+    "status": "ready",
+    "xrOnly": true,
+    "bindable": [],
+    "props": [
+      {
+        "name": "url",
+        "type": "string",
+        "default": "https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Astronaut"
+      },
+      {
+        "name": "autoRotate",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
   },
   {
     "name": "palm-menu",
@@ -749,24 +1560,53 @@
     "deps": []
   },
   {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "dock",
+      "launcher",
+      "icons",
+      "app bar",
+      "navigation"
+    ],
+    "aliases": [
+      "app dock",
+      "launcher",
+      "taskbar",
+      "icon bar"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "dock",
     "displayName": "Dock",
     "category": "navigation",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "navigation"
-    ],
-    "aliases": [],
-    "description": "",
+    "description": "Shelf of app icons that swell toward you under the pointer and bounce when picked.",
     "file": "components/spatial/dock.tsx",
     "status": "ready",
-    "tier": 2,
     "xrOnly": false,
-    "author": "Spatial",
-    "license": "MIT",
-    "price": "free",
-    "deps": []
+    "bindable": [],
+    "props": [
+      {
+        "name": "items",
+        "type": "string",
+        "default": "Home, Music, Camera, Photos, Settings"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "magnify",
+        "type": "number",
+        "min": 1,
+        "max": 2.2,
+        "default": 1.7
+      }
+    ]
   },
   {
     "name": "vertical-tab-bar",
@@ -869,104 +1709,354 @@
     "deps": []
   },
   {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit",
+      "@react-three/uikit-lucide"
+    ],
+    "tags": [
+      "keypad",
+      "number",
+      "pin",
+      "code",
+      "digits"
+    ],
+    "aliases": [
+      "pin pad",
+      "keypad",
+      "dial pad"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "number-pad",
     "displayName": "Number Pad",
-    "category": "input",
+    "category": "inputs",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "input"
-    ],
-    "aliases": [],
-    "description": "",
+    "description": "A 12-key 3D keypad with a display for typing codes or PINs; check submits.",
     "file": "components/spatial/number-pad.tsx",
-    "status": "soon",
-    "tier": 2,
+    "status": "ready",
     "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Enter code"
+      },
+      {
+        "name": "maxLength",
+        "type": "number",
+        "min": 1,
+        "max": 12,
+        "default": 6
+      },
+      {
+        "name": "mask",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit"
+    ],
+    "tags": [
+      "color",
+      "picker",
+      "wheel",
+      "hue",
+      "swatch"
+    ],
+    "aliases": [
+      "colour picker",
+      "color wheel",
+      "palette"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "color-picker",
     "displayName": "3D Color Picker",
-    "category": "input",
+    "category": "inputs",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "input"
-    ],
-    "aliases": [],
-    "description": "",
+    "description": "A hue wheel and lightness bar you drag on, with a glowing orb that previews the colour as hex.",
     "file": "components/spatial/color-picker.tsx",
-    "status": "soon",
-    "tier": 2,
+    "status": "ready",
     "xrOnly": true,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": "#9FE7D2"
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Color"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [],
+    "tags": [
+      "music",
+      "input",
+      "controller",
+      "2d",
+      "performance"
+    ],
+    "aliases": [
+      "xy controller",
+      "touch pad",
+      "kaoss pad",
+      "trackpad"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "xy-pad",
     "displayName": "XY Pad",
-    "category": "input",
+    "category": "music",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "input"
-    ],
-    "aliases": [],
-    "description": "",
+    "description": "20 cm touch surface: drag the glowing puck to set two values at once. Great on a filter cutoff.",
     "file": "components/spatial/xy-pad.tsx",
     "status": "ready",
-    "tier": 2,
     "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "x",
+        "event": "onXChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.5
+      },
+      {
+        "prop": "y",
+        "event": "onYChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.5
+      }
+    ],
+    "props": [
+      {
+        "name": "x",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.5
+      },
+      {
+        "name": "y",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.5
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "XY Pad"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit",
+      "@react-three/uikit-lucide"
+    ],
+    "tags": [
+      "select",
+      "dropdown",
+      "menu",
+      "options"
+    ],
+    "aliases": [
+      "picker",
+      "combo box",
+      "dropdown menu"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "select",
     "displayName": "Dropdown / Select",
-    "category": "input",
+    "category": "inputs",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "input"
-    ],
-    "aliases": [],
-    "description": "",
+    "description": "A dropdown whose option list springs open and floats in front of the scene; tap a row to choose.",
     "file": "components/spatial/select.tsx",
     "status": "ready",
-    "tier": 2,
     "xrOnly": false,
-    "author": "Spatial",
-    "license": "MIT",
-    "price": "free",
-    "deps": []
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": "Medium"
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Quality"
+      },
+      {
+        "name": "options",
+        "type": "string",
+        "default": "Low, Medium, High, Ultra"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
   },
   {
-    "name": "range-slider",
-    "displayName": "Range Slider",
-    "category": "input",
-    "kind": "basic",
-    "style": "default",
-    "tags": [
-      "input"
-    ],
-    "aliases": [],
-    "description": "",
-    "file": "components/spatial/range-slider.tsx",
-    "status": "ready",
-    "tier": 2,
-    "xrOnly": false,
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit"
+    ],
+    "tags": [
+      "range",
+      "slider",
+      "min",
+      "max",
+      "filter"
+    ],
+    "aliases": [
+      "dual slider",
+      "two thumb slider",
+      "price range"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "range-slider",
+    "displayName": "Range Slider",
+    "category": "inputs",
+    "kind": "basic",
+    "description": "A 24 cm two-thumb slider for picking a low and high value; thumbs lift toward you while dragged.",
+    "file": "components/spatial/range-slider.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "low",
+        "event": "onLowChange",
+        "type": "number",
+        "min": 0,
+        "max": 100,
+        "default": 25,
+        "range": true
+      },
+      {
+        "prop": "high",
+        "event": "onHighChange",
+        "type": "number",
+        "min": 0,
+        "max": 100,
+        "default": 75,
+        "range": true
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Range"
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "default": 0
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "default": 100
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "min": 0.01,
+        "default": 1
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
   },
   {
     "name": "hover-highlight",
@@ -1029,24 +2119,72 @@
     "deps": []
   },
   {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "badge",
+      "notification",
+      "count",
+      "indicator",
+      "feedback"
+    ],
+    "aliases": [
+      "notification badge",
+      "counter",
+      "unread count",
+      "pill"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "badge",
     "displayName": "Badge",
     "category": "feedback",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "feedback"
-    ],
-    "aliases": [],
-    "description": "",
+    "description": "Notification count floating in front of an icon tile, popping whenever the count changes.",
     "file": "components/spatial/badge.tsx",
-    "status": "soon",
-    "tier": 2,
+    "status": "ready",
     "xrOnly": false,
-    "author": "Spatial",
-    "license": "MIT",
-    "price": "free",
-    "deps": []
+    "bindable": [
+      {
+        "prop": "count",
+        "type": "number",
+        "min": 0,
+        "max": 120,
+        "default": 3
+      }
+    ],
+    "props": [
+      {
+        "name": "icon",
+        "type": "enum",
+        "options": [
+          "bell",
+          "mail",
+          "message",
+          "cart"
+        ],
+        "default": "bell"
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "min": 9,
+        "max": 999,
+        "default": 99
+      },
+      {
+        "name": "dot",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#F2B48A"
+      }
+    ]
   },
   {
     "name": "skeleton",
@@ -1069,184 +2207,453 @@
     "deps": []
   },
   {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "spinner",
+      "loader",
+      "loading",
+      "3d",
+      "feedback"
+    ],
+    "aliases": [
+      "loader",
+      "loading indicator",
+      "busy",
+      "activity indicator"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "spinner-3d",
     "displayName": "3D Spinner",
     "category": "feedback",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "feedback"
-    ],
-    "aliases": [],
-    "description": "",
+    "description": "Loading spinner of two arcs tumbling in a gyroscope around a breathing core.",
     "file": "components/spatial/spinner-3d.tsx",
-    "status": "soon",
-    "tier": 2,
+    "status": "ready",
     "xrOnly": false,
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.05,
+        "max": 0.3,
+        "default": 0.1
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0.2,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Loading"
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [],
+    "tags": [
+      "data",
+      "chart",
+      "bars",
+      "dashboard",
+      "analytics"
+    ],
+    "aliases": [
+      "bar graph",
+      "column chart",
+      "histogram"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "bar-chart-3d",
     "displayName": "3D Bar Chart",
     "category": "data",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "data"
-    ],
-    "aliases": [],
-    "description": "",
+    "description": "Solid 3D bars that grow in and reveal their value when you hover a column.",
     "file": "components/spatial/bar-chart-3d.tsx",
     "status": "ready",
-    "tier": 2,
     "xrOnly": true,
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Monthly active users (k)"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "default": ""
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [],
+    "tags": [
+      "data",
+      "gauge",
+      "dial",
+      "meter",
+      "dashboard"
+    ],
+    "aliases": [
+      "speedometer",
+      "dial",
+      "progress meter"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "gauge",
     "displayName": "Gauge / Meter",
     "category": "data",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "data"
-    ],
-    "aliases": [],
-    "description": "",
+    "description": "Dial with a springy needle and a tick ring that lights up to a 0-1 value.",
     "file": "components/spatial/gauge.tsx",
     "status": "ready",
-    "tier": 2,
     "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.72
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.72
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "CPU load"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "min": 1,
+        "max": 10000,
+        "default": 100
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "default": "%"
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [],
+    "tags": [
+      "data",
+      "kpi",
+      "metric",
+      "card",
+      "dashboard"
+    ],
+    "aliases": [
+      "kpi card",
+      "metric tile",
+      "number card"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "stat-card",
     "displayName": "Stat Card",
     "category": "data",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "data"
-    ],
-    "aliases": [],
-    "description": "",
+    "description": "KPI card on a thick slab with a trend arrow; hover lifts it and shows the comparison.",
     "file": "components/spatial/stat-card.tsx",
     "status": "ready",
-    "tier": 2,
     "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "type": "number",
+        "default": 12480
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Active users"
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "default": 12480
+      },
+      {
+        "name": "delta",
+        "type": "number",
+        "min": -100,
+        "max": 100,
+        "default": 12.4
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "default": "vs last week"
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [],
+    "tags": [
+      "data",
+      "chart",
+      "trend",
+      "line",
+      "dashboard"
+    ],
+    "aliases": [
+      "trend line",
+      "mini chart",
+      "line chart"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "sparkline",
     "displayName": "Sparkline",
     "category": "data",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "data"
-    ],
-    "aliases": [],
-    "description": "",
+    "description": "Trend card whose 3D line draws itself in; hover along it to read any point.",
     "file": "components/spatial/sparkline.tsx",
     "status": "ready",
-    "tier": 2,
     "xrOnly": false,
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Revenue ($k)"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "default": ""
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [],
+    "tags": [
+      "data",
+      "timeline",
+      "scrubber",
+      "seek",
+      "media"
+    ],
+    "aliases": [
+      "seek bar",
+      "progress bar",
+      "playhead"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "timeline-scrubber",
     "displayName": "Timeline Scrubber",
     "category": "data",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "data"
-    ],
-    "aliases": [],
-    "description": "",
+    "description": "Drag the thumb or tap the rail to scrub; hover previews the time under your finger.",
     "file": "components/spatial/timeline-scrubber.tsx",
     "status": "ready",
-    "tier": 2,
     "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.35
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.35
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "min": 1,
+        "max": 7200,
+        "default": 225
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Timeline"
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [],
+    "tags": [
+      "media",
+      "video",
+      "player",
+      "screen"
+    ],
+    "aliases": [
+      "video player",
+      "tv screen",
+      "movie"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "video-panel",
     "displayName": "Video Panel",
     "category": "media",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "media"
-    ],
-    "aliases": [],
-    "description": "",
+    "description": "Floating video screen that plays and pauses on press, with a tap-to-seek bar.",
     "file": "components/spatial/video-panel.tsx",
     "status": "ready",
-    "tier": 2,
     "xrOnly": false,
+    "bindable": [],
+    "props": [
+      {
+        "name": "src",
+        "type": "string",
+        "default": "https://threejs.org/examples/textures/sintel.mp4"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Sintel (trailer)"
+      }
+    ]
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [],
+    "tags": [
+      "media",
+      "images",
+      "gallery",
+      "photos",
+      "carousel"
+    ],
+    "aliases": [
+      "photo wall",
+      "image carousel",
+      "arc gallery"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "curved-gallery",
     "displayName": "Curved Gallery",
     "category": "media",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "media"
-    ],
-    "aliases": [],
-    "description": "",
+    "description": "Images on an arc that wraps toward you; hover to lift one, press to pull it close.",
     "file": "components/spatial/curved-gallery.tsx",
-    "status": "soon",
-    "tier": 2,
+    "status": "ready",
     "xrOnly": true,
+    "bindable": [],
+    "props": []
+  },
+  {
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": []
-  },
-  {
+    "deps": [],
+    "tags": [
+      "media",
+      "audio",
+      "music",
+      "player"
+    ],
+    "aliases": [
+      "music player",
+      "mp3 player",
+      "now playing"
+    ],
+    "tier": 1,
+    "style": "default",
     "name": "audio-player",
     "displayName": "Audio Player Card",
     "category": "media",
     "kind": "basic",
-    "style": "default",
-    "tags": [
-      "media"
-    ],
-    "aliases": [],
-    "description": "",
+    "description": "Music card with a spinning 3D record and tonearm, play/pause and a draggable seek bar.",
     "file": "components/spatial/audio-player.tsx",
-    "status": "soon",
-    "tier": 2,
+    "status": "ready",
     "xrOnly": false,
-    "author": "Spatial",
-    "license": "MIT",
-    "price": "free",
-    "deps": []
+    "bindable": [],
+    "props": [
+      {
+        "name": "src",
+        "type": "string",
+        "default": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "SoundHelix Song 1"
+      },
+      {
+        "name": "artist",
+        "type": "string",
+        "default": "SoundHelix"
+      }
+    ]
   },
   {
     "name": "aurora-backdrop",
@@ -1541,25 +2948,32 @@
     "tier": 1
   },
   {
-    "kind": "basic",
-    "style": "default",
-    "aliases": [],
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
+    "deps": [],
+    "tags": [
+      "music",
+      "controls",
+      "volume",
+      "slider",
+      "mixer"
+    ],
+    "aliases": [
+      "volume slider",
+      "channel fader",
+      "vertical slider"
+    ],
+    "tier": 1,
+    "style": "default",
+    "kind": "basic",
     "status": "ready",
     "name": "fader",
     "displayName": "Fader",
-    "category": "controls",
-    "tags": [
-      "controls",
-      "music",
-      "volume"
-    ],
-    "description": "Vertical slider",
+    "category": "music",
+    "description": "21 cm vertical fader with a real 3D cap: grab and slide, or tap the track to jump. Glows while you drag.",
     "file": "components/spatial/fader.tsx",
     "xrOnly": false,
-    "deps": [],
     "bindable": [
       {
         "prop": "value",
@@ -1571,7 +2985,39 @@
         "range": true
       }
     ],
-    "tier": 1
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.75
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Fader"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "min": -1000,
+        "max": 1000,
+        "default": 0
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "min": -1000,
+        "max": 1000,
+        "default": 1
+      }
+    ]
   },
   {
     "author": "Spatial",
@@ -1883,6 +3329,2103 @@
         "name": "background",
         "type": "boolean",
         "default": true
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "lamp",
+      "light",
+      "toggle",
+      "furniture",
+      "object"
+    ],
+    "aliases": [
+      "light",
+      "desk lamp",
+      "bulb",
+      "light switch"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "lamp",
+    "displayName": "Table Lamp",
+    "category": "objects",
+    "kind": "object",
+    "description": "A 40 cm table lamp that switches a real point light on and off when you press it.",
+    "file": "components/spatial/lamp.tsx",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": true
+      }
+    ],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#FFD2A1"
+      },
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "tv",
+      "video",
+      "screen",
+      "media",
+      "object"
+    ],
+    "aliases": [
+      "television",
+      "monitor",
+      "video player",
+      "screen"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "tv",
+    "displayName": "TV",
+    "category": "objects",
+    "kind": "object",
+    "description": "A 43-inch TV on a stand that plays or pauses a muted video when you press the screen.",
+    "file": "components/spatial/tv.tsx",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "src",
+        "type": "string",
+        "default": "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "speaker",
+      "audio",
+      "music",
+      "sound",
+      "object"
+    ],
+    "aliases": [
+      "bookshelf speaker",
+      "boombox",
+      "stereo",
+      "music player"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "speaker",
+    "displayName": "Speaker",
+    "category": "objects",
+    "kind": "object",
+    "description": "A bookshelf speaker that plays a looping chord groove when you press it, its woofer pumping to the beat.",
+    "file": "components/spatial/speaker.tsx",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#1A1D24"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "globe",
+      "earth",
+      "map",
+      "spin",
+      "object"
+    ],
+    "aliases": [
+      "world",
+      "planet",
+      "earth globe",
+      "world map"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "globe",
+    "displayName": "Globe",
+    "category": "objects",
+    "kind": "object",
+    "description": "A desk globe with a dot-matrix world map that turns slowly and spins faster when you drag or flick it.",
+    "file": "components/spatial/globe.tsx",
+    "status": "ready",
+    "props": [
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 0.25
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "door",
+      "portal",
+      "architecture",
+      "furniture",
+      "object"
+    ],
+    "aliases": [
+      "doorway",
+      "entrance",
+      "exit",
+      "gate"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "door",
+    "displayName": "Door",
+    "category": "objects",
+    "kind": "object",
+    "description": "A 2 m door that swings open or shut on a spring when you press it, with warm light spilling through.",
+    "file": "components/spatial/door.tsx",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#E4DED3"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "clock",
+      "time",
+      "wall",
+      "object"
+    ],
+    "aliases": [
+      "analog clock",
+      "watch",
+      "timer",
+      "time"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "clock",
+    "displayName": "Wall Clock",
+    "category": "objects",
+    "kind": "object",
+    "description": "A 30 cm analog wall clock that shows the live local time with a sweeping second hand.",
+    "file": "components/spatial/clock.tsx",
+    "status": "ready",
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#2A2F3A"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "whiteboard",
+      "draw",
+      "sketch",
+      "marker",
+      "object"
+    ],
+    "aliases": [
+      "drawing board",
+      "canvas",
+      "sketchpad",
+      "blackboard",
+      "notes"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "whiteboard",
+    "displayName": "Whiteboard",
+    "category": "objects",
+    "kind": "object",
+    "description": "A 1 m whiteboard you draw on with a fingertip, pinch or mouse, with marker colours and an eraser that clears it.",
+    "file": "components/spatial/whiteboard.tsx",
+    "status": "ready",
+    "props": [
+      {
+        "name": "ink",
+        "type": "color",
+        "default": "#1B1E26"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "plant",
+      "decor",
+      "nature",
+      "object"
+    ],
+    "aliases": [
+      "houseplant",
+      "pot",
+      "greenery",
+      "flower"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "plant",
+    "displayName": "Potted Plant",
+    "category": "objects",
+    "kind": "object",
+    "description": "A 50 cm potted plant whose leaves sway gently.",
+    "file": "components/spatial/plant.tsx",
+    "status": "ready",
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#E8E1D5"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "desk",
+      "table",
+      "furniture",
+      "object"
+    ],
+    "aliases": [
+      "table",
+      "workstation",
+      "office desk"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "desk",
+    "displayName": "Desk",
+    "category": "objects",
+    "kind": "object",
+    "description": "A modern 120 x 60 cm work desk with a solid top on a slim steel frame.",
+    "file": "components/spatial/desk.tsx",
+    "status": "ready",
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#CBB08F"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "chair",
+      "seat",
+      "furniture",
+      "object"
+    ],
+    "aliases": [
+      "seat",
+      "dining chair",
+      "stool"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "chair",
+    "displayName": "Chair",
+    "category": "objects",
+    "kind": "object",
+    "description": "A mid-century chair with an upholstered seat and back on splayed oak legs.",
+    "file": "components/spatial/chair.tsx",
+    "status": "ready",
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#C9805C"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "music",
+      "mixer",
+      "volume",
+      "pan",
+      "mute",
+      "meter"
+    ],
+    "aliases": [
+      "channel strip",
+      "mixer channel",
+      "console",
+      "mixing desk"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "mixer-strip",
+    "displayName": "Mixer Strip",
+    "category": "music",
+    "kind": "section",
+    "description": "Channel strip: 3D fader, pan knob, mute button and a post-fader level meter. Wire it to a synth or loop player.",
+    "file": "components/spatial/mixer-strip.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "volume",
+        "event": "onVolumeChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      },
+      {
+        "prop": "pan",
+        "event": "onPanChange",
+        "type": "number",
+        "min": -1,
+        "max": 1,
+        "default": 0
+      },
+      {
+        "prop": "mute",
+        "event": "onMuteChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "volume",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      },
+      {
+        "name": "pan",
+        "type": "number",
+        "min": -1,
+        "max": 1,
+        "default": 0
+      },
+      {
+        "name": "mute",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Ch 1"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "music",
+      "visualizer",
+      "oscilloscope",
+      "audio",
+      "meter"
+    ],
+    "aliases": [
+      "oscilloscope",
+      "scope",
+      "audio visualizer",
+      "wave display"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "waveform",
+    "displayName": "Waveform",
+    "category": "music",
+    "kind": "basic",
+    "description": "Live oscilloscope of everything going to the speakers, drawn as a glowing line that holds still on steady notes.",
+    "file": "components/spatial/waveform.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Output"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "music",
+      "loops",
+      "clips",
+      "drums",
+      "launcher",
+      "pattern"
+    ],
+    "aliases": [
+      "clip launcher",
+      "session view",
+      "loop launcher",
+      "beat maker"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "loop-player",
+    "displayName": "Loop Player",
+    "category": "music",
+    "kind": "basic",
+    "description": "8 clip pads (drums, bass, pad, arp, lead) that loop in sync with the transport. Tap to launch on the next bar.",
+    "file": "components/spatial/loop-player.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "volume",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      },
+      {
+        "prop": "pan",
+        "type": "number",
+        "min": -1,
+        "max": 1,
+        "default": 0
+      },
+      {
+        "prop": "mute",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "volume",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      },
+      {
+        "name": "pan",
+        "type": "number",
+        "min": -1,
+        "max": 1,
+        "default": 0
+      },
+      {
+        "name": "mute",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Loops"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "music",
+      "synth",
+      "keys",
+      "filter",
+      "instrument"
+    ],
+    "aliases": [
+      "synthesizer",
+      "mono synth",
+      "bass synth",
+      "keyboard",
+      "lead synth"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "synth",
+    "displayName": "Synth",
+    "category": "music",
+    "kind": "basic",
+    "description": "Playable mono synth: 8 note pads with glide and a resonant lowpass filter you sweep with the cutoff dial.",
+    "file": "components/spatial/synth.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "cutoff",
+        "event": "onCutoffChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.55
+      },
+      {
+        "prop": "resonance",
+        "event": "onResonanceChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.3
+      },
+      {
+        "prop": "volume",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      },
+      {
+        "prop": "pan",
+        "type": "number",
+        "min": -1,
+        "max": 1,
+        "default": 0
+      },
+      {
+        "prop": "mute",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "cutoff",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.55
+      },
+      {
+        "name": "resonance",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.3
+      },
+      {
+        "name": "wave",
+        "type": "string",
+        "options": [
+          "sawtooth",
+          "square",
+          "triangle",
+          "sine"
+        ],
+        "default": "sawtooth"
+      },
+      {
+        "name": "volume",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      },
+      {
+        "name": "pan",
+        "type": "number",
+        "min": -1,
+        "max": 1,
+        "default": 0
+      },
+      {
+        "name": "mute",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Synth"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "game",
+      "collectible",
+      "coin",
+      "pickup",
+      "particles",
+      "sound"
+    ],
+    "aliases": [
+      "coin",
+      "collectible",
+      "gold coin",
+      "pickup",
+      "loot"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "coin-pickup",
+    "displayName": "Coin Pickup",
+    "category": "interactive",
+    "kind": "object",
+    "description": "A spinning gold coin you collect by touching it: it zips up, sparkles, dings and respawns, counting as it goes.",
+    "file": "components/spatial/coin-pickup.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 999,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 999,
+        "default": 0
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#FFC94D"
+      },
+      {
+        "name": "respawn",
+        "type": "number",
+        "min": 0.2,
+        "max": 10,
+        "default": 1.4
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.25,
+        "max": 4,
+        "default": 1
+      },
+      {
+        "name": "showCount",
+        "type": "boolean",
+        "default": true
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "game",
+      "dice",
+      "random",
+      "board game",
+      "physics",
+      "sound"
+    ],
+    "aliases": [
+      "die",
+      "d6",
+      "roll dice",
+      "random number"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "dice",
+    "displayName": "Dice",
+    "category": "interactive",
+    "kind": "object",
+    "description": "A six-sided die you press to roll: it tosses, tumbles, bounces with a clack and settles on a random face.",
+    "file": "components/spatial/dice.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 1,
+        "max": 6,
+        "default": 5
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 1,
+        "max": 6,
+        "default": 5
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#EEF0F4"
+      },
+      {
+        "name": "pipColor",
+        "type": "color",
+        "default": "#0B0C10"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.25,
+        "max": 4,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "game",
+      "chest",
+      "loot",
+      "reward",
+      "glow",
+      "particles",
+      "sound"
+    ],
+    "aliases": [
+      "chest",
+      "loot box",
+      "treasure",
+      "reward chest"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "treasure-chest",
+    "displayName": "Treasure Chest",
+    "category": "interactive",
+    "kind": "object",
+    "description": "A wooden chest that flings its lid open on tap, with glowing gold, a rising light beam and drifting motes.",
+    "file": "components/spatial/treasure-chest.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#7A4A2A"
+      },
+      {
+        "name": "trim",
+        "type": "color",
+        "default": "#E8B44C"
+      },
+      {
+        "name": "glow",
+        "type": "color",
+        "default": "#FFD98A"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.25,
+        "max": 4,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "game",
+      "celebration",
+      "confetti",
+      "particles",
+      "reward",
+      "sound"
+    ],
+    "aliases": [
+      "confetti",
+      "party popper",
+      "celebrate",
+      "celebration"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "confetti-burst",
+    "displayName": "Confetti Burst",
+    "category": "interactive",
+    "kind": "basic",
+    "description": "A party popper that fires up to 300 fluttering confetti pieces with a pop when tapped or when its trigger changes.",
+    "file": "components/spatial/confetti-burst.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "trigger",
+        "type": "number",
+        "min": 0,
+        "max": 999,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "count",
+        "type": "number",
+        "min": 1,
+        "max": 300,
+        "default": 180
+      },
+      {
+        "name": "colors",
+        "type": "string[]",
+        "default": [
+          "#9FE7D2",
+          "#F2B48A",
+          "#FF8FB1",
+          "#7AB8FF",
+          "#FFC94D",
+          "#EEF0F4"
+        ]
+      },
+      {
+        "name": "power",
+        "type": "number",
+        "min": 0.2,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "name": "trigger",
+        "type": "number",
+        "min": 0,
+        "max": 999,
+        "default": 0
+      },
+      {
+        "name": "popper",
+        "type": "boolean",
+        "default": true
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "game",
+      "sports",
+      "basketball",
+      "arcade",
+      "score",
+      "particles",
+      "sound"
+    ],
+    "aliases": [
+      "hoop",
+      "basketball",
+      "arcade hoop",
+      "shoot hoops"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "basketball-hoop",
+    "displayName": "Basketball Hoop",
+    "category": "interactive",
+    "kind": "object",
+    "description": "A mini hoop with a ball you tap to shoot: it arcs to the rim for a swish, sparks and a point, or clangs off.",
+    "file": "components/spatial/basketball-hoop.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 999,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 999,
+        "default": 0
+      },
+      {
+        "name": "accuracy",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "ballColor",
+        "type": "color",
+        "default": "#E8743B"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "game",
+      "hud",
+      "health",
+      "hp",
+      "bar",
+      "progress",
+      "sound"
+    ],
+    "aliases": [
+      "hp bar",
+      "life bar",
+      "health meter",
+      "hit points",
+      "damage bar"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "health-bar",
+    "displayName": "Health Bar",
+    "category": "interactive",
+    "kind": "basic",
+    "description": "A 30 cm glass health bar whose fill springs to the value, with a lagging damage ghost, a heal shimmer and a red low-health pulse; tap it for demo damage.",
+    "file": "components/spatial/health-bar.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 100,
+        "default": 75
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 100,
+        "default": 75
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "min": 1,
+        "max": 1000,
+        "default": 100
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Health"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "game",
+      "hud",
+      "score",
+      "points",
+      "counter",
+      "number",
+      "sound"
+    ],
+    "aliases": [
+      "score",
+      "points",
+      "scoreboard",
+      "point counter",
+      "coins counter"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "score-counter",
+    "displayName": "Score Counter",
+    "category": "interactive",
+    "kind": "basic",
+    "description": "A score panel whose number rolls up on a spring, pops and floats \"+N\"; tap to add points with a coin blip that climbs in pitch on fast taps.",
+    "file": "components/spatial/score-counter.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 999999,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 999999,
+        "default": 0
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "min": 1,
+        "max": 1000,
+        "default": 10
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Score"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#FFC94D"
+      },
+      {
+        "name": "digits",
+        "type": "number",
+        "min": 0,
+        "max": 8,
+        "default": 5
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "game",
+      "hud",
+      "ability",
+      "cooldown",
+      "button",
+      "timer",
+      "sound"
+    ],
+    "aliases": [
+      "ability button",
+      "skill button",
+      "cooldown button",
+      "spell button",
+      "radial cooldown"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "cooldown-ring",
+    "displayName": "Cooldown Ring",
+    "category": "interactive",
+    "kind": "basic",
+    "description": "A 10 cm round ability button with a clockwise cooldown sweep: tap to cast, taps while cooling are denied, and it flashes and pings when ready.",
+    "file": "components/spatial/cooldown-ring.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [],
+    "props": [
+      {
+        "name": "duration",
+        "type": "number",
+        "min": 0.2,
+        "max": 60,
+        "default": 3
+      },
+      {
+        "name": "icon",
+        "type": "enum",
+        "options": [
+          "zap",
+          "flame",
+          "shield",
+          "heart",
+          "sparkles"
+        ],
+        "default": "zap"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Ability"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "game",
+      "hud",
+      "timer",
+      "countdown",
+      "clock",
+      "alarm",
+      "sound"
+    ],
+    "aliases": [
+      "timer",
+      "countdown",
+      "stopwatch",
+      "round timer",
+      "time limit"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "countdown-timer",
+    "displayName": "Countdown Timer",
+    "category": "interactive",
+    "kind": "basic",
+    "description": "A countdown panel with a draining progress bar and play/pause and reset buttons that beeps through the last five seconds and alarms at zero.",
+    "file": "components/spatial/countdown-timer.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 3600,
+        "default": 30
+      }
+    ],
+    "props": [
+      {
+        "name": "seconds",
+        "type": "number",
+        "min": 1,
+        "max": 3600,
+        "default": 30
+      },
+      {
+        "name": "autoStart",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 3600,
+        "default": 30
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "game",
+      "hud",
+      "achievement",
+      "toast",
+      "notification",
+      "reward",
+      "sound"
+    ],
+    "aliases": [
+      "achievement",
+      "trophy popup",
+      "unlock toast",
+      "badge popup",
+      "reward toast"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "achievement-popup",
+    "displayName": "Achievement Popup",
+    "category": "interactive",
+    "kind": "basic",
+    "description": "An achievement toast that springs up with a trophy, a shine sweep and a three-note fanfare, then auto-hides to a small replay chip.",
+    "file": "components/spatial/achievement-popup.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": true
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Achievement unlocked"
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "default": "First steps"
+      },
+      {
+        "name": "icon",
+        "type": "enum",
+        "options": [
+          "trophy",
+          "medal",
+          "star",
+          "crown"
+        ],
+        "default": "trophy"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#FFC94D"
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "min": 1,
+        "max": 30,
+        "default": 4
+      },
+      {
+        "name": "value",
+        "type": "boolean",
+        "default": true
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "game",
+      "inventory",
+      "items",
+      "equip",
+      "grid",
+      "hud",
+      "rpg"
+    ],
+    "aliases": [
+      "inventory",
+      "item grid",
+      "backpack",
+      "item slots",
+      "hotbar"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "inventory-grid",
+    "displayName": "Inventory Grid",
+    "category": "interactive",
+    "kind": "basic",
+    "description": "Fingertip-sized inventory slots with game item icons; tap one to equip it with a spring pop, mint glow ring and a metallic shing.",
+    "file": "components/spatial/inventory-grid.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": -1,
+        "max": 7,
+        "default": -1
+      }
+    ],
+    "props": [
+      {
+        "name": "items",
+        "type": "string[]",
+        "options": [
+          "sword",
+          "shield",
+          "potion",
+          "key",
+          "gem",
+          "bow",
+          "map",
+          "coin",
+          "apple",
+          "bomb",
+          "wand",
+          "axe"
+        ],
+        "default": [
+          "sword",
+          "shield",
+          "potion",
+          "key",
+          "gem",
+          "bow"
+        ]
+      },
+      {
+        "name": "cols",
+        "type": "number",
+        "min": 1,
+        "max": 6,
+        "default": 4
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "min": 1,
+        "max": 4,
+        "default": 2
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "min": -1,
+        "max": 23,
+        "default": -1
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "game",
+      "quest",
+      "objectives",
+      "checklist",
+      "progress",
+      "hud",
+      "rpg"
+    ],
+    "aliases": [
+      "quest log",
+      "objectives",
+      "mission tracker",
+      "todo list",
+      "checklist"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "quest-tracker",
+    "displayName": "Quest Tracker",
+    "category": "interactive",
+    "kind": "basic",
+    "description": "Quest card with tappable objectives that pop a check and strike through; finishing all of them flashes warm, chimes and bursts sparks.",
+    "file": "components/spatial/quest-tracker.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "The Lost Chest"
+      },
+      {
+        "name": "objectives",
+        "type": "string[]",
+        "default": [
+          "Find the key",
+          "Open the chest",
+          "Defeat the slime"
+        ]
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 10,
+        "default": 0
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "game",
+      "dialogue",
+      "npc",
+      "text",
+      "typewriter",
+      "choices",
+      "rpg",
+      "story"
+    ],
+    "aliases": [
+      "dialog box",
+      "npc dialogue",
+      "speech box",
+      "conversation",
+      "visual novel"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "dialogue-box",
+    "displayName": "Dialogue Box",
+    "category": "interactive",
+    "kind": "basic",
+    "description": "RPG dialogue panel that types lines out with voice blips; tap to skip or advance, then pick from springy choice buttons.",
+    "file": "components/spatial/dialogue-box.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": -1,
+        "max": 2,
+        "default": -1
+      }
+    ],
+    "props": [
+      {
+        "name": "speaker",
+        "type": "string",
+        "default": "Mira"
+      },
+      {
+        "name": "lines",
+        "type": "string[]",
+        "default": [
+          "Halt, traveller! The old bridge is out.",
+          "They say a slime guards the chest past the falls.",
+          "Will you help me find the key?"
+        ]
+      },
+      {
+        "name": "choices",
+        "type": "string[]",
+        "default": [
+          "I'll help",
+          "Tell me more",
+          "Not today"
+        ]
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 5,
+        "max": 120,
+        "default": 40
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "min": -1,
+        "max": 5,
+        "default": -1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "game",
+      "weapon",
+      "items",
+      "wheel",
+      "selector",
+      "equip",
+      "hud"
+    ],
+    "aliases": [
+      "weapon wheel",
+      "item selector",
+      "quick select",
+      "loadout wheel"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "item-wheel",
+    "displayName": "Item Wheel",
+    "category": "interactive",
+    "kind": "basic",
+    "description": "Weapon and item wheel whose segments lean out as a finger nears; tap one to equip it with a mint glow and a click.",
+    "file": "components/spatial/item-wheel.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": -1,
+        "max": 5,
+        "default": -1
+      }
+    ],
+    "props": [
+      {
+        "name": "items",
+        "type": "string[]",
+        "options": [
+          "sword",
+          "shield",
+          "potion",
+          "key",
+          "gem",
+          "bow",
+          "map",
+          "coin",
+          "apple",
+          "bomb",
+          "wand",
+          "axe"
+        ],
+        "default": [
+          "sword",
+          "bow",
+          "bomb",
+          "potion",
+          "shield",
+          "wand"
+        ]
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "min": -1,
+        "max": 11,
+        "default": -1
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "game",
+      "aim",
+      "target",
+      "crosshair",
+      "shooter",
+      "hud"
+    ],
+    "aliases": [
+      "crosshair",
+      "target",
+      "lock-on",
+      "aim reticle"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "target-reticle",
+    "displayName": "Target Reticle",
+    "category": "interactive",
+    "kind": "basic",
+    "description": "20 cm crosshair target that locks on when aimed at (ticks snap in, mint turns warm) and fires a shock ring with a hit counter on tap.",
+    "file": "components/spatial/target-reticle.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "lockColor",
+        "type": "color",
+        "default": "#F2B48A"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "value",
+        "type": "boolean",
+        "default": false
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "game",
+      "radar",
+      "map",
+      "hud",
+      "sonar"
+    ],
+    "aliases": [
+      "radar",
+      "minimap",
+      "sonar",
+      "mini map"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "minimap",
+    "displayName": "Radar Minimap",
+    "category": "interactive",
+    "kind": "basic",
+    "description": "25 cm circular radar whose sweep lights up drifting enemy blips; tap anywhere to send a sonar ping from that spot.",
+    "file": "components/spatial/minimap.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [],
+    "props": [
+      {
+        "name": "blips",
+        "type": "number",
+        "min": 0,
+        "max": 24,
+        "default": 5
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "blipColor",
+        "type": "color",
+        "default": "#FF5A6A"
+      },
+      {
+        "name": "sweepSpeed",
+        "type": "number",
+        "min": 0.2,
+        "max": 6,
+        "default": 1.6
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "game",
+      "lever",
+      "switch",
+      "toggle",
+      "physical",
+      "puzzle"
+    ],
+    "aliases": [
+      "lever",
+      "pull switch",
+      "breaker",
+      "wall lever"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "lever-switch",
+    "displayName": "Lever Switch",
+    "category": "interactive",
+    "kind": "object",
+    "description": "25 cm wall lever you grab and pull down (or tap) to switch on; it slams home with a heavy clunk and lights its lamp.",
+    "file": "components/spatial/lever-switch.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Power"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "game",
+      "floor",
+      "trigger",
+      "plate",
+      "puzzle",
+      "button"
+    ],
+    "aliases": [
+      "floor button",
+      "pressure pad",
+      "step plate",
+      "floor switch"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "pressure-plate",
+    "displayName": "Pressure Plate",
+    "category": "interactive",
+    "kind": "object",
+    "description": "30 cm floor plate that sinks with a thunk when pressed, glowing at the rim and rolling light rings across the floor.",
+    "file": "components/spatial/pressure-plate.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "latch",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "tilt",
+        "type": "number",
+        "min": 0,
+        "max": 1.2,
+        "default": 0.45
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "music",
+      "instrument",
+      "xylophone",
+      "toy",
+      "notes"
+    ],
+    "aliases": [
+      "glockenspiel",
+      "marimba",
+      "mallet instrument"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "xylophone",
+    "displayName": "Xylophone",
+    "category": "interactive",
+    "kind": "object",
+    "description": "37 cm one-octave xylophone (C5 to C6): poke or click a bar to play it, with a wobble and a puff of note-coloured sparks.",
+    "file": "components/spatial/xylophone.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [],
+    "props": [
+      {
+        "name": "notes",
+        "type": "string[]",
+        "default": [
+          "C5",
+          "D5",
+          "E5",
+          "F5",
+          "G5",
+          "A5",
+          "B5",
+          "C6"
+        ]
+      },
+      {
+        "name": "colors",
+        "type": "string[]",
+        "default": [
+          "#F2A0A0",
+          "#F2B48A",
+          "#F2D58A",
+          "#B9E39A",
+          "#9FE7D2",
+          "#8FD3EC",
+          "#9DB5F5",
+          "#C3A6F2"
+        ]
       }
     ]
   }

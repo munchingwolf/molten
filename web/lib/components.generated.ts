@@ -23,20 +23,29 @@ const C_glass_card = lazy(() => import("@/components/spatial/glass-card"))
 const C_flip_card = lazy(() => import("@/components/spatial/flip-card"))
 const C_tooltip = lazy(() => import("@/components/spatial/tooltip"))
 const C_toast = lazy(() => import("@/components/spatial/toast"))
+const C_progress_ring = lazy(() => import("@/components/spatial/progress-ring"))
 const C_dialog = lazy(() => import("@/components/spatial/dialog"))
 const C_window = lazy(() => import("@/components/spatial/window"))
+const C_wrist_menu = lazy(() => import("@/components/spatial/wrist-menu"))
 const C_radial_menu = lazy(() => import("@/components/spatial/radial-menu"))
 const C_hold_to_confirm = lazy(() => import("@/components/spatial/hold-to-confirm"))
+const C_model_viewer = lazy(() => import("@/components/spatial/model-viewer"))
 const C_dock = lazy(() => import("@/components/spatial/dock"))
+const C_number_pad = lazy(() => import("@/components/spatial/number-pad"))
+const C_color_picker = lazy(() => import("@/components/spatial/color-picker"))
 const C_xy_pad = lazy(() => import("@/components/spatial/xy-pad"))
 const C_select = lazy(() => import("@/components/spatial/select"))
 const C_range_slider = lazy(() => import("@/components/spatial/range-slider"))
+const C_badge = lazy(() => import("@/components/spatial/badge"))
+const C_spinner_3d = lazy(() => import("@/components/spatial/spinner-3d"))
 const C_bar_chart_3d = lazy(() => import("@/components/spatial/bar-chart-3d"))
 const C_gauge = lazy(() => import("@/components/spatial/gauge"))
 const C_stat_card = lazy(() => import("@/components/spatial/stat-card"))
 const C_sparkline = lazy(() => import("@/components/spatial/sparkline"))
 const C_timeline_scrubber = lazy(() => import("@/components/spatial/timeline-scrubber"))
 const C_video_panel = lazy(() => import("@/components/spatial/video-panel"))
+const C_curved_gallery = lazy(() => import("@/components/spatial/curved-gallery"))
+const C_audio_player = lazy(() => import("@/components/spatial/audio-player"))
 const C_label = lazy(() => import("@/components/spatial/label"))
 const C_transport = lazy(() => import("@/components/spatial/transport"))
 const C_drum_pad = lazy(() => import("@/components/spatial/drum-pad"))
@@ -51,6 +60,39 @@ const C_env_forest = lazy(() => import("@/components/spatial/env-forest"))
 const C_env_concert_stage = lazy(() => import("@/components/spatial/env-concert-stage"))
 const C_env_gallery = lazy(() => import("@/components/spatial/env-gallery"))
 const C_frame = lazy(() => import("@/components/spatial/frame"))
+const C_lamp = lazy(() => import("@/components/spatial/lamp"))
+const C_tv = lazy(() => import("@/components/spatial/tv"))
+const C_speaker = lazy(() => import("@/components/spatial/speaker"))
+const C_globe = lazy(() => import("@/components/spatial/globe"))
+const C_door = lazy(() => import("@/components/spatial/door"))
+const C_clock = lazy(() => import("@/components/spatial/clock"))
+const C_whiteboard = lazy(() => import("@/components/spatial/whiteboard"))
+const C_plant = lazy(() => import("@/components/spatial/plant"))
+const C_desk = lazy(() => import("@/components/spatial/desk"))
+const C_chair = lazy(() => import("@/components/spatial/chair"))
+const C_mixer_strip = lazy(() => import("@/components/spatial/mixer-strip"))
+const C_waveform = lazy(() => import("@/components/spatial/waveform"))
+const C_loop_player = lazy(() => import("@/components/spatial/loop-player"))
+const C_synth = lazy(() => import("@/components/spatial/synth"))
+const C_coin_pickup = lazy(() => import("@/components/spatial/coin-pickup"))
+const C_dice = lazy(() => import("@/components/spatial/dice"))
+const C_treasure_chest = lazy(() => import("@/components/spatial/treasure-chest"))
+const C_confetti_burst = lazy(() => import("@/components/spatial/confetti-burst"))
+const C_basketball_hoop = lazy(() => import("@/components/spatial/basketball-hoop"))
+const C_health_bar = lazy(() => import("@/components/spatial/health-bar"))
+const C_score_counter = lazy(() => import("@/components/spatial/score-counter"))
+const C_cooldown_ring = lazy(() => import("@/components/spatial/cooldown-ring"))
+const C_countdown_timer = lazy(() => import("@/components/spatial/countdown-timer"))
+const C_achievement_popup = lazy(() => import("@/components/spatial/achievement-popup"))
+const C_inventory_grid = lazy(() => import("@/components/spatial/inventory-grid"))
+const C_quest_tracker = lazy(() => import("@/components/spatial/quest-tracker"))
+const C_dialogue_box = lazy(() => import("@/components/spatial/dialogue-box"))
+const C_item_wheel = lazy(() => import("@/components/spatial/item-wheel"))
+const C_target_reticle = lazy(() => import("@/components/spatial/target-reticle"))
+const C_minimap = lazy(() => import("@/components/spatial/minimap"))
+const C_lever_switch = lazy(() => import("@/components/spatial/lever-switch"))
+const C_pressure_plate = lazy(() => import("@/components/spatial/pressure-plate"))
+const C_xylophone = lazy(() => import("@/components/spatial/xylophone"))
 
 export const components: Record<string, ComponentType> = {
   "settings-default": C_settings_default as ComponentType,
@@ -74,20 +116,29 @@ export const components: Record<string, ComponentType> = {
   "flip-card": C_flip_card as ComponentType,
   "tooltip": C_tooltip as ComponentType,
   "toast": C_toast as ComponentType,
+  "progress-ring": C_progress_ring as ComponentType,
   "dialog": C_dialog as ComponentType,
   "window": C_window as ComponentType,
+  "wrist-menu": C_wrist_menu as ComponentType,
   "radial-menu": C_radial_menu as ComponentType,
   "hold-to-confirm": C_hold_to_confirm as ComponentType,
+  "model-viewer": C_model_viewer as ComponentType,
   "dock": C_dock as ComponentType,
+  "number-pad": C_number_pad as ComponentType,
+  "color-picker": C_color_picker as ComponentType,
   "xy-pad": C_xy_pad as ComponentType,
   "select": C_select as ComponentType,
   "range-slider": C_range_slider as ComponentType,
+  "badge": C_badge as ComponentType,
+  "spinner-3d": C_spinner_3d as ComponentType,
   "bar-chart-3d": C_bar_chart_3d as ComponentType,
   "gauge": C_gauge as ComponentType,
   "stat-card": C_stat_card as ComponentType,
   "sparkline": C_sparkline as ComponentType,
   "timeline-scrubber": C_timeline_scrubber as ComponentType,
   "video-panel": C_video_panel as ComponentType,
+  "curved-gallery": C_curved_gallery as ComponentType,
+  "audio-player": C_audio_player as ComponentType,
   "label": C_label as ComponentType,
   "transport": C_transport as ComponentType,
   "drum-pad": C_drum_pad as ComponentType,
@@ -102,4 +153,37 @@ export const components: Record<string, ComponentType> = {
   "env-concert-stage": C_env_concert_stage as ComponentType,
   "env-gallery": C_env_gallery as ComponentType,
   "frame": C_frame as ComponentType,
+  "lamp": C_lamp as ComponentType,
+  "tv": C_tv as ComponentType,
+  "speaker": C_speaker as ComponentType,
+  "globe": C_globe as ComponentType,
+  "door": C_door as ComponentType,
+  "clock": C_clock as ComponentType,
+  "whiteboard": C_whiteboard as ComponentType,
+  "plant": C_plant as ComponentType,
+  "desk": C_desk as ComponentType,
+  "chair": C_chair as ComponentType,
+  "mixer-strip": C_mixer_strip as ComponentType,
+  "waveform": C_waveform as ComponentType,
+  "loop-player": C_loop_player as ComponentType,
+  "synth": C_synth as ComponentType,
+  "coin-pickup": C_coin_pickup as ComponentType,
+  "dice": C_dice as ComponentType,
+  "treasure-chest": C_treasure_chest as ComponentType,
+  "confetti-burst": C_confetti_burst as ComponentType,
+  "basketball-hoop": C_basketball_hoop as ComponentType,
+  "health-bar": C_health_bar as ComponentType,
+  "score-counter": C_score_counter as ComponentType,
+  "cooldown-ring": C_cooldown_ring as ComponentType,
+  "countdown-timer": C_countdown_timer as ComponentType,
+  "achievement-popup": C_achievement_popup as ComponentType,
+  "inventory-grid": C_inventory_grid as ComponentType,
+  "quest-tracker": C_quest_tracker as ComponentType,
+  "dialogue-box": C_dialogue_box as ComponentType,
+  "item-wheel": C_item_wheel as ComponentType,
+  "target-reticle": C_target_reticle as ComponentType,
+  "minimap": C_minimap as ComponentType,
+  "lever-switch": C_lever_switch as ComponentType,
+  "pressure-plate": C_pressure_plate as ComponentType,
+  "xylophone": C_xylophone as ComponentType,
 }
