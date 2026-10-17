@@ -5,6 +5,7 @@ import { lazy, type ComponentType } from "react"
 const C_settings_default = lazy(() => import("@/components/spatial/settings-default"))
 const C_settings_glass = lazy(() => import("@/components/spatial/settings-glass"))
 const C_settings_horizon = lazy(() => import("@/components/spatial/settings-horizon"))
+const C_press_button = lazy(() => import("@/components/spatial/press-button"))
 const C_glow_button = lazy(() => import("@/components/spatial/glow-button"))
 const C_glass_button = lazy(() => import("@/components/spatial/glass-button"))
 const C_neon_button = lazy(() => import("@/components/spatial/neon-button"))
@@ -12,10 +13,13 @@ const C_ripple_button = lazy(() => import("@/components/spatial/ripple-button"))
 const C_magnetic_button = lazy(() => import("@/components/spatial/magnetic-button"))
 const C_holo_button = lazy(() => import("@/components/spatial/holo-button"))
 const C_icon_button = lazy(() => import("@/components/spatial/icon-button"))
+const C_slider = lazy(() => import("@/components/spatial/slider"))
 const C_knob = lazy(() => import("@/components/spatial/knob"))
+const C_spring_toggle = lazy(() => import("@/components/spatial/spring-toggle"))
 const C_checkbox = lazy(() => import("@/components/spatial/checkbox"))
 const C_tabs = lazy(() => import("@/components/spatial/tabs"))
 const C_stepper = lazy(() => import("@/components/spatial/stepper"))
+const C_glass_card = lazy(() => import("@/components/spatial/glass-card"))
 const C_flip_card = lazy(() => import("@/components/spatial/flip-card"))
 const C_tooltip = lazy(() => import("@/components/spatial/tooltip"))
 const C_toast = lazy(() => import("@/components/spatial/toast"))
@@ -23,7 +27,9 @@ const C_dialog = lazy(() => import("@/components/spatial/dialog"))
 const C_window = lazy(() => import("@/components/spatial/window"))
 const C_radial_menu = lazy(() => import("@/components/spatial/radial-menu"))
 const C_hold_to_confirm = lazy(() => import("@/components/spatial/hold-to-confirm"))
+const C_dock = lazy(() => import("@/components/spatial/dock"))
 const C_xy_pad = lazy(() => import("@/components/spatial/xy-pad"))
+const C_select = lazy(() => import("@/components/spatial/select"))
 const C_range_slider = lazy(() => import("@/components/spatial/range-slider"))
 const C_bar_chart_3d = lazy(() => import("@/components/spatial/bar-chart-3d"))
 const C_gauge = lazy(() => import("@/components/spatial/gauge"))
@@ -31,6 +37,7 @@ const C_stat_card = lazy(() => import("@/components/spatial/stat-card"))
 const C_sparkline = lazy(() => import("@/components/spatial/sparkline"))
 const C_timeline_scrubber = lazy(() => import("@/components/spatial/timeline-scrubber"))
 const C_video_panel = lazy(() => import("@/components/spatial/video-panel"))
+const C_label = lazy(() => import("@/components/spatial/label"))
 const C_transport = lazy(() => import("@/components/spatial/transport"))
 const C_drum_pad = lazy(() => import("@/components/spatial/drum-pad"))
 const C_step_sequencer = lazy(() => import("@/components/spatial/step-sequencer"))
@@ -49,6 +56,7 @@ export const components: Record<string, ComponentType> = {
   "settings-default": C_settings_default as ComponentType,
   "settings-glass": C_settings_glass as ComponentType,
   "settings-horizon": C_settings_horizon as ComponentType,
+  "press-button": C_press_button as ComponentType,
   "glow-button": C_glow_button as ComponentType,
   "glass-button": C_glass_button as ComponentType,
   "neon-button": C_neon_button as ComponentType,
@@ -56,10 +64,13 @@ export const components: Record<string, ComponentType> = {
   "magnetic-button": C_magnetic_button as ComponentType,
   "holo-button": C_holo_button as ComponentType,
   "icon-button": C_icon_button as ComponentType,
+  "slider": C_slider as ComponentType,
   "knob": C_knob as ComponentType,
+  "spring-toggle": C_spring_toggle as ComponentType,
   "checkbox": C_checkbox as ComponentType,
   "tabs": C_tabs as ComponentType,
   "stepper": C_stepper as ComponentType,
+  "glass-card": C_glass_card as ComponentType,
   "flip-card": C_flip_card as ComponentType,
   "tooltip": C_tooltip as ComponentType,
   "toast": C_toast as ComponentType,
@@ -67,7 +78,9 @@ export const components: Record<string, ComponentType> = {
   "window": C_window as ComponentType,
   "radial-menu": C_radial_menu as ComponentType,
   "hold-to-confirm": C_hold_to_confirm as ComponentType,
+  "dock": C_dock as ComponentType,
   "xy-pad": C_xy_pad as ComponentType,
+  "select": C_select as ComponentType,
   "range-slider": C_range_slider as ComponentType,
   "bar-chart-3d": C_bar_chart_3d as ComponentType,
   "gauge": C_gauge as ComponentType,
@@ -75,6 +88,7 @@ export const components: Record<string, ComponentType> = {
   "sparkline": C_sparkline as ComponentType,
   "timeline-scrubber": C_timeline_scrubber as ComponentType,
   "video-panel": C_video_panel as ComponentType,
+  "label": C_label as ComponentType,
   "transport": C_transport as ComponentType,
   "drum-pad": C_drum_pad as ComponentType,
   "step-sequencer": C_step_sequencer as ComponentType,

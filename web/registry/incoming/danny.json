@@ -1,0 +1,46 @@
+[
+  {
+    "name": "label",
+    "status": "ready",
+    "description": "3D title text for naming a section of your scene.",
+    "bindable": [{ "prop": "text", "type": "string", "default": "Section title" }],
+    "props": [
+      { "name": "text", "type": "string", "default": "Section title" },
+      { "name": "size", "type": "enum", "options": ["sm", "md", "lg"], "default": "md" }
+    ]
+  },
+  {
+    "name": "press-button",
+    "status": "ready",
+    "description": "A physical button that sinks 6 mm when you poke it and springs back. Fires onPress.",
+    "bindable": [],
+    "props": [
+      { "name": "label", "type": "string", "default": "Press" },
+      { "name": "color", "type": "color", "default": "#9FE7D2" }
+    ]
+  },
+  {
+    "name": "slider",
+    "status": "ready",
+    "description": "A 20 cm slider you drag with a fingertip, ray or mouse. Controlled via value/onChange.",
+    "bindable": [{ "prop": "value", "event": "onChange", "type": "number", "min": 0, "max": 1, "default": 0.5 }],
+    "props": [{ "name": "label", "type": "string", "default": "Slider" }]
+  },
+  {
+    "name": "spring-toggle",
+    "status": "ready",
+    "description": "A toggle whose thumb snaps across with a bouncy spring. Tap to flip.",
+    "bindable": [{ "prop": "value", "event": "onChange", "type": "boolean", "default": false }],
+    "props": [{ "name": "label", "type": "string", "default": "Toggle" }]
+  },
+  {
+    "name": "glass-card",
+    "status": "ready",
+    "description": "A frosted glass backplate that groups a section of UI.",
+    "bindable": [],
+    "props": [
+      { "name": "title", "type": "string", "default": "Glass card" },
+      { "name": "width", "type": "number", "min": 200, "max": 800, "default": 360 }
+    ]
+  }
+]

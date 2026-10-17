@@ -78,24 +78,37 @@
     "tier": 2
   },
   {
-    "name": "press-button",
-    "displayName": "Press Button",
-    "category": "buttons with effects",
-    "kind": "basic",
-    "style": "default",
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
     "tags": [
       "buttons with effects"
     ],
     "aliases": [],
-    "description": "Physically depresses on poke, springs back",
-    "file": "components/spatial/press-button.tsx",
-    "status": "soon",
     "tier": 1,
+    "style": "default",
+    "name": "press-button",
+    "displayName": "Press Button",
+    "category": "buttons with effects",
+    "kind": "basic",
+    "description": "A physical button that sinks 6 mm when you poke it and springs back. Fires onPress.",
+    "file": "components/spatial/press-button.tsx",
+    "status": "ready",
     "xrOnly": true,
-    "author": "Spatial",
-    "license": "MIT",
-    "price": "free",
-    "deps": []
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Press"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
   },
   {
     "name": "glow-button",
@@ -238,24 +251,41 @@
     "deps": []
   },
   {
-    "name": "slider",
-    "displayName": "Slider",
-    "category": "controls",
-    "kind": "basic",
-    "style": "default",
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
     "tags": [
       "controls"
     ],
     "aliases": [],
-    "description": "kit",
-    "file": "components/spatial/slider.tsx",
-    "status": "soon",
     "tier": 1,
+    "style": "default",
+    "name": "slider",
+    "displayName": "Slider",
+    "category": "controls",
+    "kind": "basic",
+    "description": "A 20 cm slider you drag with a fingertip, ray or mouse. Controlled via value/onChange.",
+    "file": "components/spatial/slider.tsx",
+    "status": "ready",
     "xrOnly": false,
-    "author": "Spatial",
-    "license": "MIT",
-    "price": "free",
-    "deps": []
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.5
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Slider"
+      }
+    ]
   },
   {
     "name": "knob",
@@ -289,24 +319,39 @@
     "deps": []
   },
   {
-    "name": "spring-toggle",
-    "displayName": "Spring Toggle",
-    "category": "controls",
-    "kind": "basic",
-    "style": "default",
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
     "tags": [
       "controls"
     ],
     "aliases": [],
-    "description": "Bouncy snap",
-    "file": "components/spatial/spring-toggle.tsx",
-    "status": "soon",
     "tier": 1,
+    "style": "default",
+    "name": "spring-toggle",
+    "displayName": "Spring Toggle",
+    "category": "controls",
+    "kind": "basic",
+    "description": "A toggle whose thumb snaps across with a bouncy spring. Tap to flip.",
+    "file": "components/spatial/spring-toggle.tsx",
+    "status": "ready",
     "xrOnly": false,
-    "author": "Spatial",
-    "license": "MIT",
-    "price": "free",
-    "deps": []
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Toggle"
+      }
+    ]
   },
   {
     "name": "checkbox",
@@ -369,24 +414,39 @@
     "deps": []
   },
   {
-    "name": "glass-card",
-    "displayName": "Glass Card",
-    "category": "containers and feedback",
-    "kind": "basic",
-    "style": "default",
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
     "tags": [
       "containers and feedback"
     ],
     "aliases": [],
-    "description": "apfel",
-    "file": "components/spatial/glass-card.tsx",
-    "status": "soon",
     "tier": 1,
+    "style": "default",
+    "name": "glass-card",
+    "displayName": "Glass Card",
+    "category": "containers and feedback",
+    "kind": "basic",
+    "description": "A frosted glass backplate that groups a section of UI.",
+    "file": "components/spatial/glass-card.tsx",
+    "status": "ready",
     "xrOnly": false,
-    "author": "Spatial",
-    "license": "MIT",
-    "price": "free",
-    "deps": []
+    "bindable": [],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Glass card"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "min": 200,
+        "max": 800,
+        "default": 360
+      }
+    ]
   },
   {
     "name": "flip-card",
@@ -700,7 +760,7 @@
     "aliases": [],
     "description": "",
     "file": "components/spatial/dock.tsx",
-    "status": "soon",
+    "status": "ready",
     "tier": 2,
     "xrOnly": false,
     "author": "Spatial",
@@ -880,7 +940,7 @@
     "aliases": [],
     "description": "",
     "file": "components/spatial/select.tsx",
-    "status": "soon",
+    "status": "ready",
     "tier": 2,
     "xrOnly": false,
     "author": "Spatial",
@@ -1269,25 +1329,49 @@
     "deps": []
   },
   {
-    "kind": "basic",
-    "style": "default",
-    "aliases": [],
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "status": "soon",
-    "name": "label",
-    "displayName": "Label / Title",
-    "category": "containers",
+    "deps": [],
     "tags": [
       "text",
       "title"
     ],
-    "description": "3D text for section titles",
+    "aliases": [],
+    "tier": 1,
+    "style": "default",
+    "kind": "basic",
+    "status": "ready",
+    "name": "label",
+    "displayName": "Label / Title",
+    "category": "containers",
+    "description": "3D title text for naming a section of your scene.",
     "file": "components/spatial/label.tsx",
     "xrOnly": false,
-    "deps": [],
-    "tier": 1
+    "bindable": [
+      {
+        "prop": "text",
+        "type": "string",
+        "default": "Section title"
+      }
+    ],
+    "props": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "Section title"
+      },
+      {
+        "name": "size",
+        "type": "enum",
+        "options": [
+          "sm",
+          "md",
+          "lg"
+        ],
+        "default": "md"
+      }
+    ]
   },
   {
     "kind": "basic",
