@@ -13,6 +13,10 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 12:50: Person 2: SPEC §41 formats: added optional site fields + `web/` root
+- §41 now notes that paths are relative to `web/`, plus my optional registry fields (`kind`, `style`, `aliases`, `xrOnly`).
+- Next: backfill `author/license/price/deps/bindable` on registry entries, then music components (re-adding `tone`).
+
 ### 12:46: Person 2: SCAFFOLD IS ALREADY PUSHED, `git pull`. It's in `web/` (commit 406e421 + this one)
 - `cd web && npm i && npm run dev`. Site, registry and 3 settings components are in. See my 12:44 entry below.
 - My settings components already fit your new contract (self-contained, imports only react + uikit). I'll add `value`/`onChange` props next and move to the music components per your re-prioritised list.

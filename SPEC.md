@@ -1805,8 +1805,10 @@ registry/index.json  [{
   name, displayName, category, tier: 1|2, status: "ready"|"soon",
   tags, description, file, deps: ["tone", ...],
   author, license: "MIT", price: "free",
-  bindable: [{ prop: "value", type: "number", min, max, default }]
+  bindable: [{ prop: "value", type: "number", min, max, default }],
+  kind?: "section"|"basic", style?: "default"|"glass"|"horizon", aliases?, xrOnly?   // optional, used by the site
 }]
+All paths are relative to the app root `web/` (registry = web/registry/index.json, components = web/components/spatial/).
 Layout (Studio ⇄ /api/layout ⇄ /apps/<id> ⇄ MCP):
   { id, name, items: [{ id, component, position, rotation, scale, bind: { value: "tempo" }, props }] }
 ```
