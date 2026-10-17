@@ -2,7 +2,7 @@
   "name": "Music Studio",
   "slug": "music-studio",
   "category": "music",
-  "description": "A pre-wired DAW: one tempo knob drives the transport and the display, keys and a drum machine play straight away, a synth and a mixer flank you.",
+  "description": "A pre-wired DAW: one tempo knob drives the transport and the display, a sampled grand piano and a drum machine play straight away, a synth and a VU meter flank you.",
   "environment": "env-concert-stage",
   "items": [
     {
@@ -82,18 +82,18 @@
     },
     {
       "id": "keys",
-      "component": "piano-keys",
+      "component": "grand-piano",
       "position": [
         0,
-        1.02,
+        1.0,
         -0.62
       ],
       "rotation": [
-        -0.6,
+        0,
         0,
         0
       ],
-      "scale": 1.4,
+      "scale": 1.6,
       "bind": {}
     },
     {

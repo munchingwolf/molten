@@ -200,6 +200,8 @@ const C_infinite_grid = lazy(() => import("@/components/spatial/infinite-grid"))
 const C_positional_audio = lazy(() => import("@/components/spatial/positional-audio"))
 const C_grand_piano = lazy(() => import("@/components/spatial/grand-piano"))
 const C_pendant_light = lazy(() => import("@/components/spatial/pendant-light"))
+const C_room_shell = lazy(() => import("@/components/spatial/room-shell"))
+const C_string_lights = lazy(() => import("@/components/spatial/string-lights"))
 
 export const components: Record<string, ComponentType> = {
   "settings-default": C_settings_default as ComponentType,
@@ -400,4 +402,6 @@ export const components: Record<string, ComponentType> = {
   "positional-audio": C_positional_audio as ComponentType,
   "grand-piano": C_grand_piano as ComponentType,
   "pendant-light": C_pendant_light as ComponentType,
+  "room-shell": C_room_shell as ComponentType,
+  "string-lights": C_string_lights as ComponentType,
 }

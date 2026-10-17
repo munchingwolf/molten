@@ -13,6 +13,10 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 3:41: Evan (session ek-b4): **build-your-own room**: `room-shell` + `string-lights` + **Cozy Studio** template
+- **room-shell** (new "spaces" category): floor, 3 walls, optional ceiling, sized in metres. Walls render only from inside (dollhouse from the laptop camera, enclosed in the headset). Daylight window, baseboards, oak/walnut/concrete plank floors (generated), downlights. Tags `surface` + `wall`.
+- **string-lights**: hang between two hooks, twinkle out of phase, tap toggles, `party` cycles colours, wire sways.
+- **grand-piano** got an optional `stand` (metres to the floor). **Templates:** **Cozy Studio** (room + piano under the pendant + string lights + sofa corner + wall art + working wall clock; you stand inside), and Music Studio now uses the grand piano.
 ### 3:35: Evan: **micro-snap**: 1 cm / 5° / 0.02 scale (was 2.5 cm / 15° / 0.05); Shift = free; surface/wall/ceiling seating unchanged
 - Evan: "i dont want massive snap to grid, make it micro, so we maintain maximum flexibility". `lib/snap.ts` SNAP + tests updated. VR-UX-SPEC/UI-PLAN still say 2.5 cm/15°: code wins.
 

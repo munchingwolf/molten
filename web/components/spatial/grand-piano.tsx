@@ -15,6 +15,8 @@ type Props = {
   baseUrl?: string
   /** Tilt of the keybed toward the player, in radians (0 = flat like a real piano). */
   tilt?: number
+  /** Height of a keyboard stand under the case, metres from the floor to the keys (0 = no stand). */
+  stand?: number
   onPress?: (note: string) => void
 }
 
@@ -60,7 +62,7 @@ let lacquer: RoundedBoxGeometry | undefined
  * Playable two-octave piano (C3–C5) with real sampled grand-piano sound. Poke or click keys; chords work (one pointer per
  * finger). Strike near the front edge to play louder. Keys pivot on a hinge and spring back; the fallboard names your chord.
  */
-export default function GrandPiano({ sustain, volume = 0.8, baseUrl = "https://tonejs.github.io/audio/salamander/", tilt = 0.24, onPress }: Props) {
+export default function GrandPiano({ sustain, volume = 0.8, baseUrl = "https://tonejs.github.io/audio/salamander/", tilt = 0.24, stand = 0, onPress }: Props) {
   const [localSustain, setLocalSustain] = useState(false)
   const pedal = sustain ?? localSustain
   const [held, setHeld] = useState<string[]>([])
@@ -143,7 +145,30 @@ export default function GrandPiano({ sustain, volume = 0.8, baseUrl = "https://t
   const x0 = -((WHITES.length - 1) * PITCH) / 2
   const chord = chordName([...held].sort((a, b) => ALL.indexOf(a) - ALL.indexOf(b)))
 
+  const legX = (WHITES.length * PITCH) / 2 - 0.02
   return (
+    <group>
+      {stand > 0.2 && (
+        // Matte steel stand: two legs with feet and a cross bar, from the floor to just under the case.
+        <group>
+          {[-1, 1].map((sd) => (
+            <group key={sd} position={[sd * legX, 0, 0]}>
+              <mesh position={[0, -(stand - 0.06) / 2 - 0.05, 0]}>
+                <boxGeometry args={[0.03, stand - 0.06, 0.03]} />
+                <meshStandardMaterial color="#26282D" metalness={0.7} roughness={0.4} />
+              </mesh>
+              <mesh position={[0, -stand + 0.012, 0]}>
+                <boxGeometry args={[0.04, 0.024, 0.34]} />
+                <meshStandardMaterial color="#26282D" metalness={0.7} roughness={0.4} />
+              </mesh>
+            </group>
+          ))}
+          <mesh position={[0, -stand * 0.55, -0.04]}>
+            <boxGeometry args={[legX * 2, 0.025, 0.025]} />
+            <meshStandardMaterial color="#26282D" metalness={0.7} roughness={0.4} />
+          </mesh>
+        </group>
+      )}
     <group rotation={[tilt, 0, 0]}>
       {/* Lacquered case under the keys, cheek blocks at the ends, red felt strip at the back. */}
       <mesh geometry={body} position={[0, -0.03, -0.005]}>
@@ -196,6 +221,7 @@ export default function GrandPiano({ sustain, volume = 0.8, baseUrl = "https://t
       {BLACKS.map(({ note, i }) => (
         <Key key={note} note={note} x={x0 + (i + 0.5) * PITCH} black hook={slot(note)} onDown={press} onUp={release} />
       ))}
+    </group>
     </group>
   )
 }

@@ -11988,6 +11988,13 @@
         "min": 0,
         "max": 0.6,
         "default": 0.24
+      },
+      {
+        "name": "stand",
+        "type": "number",
+        "min": 0,
+        "max": 1.2,
+        "default": 0
       }
     ],
     "file": "components/spatial/grand-piano.tsx"
@@ -12058,5 +12065,157 @@
       }
     ],
     "file": "components/spatial/pendant-light.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "room",
+      "space",
+      "walls",
+      "floor",
+      "interior",
+      "surface",
+      "wall",
+      "environment-builder"
+    ],
+    "aliases": [
+      "room",
+      "walls",
+      "interior",
+      "studio room",
+      "office",
+      "apartment"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "room-shell",
+    "displayName": "Room",
+    "category": "spaces",
+    "kind": "basic",
+    "description": "A room you build in: floor, three walls and an optional ceiling sized in metres. Walls render only from inside (dollhouse view from outside, enclosed in a headset). Daylight window, baseboards, oak/walnut/concrete floors, recessed lights.",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "width",
+        "type": "number",
+        "min": 2,
+        "max": 12,
+        "default": 4
+      },
+      {
+        "name": "depth",
+        "type": "number",
+        "min": 2,
+        "max": 12,
+        "default": 4
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "min": 2.2,
+        "max": 5,
+        "default": 2.7
+      },
+      {
+        "name": "wall",
+        "type": "color",
+        "default": "#EEEAE3"
+      },
+      {
+        "name": "floor",
+        "type": "enum",
+        "options": [
+          "oak",
+          "walnut",
+          "concrete"
+        ],
+        "default": "oak"
+      },
+      {
+        "name": "window",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "ceiling",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "file": "components/spatial/room-shell.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "lights",
+      "festoon",
+      "fairy lights",
+      "hanging",
+      "party",
+      "cozy",
+      "interactive"
+    ],
+    "aliases": [
+      "fairy lights",
+      "festoon",
+      "bulbs",
+      "party lights"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "string-lights",
+    "displayName": "String Lights",
+    "category": "room",
+    "kind": "basic",
+    "description": "Festoon lights hung between two hooks: bulbs twinkle out of phase, tap to switch, 'party' cycles colours along the string, the wire sways.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": true
+      }
+    ],
+    "props": [
+      {
+        "name": "span",
+        "type": "number",
+        "min": 0.6,
+        "max": 6,
+        "default": 2.4
+      },
+      {
+        "name": "sag",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.28
+      },
+      {
+        "name": "bulbs",
+        "type": "number",
+        "min": 4,
+        "max": 48,
+        "default": 18
+      },
+      {
+        "name": "mode",
+        "type": "enum",
+        "options": [
+          "warm",
+          "party"
+        ],
+        "default": "warm"
+      }
+    ],
+    "file": "components/spatial/string-lights.tsx"
   }
 ]
