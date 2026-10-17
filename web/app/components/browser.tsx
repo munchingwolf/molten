@@ -6,6 +6,8 @@ import { ComponentCard } from "@/components/site/card"
 import { categories, matches, registry } from "@/lib/registry"
 
 const label = (c: string) => c.charAt(0).toUpperCase() + c.slice(1)
+// shortcut: first 12 ready cards get a live canvas, the rest a static tile; switch to drei <View> (installed) for unlimited previews.
+const LIVE_CAP = 12
 
 export function Browser() {
   const params = useSearchParams()
@@ -75,8 +77,8 @@ export function Browser() {
           </p>
         ) : (
           <div className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
-            {shown.map((e) => (
-              <ComponentCard key={e.name} entry={e} />
+            {shown.map((e, i) => (
+              <ComponentCard key={e.name} entry={e} live={i < LIVE_CAP} />
             ))}
           </div>
         )}
