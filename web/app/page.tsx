@@ -44,7 +44,7 @@ export default function Home() {
         body={`${registry.length} XR components for WebXR and React Three Fiber. Turn them in 3D, try them in your headset, then paste one prompt and your agent ships the code.`}
         primaryCta={{ label: "Browse components", href: "/components" }}
         secondaryCta={{ label: "Open Studio in VR", href: "/studio" }}
-        backdropText="Spatial"
+        backdropText="" // no word behind the sculpture: plain page background
       />
 
       <section className="relative overflow-hidden border-b border-border bg-[linear-gradient(180deg,#0B0C10_0%,#0E1117_60%,#0B0C10_100%)]">
