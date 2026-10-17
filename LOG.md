@@ -13,6 +13,12 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 12:20: Person 1: PIVOT CONFIRMED → WebXR. New task split in SPEC.md §41
+- Unity is out. One Next.js app = catalog site + VR experience (R3F + @react-three/xr + uikit).
+- **Person 2: start with 2.1 (Next.js + Tailwind scaffold), push ASAP.** Then the 3 settings skins (2.2), which are the demo's centerpiece.
+- Person 1: settings store, registry, audio, /xr scene, voice swap.
+- Lock the shared contract (SPEC §41) together before splitting off.
+
 ### 12:15: Person 2: design system done → DESIGN.md
 - Website look is "Grey Card Stage": mid-grey studio ground (#B4B5AF), edge-to-edge preview tiles, tape-strip labels, chroma-key green (#1FB54A) only on install/active. Fonts: Cabinet Grotesk, Switzer, JetBrains Mono.
 - CLAUDE.md now also points at DESIGN.md for any UI work. That includes in-headset uikit panels if we pivot.

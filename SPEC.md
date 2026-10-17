@@ -1758,119 +1758,72 @@ First optimize for a convincing, working hackathon MVP that demonstrates the cor
 
 ---
 
-# 41. Hackathon Plan & Work Split
+# 41. Hackathon Plan & Work Split (WebXR, decided 12:20 PM Oct 17)
 
-## 41. Decisions so far
+> Supersedes §7 (Unity) and older plans. Event rules and judging: https://moltenhack.com/agents.md
+
+## Decisions
 
 | Topic | Decision |
 |---|---|
-| Problem | XR UI code exists but is scattered. No single place to grab working XR UI and drop it into your project. |
-| Why not "just ask Claude" | Claude is slow and weak at XR design. Components give Claude direction and give the dev a clear preview of the result. |
-| Component levels | Primitives (slider, knob), sections (settings panel, mixer), themes, and domain components (e.g. DAW parts). |
-| Demo moment | **Install** first (the hook), **swap** last (the climax). |
-| Music app | Demo vehicle only. Also shows "domain components" (music). |
+| Platform | **WebXR**: Next.js + Tailwind + React Three Fiber + `@react-three/xr` + `pmndrs/uikit` (MIT). Runs in the Quest browser, so no app builds. |
+| One app | The laptop catalog site and the in-headset experience are **the same Next.js app**. |
+| Headline demo | In VR: grab a component from a floating catalog and place it (**hands**), then say "make it cyber" and it swaps live while the beat keeps playing (**voice**). 2 body inputs. **Navigate** track. |
+| Component = | A React component file. "Add" = copy the file into your project (literally shadcn). |
+| Contract | `settings`: `masterVolume`, `reverb`, `tempo`, `haptics`. Every settings skin takes the same props, so swapping never touches app state. |
+| Cut | Unity, Rokoko, music-component collection, business slides (videos with slides are disqualified). |
+| Stretch | MCP: Claude adds a component file to a project. |
 
-### Assumed. Confirm or override
+## Shared contract (lock first, 20 min together)
 
-| # | Assumption |
+```
+lib/settings.ts        zustand store: { masterVolume, reverb, tempo, haptics, set(key, value) }
+lib/registry.ts        Component[]: { name, displayName, category, contract?, tags, description, Component }
+components/spatial/    one file per component, e.g. glass-settings.tsx
+  settings skins export: (props: { state, set }) => uikit JSX
+```
+
+Change these only after logging it in LOG.md.
+
+## Person 1: XR experience, audio, voice, registry plumbing
+
+| # | Task | Done when |
+|---|---|---|
+| 1.1 | `lib/settings.ts` store + `lib/registry.ts` | Both import cleanly |
+| 1.2 | Audio: looping beat (Tone.js) driven by the store: volume, reverb, tempo audible | Moving a value changes the sound |
+| 1.3 | `/xr` page: `<XR>` scene, hands + controllers, one **slot** rendering the current settings skin | Shows in the Quest browser |
+| 1.4 | Floating catalog in VR: registry items as live mini-previews; grab one and drop it in the slot to swap | Swap by hand works in headset |
+| 1.5 | **Voice swap**: "make it glass/cyber/default". **Verify first hour** that Web Speech works in the Quest browser. Fallback: AssemblyAI or ElevenLabs STT | Swap by voice works in headset |
+| 1.6 (stretch) | MCP: `search_components`, `add_component` (copies the .tsx into a project) | Claude adds Glass to a fresh app |
+
+## Person 2: Website + the components themselves
+
+| # | Task | Done when |
+|---|---|---|
+| 2.1 | Next.js + Tailwind scaffold (push ASAP, Person 1 builds inside it) | Repo runs with `npm run dev` |
+| 2.2 | **Three settings skins**: Default (plain), Glass, Cyber, built with uikit against the `settings` contract. They have to look great: they *are* the demo | Each renders and edits the shared store |
+| 2.3 | Home: hero, search, category chips, cards with **live 3D previews** (an R3F canvas rendering the real component) | Search "settings" shows 3 |
+| 2.4 | Detail page: big live preview, tags, "Copy code" / `npx spatial add <name>` text, "Enter VR" button → `/xr` | Copy works, VR button opens /xr |
+| 2.5 | 1–2 extra components (knob, fader) for catalog depth | In registry |
+| 2.6 | Deploy (Vercel) so the Quest can open a public HTTPS URL (WebXR needs HTTPS) | URL opens on Quest |
+
+## Timeline (submit by 6:30 PM)
+
+| Time | Both |
 |---|---|
-| A1 | Hackathon project, built so it can keep going: registry + contract are real, polish can be mocked. |
-| A2 | Spatial sits *above* platform kits (Meta UI Set, MRTK3, community). They are sources, not rivals. |
-| A3 | Unity 6.3 + Quest 3S + XR Interaction Toolkit. Website shows recorded preview loops, not live 3D. |
-| A4 | **Copy-in, shadcn-style**: components land as editable source in `Assets/Spatial/<name>/`. MVP components depend only on XRI. |
-| A5 | Two roles: **Unity person** (A) and **Web person** (B). |
+| 12:30–1:00 | Lock contract, 2.1 scaffold pushed |
+| 1:00–3:00 | P1: 1.1–1.3, voice check · P2: 2.2, 2.3 |
+| ~3:00 | **First headset test** on the deployed URL |
+| 3:00–5:00 | P1: 1.4–1.5 · P2: 2.4–2.6 |
+| 5:00–5:45 | Integration + bug fixes; P1 stretch MCP only if all green |
+| 5:45–6:15 | Record demo video in headset (<1 min, no slides), fill form, credit uikit/R3F/Tone.js |
+| 6:30 | Submitted |
 
-## 41. Architecture (the contract both people build against)
-
-```
-Unity project
-  SettingsState (ScriptableObject)   <- the ONE source of truth
-     masterVolume, reverb, tempo, haptics, inputMode
-     + OnChanged event
-        ^            ^            ^
-  DefaultSettings  GlassSettings  CyberSettings   <- prefabs, each with a
-                                                     view script bound to SettingsState
-  SettingsSlot  <- reads Assets/Spatial/spatial.json ("settings": "glass-settings")
-                   and spawns that prefab. Swap = change one string.
-
-Registry (in this repo: /registry)
-  registry/index.json
-  registry/components/<name>/spatial.json   <- manifest
-  registry/components/<name>/files/...      <- prefab + scripts to copy in
-  registry/components/<name>/preview.mp4
-
-MCP server (/mcp)
-  search_components(query, category?)  -> list
-  get_component(name)                  -> manifest + preview URL
-  add_component(name, projectPath)     -> copies files into Assets/Spatial/<name>/
-  swap_component(slot, name)           -> rewrites spatial.json
-
-Website (/web)  reads registry/index.json, card grid, detail page, "copy install prompt"
-```
-
-Why `SettingsSlot` + `spatial.json` and not scene editing: editing Unity scene files through an agent is fragile. Swapping a string in a JSON file always works, and it's what makes the swap feel instant.
-
-## 41. Phase 1: Registry, MCP, Website (two people, in parallel)
-
-### Lock first (both, ~30 min)
-
-The **registry format** is the contract between the two halves: the MCP reads it, the website renders it.
-
-1. `registry/index.json` shape and the per-component `spatial.json` manifest fields (name, displayName, category, style tags, platform, interaction, dependencies, license, preview, files).
-2. Seed 6–8 placeholder components (Default/Glass/Cyber Settings, knob, fader, drum pad, toggle, mixer) with stock preview images. Both people build against these until real demo components exist.
-
-**Do not change the format after this without telling the other person.**
-
-### Person 1: Registry + MCP (the agent side)
-
-| # | Task | Done when |
-|---|---|---|
-| R1 | `registry/` folder, `index.json`, a manifest per seeded component, and a tiny validator script | Validator passes on all components |
-| R2 | MCP server: `search_components(query, category?)`, `get_component(name)` | In Claude Code, "find me a glass settings panel" returns it |
-| R3 | MCP: `add_component(name, projectPath)` copies files into `Assets/Spatial/<name>/` | Files appear in a Unity project |
-| R4 | MCP: `swap_component(slot, name)` rewrites `Assets/Spatial/spatial.json` | Slot entry changes |
-| R5 | `get_component` returns the preview image URL, so multimodal agents can *see* options | Claude describes the preview |
-| R6 | One-line install for the MCP in the README (`claude mcp add ...`) | Fresh machine installs it in under 1 min |
-
-### Person 2: Website + sourcing (the human side)
-
-| # | Task | Done when |
-|---|---|---|
-| W0 | **License check**: Meta Horizon OS UI Set, JetStyle Vision Pro UI Kit, MRTK3, XRI samples. What may we redistribute and show? | Table in `SOURCES.md` |
-| W1 | Site scaffold that reads `registry/index.json` (static, no backend) | Lists all seeded components |
-| W2 | Home: hero, search, category chips, big-preview card grid | Search "settings" filters to 3 cards |
-| W3 | Detail page: large preview, style tags, compatibility, dependencies, license, **"Copy install prompt"** + `spatial add <name>` | Copy button gives a prompt Claude can act on |
-| W4 | Visual polish: this site *is* the pitch for "beautiful components" | Looks better than 21st.dev on a projector |
-| W5 | Deploy | Public URL |
-
-### Phase 1 integration (both)
-
-Claude Code + Spatial MCP: search, then see the preview, then `add_component` into an empty Unity project. The site shows the same component and the same install prompt.
-
-## 41. Phase 2: Demo (after Phase 1)
-
-| # | Task | Done when |
-|---|---|---|
-| D0 | **Risk spike:** build to the Quest 3S from the Mac and time the build-and-deploy loop. Try Meta XR Simulator. | We know the iteration time |
-| D1 | Unity project + XRI + OpenXR, Unity `.gitignore` | Teammate can clone and open |
-| D2 | `SettingsState` + `SettingsSlot` (reads `spatial.json`) | Changing the JSON swaps the panel |
-| D3 | Music demo: looping beat + drum pads. Volume, reverb and tempo are audible | Changes are heard |
-| D4 | Default, Glass, Cyber settings prefabs: replace the placeholder registry entries with the real ones | Real files in the registry |
-| D5 | Preview clips recorded, website uses them | `preview.mp4` per component |
-| D6 | End to end: MCP installs Glass, then swaps to Cyber in the real app | Works 3 times in a row |
-| D7 | Pitch deck, demo script, backup video | Rehearsed |
-| Stretch | Rokoko gesture instrument | Only after D6 |
-
-## 41. Top risks
+## Top risks
 
 | Risk | Fallback |
 |---|---|
-| Mac → Quest: no Quest Link on macOS, so every in-headset check means building and installing an APK (minutes, not seconds) | Use Meta Quest Developer Hub (Mac) to install builds and mirror the headset to the screen. For the live demo, ship Default/Glass/Cyber in one build and have the MCP swap signal the running app, so there's no rebuild. Record headset footage as backup |
-| Agent install/swap is flaky live | Pre-recorded demo video; MCP tools are simple file ops, so keep them that way |
-| Licenses block redistributing third-party UI | Build skins ourselves from XRI primitives (already the plan) |
-| Glass/Cyber look mediocre | Spend A's time on 2 great skins over 4 okay ones |
-
-## 41. Open
-
-- Hours available, and who is Person 1 vs Person 2
-- Final product name (keep "Spatial" until the website build)
+| Web Speech not available in Quest browser | AssemblyAI / ElevenLabs streaming STT, or a pinch gesture as the second input |
+| Only one venue Quest | Test early on desktop with `@react-three/xr` emulator; book headset for one solid block |
+| uikit skins look mediocre | 2 great skins > 3 okay ones |
+| WebXR needs HTTPS | Deploy to Vercel early (2.6), or a `--experimental-https` dev server |
