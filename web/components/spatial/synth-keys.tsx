@@ -1,10 +1,8 @@
 "use client"
 
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from "react"
-import { useFrame, useThree, type ThreeEvent } from "@react-three/fiber"
-import { RoundedBox } from "@react-three/drei"
+import { useEffect, useMemo, useRef, useState } from "react"
+import { useThree, type ThreeEvent } from "@react-three/fiber"
 import * as THREE from "three"
-import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js"
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js"
 import * as Tone from "tone"
 
@@ -39,44 +37,33 @@ function mixerChannel(n: number) {
 }
 
 // Real-world size (metres). Origin = centre-bottom; front faces +Z; `tilt` leans the top toward the user.
+// The whole top is one canvas face (960 x 320 px over 0.48 x 0.16 m = 2000 px/m), drawn and hit-tested in the same pixel coordinates.
 const W = 0.5
 const D = 0.18
 const BODY_H = 0.05
-const PITCH = 0.032 // white key pitch: 15 keys span the full width
-const WK = { w: PITCH - 0.0012, h: 0.012, l: 0.121 }
-const BK = { w: PITCH * 0.6, h: 0.011, l: 0.0744 } // 60% length, like the mockup
-const KEYS_Z = 0.077 // front edge of the white keys
-const PIVOT_Z = KEYS_Z - WK.l // keys hinge at their back end
-const KEY_Y = BODY_H // key underside (inner frame: body bottom at y = 0)
-const STRIP_Z0 = -0.08
-const STRIP_Z1 = PIVOT_Z - 0.002
-const STRIP_TOP = BODY_H
-const STRIP_Zc = (STRIP_Z0 + STRIP_Z1) / 2
-const DISPLAY = { x: -0.185, w: 0.09, d: 0.022 }
-const KNOB_X = [-0.11, -0.075, -0.04, -0.005]
-const KNOB_Z = STRIP_Zc - 0.002
-const WARM = "#F2B48A"
+const FACE = { w: 0.48, h: 0.16, pw: 960, ph: 320 }
+const KW = FACE.pw / 15 // white key width (px)
+const KEY_TOP = 72
+const BLACK_H = (FACE.ph - KEY_TOP) * 0.6
+const KNOB = { x: (i: number) => 260 + i * 70, y: 36, r: 16 }
+const DISPLAY = { x: 20, y: 14, w: 180, h: 44 }
 const PARAMS = ["cutoff", "resonance", "attack", "release"] as const
 type Param = (typeof PARAMS)[number]
-const LABELS = ["CUTOFF", "RES", "ATTACK", "RELEASE"]
 const DEFAULTS: Record<Param, number> = { cutoff: 0.6, resonance: 0.2, attack: 0.5, release: 0.5 }
 
+// Palette + fonts (DESIGN.md tokens).
+const K = { bg: "#0B0C10", text: "#EEF0F4", warm: "#F2B48A" }
+const FM = '"JetBrains Mono", ui-monospace, Menlo, monospace'
+
 const NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
-type KeyDef = { note: string; black: boolean; x: number }
-const KEYS: KeyDef[] = (() => {
-  const out: KeyDef[] = []
-  let white = 0
-  for (let m = 48; m <= 72; m++) {
-    const name = NAMES[m % 12]
-    const black = name.includes("#")
-    const x = -7 * PITCH + (black ? white - 0.5 : white) * PITCH // 15 whites centred on x = 0
-    out.push({ note: `${name}${Math.floor(m / 12) - 1}`, black, x })
-    if (!black) white++
-  }
-  return out
-})()
+// C3-C5: 15 white + 10 black keys.
+const KEYS = Array.from({ length: 25 }, (_, k) => {
+  const name = NAMES[(48 + k) % 12]
+  return { note: `${name}${Math.floor((48 + k) / 12) - 1}`, black: name.includes("#") }
+})
 const WHITES = KEYS.map((k, i) => [k, i] as const).filter(([k]) => !k.black)
-const BLACKS = KEYS.map((k, i) => [k, i] as const).filter(([k]) => k.black)
+// KEYS index of the black key right after white j (-1 after E and B), matching the drawing order.
+const BLACK_AFTER = WHITES.map(([, i]) => (KEYS[i + 1]?.black ? i + 1 : -1))
 
 const PRESETS = ["SAW PAD", "SQUARE LEAD", "BELL KEYS", "SUB BASS"] as const
 type Preset = (typeof PRESETS)[number]
@@ -131,105 +118,87 @@ function makeEngine(): Engine {
   }
 }
 
-/** Printed control strip (canvas top = back). */
-function stripTexture() {
-  const c = document.createElement("canvas")
-  c.width = 1024
-  c.height = Math.round((1024 * (STRIP_Z1 - STRIP_Z0)) / W)
-  const g = c.getContext("2d")!
-  const s = 1024 / W
-  const px = (x: number) => (x + W / 2) * s
-  const pz = (z: number) => (z - STRIP_Z0) * s
+type G = CanvasRenderingContext2D
+function rr(g: G, x: number, y: number, w: number, h: number, r: number) {
+  g.beginPath()
+  g.moveTo(x + r, y)
+  g.arcTo(x + w, y, x + w, y + h, r)
+  g.arcTo(x + w, y + h, x, y + h, r)
+  g.arcTo(x, y + h, x, y, r)
+  g.arcTo(x, y, x + w, y, r)
+  g.closePath()
+}
+function box(g: G, x: number, y: number, w: number, h: number, r: number, fill: string) {
+  rr(g, x, y, w, h, r)
+  g.fillStyle = fill
+  g.fill()
+}
+function knob(g: G, x: number, y: number, r: number, v: number, ring: string) {
+  const a = Math.PI * (0.75 + 1.5 * v)
+  g.fillStyle = "#2b303b"
+  g.beginPath()
+  g.arc(x, y, r, 0, Math.PI * 2)
+  g.fill()
+  g.strokeStyle = ring
+  g.lineWidth = 4
+  g.beginPath()
+  g.arc(x, y, r + 6, Math.PI * 0.75, a)
+  g.stroke()
+  g.strokeStyle = K.text
+  g.lineWidth = 3
+  g.beginPath()
+  g.moveTo(x, y)
+  g.lineTo(x + Math.cos(a) * r * 0.8, y + Math.sin(a) * r * 0.8)
+  g.stroke()
+}
+
+type FaceState = { preset: Preset; color: string; values: Record<Param, number>; down: Uint8Array }
+
+function drawKeys(g: G, s: FaceState) {
+  const { pw: W, ph: H } = FACE
   g.fillStyle = "#181b22"
-  g.fillRect(0, 0, c.width, c.height)
-  // display bezel
-  g.fillStyle = "#0B0C10"
-  g.fillRect(px(DISPLAY.x - DISPLAY.w / 2 - 0.003), pz(STRIP_Zc - DISPLAY.d / 2 - 0.003), (DISPLAY.w + 0.006) * s, (DISPLAY.d + 0.006) * s)
-  g.textAlign = "center"
-  g.font = "600 10px ui-monospace, Menlo, monospace"
-  g.fillStyle = "#9AA0AD"
-  KNOB_X.forEach((x, i) => g.fillText(LABELS[i], px(x), pz(STRIP_Z1) - 2))
-  g.textAlign = "right"
-  g.fillStyle = "#EEF0F4"
-  g.font = "700 18px ui-monospace, Menlo, monospace"
-  g.fillText("SYNTH KEYS", px(W / 2 - 0.012), pz(STRIP_Zc) + 2)
-  g.fillStyle = "#9AA0AD"
-  g.font = "500 11px ui-monospace, Menlo, monospace"
-  g.fillText("SPATIAL SK-25", px(W / 2 - 0.012), pz(STRIP_Zc) + 17)
-  const t = new THREE.CanvasTexture(c)
-  t.colorSpace = THREE.SRGBColorSpace
-  t.anisotropy = 4
-  return t
+  g.fillRect(0, 0, W, H)
+  box(g, DISPLAY.x, DISPLAY.y, DISPLAY.w, DISPLAY.h, 8, K.bg)
+  g.font = `600 20px ${FM}`
+  g.fillStyle = s.color
+  g.textAlign = "left"
+  g.textBaseline = "middle"
+  g.fillText(s.preset, 36, 37, DISPLAY.w - 28)
+  PARAMS.forEach((p, i) => knob(g, KNOB.x(i), KNOB.y, KNOB.r, s.values[p], s.color))
+  WHITES.forEach(([, i], j) => box(g, j * KW + 2, KEY_TOP, KW - 4, H - KEY_TOP - 6, 6, s.down[i] ? s.color : "#E9ECF2"))
+  BLACK_AFTER.forEach((i, j) => i >= 0 && box(g, (j + 1) * KW - KW * 0.3, KEY_TOP, KW * 0.6, BLACK_H, 4, s.down[i] ? K.warm : "#111318"))
 }
 
-function drawDisplay(g: CanvasRenderingContext2D, accent: string, preset: Preset, note: string | null, idx: number) {
-  const { width: w, height: h } = g.canvas
-  g.fillStyle = "#0B0C10"
-  g.fillRect(0, 0, w, h)
-  g.fillStyle = accent
-  g.font = "600 38px ui-monospace, Menlo, monospace"
-  g.fillText(preset, 18, 52)
-  g.fillStyle = "#9AA0AD"
-  g.font = "500 16px ui-monospace, Menlo, monospace"
-  g.fillText(`${idx + 1}/4  TAP  ${note ?? ""}`, 18, h - 12)
-  for (let i = 0; i < 4; i++) {
-    g.fillStyle = i === idx ? accent : "#242833"
-    g.fillRect(w - 18 - (4 - i) * 16, h - 22, 12, 6)
+type Hit = { kind: "key" | "knob"; i: number } | { kind: "preset"; i: 0 }
+
+/** Same rectangles as the drawing, padded for fingertips. Black keys first: they sit on top. */
+function hitTest(x: number, y: number): Hit | null {
+  if (x < 0 || x > FACE.pw || y < 0 || y > FACE.ph) return null
+  if (y >= KEY_TOP - 8) {
+    const j = Math.round(x / KW) - 1 // nearest white-key boundary: the black key centred on it
+    if (y <= KEY_TOP + BLACK_H + 6 && BLACK_AFTER[j] >= 0 && Math.abs(x - (j + 1) * KW) <= KW * 0.3 + 4) return { kind: "key", i: BLACK_AFTER[j] }
+    return { kind: "key", i: WHITES[Math.min(14, Math.floor(x / KW))][1] }
   }
+  if (x < DISPLAY.x + DISPLAY.w + 8) return { kind: "preset", i: 0 }
+  const k = Math.round((x - KNOB.x(0)) / 70)
+  if (k >= 0 && k < 4 && Math.hypot(x - KNOB.x(k), y - KNOB.y) < 34) return { kind: "knob", i: k }
+  return null
 }
 
-type KnobProps = { x: number; t: number; onSet: (t: number) => void; root: RefObject<THREE.Group | null>; env: THREE.Texture; accent: string }
-
-function Knob({ x, t, onSet, root, env, accent }: KnobProps) {
-  const [hover, setHover] = useState(false)
-  const drag = useRef<{ p: THREE.Vector3; t: number } | null>(null)
-  const local = (e: ThreeEvent<PointerEvent>) => root.current!.worldToLocal(e.point.clone())
-  const down = (e: ThreeEvent<PointerEvent>) => {
-    ;(e.target as Element).setPointerCapture(e.pointerId)
-    drag.current = { p: local(e), t }
+const _plane = new THREE.Plane()
+const _n = new THREE.Vector3()
+const _v = new THREE.Vector3()
+/** Pointer hit -> canvas px on a face plane. */
+function toPx(e: ThreeEvent<PointerEvent>, m: THREE.Mesh) {
+  let p = e.point
+  // R3F's DOM events reuse the capture-time hit once a captured pointer leaves the mesh, so re-cast the live ray (XR events project it already).
+  if (!("pointerState" in e) && e.ray) {
+    _n.set(0, 0, 1).transformDirection(m.matrixWorld)
+    _plane.setFromNormalAndCoplanarPoint(_n, m.getWorldPosition(_v))
+    if (e.ray.intersectPlane(_plane, _v)) p = _v
   }
-  const move = (e: ThreeEvent<PointerEvent>) => {
-    if (!drag.current || !root.current) return
-    const p = local(e)
-    const d = p.y - drag.current.p.y + (drag.current.p.z - p.z) + (p.x - drag.current.p.x) // up, away or right = more
-    onSet(Math.min(1, Math.max(0, drag.current.t + d / 0.08)))
-  }
-  const up = () => (drag.current = null)
-  return (
-    <group position={[x, STRIP_TOP, KNOB_Z]}>
-      <mesh
-        position={[0, 0.008, 0]}
-        visible={false}
-        onPointerDown={down}
-        onPointerMove={move}
-        onPointerUp={up}
-        onPointerCancel={up}
-        onPointerOver={() => setHover(true)}
-        onPointerOut={() => setHover(false)}
-      >
-        <cylinderGeometry args={[0.0125, 0.0125, 0.02, 16]} />
-      </mesh>
-      {/* value arc (canvas-style: from bottom-left, clockwise), over a dim track */}
-      <mesh position={[0, 0.0004, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[0.0102, 0.0118, 40, 1, -Math.PI * 2.25, Math.PI * 1.5]} />
-        <meshBasicMaterial color="#242833" />
-      </mesh>
-      <mesh position={[0, 0.0006, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry key={t} args={[0.0102, 0.0118, 40, 1, -Math.PI * (0.75 + 1.5 * t), Math.max(0.001, Math.PI * 1.5 * t)]} />
-        <meshBasicMaterial color={accent} toneMapped={false} />
-      </mesh>
-      <group rotation={[0, Math.PI * 0.75 - t * Math.PI * 1.5, 0]}>
-        <mesh position={[0, 0.003, 0]}>
-          <cylinderGeometry args={[0.008, 0.0083, 0.006, 32]} />
-          <meshStandardMaterial color={hover ? "#3a404d" : "#2b303b"} roughness={0.5} metalness={0.15} envMap={env} envMapIntensity={0.6} />
-        </mesh>
-        <mesh position={[0, 0.0062, -0.0035]}>
-          <boxGeometry args={[0.0014, 0.0006, 0.0065]} />
-          <meshBasicMaterial color="#EEF0F4" toneMapped={false} />
-        </mesh>
-      </group>
-    </group>
-  )
+  const l = m.worldToLocal(p.clone())
+  return [(l.x / FACE.w + 0.5) * FACE.pw, (0.5 - l.y / FACE.h) * FACE.ph] as const
 }
 
 type Props = {
@@ -279,7 +248,6 @@ export default function SynthKeys({
   onPress,
 }: Props) {
   const env = useRoomEnv()
-  const root = useRef<THREE.Group>(null)
   const [cur, setCur] = useState<Preset>(preset && PRESETS.includes(preset) ? preset : "SAW PAD")
   useEffect(() => {
     if (preset && PRESETS.includes(preset)) setCur(preset)
@@ -315,20 +283,38 @@ export default function SynthKeys({
     engine.current?.synths[cur].set({ envelope: { attack: e.a * Math.pow(8, 2 * values.attack - 1), release: e.r * Math.pow(4, 2 * values.release - 1) } })
   }, [cur, values.attack, values.release])
 
-  // Keys: refs, not state, so presses never re-render the keyboard.
+  // Keys: refs, not state, so presses never re-render the keyboard; they redraw the face directly.
   const down = useRef(new Uint8Array(KEYS.length))
-  const angle = useRef(new Float32Array(KEYS.length))
-  const speed = useRef(new Float32Array(KEYS.length))
-  const glow = useRef(new Float32Array(KEYS.length))
   const seq = useRef(0)
-  const [lastNote, setLastNote] = useState<string | null>(null)
   const playing = useRef(cur)
   useEffect(() => {
     // switching preset mid-chord: let the old sound ring out instead of hanging
     engine.current?.synths[playing.current].releaseAll()
     playing.current = cur
     down.current.fill(0)
+    held.current.clear()
   }, [cur])
+
+  // Face canvas
+  const gl = useThree((s) => s.gl)
+  const face = useMemo(() => {
+    const c = document.createElement("canvas")
+    c.width = FACE.pw
+    c.height = FACE.ph
+    const tex = new THREE.CanvasTexture(c)
+    tex.colorSpace = THREE.SRGBColorSpace
+    tex.anisotropy = gl.capabilities.getMaxAnisotropy()
+    return { g: c.getContext("2d")!, tex }
+  }, [gl])
+  useEffect(() => () => face.tex.dispose(), [face])
+  const state = useRef<FaceState>(null!)
+  state.current = { preset: cur, color, values, down: down.current }
+  const redraw = () => {
+    drawKeys(face.g, state.current)
+    face.tex.needsUpdate = true
+  }
+  useEffect(redraw)
+  useEffect(() => void document.fonts?.ready.then(redraw), []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const keyDown = (i: number) => {
     if (down.current[i]) return
@@ -338,11 +324,10 @@ export default function SynthKeys({
     const freq = cur === "SUB BASS" ? Tone.Frequency(note).transpose(-12).toNote() : note
     engine.current?.synths[cur].triggerAttack(freq, Tone.immediate(), vel)
     down.current[i] = 1
-    glow.current[i] = 1
     seq.current++
     onNote?.(`${note}:on:${vel.toFixed(2)}:${seq.current}`)
     onPress?.(note)
-    setLastNote(note)
+    redraw()
   }
   const keyUp = (i: number) => {
     if (!down.current[i]) return
@@ -352,6 +337,7 @@ export default function SynthKeys({
     engine.current?.synths[cur].triggerRelease(freq, Tone.immediate())
     seq.current++
     onNote?.(`${note}:off:0:${seq.current}`)
+    redraw()
   }
 
   const cycle = () => {
@@ -360,134 +346,64 @@ export default function SynthKeys({
     onPresetChange?.(next)
   }
 
-  // Display
-  const display = useMemo(() => {
-    const c = document.createElement("canvas")
-    c.width = 368
-    c.height = 90
-    const tex = new THREE.CanvasTexture(c)
-    tex.colorSpace = THREE.SRGBColorSpace
-    return { g: c.getContext("2d")!, tex }
-  }, [])
-  useEffect(() => {
-    drawDisplay(display.g, color, cur, lastNote, PRESETS.indexOf(cur))
-    display.tex.needsUpdate = true
-  }, [display, color, cur, lastNote])
-
-  const geo = useMemo(
-    () => ({ white: new RoundedBoxGeometry(WK.w, WK.h, WK.l, 2, 0.0018), black: new RoundedBoxGeometry(BK.w, BK.h, BK.l, 2, 0.0018) }),
-    [],
-  )
-  const strip = useMemo(stripTexture, [])
-  useEffect(
-    () => () => {
-      Object.values(geo).forEach((g) => g.dispose())
-      strip.dispose()
-      display.tex.dispose()
-    },
-    [geo, strip, display],
-  )
-
-  const whites = useRef<THREE.InstancedMesh>(null)
-  const blacks = useRef<THREE.InstancedMesh>(null)
-  const tmp = useMemo(
-    () => ({
-      m: new THREE.Matrix4(),
-      r: new THREE.Matrix4(),
-      t: new THREE.Matrix4(),
-      c: new THREE.Color(),
-      accent: new THREE.Color(),
-      warm: new THREE.Color(WARM),
-      white: new THREE.Color("#E9ECF2"),
-      black: new THREE.Color("#111318"),
-    }),
-    [],
-  )
-  useLayoutEffect(() => {
-    WHITES.forEach((_, j) => whites.current?.setColorAt(j, tmp.white))
-    BLACKS.forEach((_, j) => blacks.current?.setColorAt(j, tmp.black))
-  }, [tmp])
-
-  useFrame((_, dt) => {
-    const step = Math.min(dt, 1 / 30)
-    tmp.accent.set(color)
-    const place = (mesh: THREE.InstancedMesh | null, list: typeof WHITES, k: typeof WK, base: THREE.Color, lit: THREE.Color, y0: number) => {
-      if (!mesh) return
-      list.forEach(([key, i], j) => {
-        // damped spring: snaps down, springs back with a touch of overshoot
-        const target = down.current[i] ? 0.055 : 0
-        speed.current[i] += ((target - angle.current[i]) * 900 - speed.current[i] * 38) * step
-        angle.current[i] += speed.current[i] * step
-        glow.current[i] = down.current[i] ? 1 : Math.max(0, glow.current[i] - dt * 4)
-        // hinge at the key's back end: translate to pivot, tip the front down, offset to the key centre
-        tmp.t.makeTranslation(key.x, y0 + k.h / 2, PIVOT_Z)
-        tmp.r.makeRotationX(angle.current[i])
-        tmp.m.makeTranslation(0, 0, k.l / 2)
-        mesh.setMatrixAt(j, tmp.t.multiply(tmp.r).multiply(tmp.m))
-        mesh.setColorAt(j, tmp.c.copy(base).lerp(lit, glow.current[i]))
-      })
-      mesh.instanceMatrix.needsUpdate = true
-      if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true
-    }
-    place(whites.current, WHITES, WK, tmp.white, tmp.accent, KEY_Y) // pressed white = mint
-    place(blacks.current, BLACKS, BK, tmp.black, tmp.warm, KEY_Y + WK.h - 0.002) // pressed black = warm
-  })
-
-  const keyHandlers = (i: number) => ({
-    onPointerDown: () => keyDown(i),
-    onPointerUp: () => keyUp(i),
-    onPointerCancel: () => keyUp(i),
-    onPointerOut: () => keyUp(i),
-  })
+  // Pointer: one face plane, hit-tested in canvas px. Each pointer holds one key (chords = several fingers) and can slide
+  // across keys; knob drags are relative to where they start.
+  const faceMesh = useRef<THREE.Mesh>(null)
+  const held = useRef(new Map<number, number>()) // pointerId -> key index
+  const drags = useRef(new Map<number, { i: number; x: number; y: number; v: number }>())
+  const onDown = (e: ThreeEvent<PointerEvent>) => {
+    const [x, y] = toPx(e, faceMesh.current!)
+    const hit = hitTest(x, y)
+    if (!hit) return
+    if (hit.kind === "preset") return cycle()
+    ;(e.target as Element).setPointerCapture(e.pointerId)
+    if (hit.kind === "knob") return void drags.current.set(e.pointerId, { i: hit.i, x, y, v: values[PARAMS[hit.i]] })
+    held.current.set(e.pointerId, hit.i)
+    keyDown(hit.i)
+  }
+  const onMove = (e: ThreeEvent<PointerEvent>) => {
+    const d = drags.current.get(e.pointerId)
+    const k = held.current.get(e.pointerId)
+    if (!d && k === undefined) return
+    const [x, y] = toPx(e, faceMesh.current!)
+    if (d) return set(PARAMS[d.i], Math.min(1, Math.max(0, d.v + (d.y - y + x - d.x) / 160))) // up or right = more
+    const hit = hitTest(x, y)
+    const next = hit?.kind === "key" ? hit.i : -1
+    if (next === k) return
+    keyUp(k!)
+    if (next < 0 || [...held.current.values()].includes(next)) return void held.current.set(e.pointerId, -1)
+    held.current.set(e.pointerId, next)
+    keyDown(next)
+  }
+  const onUp = (e: ThreeEvent<PointerEvent>) => {
+    drags.current.delete(e.pointerId)
+    const k = held.current.get(e.pointerId)
+    held.current.delete(e.pointerId)
+    if (k !== undefined && k >= 0) keyUp(k)
+  }
 
   // Lift so the tilted body's front edge rests on the desk (y = 0); the inner frame keeps the body bottom at y = 0.
   const lift = (BODY_H / 2) * Math.cos(tilt) + (D / 2) * Math.sin(tilt)
   return (
     <group position={[0, lift, 0]} rotation={[tilt, 0, 0]}>
-    <group ref={root} position={[0, -BODY_H / 2, 0]}>
-      {/* chassis */}
-      <RoundedBox args={[W, BODY_H, D]} radius={0.005} smoothness={3} position={[0, BODY_H / 2, 0]}>
-        <meshStandardMaterial color="#1a1d25" roughness={0.55} metalness={0.15} envMap={env} envMapIntensity={0.6} />
-      </RoundedBox>
-      {/* face */}
-      <mesh position={[0, BODY_H + 0.0004, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[0.48, 0.16]} />
-        <meshStandardMaterial color="#181b22" roughness={0.6} metalness={0.1} />
-      </mesh>
-      <mesh position={[0, STRIP_TOP + 0.0007, STRIP_Zc]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[W - 0.02, STRIP_Z1 - STRIP_Z0]} />
-        <meshStandardMaterial map={strip} roughness={0.6} metalness={0.1} />
-      </mesh>
-      {/* preset display: tap to cycle */}
-      <mesh position={[DISPLAY.x, STRIP_TOP + 0.0012, STRIP_Zc]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[DISPLAY.w, DISPLAY.d]} />
-        <meshBasicMaterial map={display.tex} toneMapped={false} />
-      </mesh>
-      <mesh visible={false} position={[DISPLAY.x, STRIP_TOP + 0.008, STRIP_Zc]} onClick={cycle}>
-        <boxGeometry args={[DISPLAY.w + 0.006, 0.016, DISPLAY.d + 0.006]} />
-      </mesh>
-      {PARAMS.map((p, i) => (
-        <Knob key={p} x={KNOB_X[i]} t={values[p]} onSet={(v) => set(p, v)} root={root} env={env} accent={color} />
-      ))}
-      {/* keybed */}
-      <instancedMesh ref={whites} args={[geo.white, undefined, WHITES.length]}>
-        <meshPhysicalMaterial color="#ffffff" roughness={0.35} clearcoat={0.4} clearcoatRoughness={0.3} envMap={env} envMapIntensity={0.6} />
-      </instancedMesh>
-      <instancedMesh ref={blacks} args={[geo.black, undefined, BLACKS.length]}>
-        <meshPhysicalMaterial color="#ffffff" roughness={0.4} clearcoat={0.4} envMap={env} envMapIntensity={0.5} />
-      </instancedMesh>
-      {/* Static hit boxes: keys dip on press, the hit surface must not, or a poke would re-trigger. Black boxes sit higher so they win. */}
-      {WHITES.map(([k, i]) => (
-        <mesh key={k.note} visible={false} position={[k.x, KEY_Y + WK.h / 2 + 0.004, PIVOT_Z + WK.l / 2]} {...keyHandlers(i)}>
-          <boxGeometry args={[WK.w, WK.h + 0.008, WK.l]} />
+      <group position={[0, -BODY_H / 2, 0]}>
+        <mesh position={[0, BODY_H / 2, 0]}>
+          <boxGeometry args={[W, BODY_H, D]} />
+          <meshStandardMaterial color="#1a1d25" roughness={0.55} metalness={0.15} envMap={env} envMapIntensity={0.6} />
         </mesh>
-      ))}
-      {BLACKS.map(([k, i]) => (
-        <mesh key={k.note} visible={false} position={[k.x, KEY_Y + WK.h - 0.002 + BK.h / 2 + 0.004, PIVOT_Z + BK.l / 2]} {...keyHandlers(i)}>
-          <boxGeometry args={[BK.w + 0.004, BK.h + 0.01, BK.l]} />
+        <mesh
+          ref={faceMesh}
+          position={[0, BODY_H + 0.0005, 0]}
+          rotation={[-Math.PI / 2, 0, 0]}
+          onPointerDown={onDown}
+          onPointerMove={onMove}
+          onPointerUp={onUp}
+          onPointerCancel={onUp}
+        >
+          <planeGeometry args={[FACE.w, FACE.h]} />
+          <meshBasicMaterial map={face.tex} toneMapped={false} />
         </mesh>
-      ))}
-    </group>
+      </group>
     </group>
   )
 }
