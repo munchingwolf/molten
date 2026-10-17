@@ -13,6 +13,12 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 2:52: Evan: **wall/ceiling mounting, Play mode, gizmo off in XR, environments in launched apps**
+- **Mounting** (`lib/snap.ts` `mountOnWall`/`mountOnCeiling`, tested): on release, items tagged `mount:wall` (origin on back face, facing +Z) go flush onto the nearest vertical face of a `wall`-tagged item within 10 cm and turn to face out (inside a room-shell: face into the room); `mount:ceiling` items hang at the room-shell's ceiling or 2.6 m.
+- **Play mode**: `useStudio().playMode` + `togglePlay()`: scene uses `editable={!playMode}`, hides grid + X-ray; components stay live. **Danny/ek-b4: wire the 🔒/Play button to `togglePlay()`.**
+- Gizmo hidden during an XR session (pokes kept hitting it); laptop keeps it. GrabHandle measuring guarded (no more Box3 throw while a glTF/uikit child loads).
+- `/apps/<id>` now renders the layout's environment like the Studio (not in AR passthrough).
+
 ### 2:50: Evan: **visual QA of all 150 components** → 79 good / 37 ok / 30 ugly / 4 broken (`web/registry/qa-report.md`)
 - Marketplace preview lighting + auto-framing: Danny's aa7f7ac already does this (kept his version over mine). That cures the ~12 black objects, tiny controls and clipped big objects.
 - Fixed: glyphs the uikit font lacks (curly quotes, ·, ×, …, —, →, ✓) swapped for ASCII in 61 component files.

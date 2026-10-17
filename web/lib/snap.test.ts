@@ -51,3 +51,25 @@ test("rotation snaps to 15° steps about the gesture's own axis", () => {
   const nudged = new Quaternion().setFromEuler(new Euler(0, (5 * Math.PI) / 180, 0)).multiply(pitched)
   assert.ok(snapRotation(nudged, pitched, SNAP.angle).angleTo(pitched) < 1e-6)
 })
+
+test("mountOnWall: flush on a wall face, facing out; inside a room faces in", async () => {
+  const { mountOnWall } = await import("./snap.ts")
+  const slab = { min: { x: -1, y: 0, z: -2.1 }, max: { x: 1, y: 2.5, z: -2 } } // a free-standing wall slab
+  const m = mountOnWall({ x: 0, y: 1.5, z: -1.95 }, [slab])!
+  assert.deepEqual(m.position, [0, 1.5, -2])
+  assert.equal(m.yaw, 0) // front face (+z side) → faces +z, toward the viewer
+  const room = { min: { x: -3, y: 0, z: -3 }, max: { x: 3, y: 2.8, z: 3 } }
+  const back = mountOnWall({ x: 0.4, y: 1.4, z: -2.94 }, [room])!
+  assert.deepEqual(back.position, [0.4, 1.4, -3])
+  assert.equal(back.yaw, 0) // back wall seen from inside: faces into the room (+z)
+  const left = mountOnWall({ x: -2.95, y: 1.4, z: 0 }, [room])!
+  assert.equal(left.yaw, Math.PI / 2) // left wall: faces +x
+  assert.equal(mountOnWall({ x: 0, y: 1.4, z: 0 }, [room]), null) // middle of the room: nothing close
+})
+
+test("mountOnCeiling: room ceiling or 2.6 m", async () => {
+  const { mountOnCeiling } = await import("./snap.ts")
+  const room = { min: { x: -3, y: 0, z: -3 }, max: { x: 3, y: 2.8, z: 3 } }
+  assert.deepEqual(mountOnCeiling({ x: 0, y: 1.9, z: 0 }, [room]).position, [0, 2.8, 0])
+  assert.deepEqual(mountOnCeiling({ x: 9, y: 1.9, z: 0 }, [room]).position, [9, 2.6, 0])
+})

@@ -21,7 +21,7 @@ import { MeasureGrid } from "./measure-grid"
 const cameraStore = createScreenCameraStore({ origin: [0, 1.25, -1.2], distance: 2.6, pitch: 0.12, yaw: 0 })
 
 export function StudioScene() {
-  const { items, values, selectedId, setValue, select, update, environment, viewMode, showGrid, snap } = useStudio()
+  const { items, values, selectedId, setValue, select, update, environment, viewMode, showGrid, snap, playMode } = useStudio()
   const xray = viewMode === "xray"
   const Env = environment ? (components[environment] as ComponentType | undefined) : undefined
   return (
@@ -48,18 +48,18 @@ export function StudioScene() {
             <directionalLight position={[2, 4, 3]} intensity={2} />
           </>
         )}
-        {showGrid && <MeasureGrid xray={xray} />}
+        {showGrid && !playMode && <MeasureGrid xray={xray} />}
         <LayoutRenderer
           items={items}
           values={values}
           setValue={setValue}
-          editable
+          editable={!playMode}
           selectedId={selectedId}
           onSelect={(id) => select(id)}
           onTransform={(id, patch) => update(id, patch)}
           snap={snap}
         />
-        {xray && <XRayOverlay items={items} selectedId={selectedId} />}
+        {xray && !playMode && <XRayOverlay items={items} selectedId={selectedId} />}
         <VRShelf />
         <VRWorkspace />
         <VRAssistant mascot={<VRPix />} />

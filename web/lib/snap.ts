@@ -43,3 +43,46 @@ export function snapRotation(q: Quaternion, from: Quaternion, step: number): Qua
   if (s < 1e-6) return q.copy(from)
   return q.setFromAxisAngle(axis.set(delta.x / s, delta.y / s, delta.z / s), snapTo(2 * half, step)).multiply(from)
 }
+
+export type Mount = { position: [number, number, number]; yaw?: number }
+
+/**
+ * Wall mount: items tagged `mount:wall` have their origin on their back face, facing +Z. On release, if `origin` is
+ * within `reach` of a vertical face of a `wall` item's bounds, put the origin on that face and turn it to face out
+ * (away from a solid's centre; toward the centre when the item is inside the bounds, i.e. a room's inner walls).
+ */
+export function mountOnWall(origin: XYZ, walls: Bounds[], reach = 0.1): Mount | null {
+  let best: (Mount & { d: number }) | null = null
+  for (const w of walls) {
+    const inX = origin.x >= w.min.x - reach && origin.x <= w.max.x + reach
+    const inZ = origin.z >= w.min.z - reach && origin.z <= w.max.z + reach
+    const inY = origin.y >= w.min.y && origin.y <= w.max.y
+    if (!inY) continue
+    const inside = origin.x > w.min.x && origin.x < w.max.x && origin.z > w.min.z && origin.z < w.max.z
+    const cx = (w.min.x + w.max.x) / 2
+    const cz = (w.min.z + w.max.z) / 2
+    const faces: { axis: "x" | "z"; at: number; ok: boolean }[] = [
+      { axis: "x", at: w.min.x, ok: inZ }, { axis: "x", at: w.max.x, ok: inZ },
+      { axis: "z", at: w.min.z, ok: inX }, { axis: "z", at: w.max.z, ok: inX },
+    ]
+    for (const f of faces) {
+      if (!f.ok) continue
+      const d = Math.abs(origin[f.axis] - f.at)
+      if (d > reach || (best && d >= best.d)) continue
+      const centre = f.axis === "x" ? cx : cz
+      // +1 when the item should face +axis: outside faces point away from the centre, inside ones toward it.
+      const sign = Math.sign(f.at - centre) * (inside ? -1 : 1) || 1
+      const yaw = f.axis === "z" ? (sign > 0 ? 0 : Math.PI) : sign > 0 ? Math.PI / 2 : -Math.PI / 2
+      const position: [number, number, number] = [origin.x, origin.y, origin.z]
+      position[f.axis === "x" ? 0 : 2] = f.at
+      best = { position, yaw, d }
+    }
+  }
+  return best && { position: best.position, yaw: best.yaw }
+}
+
+/** Ceiling mount: items tagged `mount:ceiling` hang from their origin at the ceiling of the room they're in, else 2.6 m. */
+export function mountOnCeiling(origin: XYZ, rooms: Bounds[], fallback = 2.6): Mount {
+  const room = rooms.find((r) => origin.x > r.min.x && origin.x < r.max.x && origin.z > r.min.z && origin.z < r.max.z)
+  return { position: [origin.x, room ? room.max.y : fallback, origin.z] }
+}

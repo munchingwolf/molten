@@ -4,7 +4,9 @@ import { unlockAudio } from "@/lib/unlock-audio"
 
 import { useEffect, useState } from "react"
 import { Canvas } from "@react-three/fiber"
-import { NotInXR, PointerEvents, XR, noEvents } from "@react-three/xr"
+import { IfInSessionMode, NotInXR, PointerEvents, XR, noEvents } from "@react-three/xr"
+import type { ComponentType } from "react"
+import { components } from "@/lib/registry"
 import { OrbitHandles, createScreenCameraStore } from "@react-three/handle"
 import { LayoutRenderer } from "@/components/studio/layout-renderer"
 import { xrStore } from "@/components/studio/xr-store"
@@ -38,6 +40,7 @@ export default function AppView({ id }: { id: string }) {
   if (layout === "missing") return <Message>No app with id “{id}”. Launch it again from the Studio.</Message>
   if (layout === "error") return <Message>Couldn’t load this app. Check your connection and reload.</Message>
   if (!layout.items.length) return <Message>This app is empty. Add components in the Studio, then Launch again.</Message>
+  const Env = layout.environment ? (components[layout.environment] as ComponentType | undefined) : undefined
 
   return (
     <div className="fixed inset-0 z-50 bg-stage">
@@ -45,11 +48,22 @@ export default function AppView({ id }: { id: string }) {
         <PointerEvents />
         <XR store={xrStore}>
           <NotInXR>
-            <color attach="background" args={["#111214"]} />
             <OrbitHandles store={cameraStore} />
           </NotInXR>
-          <ambientLight intensity={1.2} />
-          <directionalLight position={[2, 4, 3]} intensity={2} />
+          {/* Same world as in the Studio: the layout's environment (not in AR passthrough), else the dark stage. */}
+          {Env ? (
+            <IfInSessionMode deny="immersive-ar">
+              <Env />
+            </IfInSessionMode>
+          ) : (
+            <>
+              <IfInSessionMode deny="immersive-ar">
+                <color attach="background" args={["#111214"]} />
+              </IfInSessionMode>
+              <ambientLight intensity={1.2} />
+              <directionalLight position={[2, 4, 3]} intensity={2} />
+            </>
+          )}
           <LayoutRenderer
             items={layout.items}
             values={values}

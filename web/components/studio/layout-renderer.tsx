@@ -7,7 +7,8 @@ import { Container, Text } from "@react-three/uikit"
 import { Box3, Vector3, type Group, type Object3D } from "three"
 import { components, findEntry } from "@/lib/registry"
 import { bindingProps, type Bindable, type Item, type Vec3 } from "@/lib/layout"
-import { SNAP, clampScale, isSurface, restOn, snapRotation, snapTo } from "@/lib/snap"
+import { SNAP, clampScale, isSurface, mountOnCeiling, mountOnWall, restOn, snapRotation, snapTo } from "@/lib/snap"
+import { useXR } from "@react-three/xr"
 
 /** Registry `bindable` metadata (Person 2 adds it per entry); empty until then. */
 export const bindablesOf = (name: string): Bindable[] =>
@@ -77,6 +78,7 @@ function Placed({ item, items, values, setValue, editable, selectedId, onSelect,
   const content = useRef<Group>(null)
   const Component = componentOf(item.component)
   const props = bindingProps(item, bindablesOf(item.component), values, setValue)
+  const inXR = useXR((x) => x.session != null)
   const kids = items.filter((c) => c.parentId === item.id)
   const body = Component ? (
     <Component {...props}>
@@ -96,6 +98,7 @@ function Placed({ item, items, values, setValue, editable, selectedId, onSelect,
     applySnapped(state, t, snap)
     if (!state.last) return
     seatOnSurface(t, item.id, items)
+    mount(t, item, items)
     const position = t.position.toArray() as Vec3
     if (onTransform) onTransform(item.id, { position, rotation: [t.rotation.x, t.rotation.y, t.rotation.z], scale: t.scale.x })
     else onMove?.(item.id, position)
@@ -111,7 +114,8 @@ function Placed({ item, items, values, setValue, editable, selectedId, onSelect,
       apply={apply}
       onClick={editable ? () => onSelect?.(item.id) : undefined}
     >
-      {editable && !item.locked && selectedId === item.id && <PivotHandlesHandles fixed={false} size={0.35} />}
+      {/* In the headset the gizmo's big handles catch pokes meant for the component; hands use grab + two-hand scale/turn. */}
+      {editable && !item.locked && !inXR && selectedId === item.id && <PivotHandlesHandles fixed={false} size={0.35} />}
       {editable && !item.locked ? (
         <GrabHandle target={ref} content={content} selected={selectedId === item.id} apply={apply}>
           <group ref={content}>{body}</group>
@@ -153,6 +157,24 @@ function seatOnSurface(t: Object3D, id: string, items: Item[]) {
   t.position.copy(t.parent ? t.parent.worldToLocal(p) : p)
 }
 
+/** On release: `mount:wall` items go flush onto the nearest wall face and turn to face out; `mount:ceiling` items hang at the ceiling. */
+function mount(t: Object3D, item: Item, items: Item[]) {
+  const tags = findEntry(item.component)?.tags ?? []
+  const wallMount = tags.includes("mount:wall")
+  if (!wallMount && !tags.includes("mount:ceiling")) return
+  const walls = items.flatMap((i) => {
+    const o = i.id !== item.id && findEntry(i.component)?.tags?.includes("wall") ? contents.get(i.id) : undefined
+    return o ? [new Box3().setFromObject(o)] : []
+  })
+  t.updateWorldMatrix(true, false)
+  const origin = t.getWorldPosition(new Vector3())
+  const m = wallMount ? mountOnWall(origin, walls) : mountOnCeiling(origin, walls)
+  if (!m) return
+  const p = new Vector3(...m.position)
+  t.position.copy(t.parent ? t.parent.worldToLocal(p) : p)
+  if (m.yaw !== undefined) t.rotation.set(0, m.yaw, 0)
+}
+
 // One pointer only moves. A second pointer on the same item adds uniform scale (hand distance) and yaw (hand twist).
 const ONE_POINTER = { rotate: false, scale: false } as const
 const TWO_POINTERS = { rotate: { x: false, y: true, z: false }, scale: { uniform: true } }
@@ -179,7 +201,11 @@ function GrabHandle({ target, content, selected, apply, children }: {
   // Size/place the bar from the component's bounds; uikit lays out async, so re-measure every ~0.5s.
   useFrame(() => {
     if (!target.current || !content.current || !bar.current || frame.current++ % 30) return
-    box.setFromObject(content.current)
+    try {
+      box.setFromObject(content.current)
+    } catch {
+      return // a child mid-load (e.g. glTF/uikit) can throw while measuring; try again next tick
+    }
     if (box.isEmpty()) return
     const s = target.current.scale.x || 1
     box.getSize(size)

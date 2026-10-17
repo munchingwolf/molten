@@ -17,6 +17,8 @@ type StudioState = {
   values: Record<string, unknown>
   /** View settings (not undoable). */
   viewMode: "design" | "xray"
+  /** Play = use the scene: no grab bars/gizmo/grid, components stay live (lock in the dock header). */
+  playMode: boolean
   showGrid: boolean
   snap: boolean
   past: Doc[]
@@ -56,6 +58,7 @@ type StudioState = {
   renameScene: (id: string, name: string) => void
   removeScene: (id: string) => void
   setViewMode: (mode: "design" | "xray") => void
+  togglePlay: () => void
   toggleGrid: () => void
   toggleSnap: () => void
 }
@@ -110,6 +113,7 @@ export const useStudio = create<StudioState>((set, get) => {
     selectedIds: [],
     values: {},
     viewMode: "design",
+    playMode: false,
     showGrid: true,
     snap: true,
     past: [],
@@ -297,6 +301,7 @@ export const useStudio = create<StudioState>((set, get) => {
       set({ scenes: rest, sceneId: active.id, items: active.items, environment: active.environment, selectedId: null, selectedIds: [] })
     },
     setViewMode: (viewMode) => set({ viewMode }),
+    togglePlay: () => set((s) => ({ playMode: !s.playMode, selectedId: null, selectedIds: [] })),
     toggleGrid: () => set((s) => ({ showGrid: !s.showGrid })),
     toggleSnap: () => set((s) => ({ snap: !s.snap })),
   }
