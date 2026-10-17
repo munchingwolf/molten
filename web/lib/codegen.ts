@@ -1,5 +1,5 @@
 // .ts extension so `node --test` can run this file directly (allowImportingTsExtensions)
-import { toIdent as ident, type Bindable, type Layout } from "./layout.ts"
+import { initialValues, toIdent as ident, type Bindable, type Layout } from "./layout.ts"
 
 const pascal = (name: string) => name.split(/[^A-Za-z0-9]+/).filter(Boolean).map((w) => w[0].toUpperCase() + w.slice(1)).join("")
 const vec = (v: number[]) => `[${v.map((n) => +n.toFixed(3)).join(", ")}]`
@@ -7,11 +7,12 @@ const vec = (v: number[]) => `[${v.map((n) => +n.toFixed(3)).join(", ")}]`
 /** Layout → a self-contained React scene file a developer (or Claude) drops into their project. */
 export function generateCode(layout: Layout, bindablesOf: (component: string) => Bindable[]) {
   const imports = [...new Set(layout.items.map((i) => i.component))]
+  const init = initialValues(layout.items, bindablesOf)
   const state = new Map<string, unknown>() // shared name → initial value
   for (const item of layout.items)
     for (const b of bindablesOf(item.component)) {
       const name = item.bind[b.prop]
-      if (name && !state.has(ident(name))) state.set(ident(name), b.default)
+      if (name && !state.has(ident(name))) state.set(ident(name), init[name])
     }
 
   const lines = ['"use client"', ""]

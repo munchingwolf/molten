@@ -11,6 +11,8 @@ export type Bindable = {
   min?: number
   max?: number
   default?: unknown
+  /** The item picks its own span via `props.min` / `props.max` (e.g. a knob that can drive 60–180 BPM). */
+  range?: boolean
 }
 
 export type Item = {
@@ -35,6 +37,34 @@ export function toIdent(name: string) {
   const words = name.trim().split(/[^A-Za-z0-9]+/).filter(Boolean)
   const id = words.map((w, i) => (i === 0 ? w[0].toLowerCase() + w.slice(1) : w[0].toUpperCase() + w.slice(1))).join("")
   return /^[A-Za-z_]/.test(id) ? id : `v${id}`
+}
+
+/**
+ * Starting value per shared name. Prefer a fixed-span bindable's default (transport.bpm 120 beats knob.value 0.5);
+ * if only `range` bindables share the name, the first one's default clamped to that item's props.min/max.
+ */
+export function initialValues(items: Item[], bindablesOf: (component: string) => Bindable[]) {
+  const fixed = new Map<string, unknown>()
+  const ranged = new Map<string, unknown>()
+  for (const item of items)
+    for (const b of bindablesOf(item.component)) {
+      const name = item.bind[b.prop]
+      if (!name || b.default === undefined) continue
+      if (!b.range) {
+        if (!fixed.has(name)) fixed.set(name, b.default)
+      } else if (!ranged.has(name)) {
+        const { min, max } = item.props ?? {}
+        let v = b.default
+        if (typeof v === "number") {
+          let n: number = v
+          if (typeof min === "number") n = Math.max(min, n)
+          if (typeof max === "number") n = Math.min(max, n)
+          v = n
+        }
+        ranged.set(name, v)
+      }
+    }
+  return Object.fromEntries([...ranged, ...fixed]) as Record<string, unknown>
 }
 
 /** Props to pass a placed component: its fixed props, then each bound prop wired to the shared value. */

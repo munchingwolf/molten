@@ -4,25 +4,35 @@ import { useEffect, useState } from "react"
 import * as Tone from "tone"
 import { Container, Text } from "@react-three/uikit"
 
-type Props = { playing?: boolean; onChange?: (playing: boolean) => void; bpm?: number }
+type Props = { playing?: boolean; onChange?: (playing: boolean) => void; bpm?: number; click?: boolean }
 
-/** Play/Stop for the global Tone transport, with a kick on every beat. Controlled via `playing`, or uncontrolled. */
-export default function Transport({ playing, onChange, bpm = 120 }: Props) {
+/** Play/Stop for the global Tone transport, with an optional metronome `click`. Controlled via `playing`, or uncontrolled. */
+export default function Transport({ playing, onChange, bpm = 120, click = false }: Props) {
   const [inner, setInner] = useState(false)
   const on = playing ?? inner
+  const tempo = Number.isFinite(bpm) ? Math.min(300, Math.max(20, bpm)) : null
 
   useEffect(() => {
-    Tone.getTransport().bpm.value = bpm
-  }, [bpm])
+    if (tempo !== null) Tone.getTransport().bpm.value = tempo
+  }, [tempo])
 
   useEffect(() => {
-    const kick = new Tone.MembraneSynth().toDestination()
-    const id = Tone.getTransport().scheduleRepeat((time) => kick.triggerAttackRelease("C1", "8n", time), "4n")
+    if (!click) return
+    const t = Tone.getTransport()
+    const synth = new Tone.Synth({
+      oscillator: { type: "square" },
+      envelope: { attack: 0.001, decay: 0.03, sustain: 0, release: 0.01 },
+      volume: -14,
+    }).toDestination()
+    const id = t.scheduleRepeat((time) => {
+      const downbeat = Math.round(t.getTicksAtTime(time) / t.PPQ) % 4 === 0
+      synth.triggerAttackRelease(downbeat ? "C6" : "G5", 0.03, time)
+    }, "4n")
     return () => {
-      Tone.getTransport().clear(id)
-      kick.dispose()
+      t.clear(id)
+      synth.dispose()
     }
-  }, [])
+  }, [click])
 
   useEffect(() => {
     const t = Tone.getTransport()
@@ -61,7 +71,7 @@ export default function Transport({ playing, onChange, bpm = 120 }: Props) {
         </Text>
       </Container>
       <Text fontSize={20} color="#ECE9DF">
-        {`${bpm} BPM`}
+        {tempo === null ? "-- BPM" : `${Math.round(tempo)} BPM`}
       </Text>
     </Container>
   )
