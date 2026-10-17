@@ -8,8 +8,12 @@ import { useStudio } from "@/lib/studio-store"
 import { bindablesOf } from "@/components/studio/layout-renderer"
 import { StudioScene } from "@/components/studio/scene"
 import { EnterXRButtons } from "@/components/studio/xr-controls"
+import { AssistantPanel } from "@/components/studio/assistant-panel"
+import { VoiceButton } from "@/components/studio/voice"
+import { useGestureKeys } from "@/components/studio/use-gesture-keys"
 
 export function StudioApp() {
+  useGestureKeys()
   const { selectedId, remove, select } = useStudio()
 
   // Delete/Backspace removes the selected item, Escape deselects (ignored while typing in an input).
@@ -30,6 +34,9 @@ export function StudioApp() {
       <Library />
       <main className="relative min-h-0 bg-stage">
         <StudioScene />
+        <div className="absolute right-3 top-3 bottom-3 w-[340px] overflow-hidden rounded-lg border border-border">
+          <AssistantPanel />
+        </div>
       </main>
       <Inspector />
       <CodePanel />
@@ -72,6 +79,7 @@ function TopBar() {
         className="w-48 rounded-md border border-border bg-bg px-2 py-1 text-sm"
       />
       <span className="ml-auto font-mono text-xs text-muted" aria-live="polite">{status}</span>
+      <VoiceButton />
       <EnterXRButtons />
       <button onClick={() => save(false)} className="rounded-md border border-border bg-surface px-3 py-1.5 text-sm font-medium">
         Save

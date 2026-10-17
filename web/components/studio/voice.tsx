@@ -1,13 +1,13 @@
 "use client"
 
+import { useAssistant } from "@/lib/assistant-store"
+
 import { useEffect, useRef, useState } from "react"
 import { useThree } from "@react-three/fiber"
 import { IfInSessionMode } from "@react-three/xr"
 import { Container, Text } from "@react-three/uikit"
 import { Vector3 } from "three"
-import { applyOps, type Op, type StudioLike, type Viewer } from "@/lib/assist-ops"
-import { registry } from "@/lib/registry"
-import { useStudio } from "@/lib/studio-store"
+import type { Viewer } from "@/lib/assist-ops"
 import type { Vec3 } from "@/lib/layout"
 
 // Push-to-talk: hold → record → /api/stt (ElevenLabs) → /api/assist (Ollama + word gating) → applyOps.
@@ -17,11 +17,6 @@ type Phase = "idle" | "listening" | "thinking" | "done" | "error"
 type Status = { phase: Phase; text: string }
 type Recording = { stop: () => void; cancel: () => void }
 
-// All entries, so "the lamp" is recognised even before it's ready; the server never adds a "soon" one.
-const REGISTRY = registry.map((e) => ({
-  name: e.name, displayName: e.displayName, aliases: e.aliases, category: e.category, style: e.style, status: e.status,
-  props: (e as { props?: unknown }).props,
-}))
 
 type SpeechRec = {
   lang: string; interimResults: boolean; continuous: boolean
@@ -86,18 +81,10 @@ function useVoice(viewer?: () => Viewer) {
   const run = async (text: string) => {
     if (!text.trim()) return setStatus({ phase: "error", text: "Didn't catch that. Hold and speak." })
     setStatus({ phase: "thinking", text: `“${text}”` })
+    // Route through the assistant so laptop voice shows up in the assistant panel's transcript + op log.
     try {
-      const s = useStudio.getState()
-      const res = await fetch("/api/assist", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ text, layout: { items: s.items }, selectedId: s.selectedId, registry: REGISTRY }),
-      })
-      const data = (await res.json()) as { ops?: Op[]; error?: string }
-      if (!res.ok || !data.ops) throw new Error(data.error ?? `assist ${res.status}`)
-      // The lead's store may add setEnvironment; applyOps calls it only if present.
-      const n = applyOps(data.ops, useStudio.getState as unknown as () => StudioLike, viewer?.())
-      setStatus(n ? { phase: "done", text: `“${text}”` } : { phase: "error", text: `“${text}”: nothing to change${useStudio.getState().selectedId ? "" : " (select something first?)"}` })
+      await useAssistant.getState().send(text)
+      setStatus({ phase: "done", text: `“${text}”` })
     } catch (e) {
       setStatus({ phase: "error", text: `Couldn't apply: ${(e as Error).message}` })
     }

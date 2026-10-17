@@ -16,9 +16,17 @@ type AssistantState = {
   setStatus: (s: AssistantStatus) => void
   /** Pass `viewer` (head pose) in XR so "add"/"move left" are relative to where the user looks. */
   send: (text: string, viewer?: Viewer) => Promise<void>
+  /** Push-to-talk (hold → record, release → /api/stt → send). The transcript lands in the conversation. */
+  startTalking: () => Promise<void>
+  stopTalking: (viewer?: Viewer) => void
 }
 
-const QUESTION = /\?\s*$|^(how|what|why|where|when|which|who|can i|could i|do i|does|is there|is it|are there|help|explain|tell me)\b/i
+// One mic at a time. `held` covers a release that comes before getUserMedia resolves.
+const mic: { held: boolean; t0: number; rec?: MediaRecorder; viewer?: Viewer } = { held: false, t0: 0 }
+
+const QUESTION = /^(how|what|why|where|when|which|who|can i|could i|do i|does|is there|is it|are there|help|explain|tell me)\b/i
+const POLITE_EDIT = /^(please|(can|could|would|will) you)\b/i // "could you add a knob?" is an edit, not a question
+const isQuestion = (t: string) => QUESTION.test(t) || (/\?\s*$/.test(t) && !POLITE_EDIT.test(t))
 const HISTORY = /^(undo|redo)\b/i
 
 /** One-line log label, computed before the op runs (a removed item has no name afterwards). */
@@ -81,6 +89,25 @@ async function editOps(text: string): Promise<Op[]> {
 
 export const useAssistant = create<AssistantState>((set, get) => {
   const say = (m: Omit<Message, "at">) => set((s) => ({ messages: [...s.messages, { ...m, at: Date.now() }] }))
+  const note = (text: string) => say({ role: "assistant", text })
+
+  // Quest has no Web Speech API, so this is ElevenLabs via /api/stt only (voice.tsx keeps the browser fallback).
+  const transcribe = async (audio: Blob, ms: number, viewer?: Viewer) => {
+    if (ms < 350) return set({ status: "idle" }), note("Hold the button while you speak.")
+    set({ status: "thinking" })
+    let text = "", err = ""
+    try {
+      const res = await fetch("/api/stt", { method: "POST", headers: { "content-type": audio.type || "audio/webm" }, body: audio, signal: AbortSignal.timeout(20_000) })
+      const data = (await res.json()) as { text?: string; error?: string }
+      text = data.text?.trim() ?? ""
+      if (!res.ok) err = res.status === 503 ? "Voice needs ELEVENLABS_API_KEY on the server. Type instead, or use the chips." : `Speech-to-text failed (${data.error ?? res.status}).`
+    } catch {
+      err = "Speech-to-text is unreachable right now."
+    }
+    set({ status: "idle" }) // send() ignores calls while "thinking"
+    if (text) return get().send(text, viewer)
+    note(err || "Didn't catch that. Hold and speak.")
+  }
 
   return {
     messages: [{ role: "assistant", text: "Hi! Ask me to change the scene (“add a knob”, “make it bigger and blue”) or ask how something works.", at: 0 }],
@@ -104,7 +131,7 @@ export const useAssistant = create<AssistantState>((set, get) => {
 
       set({ status: "thinking" })
       try {
-        if (QUESTION.test(text)) {
+        if (isQuestion(text)) {
           say({ role: "assistant", text: await ask(text) })
           return
         }
@@ -127,6 +154,33 @@ export const useAssistant = create<AssistantState>((set, get) => {
       } finally {
         set({ status: "idle" })
       }
+    },
+
+    startTalking: async () => {
+      if (mic.held || get().status !== "idle") return
+      Object.assign(mic, { held: true, t0: Date.now(), rec: undefined, viewer: undefined })
+      set({ status: "listening" })
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+        const release = () => stream.getTracks().forEach((t) => t.stop()) // turns off the mic indicator
+        if (!mic.held) return release(), set({ status: "idle" }) // let go before the mic opened
+        const rec = new MediaRecorder(stream)
+        const chunks: Blob[] = []
+        rec.ondataavailable = (e) => void (e.data.size && chunks.push(e.data))
+        rec.onstop = () => (release(), void transcribe(new Blob(chunks, { type: rec.mimeType }), Date.now() - mic.t0, mic.viewer))
+        rec.start()
+        mic.rec = rec
+      } catch (e) {
+        mic.held = false
+        set({ status: "idle" })
+        note((e as Error).name === "NotAllowedError" ? "Microphone blocked. Allow it for this site, then hold again." : "No microphone available here.")
+      }
+    },
+    stopTalking: (viewer) => {
+      mic.held = false
+      mic.viewer = viewer
+      mic.rec?.stop()
+      mic.rec = undefined
     },
   }
 })

@@ -11,6 +11,7 @@ import { LayoutRenderer } from "./layout-renderer"
 import { VRShelf } from "./vr-shelf"
 import { VRWorkspace } from "./vr-workspace"
 import { XRayOverlay } from "./xray"
+import { VRAssistant } from "./vr-assistant"
 import { xrStore } from "./xr-store"
 
 // Laptop camera orbits the area where components are placed (eye height, ~1.2 m ahead).
@@ -58,6 +59,7 @@ export function StudioScene() {
         {xray && <XRayOverlay items={items} selectedId={selectedId} />}
         <VRShelf />
         <VRWorkspace />
+        <VRAssistant />
       </XR>
     </Canvas>
   )
