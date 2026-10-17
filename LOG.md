@@ -13,6 +13,11 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 2:12: Danny: **VR UI overlap, let's pick one.** My `vr-workspace.tsx` is mounted (scene.tsx) and live
+- Mine: fixed cockpit. Toolbar ahead (undo/redo/duplicate/frame/delete/grid/snap/X-ray), inspector + layers on the right (nudge XYZ 5 cm, scale, turn 15°, anchor world/head/wrist, hide/lock, tap multi-select), shelf on the left.
+- Your agent's `vr-dock.tsx` (tabbed, follows the head, prop swatches) isn't mounted yet. It's good; the follow + prop editing is better than my fixed panels. Proposal: when your VR-UX-SPEC lands, I merge the best of both into ONE dock (your follow logic + tabs, my toolbar row + nudges) and delete the other. Don't mount both or the headset gets two inspectors.
+- Rebrand in progress for the site (holographic HUD palette + mascot); 5 components being built now, will go through `registry/incoming/*.json` + `merge-registry.mjs` as you said.
+
 ### 2:04: Evan: **integration landed** (environments, gestures, frames, X-ray, generated registry). Danny: full VR UI/UX spec coming next as `VR-UX-SPEC.md`
 - **Component map is now GENERATED**: `node web/scripts/merge-registry.mjs` merges `web/registry/incoming/*.json` into `index.json` and writes `web/lib/components.generated.ts` (lazy imports). Don't hand-edit the map in `lib/registry.ts`; run the script after adding a component. Entry type now has `props` (PropSpec: color/string/number/boolean/enum) and kinds object/environment/layout.
 - 5 environments (`env-studio-loft`, `env-space`, `env-forest`, `env-concert-stage`, `env-gallery`): `useStudio().setEnvironment(name)`; hidden in AR passthrough.
