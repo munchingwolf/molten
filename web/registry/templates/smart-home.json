@@ -1,0 +1,225 @@
+{
+  "name": "Smart Home",
+  "slug": "smart-home",
+  "category": "home",
+  "description": "Pre-wired room controls for your real space (passthrough): one lever switches every light, one toggle starts the music, plus weather, a TV and a clock.",
+  "items": [
+    {
+      "id": "lever",
+      "component": "lever-switch",
+      "position": [
+        0.32,
+        1.1,
+        -0.55
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {
+        "value": "lights"
+      },
+      "props": {
+        "label": "Lights"
+      },
+      "name": "Lights lever"
+    },
+    {
+      "id": "music-toggle",
+      "component": "spring-toggle",
+      "position": [
+        -0.32,
+        1.1,
+        -0.55
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {
+        "value": "music"
+      },
+      "props": {
+        "label": "Music"
+      },
+      "name": "Music toggle"
+    },
+    {
+      "id": "side-table",
+      "component": "side-table",
+      "position": [
+        -1.05,
+        0.275,
+        -1.35
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "lamp",
+      "component": "lamp",
+      "position": [
+        -1.05,
+        0.72,
+        -1.35
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {
+        "value": "lights"
+      }
+    },
+    {
+      "id": "floor-lamp",
+      "component": "floor-lamp",
+      "position": [
+        1.35,
+        0.8,
+        -1.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {
+        "on": "lights"
+      }
+    },
+    {
+      "id": "neon",
+      "component": "neon-sign",
+      "position": [
+        0,
+        2.02,
+        -2.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {
+        "on": "lights"
+      },
+      "props": {
+        "text": "HOME"
+      }
+    },
+    {
+      "id": "tv",
+      "component": "tv",
+      "position": [
+        0,
+        1.32,
+        -2.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "speaker",
+      "component": "speaker",
+      "position": [
+        0.85,
+        0.5,
+        -2.05
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {
+        "value": "music"
+      }
+    },
+    {
+      "id": "now-playing",
+      "component": "music-now-playing",
+      "position": [
+        -0.9,
+        1.45,
+        -1.25
+      ],
+      "rotation": [
+        0,
+        0.624,
+        0
+      ],
+      "scale": 1,
+      "bind": {
+        "value": "music"
+      }
+    },
+    {
+      "id": "weather",
+      "component": "weather-widget",
+      "position": [
+        0.9,
+        1.45,
+        -1.25
+      ],
+      "rotation": [
+        0,
+        -0.624,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "clock",
+      "component": "clock-widget",
+      "position": [
+        -1.55,
+        1.5,
+        -0.95
+      ],
+      "rotation": [
+        0,
+        1.021,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "plant",
+      "component": "plant",
+      "position": [
+        1.6,
+        0.4,
+        -0.9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    }
+  ]
+}

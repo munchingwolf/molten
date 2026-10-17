@@ -1,0 +1,118 @@
+{
+  "name": "Product Showroom",
+  "slug": "product-showroom",
+  "category": "website",
+  "description": "A launch page you walk into: the product turns under a pendant spotlight, the hero banner behind it, features and a reveal card either side.",
+  "environment": "env-gallery",
+  "items": [
+    {
+      "id": "product",
+      "component": "product-showcase",
+      "position": [
+        0,
+        1.15,
+        -1.3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "spot",
+      "component": "pendant-light",
+      "position": [
+        0,
+        2.6,
+        -1.3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {},
+      "props": {
+        "cord": 0.9,
+        "shade": "cone"
+      }
+    },
+    {
+      "id": "hero",
+      "component": "hero-section",
+      "position": [
+        0,
+        1.95,
+        -2.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 0.8,
+      "bind": {},
+      "props": {
+        "eyebrow": "New arrival",
+        "headline": "Sound that fills the room, not the shelf",
+        "subline": "Halo is 21 cm of room-filling audio in a shape that disappears.",
+        "cta": "Pre-order"
+      }
+    },
+    {
+      "id": "features",
+      "component": "feature-trio",
+      "position": [
+        -1.55,
+        1.4,
+        -1.55
+      ],
+      "rotation": [
+        0,
+        0.785,
+        0
+      ],
+      "scale": 0.75,
+      "bind": {},
+      "props": {
+        "heading": "Why Halo"
+      }
+    },
+    {
+      "id": "reveal",
+      "component": "reveal-card",
+      "position": [
+        1.45,
+        1.4,
+        -1.45
+      ],
+      "rotation": [
+        0,
+        -0.785,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "orb",
+      "component": "gradient-orb",
+      "position": [
+        1.35,
+        2.15,
+        -2.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    }
+  ]
+}
