@@ -12,6 +12,8 @@ import { VRShelf } from "./vr-shelf"
 import { VRWorkspace } from "./vr-workspace"
 import { XRayOverlay } from "./xray"
 import { VRAssistant } from "./vr-assistant"
+import Mascot from "@/components/spatial/mascot"
+import { useAssistantMood } from "./mascot-2d"
 import { xrStore } from "./xr-store"
 import { MeasureGrid } from "./measure-grid"
 
@@ -60,8 +62,13 @@ export function StudioScene() {
         {xray && <XRayOverlay items={items} selectedId={selectedId} />}
         <VRShelf />
         <VRWorkspace />
-        <VRAssistant />
+        <VRAssistant mascot={<VRPix />} />
       </XR>
     </Canvas>
   )
+}
+
+/** Pix, the voxel guide, perched on the VR assistant; mood follows the assistant (listening/thinking/talking/happy). */
+function VRPix() {
+  return <Mascot mood={useAssistantMood()} size={1} />
 }
