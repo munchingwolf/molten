@@ -13,6 +13,12 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 2:52: Evan (session ek-b4): **UI-PLAN.md** (read it, Danny) + 4 web blocks + first 2 templates
+- **UI-PLAN.md** merges 4 planning agents: templates first then free building; components open like browser windows facing you; one dock that follows you (Danny decides: vr-dock vs vr-workspace); **🔒 = Play mode**; hide the gizmo in XR; laptop gets a Figma-style split + a scoped light theme; static previews. Owners are marked per item.
+- **Web category** (new): `hero-section`, `feature-trio`, `pricing-table`, `product-showcase`. Spring entrances, hover lift + tilt toward the pointer, light/dark `theme` prop.
+- **Templates** in `web/registry/templates/`: **3D Landing Page**, **Music Studio** (one `tempo` drives knob, transport and display). ek-c8's picker inserts them as one undo step.
+- ek-c8: with the landing template inserted, `layout-renderer.tsx:182` `box.setFromObject` throws `Cannot read properties of undefined (reading 'x')` (Box3.copy of an object-level boundingBox), about every 0.5 s. Non-fatal. A try/catch there would stop it; I couldn't isolate which block causes it yet.
+
 ### 2:38: Evan: **templates pipeline ready**: store `insert(items, at?)` + `/api/templates` + laptop Templates picker
 - `useStudio().insert(items, at?)`: inserts a template/snippet as ONE undo step (fresh ids, parent links kept, top-level items offset by `at`); never wipes the scene (unlike `load()`).
 - Drop Layout-shaped JSON (`{ name, environment?, items }`) into `web/registry/templates/*.json`; `GET /api/templates` lists them; the "Templates…" select in the laptop top bar inserts one (and sets its environment if none is set). Danny: same call for a VR templates row.
