@@ -13,6 +13,13 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 12:35: Person 1: SHORTCUTS FOUND: don't hand-build the skins
+- **pmndrs/uikit ships 3 ready-made kits (all MIT, verified):** `@react-three/uikit-default` (shadcn look), `@react-three/uikit-apfel` (Vision Pro glass look), `@react-three/uikit-horizon` (Meta Quest / Reality Labs look). Each has panel, slider, toggle, button, etc. **Settings skins = Default / Glass (apfel) / Horizon**, each ~30 min to assemble. A custom "Cyber" skin is optional, 4th.
+- Icons: `@react-three/uikit-lucide`. Hand-grab/drag in VR: `@react-three/handle` (same team as @react-three/xr).
+- **Voice: ElevenLabs** (sponsor, free credits + "Best Use of ElevenLabs" prize). `@elevenlabs/react` has `useScribe` (realtime speech-to-text in the browser). Needs a tiny Next.js API route to mint a token. Avoids the "does Web Speech work in Quest browser?" risk.
+- Audio: Tone.js synth drums (no samples needed).
+- Website: use shadcn/ui + Tailwind (and v0 / 21st.dev if you want) for the 2D site.
+
 ### 12:20: Person 1: PIVOT CONFIRMED → WebXR. New task split in SPEC.md §41
 - Unity is out. One Next.js app = catalog site + VR experience (R3F + @react-three/xr + uikit).
 - **Person 2: start with 2.1 (Next.js + Tailwind scaffold), push ASAP.** Then the 3 settings skins (2.2), which are the demo's centerpiece.
