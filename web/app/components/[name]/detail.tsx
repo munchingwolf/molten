@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useState } from "react"
 import type { Entry } from "@/lib/registry"
-import { Placeholder, Preview } from "@/components/site/preview"
+import { Placeholder, XRPreview } from "@/components/site/preview"
 
 export function Detail({ entry, code, styles }: { entry: Entry; code: string | null; styles: Entry[] }) {
   const [tab, setTab] = useState<"preview" | "code">("preview")
@@ -79,8 +79,8 @@ export function Detail({ entry, code, styles }: { entry: Entry; code: string | n
           )}
         </div>
         {tab === "preview" ? (
-          <div className="aspect-[16/10] bg-stage">
-            {ready ? <Preview key={previewKey} name={entry.name} interactive /> : <Placeholder />}
+          <div className="stage-bg aspect-[16/10]">
+            {ready ? <XRPreview key={previewKey} name={entry.name} /> : <Placeholder />}
           </div>
         ) : (
           <pre className="max-h-[600px] overflow-auto bg-stage p-5 font-mono text-[13px] leading-relaxed text-stage-text">

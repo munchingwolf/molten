@@ -1,166 +1,206 @@
 import Link from "next/link"
 import { ComponentCard } from "@/components/site/card"
+import { Logo } from "@/components/site/header"
+import { HeroScene } from "@/components/site/hero-scene"
+import { Preview } from "@/components/site/preview"
 import { registry } from "@/lib/registry"
 
 const sections = registry.filter((e) => e.kind === "section")
-const tier1 = registry.filter((e) => e.kind === "basic" && e.tier === 1)
-
-const waysIn = [
-  {
-    title: "Claude Code",
-    body: "Paste the prompt in your terminal. The Spatial MCP finds the component and copies the .tsx into your project.",
-    sample: "> add the glass settings panel from Spatial\n  ✓ components/spatial/settings-glass.tsx",
-  },
-  {
-    title: "Cursor & any MCP client",
-    body: "Same tools, any editor: search the catalog, pull a component, then edit it like your own code.",
-    sample: "search_components(\"settings\")\nadd_component(\"settings-glass\")",
-  },
-  {
-    title: "Studio, in your headset",
-    body: "Grab components off a floating shelf, place them with your hands, tap to restyle. Claude turns the layout into code.",
-    sample: "get_layout(\"my-room\")\n  → 4 components placed",
-  },
-]
-
-const kits = [
-  { name: "Default", note: "Clean and neutral. Built on uikit-default (MIT)." },
-  { name: "Glass", note: "Frosted panels that float over passthrough." },
-  { name: "Horizon", note: "Quest-native look. Built on uikit-horizon (MIT)." },
-]
+const general = registry.filter((e) => e.kind === "basic" && e.tier === 1).slice(0, 4)
+const readyCount = registry.filter((e) => e.status === "ready").length
 
 const faqs = [
-  ["What is Spatial?", "A catalog of UI components for XR apps. You see each one live in 3D, then copy it into your own WebXR project."],
+  ["What is Spatial?", "A library of UI components for XR apps. You see each one live in 3D, try it in your headset, then copy it into your own WebXR project."],
   ["What do I need to use a component?", "A React Three Fiber app with @react-three/uikit. Each component is one .tsx file with a default export and no required props."],
-  ["How do I install one?", "Copy the code, run the CLI command, or ask your coding agent to add it through the Spatial MCP."],
-  ["Does it work on Quest?", "Yes. Components run in the Quest browser through WebXR, and you can try them in the Studio."],
-  ["Can I change a component after adding it?", "Yes. It's your file. Edit it freely, or switch styles before you copy it."],
+  ["How do I add one with Claude Code?", "Add the Spatial MCP once, then paste the prompt from any component page. Claude copies the file in and renders it."],
+  ["Does it work on Quest?", "Yes. Everything runs in the Quest browser through WebXR. Open any component page there and press View in headset."],
+  ["Can I sell my own components?", "Not yet. Publishing and paid components come after launch; every component today is free and MIT."],
 ]
 
 export default function Home() {
   return (
     <main>
-      <section className="bg-stage text-stage-text">
-        <div className="mx-auto max-w-[1440px] px-4 pb-10 pt-16 sm:px-6">
-          <h1 className="max-w-[16ch] font-display text-[clamp(2.4rem,5vw,4.25rem)] font-extrabold leading-[1.02] tracking-[-0.03em]">
-            The component library for spatial apps
-          </h1>
-          <p className="mt-4 max-w-[54ch] text-stage-text/70">
-            {registry.length} XR components you can see live in 3D, try in your headset, and drop into any WebXR
-            project.
-          </p>
-          <Strip title="Sections" count={sections.length}>
-            {sections.map((e) => (
-              <ComponentCard key={e.name} entry={e} />
-            ))}
-          </Strip>
+      <section className="relative overflow-hidden border-b border-border bg-[linear-gradient(180deg,#0B0C10_0%,#0E1117_60%,#0B0C10_100%)]">
+        <div className="floor-grid" aria-hidden />
+        <div className="relative mx-auto grid max-w-[1240px] items-center gap-10 px-5 pb-10 pt-14 lg:grid-cols-[1fr_1.05fr] lg:pb-16 lg:pt-22">
+          <div>
+            <p className="mb-5.5 flex items-center gap-2 text-[13.5px] text-muted">
+              <span className="size-[7px] rounded-full bg-accent shadow-[0_0_0_4px_rgb(159_231_210/0.18)]" />
+              Live in your Quest browser, no install
+            </p>
+            <h1 className="text-balance font-display text-[clamp(2.6rem,5.4vw,4.6rem)] font-bold leading-[0.98] tracking-[-0.04em]">
+              Interfaces you can <span className="accent-word">walk around</span>
+            </h1>
+            <p className="mt-5.5 max-w-[46ch] text-lg text-muted">
+              <b className="font-semibold text-text">{registry.length} XR components</b> for WebXR and React Three Fiber.
+              Turn them in 3D, try them in your headset, then paste one prompt and your agent ships the code.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/components" className="inline-flex h-[46px] items-center rounded-[11px] bg-accent px-5 font-semibold text-on-accent hover:brightness-105">
+                Browse components
+              </Link>
+              <Link href="/studio" className="inline-flex h-[46px] items-center rounded-[11px] border border-border-2 bg-surface px-5 font-semibold hover:border-faint">
+                Open Studio in VR
+              </Link>
+            </div>
+            <ul className="mt-7.5 flex flex-wrap gap-4.5 font-mono text-[12.5px] text-faint">
+              {["React Three Fiber", "WebXR", "pmndrs/uikit", "Quest 3 · 3S"].map((t) => (
+                <li key={t} className="flex items-center gap-1.5 before:size-[5px] before:rounded-[1px] before:bg-border-2">{t}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="h-[380px] lg:h-[460px]" aria-label="The three Settings styles floating in a live 3D scene">
+            <HeroScene />
+          </div>
+        </div>
+
+        <Strip title="Sections" note={`${sections.length} ready`} href="/components?kind=section">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {sections.map((e) => <ComponentCard key={e.name} entry={e} />)}
+          </div>
+        </Strip>
+      </section>
+
+      <Strip title="Components" note={`${registry.length - sections.length} · ${readyCount} live`} href="/components">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {general.map((e) => <ComponentCard key={e.name} entry={e} />)}
+        </div>
+      </Strip>
+
+      <section id="mcp" className="mx-auto max-w-[1240px] px-5 pt-26">
+        <H2>Copy the prompt. <span className="accent-word">Paste it</span> anywhere.</H2>
+        <p className="mt-3.5 max-w-[52ch] text-[17px] text-muted">
+          Every component ships as one self-contained .tsx file and a prompt your coding agent can act on. Or skip the code and place it with your hands in the Studio.
+        </p>
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
+          <Agent tone="warm" title="Claude Code" body="Paste the prompt in your terminal. The Spatial MCP finds the file and wires it into your scene.">
+            <span className="text-faint">&gt;</span> add the glass settings panel{"\n"}  from Spatial to my scene{"\n\n"}
+            <span className="text-warm">●</span> spatial.get_component(&quot;settings-glass&quot;){"\n"}
+            <span className="text-warm">●</span> spatial.add_component(...){"\n"}
+            <span className="text-accent">✓</span> components/spatial/settings-glass.tsx
+          </Agent>
+          <Agent tone="cool" title="Cursor and any MCP client" body="Same tools in every editor. Search, pull, then edit it like code you wrote.">
+            <span className="text-faint">{"// any MCP client"}</span>{"\n"}search_components(&quot;settings&quot;){"\n"}  → default, glass, horizon{"\n"}get_component(&quot;settings-glass&quot;){"\n"}
+            <span className="text-accent">✓</span> source + npm deps
+          </Agent>
+          <Agent tone="mint" title="Studio, in your headset" body="Grab components off a floating shelf, place them with your hands, launch a real app.">
+            <span className="text-faint">Studio · my-daw</span>{"\n"}grab   knob       → (0.5, 1.2, -0.6){"\n"}bind   knob.value → tempo{"\n"}
+            <span className="text-accent">✓</span> Launch → /apps/my-daw
+          </Agent>
         </div>
       </section>
 
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-6">
-        <Strip title="Components" count={tier1.length} href="/components">
-          {tier1.slice(0, 8).map((e) => (
-            <ComponentCard key={e.name} entry={e} />
-          ))}
-        </Strip>
-
-        <section id="mcp" className="py-20">
-          <h2 className="max-w-[20ch] font-display text-4xl font-extrabold tracking-tight">
-            Copy the prompt. Paste it anywhere.
-          </h2>
-          <p className="mt-3 max-w-[56ch] text-muted">
-            Every component ships as a prompt your coding agent can act on, plus the plain .tsx if you&apos;d rather paste it
-            yourself.
-          </p>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {waysIn.map((w) => (
-              <article key={w.title} className="flex flex-col rounded-xl border border-border bg-surface p-5">
-                <pre className="overflow-x-auto rounded-lg bg-stage p-4 font-mono text-xs leading-relaxed text-stage-text">
-                  {w.sample}
-                </pre>
-                <h3 className="mt-5 font-semibold">{w.title}</h3>
-                <p className="mt-1 text-sm text-muted">{w.body}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="py-12">
-          <h2 className="max-w-[22ch] font-display text-4xl font-extrabold tracking-tight">
-            One component, three styles. Switch without touching your app.
-          </h2>
-          <div className="mt-8 grid gap-4 sm:grid-cols-3">
-            {kits.map((k) => (
-              <div key={k.name} className="rounded-xl border border-border bg-surface p-5">
-                <p className="font-semibold">{k.name}</p>
-                <p className="mt-1 text-sm text-muted">{k.note}</p>
+      <section className="mx-auto max-w-[1240px] px-5 pt-26">
+        <H2>One component, <span className="accent-word">three</span> looks.</H2>
+        <p className="mt-3.5 max-w-[52ch] text-[17px] text-muted">Switch styles without touching your app&apos;s state. Same props, same events, different material.</p>
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
+          {sections.map((e) => (
+            <Link key={e.name} href={`/components/${e.name}`} className="group overflow-hidden rounded-[18px] border border-border bg-bg-2 hover:border-border-2">
+              <div className="stage-bg aspect-[16/10]">
+                <Preview name={e.name} />
               </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="py-24 text-center">
-          <h2 className="font-display text-5xl font-extrabold tracking-tight">Built for hands. Ready for agents.</h2>
-          <div className="mt-8 flex justify-center gap-3">
-            <Link href="/components" className="rounded-md bg-accent px-5 py-2.5 font-medium text-on-accent">
-              Browse components
+              <div className="grid gap-1 px-5 pb-5 pt-4.5">
+                <b className="font-display text-[17px] font-bold capitalize">{e.style}</b>
+                <span className="text-sm text-muted">{e.description}</span>
+              </div>
             </Link>
-            <Link href="/studio" className="rounded-md border border-border bg-surface px-5 py-2.5 font-medium">
-              Open Studio
-            </Link>
-          </div>
-        </section>
+          ))}
+        </div>
+      </section>
 
-        <section className="grid gap-10 border-t border-border py-20 md:grid-cols-[1fr_2fr]">
-          <h2 className="font-display text-4xl font-extrabold tracking-tight">Questions</h2>
-          <div className="divide-y divide-border">
-            {faqs.map(([q, a]) => (
-              <details key={q} className="group py-4">
-                <summary className="flex cursor-pointer list-none justify-between font-medium">
-                  {q}
-                  <span className="text-muted group-open:rotate-45">+</span>
-                </summary>
-                <p className="mt-2 text-muted">{a}</p>
-              </details>
-            ))}
+      <section className="relative mt-30 overflow-hidden border-y border-border">
+        <div className="floor-grid !h-[90%] !opacity-40" aria-hidden />
+        <div className="relative mx-auto grid max-w-[1240px] justify-items-center gap-7 px-5 py-30 text-center">
+          <H2 className="max-w-[16ch] !text-[clamp(2.4rem,5vw,4rem)]">Built for hands. <span className="accent-word">Ready</span> for agents.</H2>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link href="/components" className="inline-flex h-[46px] items-center rounded-[11px] bg-accent px-5 font-semibold text-on-accent">Browse components</Link>
+            <a href="https://github.com/munchingwolf/molten/tree/main/mcp" className="inline-flex h-[46px] items-center rounded-[11px] border border-border-2 bg-surface px-5 font-semibold">Add the MCP</a>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-[1240px] gap-12 px-5 py-26 md:grid-cols-[1fr_1.7fr]">
+        <div>
+          <H2 className="!text-[clamp(2rem,3.4vw,2.8rem)]">Questions, <span className="accent-word">answered</span></H2>
+          <p className="mt-3 text-[15px] text-muted">Using components, the Studio, and the MCP.</p>
+        </div>
+        <div>
+          {faqs.map(([q, a], i) => (
+            <details key={q} open={i === 0} className="group border-b border-border">
+              <summary className="flex cursor-pointer list-none items-baseline gap-4 py-4.5 font-medium [&::-webkit-details-marker]:hidden">
+                <span className="w-5.5 font-mono text-xs text-faint">{String(i + 1).padStart(2, "0")}</span>
+                {q}
+                <span className="ml-auto text-faint transition-transform group-open:rotate-45">+</span>
+              </summary>
+              <p className="-mt-1.5 mb-5 ml-9.5 max-w-[60ch] text-muted">{a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
 
       <footer className="border-t border-border">
-        <div className="mx-auto flex max-w-[1440px] flex-wrap justify-between gap-6 px-4 py-10 text-sm text-muted sm:px-6">
-          <p>Spatial · built at MOLTEN 2026</p>
-          <p>Components built on pmndrs/uikit (MIT) and React Three Fiber.</p>
+        <div className="mx-auto grid max-w-[1240px] grid-cols-2 gap-8 px-5 pb-10 pt-14 text-sm md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div className="col-span-2 md:col-span-1">
+            <Logo />
+            <p className="mt-3 max-w-[30ch] text-faint">Components built on pmndrs/uikit and React Three Fiber, both MIT.</p>
+          </div>
+          <FooterCol title="Product" links={[["Components", "/components"], ["Sections", "/components?kind=section"], ["Studio", "/studio"]]} />
+          <FooterCol title="Developers" links={[["MCP server", "https://github.com/munchingwolf/molten/tree/main/mcp"], ["Component contract", "https://github.com/munchingwolf/molten/blob/main/SPEC.md"]]} />
+          <FooterCol title="Connect" links={[["GitHub", "https://github.com/munchingwolf/molten"]]} />
         </div>
       </footer>
     </main>
   )
 }
 
-function Strip({
-  title,
-  count,
-  href,
-  children,
-}: {
-  title: string
-  count: number
-  href?: string
-  children: React.ReactNode
-}) {
+function H2({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <section className="pt-10">
-      <div className="mb-4 flex items-baseline justify-between">
-        <h2 className="text-sm font-medium">
-          {title} <span className="opacity-60">{count}</span>
-        </h2>
-        {href && (
-          <Link href={href} className="text-sm opacity-70 hover:opacity-100">
-            View all →
-          </Link>
-        )}
+    <h2 className={`max-w-[18ch] text-balance font-display text-[clamp(2rem,3.6vw,3rem)] font-bold leading-[1.02] tracking-[-0.035em] ${className}`}>
+      {children}
+    </h2>
+  )
+}
+
+function Strip({ title, note, href, children }: { title: string; note: string; href: string; children: React.ReactNode }) {
+  return (
+    <section className="relative mx-auto max-w-[1240px] px-5 pb-14 pt-6">
+      <div className="mb-5 flex items-baseline gap-3">
+        <h2 className="text-[15px] font-semibold">{title}</h2>
+        <span className="text-[15px] text-faint">{note}</span>
+        <Link href={href} className="ml-auto text-sm text-muted hover:text-text">View all →</Link>
       </div>
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">{children}</div>
+      {children}
     </section>
+  )
+}
+
+const tones = {
+  warm: "border-[#3A2A20] bg-[linear-gradient(180deg,#2A1D16,#17110D)]",
+  cool: "border-border bg-[linear-gradient(180deg,#171C26,#11141B)]",
+  mint: "border-[#1F3A33] bg-[linear-gradient(180deg,#13231F,#0E1715)]",
+}
+
+function Agent({ tone, title, body, children }: { tone: keyof typeof tones; title: string; body: string; children: React.ReactNode }) {
+  return (
+    <article className={`grid content-start gap-4.5 rounded-[18px] border p-5.5 ${tones[tone]}`}>
+      <pre className="min-h-[148px] overflow-x-auto rounded-xl border border-white/8 bg-black/40 p-3.5 font-mono text-[12.5px] leading-[1.7] text-[#D9DCE3]">
+        {children}
+      </pre>
+      <h3 className="font-display text-lg font-bold tracking-[-0.01em]">{title}</h3>
+      <p className="-mt-2.5 text-[15px] text-muted">{body}</p>
+    </article>
+  )
+}
+
+function FooterCol({ title, links }: { title: string; links: [string, string][] }) {
+  return (
+    <div>
+      <h4 className="mb-3 text-[13px] font-semibold">{title}</h4>
+      <ul className="grid gap-2 text-muted">
+        {links.map(([label, href]) => (
+          <li key={label}><a href={href} className="hover:text-text">{label}</a></li>
+        ))}
+      </ul>
+    </div>
   )
 }

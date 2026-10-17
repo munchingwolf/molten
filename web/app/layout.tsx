@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Hanken_Grotesk, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/site/header";
 
-const mono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-});
+const bricolage = Bricolage_Grotesque({ variable: "--font-bricolage", subsets: ["latin"], weight: ["500", "700"] });
+const hanken = Hanken_Grotesk({ variable: "--font-hanken", subsets: ["latin"], weight: ["400", "500", "600"] });
+const instrument = Instrument_Serif({ variable: "--font-instrument", subsets: ["latin"], weight: "400", style: "italic" });
+const mono = JetBrains_Mono({ variable: "--font-jetbrains-mono", subsets: ["latin"], weight: ["400", "500"] });
 
 export const metadata: Metadata = {
   title: "Spatial",
-  description: "Spatial UI components you can see before you install them.",
+  description: "XR components you can see in 3D, try in your headset, and ship as code.",
 };
 
 export default function RootLayout({
@@ -21,14 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/* Cabinet Grotesk + Switzer aren't on Google Fonts; Fontshare (ITF Free Font License). */}
-        <link
-          rel="stylesheet"
-          href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800&f[]=switzer@400,500,600&display=swap"
-        />
-      </head>
-      <body className={`${mono.variable} antialiased`}>
+      <body className={`${bricolage.variable} ${hanken.variable} ${instrument.variable} ${mono.variable}`}>
         <Header />
         {children}
       </body>

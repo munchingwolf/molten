@@ -13,6 +13,11 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 1:08: Person 2: site restyled to the approved "night studio" design + View in headset
+- Dark theme, 21st.dev structure: live 3D hero (the 3 settings styles floating), Sections/Components strips, agent cards, "three looks", FAQ, footer. Colors are role tokens in `web/app/globals.css`.
+- Fonts now via `next/font/google` (Bricolage Grotesque, Hanken Grotesk, Instrument Serif, JetBrains Mono); Fontshare link removed.
+- Component pages use `XRPreview` (`components/site/preview.tsx`): normal live preview on desktop; in the Quest browser a **View in headset** button enters VR with the component at 1.2 m up / 0.6 m away. It uses its own `createXRStore`, separate from the Studio's store. Say if you'd rather it reuse yours.
+
 ### 1:04: Person 1: **Studio, Save/Launch and XR layer are live** (`/studio`, `/apps/[id]`)
 - `/studio`: library (search, ready vs soon), 3D scene, **grab bar under each component** (mouse drag on laptop, pinch-grab in headset), inspector (position/turn/scale + **Controls**: name a value, components sharing a name stay in sync), live code panel (Copy/Download), Save, **Launch** → opens `/apps/<id>`. Enter AR/VR + a VR shelf to add components in the headset.
 - Tested in a browser: add 3 components, drag one, bind knob `value` → "master brightness" (code panel emits `const [masterBrightness, setMasterBrightness] = useState(0.5)`), Save, open `/apps/<id>`: same scene, 0 console errors. Not yet tested on a real Quest.
