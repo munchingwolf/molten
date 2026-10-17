@@ -1,12 +1,14 @@
 "use client"
 
 import Link from "next/link"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { generateCode } from "@/lib/codegen"
 import { registry, matches, type Entry } from "@/lib/registry"
 import { useStudio } from "@/lib/studio-store"
 import { bindablesOf } from "@/components/studio/layout-renderer"
-import { StudioScene } from "@/components/studio/scene"
+import { StudioScene, dropAt, previewDrop, seatOnFloor } from "@/components/studio/scene"
+import { propsOf } from "@/components/studio/prop-controls"
+import type { Item } from "@/lib/layout"
 import { EnterXRButtons } from "@/components/studio/xr-controls"
 import { AssistantPanel } from "@/components/studio/assistant-panel"
 import { VoiceButton } from "@/components/studio/voice"
@@ -15,7 +17,6 @@ import { ImportModelButton } from "@/components/studio/import-model"
 
 export function StudioApp() {
   useGestureKeys()
-  const { selectedId, remove, select } = useStudio()
 
   // /studio?layout=latest (or an id): open a saved layout, e.g. on the Quest after building on the laptop.
   useEffect(() => {
@@ -27,16 +28,30 @@ export function StudioApp() {
       .catch(() => {})
   }, [])
 
-  // Delete/Backspace removes the selected item, Escape deselects (ignored while typing in an input).
+  // Figma-style keys. Typing in a field is left alone; Escape leaves the field so the keys work again.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if ((e.target as HTMLElement).closest("input, textarea, select")) return
-      if ((e.key === "Delete" || e.key === "Backspace") && selectedId) remove(selectedId)
-      if (e.key === "Escape") select(null)
+      const el = e.target as HTMLElement
+      if (el.closest("input, textarea, select, [contenteditable=true]")) {
+        if (e.key === "Escape") el.blur()
+        return
+      }
+      const s = useStudio.getState()
+      const mod = e.metaKey || e.ctrlKey
+      const k = e.key.toLowerCase()
+      if (mod && k === "z") (e.shiftKey ? s.redo() : s.undo())
+      else if (mod && k === "y") s.redo()
+      else if (mod && k === "d") s.duplicate()
+      else if (mod && k === "c" && s.selectedIds.length && !window.getSelection()?.toString()) s.copy()
+      else if (mod && k === "v") s.paste()
+      else if (!mod && (e.key === "Delete" || e.key === "Backspace")) s.removeSelected()
+      else if (!mod && e.key === "Escape") s.select(null)
+      else return
+      e.preventDefault()
     }
     window.addEventListener("keydown", onKey)
     return () => window.removeEventListener("keydown", onKey)
-  }, [selectedId, remove, select])
+  }, [])
 
   return (
     // fixed + z-50: the Studio is a full-screen tool and covers the site header from the root layout.
@@ -45,6 +60,7 @@ export function StudioApp() {
       <Library />
       <main className="relative min-h-0 bg-stage">
         <StudioScene />
+        <EmptyHint />
         <div className="absolute right-3 top-3 bottom-3 w-[340px] overflow-hidden rounded-lg border border-border">
           <AssistantPanel />
         </div>
@@ -139,11 +155,13 @@ function TopBar() {
         onChange={(e) => setName(e.target.value)}
         className="w-48 rounded-md border border-border bg-bg px-2 py-1 text-sm"
       />
+      <History />
       <span className="ml-auto font-mono text-xs text-muted" aria-live="polite">{status}</span>
       <TemplatePicker />
       <EnvironmentPicker />
       <ImportModelButton />
       <VoiceButton />
+      <PlayToggle />
       <EnterXRButtons />
       <button onClick={() => save(false)} className="rounded-md border border-border bg-surface px-3 py-1.5 text-sm font-medium">
         Save
@@ -160,19 +178,54 @@ function TopBar() {
   )
 }
 
+// Furniture and room pieces land on the floor; UI floats at working height.
+const ON_FLOOR = new Set(["objects", "room", "hardware", "spaces"])
+
 function Library() {
   const [query, setQuery] = useState("")
   const add = useStudio((s) => s.add)
+  const [ghost, setGhost] = useState<{ label: string; x: number; y: number; over: boolean } | null>(null)
+  const dragged = useRef(false)
   const groups = useMemo(() => {
     const g = new Map<string, Entry[]>()
-    for (const e of registry.filter((e) => matches(e, query)))
+    for (const e of registry.filter((e) => e.category !== "environments" && matches(e, query)))
       g.set(e.category, [...(g.get(e.category) ?? []), e])
     // Ready components first within the list; categories with something ready first.
     return [...g].sort(([, a], [, b]) => +b.some((e) => e.status === "ready") - +a.some((e) => e.status === "ready"))
   }, [query])
+
+  // Press a row and drag it onto the canvas: a label follows the cursor, a ring shows where it lands, release places it
+  // facing you. A plain click still adds it at the next free spot.
+  const startDrag = (ev: React.PointerEvent, entry: Entry) => {
+    if (ev.button !== 0 || entry.status !== "ready") return
+    dragged.current = false
+    const x0 = ev.clientX
+    const y0 = ev.clientY
+    const floor = ON_FLOOR.has(entry.category)
+    const move = (e: PointerEvent) => {
+      if (!dragged.current && Math.hypot(e.clientX - x0, e.clientY - y0) < 6) return
+      dragged.current = true
+      setGhost({ label: entry.displayName, x: e.clientX, y: e.clientY, over: previewDrop(e.clientX, e.clientY, floor) })
+    }
+    const up = (e: PointerEvent) => {
+      window.removeEventListener("pointermove", move)
+      window.removeEventListener("pointerup", up)
+      previewDrop(null)
+      setGhost(null)
+      if (!dragged.current) return
+      const at = dropAt(e.clientX, e.clientY, floor)
+      if (!at) return
+      add(entry.name, at.position, { rotation: [0, at.yaw, 0] })
+      const id = useStudio.getState().selectedId
+      if (floor && id && !at.onItem) seatOnFloor(id)
+    }
+    window.addEventListener("pointermove", move)
+    window.addEventListener("pointerup", up)
+  }
+
   return (
     <aside className="min-h-0 overflow-y-auto border-r border-border bg-surface row-span-2">
-      <div className="sticky top-0 bg-surface p-3">
+      <div className="sticky top-0 z-10 bg-surface p-3">
         <input
           aria-label="Search components"
           placeholder="Search components…"
@@ -180,6 +233,7 @@ function Library() {
           onChange={(e) => setQuery(e.target.value)}
           className="w-full rounded-md border border-border bg-bg px-2 py-1.5 text-sm"
         />
+        <p className="mt-1.5 text-[11px] text-faint">Click to add · drag onto the canvas to place</p>
       </div>
       {groups.map(([category, entries]) => (
         <section key={category} className="px-3 pb-3">
@@ -189,9 +243,10 @@ function Library() {
               <li key={e.name}>
                 <button
                   disabled={e.status !== "ready"}
-                  onClick={() => add(e.name)}
-                  title={e.status === "ready" ? `Add ${e.displayName}` : "Coming soon"}
-                  className="flex w-full items-center justify-between rounded-md px-2 py-1.5 text-left text-sm hover:bg-bg disabled:cursor-not-allowed disabled:opacity-40"
+                  onPointerDown={(ev) => startDrag(ev, e)}
+                  onClick={() => (dragged.current ? (dragged.current = false) : add(e.name))}
+                  title={e.status === "ready" ? `Add ${e.displayName} (or drag it onto the canvas)` : "Coming soon"}
+                  className="flex w-full cursor-grab select-none items-center justify-between rounded-md px-2 py-1.5 text-left text-sm hover:bg-bg active:cursor-grabbing disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   <span>{e.displayName}</span>
                   {e.status === "ready" ? <span aria-hidden className="text-muted">+</span> : <span className="text-xs">soon</span>}
@@ -201,18 +256,72 @@ function Library() {
           </ul>
         </section>
       ))}
+      {ghost && (
+        <div
+          className={`pointer-events-none fixed z-[60] -translate-x-1/2 -translate-y-[130%] rounded-full border px-3 py-1 text-xs font-semibold shadow-lg transition-colors ${
+            ghost.over ? "border-accent bg-accent text-on-accent" : "border-border bg-surface text-text"
+          }`}
+          style={{ left: ghost.x, top: ghost.y }}
+        >
+          {ghost.over ? `Drop ${ghost.label}` : ghost.label}
+        </div>
+      )}
     </aside>
   )
 }
 
+/** Undo / redo in the top bar (⌘Z / ⇧⌘Z). */
+function History() {
+  const canUndo = useStudio((s) => s.past.length > 0)
+  const canRedo = useStudio((s) => s.future.length > 0)
+  const btn = "rounded-md border border-border px-2 py-1 text-sm disabled:opacity-35"
+  return (
+    <div className="flex gap-1">
+      <button className={btn} disabled={!canUndo} onClick={() => useStudio.getState().undo()} title="Undo (⌘Z)" aria-label="Undo">↶</button>
+      <button className={btn} disabled={!canRedo} onClick={() => useStudio.getState().redo()} title="Redo (⇧⌘Z)" aria-label="Redo">↷</button>
+    </div>
+  )
+}
+
+/** Play locks the scene: components work, nothing can be grabbed or moved, the grid hides. */
+function PlayToggle() {
+  const playMode = useStudio((s) => s.playMode)
+  return (
+    <button
+      onClick={() => useStudio.getState().togglePlay()}
+      aria-pressed={playMode}
+      title={playMode ? "Back to editing" : "Lock the scene and use it"}
+      className="rounded-md border border-border px-3 py-1.5 text-sm font-medium aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-on-accent"
+    >
+      {playMode ? "Playing · Edit" : "Play"}
+    </button>
+  )
+}
+
+/** First-run card over an empty canvas. */
+function EmptyHint() {
+  const empty = useStudio((s) => s.items.length === 0)
+  if (!empty) return null
+  return (
+    <div className="pointer-events-none absolute left-6 top-6 max-w-[300px] rounded-xl border border-border bg-surface/90 p-4 text-sm backdrop-blur">
+      <p className="font-display text-base font-bold">Build your space</p>
+      <ul className="mt-2 space-y-1 text-muted">
+        <li>Drag a component from the left onto the floor</li>
+        <li>Or pick a template in the top bar</li>
+        <li>Or drop your app&apos;s .glb anywhere</li>
+      </ul>
+    </div>
+  )
+}
+
 function Inspector() {
-  const { items, selectedId, values, update, remove, bind } = useStudio()
+  const { items, selectedId, values, update, remove, bind, duplicate } = useStudio()
   const item = items.find((i) => i.id === selectedId)
   const names = [...new Set(items.flatMap((i) => Object.values(i.bind)))]
   if (!item)
     return (
       <aside className="row-span-2 border-l border-border bg-surface p-4 text-sm text-muted">
-        Add a component from the library, then click it (or grab its bar) to select. Drag the bar under a component to move it.
+        Drag a component from the library onto the canvas, then click it (or grab its bar) to select and edit it. Drag the bar under a component to move it.
       </aside>
     )
   const num = (v: string) => (Number.isFinite(+v) ? +v : 0)
@@ -220,9 +329,20 @@ function Inspector() {
   return (
     <aside className="row-span-2 min-h-0 space-y-5 overflow-y-auto border-l border-border bg-surface p-4 text-sm">
       <div>
-        <p className="font-display text-lg font-extrabold">{item.component}</p>
-        <p className="font-mono text-xs text-muted">id {item.id}</p>
+        <input
+          key={`${item.id}-${item.name ?? ""}`}
+          aria-label="Layer name"
+          defaultValue={item.name ?? registry.find((e) => e.name === item.component)?.displayName ?? item.component}
+          onBlur={(e) => {
+            const v = e.target.value.trim()
+            if (v !== (item.name ?? "")) update(item.id, { name: v || undefined })
+          }}
+          onKeyDown={(e) => e.key === "Enter" && (e.target as HTMLInputElement).blur()}
+          className="w-full rounded-md bg-transparent font-display text-lg font-extrabold outline-none focus:bg-bg"
+        />
+        <p className="font-mono text-xs text-muted">{item.component} · id {item.id}</p>
       </div>
+      <PropsSection item={item} />
       <fieldset className="space-y-2">
         <legend className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted">Position (m)</legend>
         <div className="grid grid-cols-3 gap-2">
@@ -250,7 +370,7 @@ function Inspector() {
               type="number"
               step={15}
               value={Math.round((item.rotation[1] * 180) / Math.PI)}
-              onChange={(e) => update(item.id, { rotation: [0, (num(e.target.value) * Math.PI) / 180, 0] })}
+              onChange={(e) => update(item.id, { rotation: [item.rotation[0], (num(e.target.value) * Math.PI) / 180, item.rotation[2]] })}
               className="w-full rounded-md border border-border bg-bg px-1.5 py-1"
             />
           </label>
@@ -302,10 +422,94 @@ function Inspector() {
           </div>
         )}
       </fieldset>
-      <button onClick={() => remove(item.id)} className="w-full rounded-md border border-border px-3 py-1.5 font-medium hover:bg-bg">
-        Delete
-      </button>
+      <div className="grid grid-cols-2 gap-2">
+        <button onClick={() => duplicate()} title="⌘D" className="rounded-md border border-border px-3 py-1.5 font-medium hover:bg-bg">
+          Duplicate
+        </button>
+        <button onClick={() => remove(item.id)} title="Delete" className="rounded-md border border-border px-3 py-1.5 font-medium hover:bg-bg">
+          Delete
+        </button>
+      </div>
     </aside>
+  )
+}
+
+type PropMeta = ReturnType<typeof propsOf>[number]
+
+/** Live properties from the registry (colour, text, size, style…): every change re-renders the component at once. */
+function PropsSection({ item }: { item: Item }) {
+  const metas = propsOf(item.component)
+  if (!metas.length) return null
+  return (
+    <fieldset className="space-y-2.5">
+      <legend className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted">Properties</legend>
+      {metas.map((m) => (
+        <PropField key={`${item.id}-${m.name}`} item={item} meta={m} />
+      ))}
+    </fieldset>
+  )
+}
+
+function PropField({ item, meta: m }: { item: Item; meta: PropMeta }) {
+  const value = item.props?.[m.name] ?? m.default
+  const set = (v: unknown) => useStudio.getState().update(item.id, { props: { ...item.props, [m.name]: v } })
+  const label = <span className="font-mono text-xs">{m.name}</span>
+  const field = "w-full rounded-md border border-border bg-bg px-2 py-1"
+  if (m.type === "boolean")
+    return (
+      <label className="flex items-center justify-between gap-2">
+        {label}
+        <input type="checkbox" checked={value === true} onChange={(e) => set(e.target.checked)} className="size-4 accent-[var(--color-accent)]" />
+      </label>
+    )
+  if (Array.isArray(m.options) && m.options.length)
+    return (
+      <label className="block space-y-1">
+        {label}
+        <select value={String(value ?? "")} onChange={(e) => set(m.options!.find((o) => String(o) === e.target.value) ?? e.target.value)} className={field}>
+          {m.options.map((o) => (
+            <option key={String(o)} value={String(o)}>{String(o)}</option>
+          ))}
+        </select>
+      </label>
+    )
+  if (m.type === "color") {
+    const hex = /^#[0-9a-f]{6}$/i.test(String(value)) ? String(value) : "#ffffff"
+    return (
+      <label className="flex items-center justify-between gap-2">
+        {label}
+        <span className="flex items-center gap-2">
+          <span className="font-mono text-xs text-muted">{hex}</span>
+          <input type="color" value={hex} onChange={(e) => set(e.target.value)} className="h-7 w-10 cursor-pointer rounded border border-border bg-bg" />
+        </span>
+      </label>
+    )
+  }
+  if (m.type === "number") {
+    const v = typeof value === "number" ? value : 0
+    const ranged = m.min !== undefined && m.max !== undefined
+    return (
+      <label className="block space-y-1">
+        <span className="flex justify-between">{label}<span className="font-mono text-xs text-muted">{+v.toFixed(2)}</span></span>
+        {ranged ? (
+          <input type="range" min={m.min} max={m.max} step={m.step ?? (m.max! - m.min!) / 100} value={v} onChange={(e) => set(+e.target.value)} className="w-full accent-[var(--color-accent)]" />
+        ) : (
+          <input type="number" step={m.step ?? "any"} value={v} onChange={(e) => set(Number.isFinite(+e.target.value) ? +e.target.value : 0)} className={field} />
+        )}
+      </label>
+    )
+  }
+  return (
+    <label className="block space-y-1">
+      {label}
+      <input
+        key={String(value ?? "")}
+        defaultValue={String(value ?? "")}
+        onBlur={(e) => e.target.value !== String(value ?? "") && set(e.target.value)}
+        onKeyDown={(e) => e.key === "Enter" && (e.target as HTMLInputElement).blur()}
+        className={field}
+      />
+    </label>
   )
 }
 
