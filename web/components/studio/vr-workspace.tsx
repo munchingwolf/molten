@@ -4,13 +4,14 @@ import type { ReactNode } from "react"
 import { IfInSessionMode } from "@react-three/xr"
 import { Container, Text } from "@react-three/uikit"
 import {
-  Copy, Eye, EyeOff, Frame, Grid3x3, Layers, Lock, LockOpen, Magnet, Minus, Plus, Redo2, RotateCcw, RotateCw, ScanEye, Trash2, Undo2,
+  Copy, Eye, EyeOff, Frame, Grid3x3, Orbit, Layers, Lock, LockOpen, Magnet, Minus, Plus, Redo2, RotateCcw, RotateCw, ScanEye, Trash2, Undo2,
 } from "@react-three/uikit-lucide"
 import { useStudio } from "@/lib/studio-store"
 import { findEntry } from "@/lib/registry"
 import type { Item, Vec3 } from "@/lib/layout"
 import { PropControls } from "./prop-controls"
 import { xr } from "./xr-theme"
+import { useWheel } from "./vr-wheel"
 
 // Cockpit layout around where the session starts (user at the origin, eyes ≈ 1.6 m):
 // library shelf on the left (vr-shelf.tsx), toolbar ahead above eye line, inspector + layers on the right.
@@ -40,8 +41,11 @@ export function VRWorkspace() {
 function Toolbar() {
   const s = useStudio()
   const has = s.selectedIds.length > 0
+  const wheel = useWheel()
   return (
     <Panel flexDirection="row" alignItems="center" gap={6} padding={8}>
+      <Tool label="Component wheel" onClick={wheel.toggle} active={wheel.open}><Orbit {...icon} /></Tool>
+      <Divider />
       <Tool label="Undo" onClick={s.undo} disabled={!s.past.length}><Undo2 {...icon} /></Tool>
       <Tool label="Redo" onClick={s.redo} disabled={!s.future.length}><Redo2 {...icon} /></Tool>
       <Divider />
