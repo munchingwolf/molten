@@ -1,10 +1,10 @@
 import Link from "next/link"
 import { ComponentCard } from "@/components/site/card"
 import { Logo } from "@/components/site/header"
-import { HeroScene } from "@/components/site/hero-scene"
-import { BlurWords, DriftRow, GlowButton, ScrollLightText, TerminalLines, Ticker, TiltCard, Typewriter } from "@/components/site/fx"
-import { Reveal, Stagger, StaggerItem } from "@/components/site/motion"
+import { DriftRow, ScrollLightText, TerminalLines, TiltCard } from "@/components/site/fx"
+import { Reveal } from "@/components/site/motion"
 import { Preview } from "@/components/site/preview"
+import SculptureHero from "@/components/ui/liquid-sculpture-hero"
 import { registry } from "@/lib/registry"
 
 // Browsers keep ~16 live WebGL canvases and silently drop the oldest (the hero). Budget for this page:
@@ -25,52 +25,29 @@ const faqs = [
 export default function Home() {
   return (
     <main>
-      <section className="relative overflow-hidden border-b border-border bg-[linear-gradient(180deg,#0B0C10_0%,#0E1117_60%,#0B0C10_100%)]">
-        <div className="hero-glow" aria-hidden />
-        <div className="floor-grid" aria-hidden />
-        <div className="relative mx-auto grid max-w-[1240px] items-center gap-10 px-5 pb-10 pt-14 lg:grid-cols-[1fr_1.05fr] lg:pb-16 lg:pt-22">
-          <div>
-            <Stagger>
-              <StaggerItem>
-                <p className="mb-5.5 flex items-center gap-2.5 font-mono text-[13px] text-muted">
-                  <span className="size-[7px] animate-pulse rounded-full bg-accent shadow-[0_0_0_4px_rgb(159_231_210/0.18)]" />
-                  <span className="text-faint">spatial build</span>
-                  <Typewriter className="text-text" phrases={["a settings panel", "a music DAW", "a 3D dashboard", "a VR landing page", "a wrist menu"]} />
-                </p>
-              </StaggerItem>
-            </Stagger>
-            <h1 className="text-balance font-display text-[clamp(2.6rem,5.4vw,4.6rem)] font-bold leading-[0.98] tracking-[-0.04em]">
-              <BlurWords text="Interfaces you can" accent="walk around" delay={0.15} />
-            </h1>
-            <Stagger>
-              <StaggerItem>
-                <p className="mt-5.5 max-w-[46ch] text-lg text-muted">
-                  <b className="font-semibold text-text"><Ticker value={registry.length} /> XR components</b> for WebXR and React Three Fiber.
-                  Turn them in 3D, try them in your headset, then paste one prompt and your agent ships the code.
-                </p>
-              </StaggerItem>
-              <StaggerItem className="mt-8 flex flex-wrap gap-3">
-                <GlowButton href="/components">Browse components</GlowButton>
-              <Link href="/studio" className="inline-flex h-[46px] items-center rounded-[11px] border border-border-2 bg-surface px-5 font-semibold hover:border-faint">
-                Open Studio in VR
-              </Link>
-            </StaggerItem>
-            <StaggerItem>
-              <ul className="mt-7.5 flex flex-wrap gap-4.5 font-mono text-[12.5px] text-faint">
-                {["React Three Fiber", "WebXR", "pmndrs/uikit", "Quest 3 · 3S"].map((t) => (
-                  <li key={t} className="flex items-center gap-1.5 before:size-[5px] before:rounded-[1px] before:bg-border-2">{t}</li>
-                ))}
-              </ul>
-            </StaggerItem>
-            </Stagger>
-          </div>
-          <Reveal delay={0.25} className="h-[380px] lg:h-[460px]">
-            <div className="h-full" aria-label="The three Settings styles floating in a live 3D scene">
-              <HeroScene />
-            </div>
-          </Reveal>
-        </div>
+      <SculptureHero
+        className="landing-hero"
+        theme="dark"
+        themeToggle={false}
+        showNav={false}
+        loadFonts={false}
+        height="calc(100svh - 61px)" // under the sticky 61px site header
+        darkBackground="#0B0C10" // = --color-bg; the WebGL pass needs a literal colour
+        textColor="var(--color-text)"
+        accentColor="var(--color-accent)"
+        headingFont="var(--font-display)"
+        accentFont="var(--font-serif)"
+        bodyFont="var(--font-sans)"
+        eyebrow="React Three Fiber · WebXR · Quest 3"
+        headline={"Interfaces you can\nwalk around."}
+        headlineAccent="walk around"
+        body={`${registry.length} XR components for WebXR and React Three Fiber. Turn them in 3D, try them in your headset, then paste one prompt and your agent ships the code.`}
+        primaryCta={{ label: "Browse components", href: "/components" }}
+        secondaryCta={{ label: "Open Studio in VR", href: "/studio" }}
+        backdropText="Spatial"
+      />
 
+      <section className="relative overflow-hidden border-b border-border bg-[linear-gradient(180deg,#0B0C10_0%,#0E1117_60%,#0B0C10_100%)]">
         <Strip title="Sections" note={`${registry.filter((e) => e.kind === "section").length}`} href="/components?kind=section">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {sections.map((e, i) => (

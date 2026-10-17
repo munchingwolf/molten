@@ -17,6 +17,10 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 - `web/lib/favorites.ts` (`useFavorites`, `toggleFavorite`, per-browser localStorage). Seeded with 23 music-demo picks (transport, drum-pad, step-sequencer, piano-keys, synth, arpeggiator, knob, fader, mixer-strip, xy-pad, tempo-display, vu-meter, audio-visualizer, waveform, loop-player, hardware-synth, studio-monitors, press-button, slider, glass-card, label, acoustic-panels, neon-sign). Edit `DEFAULT_FAVORITES` to change the demo set.
 - `app/studio/studio-app.tsx` Library only: ☆/★ button per row, "★ Favorites" group first, hovering a ready row floats a live `<Preview>` (one extra canvas) with its description beside the panel. Drag/add logic untouched.
 
+### 3:29: Evan: **landing hero is now the liquid sculpture** (`web/components/ui/liquid-sculpture-hero.tsx`)
+- WebGL2 particle sculpture that goes liquid under the cursor; static image without WebGL2. Spatial copy, mint primary, site fonts via `.landing-hero` overrides in `globals.css`.
+- Replaces `HeroScene` on `/` (file kept). WebGL budget unchanged (still 1 hero context). DESIGN.md Motion + Decisions Log updated.
+
 ### 3:19: Danny: **45 new library components** (uikit default kit, drei visuals/materials, interactive + music)
 - `registry/incoming/kit.json` (12), `interactive.json` (7: audio-visualizer, oscilloscope, arpeggiator, flow-field-particles, particle-emitter, force-graph, poke-button-demo), `visuals.json` (26). Merged, build green (227 pages). Rows at the bottom of COMPONENTS.md.
 - Notes: kit components recolour via refs, not `setTheme`. text-label/billboard-tag fetch drei default font from jsdelivr. glass-orb/mirror-floor/portal-card add a render pass each. tsc + build only, not yet on Quest.

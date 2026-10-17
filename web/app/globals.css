@@ -133,3 +133,10 @@ body {
 .stage-bg {
   background: radial-gradient(90% 70% at 50% 35%, #1A1E27 0%, var(--color-stage) 70%);
 }
+
+/* Liquid sculpture hero (components/ui/liquid-sculpture-hero.tsx) restyled to the night-studio
+   system: display weight, mint primary action, 9px button radius instead of a pill. */
+.landing-hero .sh-h1 { font-weight: 700; letter-spacing: -0.04em; }
+.landing-hero .sh-eyebrow { font-family: var(--font-mono); letter-spacing: 0.04em; }
+.landing-hero .sh-btn { background: var(--color-accent); color: var(--color-on-accent); border-radius: 9px; font-weight: 600; }
+.landing-hero .sh-txt { font-weight: 600; }

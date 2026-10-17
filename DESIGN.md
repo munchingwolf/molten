@@ -79,7 +79,7 @@ components:
 **Reference sites:** https://21st.dev, https://ui.aceternity.com, https://community.spline.design, https://magicui.design
 **Key characteristics:**
 - Live 3D previews on dark stages; they are the highest-contrast thing on screen.
-- A faint perspective floor grid behind the hero and the CTA band: the site already feels like a headset.
+- A faint perspective floor grid behind the CTA band: the site already feels like a headset.
 - One accent, mint, only where the user acts.
 - 21st.dev structure: hero, preview strips with tabs, agent cards, FAQ, footer.
 
@@ -126,9 +126,9 @@ Radii: 6 (chips, tags), 9 (buttons, inputs), 14 (preview stages), 18 (big tiles)
 ## Motion
 
 - **Approach:** intentional. One orchestrated page-load moment (hero text staggers in), then quiet.
-- **3D:** hero panels drift slowly (`useFrame`), honoring `prefers-reduced-motion`.
+- **3D:** the hero sculpture turns to liquid particles under the cursor and settles back; reduced motion halves the effect and skips the intro.
 - **Easing:** enter ease-out, exit ease-in. Durations 150–400ms.
-- **The one authored moment:** the hero load: headline, then the three live panels settle into place.
+- **The one authored moment:** the hero load: the sculpture assembles from particles (`components/ui/liquid-sculpture-hero.tsx`).
 
 ## Decisions Log
 | Date | Decision | Rationale |
@@ -137,3 +137,4 @@ Radii: 6 (chips, tags), 9 (buttons, inputs), 14 (preview stages), 18 (big tiles)
 | 2026-10-17 | Switched to night studio | Approved homepage mockup; replicates 21st.dev's structure with a dark, 3D-first look |
 | 2026-10-17 | Display font Familjen Grotesk | Picked from a 4-way comparison (Bricolage, Schibsted, Familjen, Onest) |
 | 2026-10-17 | Serif accent word on the hero only | Evan's DESIGN-PIPELINE.md: repeating it reads as templated |
+| 2026-10-17 | Hero is the liquid sculpture (21st.dev Liquid Sculpture Hero, MIT), restyled to tokens | Evan's call; replaces the three-panel HeroScene (file kept, one-line revert in `app/page.tsx`) |
