@@ -1,0 +1,729 @@
+[
+  {
+    "name": "tabs",
+    "displayName": "Segmented Tabs",
+    "category": "navigation",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "tabs",
+      "segmented control",
+      "navigation",
+      "switcher"
+    ],
+    "aliases": [
+      "segmented control",
+      "tab bar",
+      "toggle group",
+      "switcher"
+    ],
+    "description": "Segmented tabs whose mint pill springs to the tab you poke, pinch or click.",
+    "file": "components/spatial/tabs.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 5,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "items",
+        "type": "string",
+        "default": "Overview, Library, Settings"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "min": 0.2,
+        "max": 0.7,
+        "default": 0.42
+      }
+    ]
+  },
+  {
+    "name": "window",
+    "displayName": "Window",
+    "category": "containers",
+    "kind": "section",
+    "style": "default",
+    "tags": [
+      "window",
+      "panel",
+      "container",
+      "title bar",
+      "close"
+    ],
+    "aliases": [
+      "panel",
+      "app window",
+      "frame",
+      "card window"
+    ],
+    "description": "Floating window with a title bar, close button, scrolling content area and a halo that glows on hover.",
+    "file": "components/spatial/window.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Mixdown"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "min": 0.25,
+        "max": 0.8,
+        "default": 0.5
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "min": 0.2,
+        "max": 0.6,
+        "default": 0.34
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "dialog",
+    "displayName": "Dialog",
+    "category": "containers",
+    "kind": "section",
+    "style": "default",
+    "tags": [
+      "dialog",
+      "modal",
+      "confirm",
+      "alert",
+      "prompt"
+    ],
+    "aliases": [
+      "modal",
+      "confirm dialog",
+      "alert dialog",
+      "popup"
+    ],
+    "description": "Confirm or cancel dialog that springs in, with a warm confirm button for destructive actions.",
+    "file": "components/spatial/dialog.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Delete track?"
+      },
+      {
+        "name": "message",
+        "type": "string",
+        "default": "“Drums 2” and its 12 clips will be removed. You can't undo this."
+      },
+      {
+        "name": "confirmLabel",
+        "type": "string",
+        "default": "Delete"
+      },
+      {
+        "name": "cancelLabel",
+        "type": "string",
+        "default": "Cancel"
+      },
+      {
+        "name": "tone",
+        "type": "enum",
+        "options": [
+          "danger",
+          "default"
+        ],
+        "default": "danger"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "min": 0.3,
+        "max": 0.6,
+        "default": 0.44
+      }
+    ]
+  },
+  {
+    "name": "toast",
+    "displayName": "Toast",
+    "category": "feedback",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "toast",
+      "notification",
+      "snackbar",
+      "alert",
+      "feedback"
+    ],
+    "aliases": [
+      "snackbar",
+      "notification",
+      "banner",
+      "message"
+    ],
+    "description": "Toast that pops up, counts down along its edge and dismisses itself (pointing at it pauses the timer).",
+    "file": "components/spatial/toast.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "message",
+        "type": "string",
+        "default": "Scene saved"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "Synced to your headset"
+      },
+      {
+        "name": "variant",
+        "type": "enum",
+        "options": [
+          "success",
+          "info",
+          "warning"
+        ],
+        "default": "success"
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "min": 1,
+        "max": 10,
+        "default": 4
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "min": 0.3,
+        "max": 0.6,
+        "default": 0.44
+      }
+    ]
+  },
+  {
+    "name": "tooltip",
+    "displayName": "Tooltip",
+    "category": "feedback",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "tooltip",
+      "hint",
+      "label",
+      "popover",
+      "help"
+    ],
+    "aliases": [
+      "hint",
+      "popover",
+      "info bubble",
+      "help label"
+    ],
+    "description": "Label bubble that springs up above its anchor on hover, or pins open on a press for hands.",
+    "file": "components/spatial/tooltip.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "Pinch to grab, twist to rotate"
+      },
+      {
+        "name": "offset",
+        "type": "number",
+        "min": 0.02,
+        "max": 0.2,
+        "default": 0.05
+      },
+      {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "flip-card",
+    "displayName": "Flip Card",
+    "category": "containers",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "card",
+      "flip",
+      "3d",
+      "front back",
+      "container"
+    ],
+    "aliases": [
+      "flip card",
+      "flashcard",
+      "trading card",
+      "reveal card"
+    ],
+    "description": "A 6 mm thick card that flips over with a little lift when you poke, pinch or click it.",
+    "file": "components/spatial/flip-card.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "flipped",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Neon Drift"
+      },
+      {
+        "name": "subtitle",
+        "type": "string",
+        "default": "Synth preset · 124 BPM"
+      },
+      {
+        "name": "backTitle",
+        "type": "string",
+        "default": "About this preset"
+      },
+      {
+        "name": "backText",
+        "type": "string",
+        "default": "Detuned saws through a slow filter sweep. Sits best under a four-on-the-floor kick."
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "min": 0.2,
+        "max": 0.5,
+        "default": 0.32
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "min": 0.25,
+        "max": 0.6,
+        "default": 0.44
+      }
+    ]
+  },
+  {
+    "name": "radial-menu",
+    "displayName": "Radial Menu",
+    "category": "navigation",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "radial",
+      "pie menu",
+      "ring",
+      "menu",
+      "navigation"
+    ],
+    "aliases": [
+      "pie menu",
+      "ring menu",
+      "circular menu",
+      "marking menu"
+    ],
+    "description": "Press or pinch the hub and options spring out on a ring around it.",
+    "file": "components/spatial/radial-menu.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "items",
+        "type": "string",
+        "default": "Draw, Copy, Layers, Share, Delete"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "radius",
+        "type": "number",
+        "min": 0.08,
+        "max": 0.25,
+        "default": 0.13
+      },
+      {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "dock",
+    "displayName": "Dock",
+    "category": "navigation",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "dock",
+      "launcher",
+      "icons",
+      "app bar",
+      "navigation"
+    ],
+    "aliases": [
+      "app dock",
+      "launcher",
+      "taskbar",
+      "icon bar"
+    ],
+    "description": "Shelf of app icons that swell toward you under the pointer and bounce when picked.",
+    "file": "components/spatial/dock.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "items",
+        "type": "string",
+        "default": "Home, Music, Camera, Photos, Settings"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "magnify",
+        "type": "number",
+        "min": 1,
+        "max": 2.2,
+        "default": 1.7
+      }
+    ]
+  },
+  {
+    "name": "wrist-menu",
+    "displayName": "Wrist Menu",
+    "category": "navigation",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "wrist",
+      "hand menu",
+      "menu",
+      "quick menu",
+      "navigation"
+    ],
+    "aliases": [
+      "hand menu",
+      "palm menu",
+      "watch menu",
+      "quick actions"
+    ],
+    "description": "Compact vertical menu with a clock header, sized to sit on your wrist.",
+    "file": "components/spatial/wrist-menu.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "items",
+        "type": "string",
+        "default": "Home, Recenter, Mute mic, Settings, Exit"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "min": 0.16,
+        "max": 0.32,
+        "default": 0.24
+      }
+    ]
+  },
+  {
+    "name": "progress-ring",
+    "displayName": "Progress Ring",
+    "category": "feedback",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "progress",
+      "ring",
+      "loader",
+      "percentage",
+      "feedback"
+    ],
+    "aliases": [
+      "circular progress",
+      "progress circle",
+      "radial progress",
+      "download progress"
+    ],
+    "description": "Glossy 3D ring that sweeps clockwise to the value, with a live percentage inside.",
+    "file": "components/spatial/progress-ring.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.72
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Uploading"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.06,
+        "max": 0.4,
+        "default": 0.16
+      },
+      {
+        "name": "showValue",
+        "type": "boolean",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "badge",
+    "displayName": "Badge",
+    "category": "feedback",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "badge",
+      "notification",
+      "count",
+      "indicator",
+      "feedback"
+    ],
+    "aliases": [
+      "notification badge",
+      "counter",
+      "unread count",
+      "pill"
+    ],
+    "description": "Notification count floating in front of an icon tile, popping whenever the count changes.",
+    "file": "components/spatial/badge.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "count",
+        "type": "number",
+        "min": 0,
+        "max": 120,
+        "default": 3
+      }
+    ],
+    "props": [
+      {
+        "name": "icon",
+        "type": "enum",
+        "options": [
+          "bell",
+          "mail",
+          "message",
+          "cart"
+        ],
+        "default": "bell"
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "min": 9,
+        "max": 999,
+        "default": 99
+      },
+      {
+        "name": "dot",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#F2B48A"
+      }
+    ]
+  },
+  {
+    "name": "spinner-3d",
+    "displayName": "3D Spinner",
+    "category": "feedback",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "spinner",
+      "loader",
+      "loading",
+      "3d",
+      "feedback"
+    ],
+    "aliases": [
+      "loader",
+      "loading indicator",
+      "busy",
+      "activity indicator"
+    ],
+    "description": "Loading spinner of two arcs tumbling in a gyroscope around a breathing core.",
+    "file": "components/spatial/spinner-3d.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.05,
+        "max": 0.3,
+        "default": 0.1
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0.2,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Loading"
+      }
+    ]
+  }
+]

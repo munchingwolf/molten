@@ -1,0 +1,871 @@
+[
+  {
+    "name": "glow-button",
+    "displayName": "Glow Button",
+    "category": "buttons",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "glow",
+      "button",
+      "hover",
+      "press"
+    ],
+    "aliases": [
+      "glowing button",
+      "light button"
+    ],
+    "description": "A 16 cm button that glows brighter as your fingertip approaches, sinks when pressed and flashes on click.",
+    "file": "components/spatial/glow-button.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit"
+    ],
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Glow"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "glass-button",
+    "displayName": "Glass Button",
+    "category": "buttons",
+    "kind": "basic",
+    "style": "glass",
+    "tags": [
+      "glass",
+      "button",
+      "frosted",
+      "transmission"
+    ],
+    "aliases": [
+      "frosted button",
+      "glassmorphism button"
+    ],
+    "description": "A frosted-glass slab over a glowing core that lifts toward your finger and squashes when pressed.",
+    "file": "components/spatial/glass-button.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit"
+    ],
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Glass"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "tint",
+        "type": "color",
+        "default": "#DDE6F2"
+      }
+    ]
+  },
+  {
+    "name": "neon-button",
+    "displayName": "Neon Button",
+    "category": "buttons",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "neon",
+      "button",
+      "outline",
+      "glow"
+    ],
+    "aliases": [
+      "neon sign button",
+      "outline button"
+    ],
+    "description": "A dark button with a neon-tube outline that breathes at rest, burns steady on hover and flares on press.",
+    "file": "components/spatial/neon-button.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit"
+    ],
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Neon"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "ripple-button",
+    "displayName": "Ripple Button",
+    "category": "buttons",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "ripple",
+      "button",
+      "touch",
+      "rings"
+    ],
+    "aliases": [
+      "water button",
+      "material button"
+    ],
+    "description": "A button that sends rings rippling out from the exact point you touch it.",
+    "file": "components/spatial/ripple-button.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit"
+    ],
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Ripple"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "magnetic-button",
+    "displayName": "Magnetic Button",
+    "category": "buttons",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "magnetic",
+      "button",
+      "lean",
+      "spring"
+    ],
+    "aliases": [
+      "attract button",
+      "lean button"
+    ],
+    "description": "A button that leans, slides and lifts toward your fingertip or ray, then springs back when you leave.",
+    "file": "components/spatial/magnetic-button.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit"
+    ],
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Magnetic"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "strength",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "holo-button",
+    "displayName": "Holo Button",
+    "category": "buttons",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "holographic",
+      "iridescent",
+      "button",
+      "shimmer"
+    ],
+    "aliases": [
+      "hologram button",
+      "iridescent button"
+    ],
+    "description": "A floating hologram button whose iridescent shimmer shifts as you move your head.",
+    "file": "components/spatial/holo-button.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit"
+    ],
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Holo"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "icon-button",
+    "displayName": "Icon Button",
+    "category": "buttons",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "icon",
+      "button",
+      "round",
+      "lucide"
+    ],
+    "aliases": [
+      "round button",
+      "play button",
+      "media button"
+    ],
+    "description": "A 6.4 cm round key showing any of 29 lucide icons, with a ring that lights as you approach.",
+    "file": "components/spatial/icon-button.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit",
+      "@react-three/uikit-lucide"
+    ],
+    "bindable": [],
+    "props": [
+      {
+        "name": "icon",
+        "type": "enum",
+        "options": [
+          "play",
+          "pause",
+          "stop",
+          "next",
+          "previous",
+          "plus",
+          "close",
+          "check",
+          "heart",
+          "star",
+          "settings",
+          "home",
+          "mic",
+          "mic-off",
+          "volume",
+          "mute",
+          "camera",
+          "trash",
+          "search",
+          "bell",
+          "share",
+          "back",
+          "forward",
+          "undo",
+          "power",
+          "music",
+          "sun",
+          "moon",
+          "lock"
+        ],
+        "default": "play"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "hold-to-confirm",
+    "displayName": "Hold-to-Confirm",
+    "category": "buttons",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "hold",
+      "confirm",
+      "ring",
+      "destructive",
+      "safety"
+    ],
+    "aliases": [
+      "long press",
+      "press and hold",
+      "confirm button"
+    ],
+    "description": "An 8 cm disc you press and hold while a ring fills, so important actions only fire on purpose.",
+    "file": "components/spatial/hold-to-confirm.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit",
+      "@react-three/uikit-lucide"
+    ],
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Hold to confirm"
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "min": 0.3,
+        "max": 5,
+        "default": 1.2
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#F2B48A"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "checkbox",
+    "displayName": "Checkbox / Radio",
+    "category": "inputs",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "checkbox",
+      "radio",
+      "toggle",
+      "boolean"
+    ],
+    "aliases": [
+      "tick box",
+      "radio button",
+      "option"
+    ],
+    "description": "A 3D checkbox (or radio dot) with a label; tap either to toggle and the check springs in.",
+    "file": "components/spatial/checkbox.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit",
+      "@react-three/uikit-lucide"
+    ],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Snap to grid"
+      },
+      {
+        "name": "shape",
+        "type": "enum",
+        "options": [
+          "square",
+          "round"
+        ],
+        "default": "square"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "stepper",
+    "displayName": "Stepper",
+    "category": "inputs",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "stepper",
+      "number",
+      "increment",
+      "counter"
+    ],
+    "aliases": [
+      "plus minus",
+      "counter",
+      "quantity"
+    ],
+    "description": "A minus / value / plus control with pokeable 3D keys and a number that pops on change.",
+    "file": "components/spatial/stepper.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit",
+      "@react-three/uikit-lucide"
+    ],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 10,
+        "default": 1,
+        "range": true
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Quantity"
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "default": 0
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "default": 10
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "min": 0.01,
+        "default": 1
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "range-slider",
+    "displayName": "Range Slider",
+    "category": "inputs",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "range",
+      "slider",
+      "min",
+      "max",
+      "filter"
+    ],
+    "aliases": [
+      "dual slider",
+      "two thumb slider",
+      "price range"
+    ],
+    "description": "A 24 cm two-thumb slider for picking a low and high value; thumbs lift toward you while dragged.",
+    "file": "components/spatial/range-slider.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit"
+    ],
+    "bindable": [
+      {
+        "prop": "low",
+        "event": "onLowChange",
+        "type": "number",
+        "min": 0,
+        "max": 100,
+        "default": 25,
+        "range": true
+      },
+      {
+        "prop": "high",
+        "event": "onHighChange",
+        "type": "number",
+        "min": 0,
+        "max": 100,
+        "default": 75,
+        "range": true
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Range"
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "default": 0
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "default": 100
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "min": 0.01,
+        "default": 1
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "select",
+    "displayName": "Dropdown / Select",
+    "category": "inputs",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "select",
+      "dropdown",
+      "menu",
+      "options"
+    ],
+    "aliases": [
+      "picker",
+      "combo box",
+      "dropdown menu"
+    ],
+    "description": "A dropdown whose option list springs open and floats in front of the scene; tap a row to choose.",
+    "file": "components/spatial/select.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit",
+      "@react-three/uikit-lucide"
+    ],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": "Medium"
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Quality"
+      },
+      {
+        "name": "options",
+        "type": "string",
+        "default": "Low, Medium, High, Ultra"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "number-pad",
+    "displayName": "Number Pad",
+    "category": "inputs",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "keypad",
+      "number",
+      "pin",
+      "code",
+      "digits"
+    ],
+    "aliases": [
+      "pin pad",
+      "keypad",
+      "dial pad"
+    ],
+    "description": "A 12-key 3D keypad with a display for typing codes or PINs; check submits.",
+    "file": "components/spatial/number-pad.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit",
+      "@react-three/uikit-lucide"
+    ],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Enter code"
+      },
+      {
+        "name": "maxLength",
+        "type": "number",
+        "min": 1,
+        "max": 12,
+        "default": 6
+      },
+      {
+        "name": "mask",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "color-picker",
+    "displayName": "3D Color Picker",
+    "category": "inputs",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "color",
+      "picker",
+      "wheel",
+      "hue",
+      "swatch"
+    ],
+    "aliases": [
+      "colour picker",
+      "color wheel",
+      "palette"
+    ],
+    "description": "A hue wheel and lightness bar you drag on, with a glowing orb that previews the colour as hex.",
+    "file": "components/spatial/color-picker.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "three",
+      "@react-three/fiber",
+      "@react-three/uikit"
+    ],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": "#9FE7D2"
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Color"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  }
+]

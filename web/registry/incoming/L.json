@@ -1,0 +1,1207 @@
+[
+  {
+    "name": "sidebar-nav",
+    "displayName": "Sidebar Nav",
+    "category": "app",
+    "kind": "section",
+    "style": "default",
+    "tags": [
+      "app",
+      "navigation",
+      "sidebar",
+      "menu"
+    ],
+    "aliases": [
+      "side menu",
+      "app nav",
+      "left rail",
+      "navigation drawer"
+    ],
+    "description": "App sidebar with a workspace header, icon nav items with badges, a springy active highlight and a signed-in user footer.",
+    "file": "components/spatial/sidebar-nav.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": "home"
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "enum",
+        "options": [
+          "home",
+          "inbox",
+          "projects",
+          "calendar",
+          "analytics",
+          "team"
+        ],
+        "default": "home"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Northwind"
+      },
+      {
+        "name": "subtitle",
+        "type": "string",
+        "default": "Pro workspace"
+      },
+      {
+        "name": "user",
+        "type": "string",
+        "default": "Maya Chen"
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "default": "maya@northwind.app"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "command-palette",
+    "displayName": "Command Palette",
+    "category": "app",
+    "kind": "section",
+    "style": "default",
+    "tags": [
+      "app",
+      "search",
+      "commands",
+      "launcher"
+    ],
+    "aliases": [
+      "cmd k",
+      "spotlight",
+      "quick open",
+      "command menu"
+    ],
+    "description": "Search field with a grouped command list that filters as you type; tap a row to run it.",
+    "file": "components/spatial/command-palette.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "default": "Type a command or search"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "file-browser",
+    "displayName": "File Browser",
+    "category": "app",
+    "kind": "section",
+    "style": "default",
+    "tags": [
+      "app",
+      "files",
+      "folders",
+      "finder"
+    ],
+    "aliases": [
+      "file manager",
+      "drive",
+      "explorer",
+      "documents"
+    ],
+    "description": "Drill-down file browser with typed file icons: tap folders to open them, back to go up, tap a file to select it.",
+    "file": "components/spatial/file-browser.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string"
+      }
+    ],
+    "props": [
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "calendar",
+    "displayName": "Calendar",
+    "category": "app",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "app",
+      "calendar",
+      "date",
+      "schedule"
+    ],
+    "aliases": [
+      "date picker",
+      "month view",
+      "agenda",
+      "planner"
+    ],
+    "description": "Month calendar with event dots, Today and month paging, and the selected day's agenda underneath.",
+    "file": "components/spatial/calendar.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string"
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "name": "month",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "name": "weekStartsOn",
+        "type": "number",
+        "min": 0,
+        "max": 6,
+        "default": 1
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "kanban-board",
+    "displayName": "Kanban Board",
+    "category": "app",
+    "kind": "section",
+    "style": "default",
+    "tags": [
+      "app",
+      "kanban",
+      "tasks",
+      "board",
+      "project"
+    ],
+    "aliases": [
+      "task board",
+      "trello",
+      "sprint board",
+      "scrum board"
+    ],
+    "description": "Three-column kanban board with tagged, assigned cards; tap a card to move it to the next column.",
+    "file": "components/spatial/kanban-board.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Sprint 14"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "chat-panel",
+    "displayName": "Chat Panel",
+    "category": "app",
+    "kind": "section",
+    "style": "default",
+    "tags": [
+      "app",
+      "chat",
+      "messages",
+      "social"
+    ],
+    "aliases": [
+      "messenger",
+      "dm",
+      "conversation",
+      "inbox"
+    ],
+    "description": "Chat panel with a presence header, message bubbles, one-tap quick replies and a message field with send.",
+    "file": "components/spatial/chat-panel.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Maya Chen"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "default": "Online"
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "notification-center",
+    "displayName": "Notification Center",
+    "category": "app",
+    "kind": "section",
+    "style": "default",
+    "tags": [
+      "app",
+      "notifications",
+      "alerts",
+      "feed"
+    ],
+    "aliases": [
+      "notifications",
+      "inbox",
+      "alerts panel",
+      "activity"
+    ],
+    "description": "Notification list with typed icons and unread dots; tap to mark read, X to dismiss, Clear all to empty it.",
+    "file": "components/spatial/notification-center.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "props": [
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "login-form",
+    "displayName": "Login Form",
+    "category": "app",
+    "kind": "section",
+    "style": "default",
+    "tags": [
+      "app",
+      "auth",
+      "form",
+      "login"
+    ],
+    "aliases": [
+      "sign in",
+      "log in",
+      "authentication",
+      "passkey"
+    ],
+    "description": "Sign-in form with email and password fields, show/hide password, loading and success states, and a passkey option.",
+    "file": "components/spatial/login-form.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Welcome back"
+      },
+      {
+        "name": "subtitle",
+        "type": "string",
+        "default": "Sign in to Northwind"
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "default": "maya@northwind.app"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "profile-card",
+    "displayName": "Profile Card",
+    "category": "app",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "app",
+      "profile",
+      "user",
+      "social"
+    ],
+    "aliases": [
+      "user card",
+      "contact card",
+      "bio",
+      "member"
+    ],
+    "description": "Profile card with cover, avatar and presence dot, bio, stats and Follow / Message buttons.",
+    "file": "components/spatial/profile-card.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "default": "Maya Chen"
+      },
+      {
+        "name": "role",
+        "type": "string",
+        "default": "Product Designer at Northwind"
+      },
+      {
+        "name": "location",
+        "type": "string",
+        "default": "Lisbon, Portugal"
+      },
+      {
+        "name": "bio",
+        "type": "string",
+        "default": "Designs spatial tools for people who build in 3D."
+      },
+      {
+        "name": "value",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "online",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "data-table",
+    "displayName": "Data Table",
+    "category": "app",
+    "kind": "section",
+    "style": "default",
+    "tags": [
+      "app",
+      "table",
+      "data",
+      "sort"
+    ],
+    "aliases": [
+      "grid",
+      "spreadsheet",
+      "list view",
+      "invoices"
+    ],
+    "description": "Sortable data table with status chips and a total row; tap a header to sort and a row to select it.",
+    "file": "components/spatial/data-table.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": "date"
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Invoices"
+      },
+      {
+        "name": "value",
+        "type": "enum",
+        "options": [
+          "customer",
+          "status",
+          "amount",
+          "date"
+        ],
+        "default": "date"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "tree-view",
+    "displayName": "Tree View",
+    "category": "app",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "app",
+      "tree",
+      "outline",
+      "layers"
+    ],
+    "aliases": [
+      "hierarchy",
+      "outliner",
+      "layers panel",
+      "folder tree"
+    ],
+    "description": "Expandable tree with indent guides and a springy chevron; tap a branch to open it and any node to select it.",
+    "file": "components/spatial/tree-view.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string"
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Outline"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "breadcrumbs",
+    "displayName": "Breadcrumbs",
+    "category": "app",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "app",
+      "navigation",
+      "path"
+    ],
+    "aliases": [
+      "breadcrumb",
+      "path bar",
+      "trail",
+      "location"
+    ],
+    "description": "Breadcrumb bar: tap a crumb to go back to it, and the crumbs you left stay faint so you can step forward again.",
+    "file": "components/spatial/breadcrumbs.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 3
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 3
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "pagination",
+    "displayName": "Pagination",
+    "category": "app",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "app",
+      "navigation",
+      "pages"
+    ],
+    "aliases": [
+      "pager",
+      "page numbers",
+      "paging"
+    ],
+    "description": "Page picker with prev / next, numbered pages with gaps, and a Page X of Y caption.",
+    "file": "components/spatial/pagination.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 1,
+        "max": 12,
+        "default": 1
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 1,
+        "max": 12,
+        "default": 1
+      },
+      {
+        "name": "total",
+        "type": "number",
+        "min": 1,
+        "max": 99,
+        "default": 12
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "avatar-group",
+    "displayName": "Avatar Group",
+    "category": "app",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "app",
+      "avatars",
+      "presence",
+      "team"
+    ],
+    "aliases": [
+      "facepile",
+      "collaborators",
+      "people",
+      "members"
+    ],
+    "description": "Overlapping presence avatars that lift on hover to show a name; tap +N to fan out everyone.",
+    "file": "components/spatial/avatar-group.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "props": [
+      {
+        "name": "max",
+        "type": "number",
+        "min": 1,
+        "max": 8,
+        "default": 5
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 28,
+        "max": 64,
+        "default": 44
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "default": "viewing this board"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "toolbar",
+    "displayName": "Toolbar",
+    "category": "app",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "app",
+      "toolbar",
+      "tools",
+      "icons"
+    ],
+    "aliases": [
+      "tool palette",
+      "icon bar",
+      "design tools",
+      "action bar"
+    ],
+    "description": "Floating tool bar: pick one tool and the highlight springs across, plus undo / redo; horizontal or vertical.",
+    "file": "components/spatial/toolbar.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": "select"
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "enum",
+        "options": [
+          "select",
+          "hand",
+          "shape",
+          "pen",
+          "text",
+          "comment"
+        ],
+        "default": "select"
+      },
+      {
+        "name": "orientation",
+        "type": "enum",
+        "options": [
+          "horizontal",
+          "vertical"
+        ],
+        "default": "horizontal"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "context-menu",
+    "displayName": "Context Menu",
+    "category": "app",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "app",
+      "menu",
+      "actions"
+    ],
+    "aliases": [
+      "right click menu",
+      "popup menu",
+      "dropdown menu",
+      "actions menu"
+    ],
+    "description": "Context menu with icons, shortcuts, dividers, a disabled item and a destructive Delete; pops open from its corner.",
+    "file": "components/spatial/context-menu.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Drum pads"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "activity-timeline",
+    "displayName": "Activity Timeline",
+    "category": "app",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "app",
+      "timeline",
+      "activity",
+      "feed"
+    ],
+    "aliases": [
+      "activity feed",
+      "history",
+      "changelog",
+      "audit log"
+    ],
+    "description": "Vertical activity feed with typed icons on a connecting rail; entries cascade in and tap to select.",
+    "file": "components/spatial/activity-timeline.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Activity"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "search-bar",
+    "displayName": "Search Bar",
+    "category": "app",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "app",
+      "search",
+      "input",
+      "voice"
+    ],
+    "aliases": [
+      "search field",
+      "search box",
+      "find",
+      "voice search"
+    ],
+    "description": "Search field with clear and mic buttons, a focus ring, a listening pulse and one-tap recent searches.",
+    "file": "components/spatial/search-bar.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "default": "Search components, files, people"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "weather-widget",
+    "displayName": "Weather Widget",
+    "category": "app",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "app",
+      "weather",
+      "widget"
+    ],
+    "aliases": [
+      "forecast",
+      "weather card",
+      "temperature"
+    ],
+    "description": "Weather card with big temperature, conditions, wind / humidity / UV, a C/F switch and a tappable hourly strip.",
+    "file": "components/spatial/weather-widget.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "temperature",
+        "type": "number",
+        "min": -20,
+        "max": 45,
+        "default": 21
+      }
+    ],
+    "props": [
+      {
+        "name": "location",
+        "type": "string",
+        "default": "Lisbon"
+      },
+      {
+        "name": "temperature",
+        "type": "number",
+        "min": -20,
+        "max": 45,
+        "default": 21
+      },
+      {
+        "name": "condition",
+        "type": "enum",
+        "options": [
+          "sunny",
+          "partly",
+          "cloudy",
+          "rain",
+          "storm",
+          "snow"
+        ],
+        "default": "partly"
+      },
+      {
+        "name": "high",
+        "type": "number",
+        "min": -20,
+        "max": 45,
+        "default": 24
+      },
+      {
+        "name": "low",
+        "type": "number",
+        "min": -20,
+        "max": 45,
+        "default": 16
+      },
+      {
+        "name": "wind",
+        "type": "number",
+        "min": 0,
+        "max": 120,
+        "default": 12
+      },
+      {
+        "name": "humidity",
+        "type": "number",
+        "min": 0,
+        "max": 100,
+        "default": 64
+      },
+      {
+        "name": "uv",
+        "type": "number",
+        "min": 0,
+        "max": 11,
+        "default": 5
+      },
+      {
+        "name": "unit",
+        "type": "enum",
+        "options": [
+          "C",
+          "F"
+        ],
+        "default": "C"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "music-now-playing",
+    "displayName": "Now Playing",
+    "category": "app",
+    "kind": "section",
+    "style": "default",
+    "tags": [
+      "app",
+      "music",
+      "player",
+      "media"
+    ],
+    "aliases": [
+      "music player",
+      "now playing",
+      "spotify",
+      "media controls"
+    ],
+    "description": "Now-playing card with cover art and a live equalizer, like button, progress and shuffle / skip / play / repeat controls.",
+    "file": "components/spatial/music-now-playing.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "todo-list",
+    "displayName": "To-do List",
+    "category": "app",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "app",
+      "tasks",
+      "checklist",
+      "productivity"
+    ],
+    "aliases": [
+      "todo",
+      "checklist",
+      "task list",
+      "reminders"
+    ],
+    "description": "To-do list with springy checkboxes, a progress bar and a field to add tasks.",
+    "file": "components/spatial/todo-list.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Today"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "clock-widget",
+    "displayName": "Clock Widget",
+    "category": "app",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "app",
+      "clock",
+      "time",
+      "widget"
+    ],
+    "aliases": [
+      "digital clock",
+      "world clock",
+      "time zones"
+    ],
+    "description": "Digital clock with steady digits, a blinking colon, the date and tappable world clocks; tap the time to switch 12/24 h.",
+    "file": "components/spatial/clock-widget.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "timeZone",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "name": "value",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "showSeconds",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  }
+]

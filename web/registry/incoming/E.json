@@ -1,0 +1,481 @@
+[
+  {
+    "name": "fader",
+    "displayName": "Fader",
+    "category": "music",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "music",
+      "controls",
+      "volume",
+      "slider",
+      "mixer"
+    ],
+    "aliases": [
+      "volume slider",
+      "channel fader",
+      "vertical slider"
+    ],
+    "description": "21 cm vertical fader with a real 3D cap: grab and slide, or tap the track to jump. Glows while you drag.",
+    "file": "components/spatial/fader.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.75,
+        "range": true
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.75
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Fader"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "min": -1000,
+        "max": 1000,
+        "default": 0
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "min": -1000,
+        "max": 1000,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "xy-pad",
+    "displayName": "XY Pad",
+    "category": "music",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "music",
+      "input",
+      "controller",
+      "2d",
+      "performance"
+    ],
+    "aliases": [
+      "xy controller",
+      "touch pad",
+      "kaoss pad",
+      "trackpad"
+    ],
+    "description": "20 cm touch surface: drag the glowing puck to set two values at once. Great on a filter cutoff.",
+    "file": "components/spatial/xy-pad.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "x",
+        "event": "onXChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.5
+      },
+      {
+        "prop": "y",
+        "event": "onYChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.5
+      }
+    ],
+    "props": [
+      {
+        "name": "x",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.5
+      },
+      {
+        "name": "y",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.5
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "XY Pad"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "mixer-strip",
+    "displayName": "Mixer Strip",
+    "category": "music",
+    "kind": "section",
+    "style": "default",
+    "tags": [
+      "music",
+      "mixer",
+      "volume",
+      "pan",
+      "mute",
+      "meter"
+    ],
+    "aliases": [
+      "channel strip",
+      "mixer channel",
+      "console",
+      "mixing desk"
+    ],
+    "description": "Channel strip: 3D fader, pan knob, mute button and a post-fader level meter. Wire it to a synth or loop player.",
+    "file": "components/spatial/mixer-strip.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "bindable": [
+      {
+        "prop": "volume",
+        "event": "onVolumeChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      },
+      {
+        "prop": "pan",
+        "event": "onPanChange",
+        "type": "number",
+        "min": -1,
+        "max": 1,
+        "default": 0
+      },
+      {
+        "prop": "mute",
+        "event": "onMuteChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "volume",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      },
+      {
+        "name": "pan",
+        "type": "number",
+        "min": -1,
+        "max": 1,
+        "default": 0
+      },
+      {
+        "name": "mute",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Ch 1"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "waveform",
+    "displayName": "Waveform",
+    "category": "music",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "music",
+      "visualizer",
+      "oscilloscope",
+      "audio",
+      "meter"
+    ],
+    "aliases": [
+      "oscilloscope",
+      "scope",
+      "audio visualizer",
+      "wave display"
+    ],
+    "description": "Live oscilloscope of everything going to the speakers, drawn as a glowing line that holds still on steady notes.",
+    "file": "components/spatial/waveform.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Output"
+      }
+    ]
+  },
+  {
+    "name": "loop-player",
+    "displayName": "Loop Player",
+    "category": "music",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "music",
+      "loops",
+      "clips",
+      "drums",
+      "launcher",
+      "pattern"
+    ],
+    "aliases": [
+      "clip launcher",
+      "session view",
+      "loop launcher",
+      "beat maker"
+    ],
+    "description": "8 clip pads (drums, bass, pad, arp, lead) that loop in sync with the transport. Tap to launch on the next bar.",
+    "file": "components/spatial/loop-player.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "bindable": [
+      {
+        "prop": "volume",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      },
+      {
+        "prop": "pan",
+        "type": "number",
+        "min": -1,
+        "max": 1,
+        "default": 0
+      },
+      {
+        "prop": "mute",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "volume",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      },
+      {
+        "name": "pan",
+        "type": "number",
+        "min": -1,
+        "max": 1,
+        "default": 0
+      },
+      {
+        "name": "mute",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Loops"
+      }
+    ]
+  },
+  {
+    "name": "synth",
+    "displayName": "Synth",
+    "category": "music",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "music",
+      "synth",
+      "keys",
+      "filter",
+      "instrument"
+    ],
+    "aliases": [
+      "synthesizer",
+      "mono synth",
+      "bass synth",
+      "keyboard",
+      "lead synth"
+    ],
+    "description": "Playable mono synth: 8 note pads with glide and a resonant lowpass filter you sweep with the cutoff dial.",
+    "file": "components/spatial/synth.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "bindable": [
+      {
+        "prop": "cutoff",
+        "event": "onCutoffChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.55
+      },
+      {
+        "prop": "resonance",
+        "event": "onResonanceChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.3
+      },
+      {
+        "prop": "volume",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      },
+      {
+        "prop": "pan",
+        "type": "number",
+        "min": -1,
+        "max": 1,
+        "default": 0
+      },
+      {
+        "prop": "mute",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "cutoff",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.55
+      },
+      {
+        "name": "resonance",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.3
+      },
+      {
+        "name": "wave",
+        "type": "string",
+        "options": [
+          "sawtooth",
+          "square",
+          "triangle",
+          "sine"
+        ],
+        "default": "sawtooth"
+      },
+      {
+        "name": "volume",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      },
+      {
+        "name": "pan",
+        "type": "number",
+        "min": -1,
+        "max": 1,
+        "default": 0
+      },
+      {
+        "name": "mute",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Synth"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  }
+]

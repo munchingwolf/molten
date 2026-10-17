@@ -1,0 +1,1377 @@
+[
+  {
+    "name": "coin-pickup",
+    "displayName": "Coin Pickup",
+    "category": "interactive",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "game",
+      "collectible",
+      "coin",
+      "pickup",
+      "particles",
+      "sound"
+    ],
+    "aliases": [
+      "coin",
+      "collectible",
+      "gold coin",
+      "pickup",
+      "loot"
+    ],
+    "description": "A spinning gold coin you collect by touching it: it zips up, sparkles, dings and respawns, counting as it goes.",
+    "file": "components/spatial/coin-pickup.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 999,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 999,
+        "default": 0
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#FFC94D"
+      },
+      {
+        "name": "respawn",
+        "type": "number",
+        "min": 0.2,
+        "max": 10,
+        "default": 1.4
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.25,
+        "max": 4,
+        "default": 1
+      },
+      {
+        "name": "showCount",
+        "type": "boolean",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "dice",
+    "displayName": "Dice",
+    "category": "interactive",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "game",
+      "dice",
+      "random",
+      "board game",
+      "physics",
+      "sound"
+    ],
+    "aliases": [
+      "die",
+      "d6",
+      "roll dice",
+      "random number"
+    ],
+    "description": "A six-sided die you press to roll: it tosses, tumbles, bounces with a clack and settles on a random face.",
+    "file": "components/spatial/dice.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 1,
+        "max": 6,
+        "default": 5
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 1,
+        "max": 6,
+        "default": 5
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#EEF0F4"
+      },
+      {
+        "name": "pipColor",
+        "type": "color",
+        "default": "#0B0C10"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.25,
+        "max": 4,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "treasure-chest",
+    "displayName": "Treasure Chest",
+    "category": "interactive",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "game",
+      "chest",
+      "loot",
+      "reward",
+      "glow",
+      "particles",
+      "sound"
+    ],
+    "aliases": [
+      "chest",
+      "loot box",
+      "treasure",
+      "reward chest"
+    ],
+    "description": "A wooden chest that flings its lid open on tap, with glowing gold, a rising light beam and drifting motes.",
+    "file": "components/spatial/treasure-chest.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#7A4A2A"
+      },
+      {
+        "name": "trim",
+        "type": "color",
+        "default": "#E8B44C"
+      },
+      {
+        "name": "glow",
+        "type": "color",
+        "default": "#FFD98A"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.25,
+        "max": 4,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "confetti-burst",
+    "displayName": "Confetti Burst",
+    "category": "interactive",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "game",
+      "celebration",
+      "confetti",
+      "particles",
+      "reward",
+      "sound"
+    ],
+    "aliases": [
+      "confetti",
+      "party popper",
+      "celebrate",
+      "celebration"
+    ],
+    "description": "A party popper that fires up to 300 fluttering confetti pieces with a pop when tapped or when its trigger changes.",
+    "file": "components/spatial/confetti-burst.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "trigger",
+        "type": "number",
+        "min": 0,
+        "max": 999,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "count",
+        "type": "number",
+        "min": 1,
+        "max": 300,
+        "default": 180
+      },
+      {
+        "name": "colors",
+        "type": "string[]",
+        "default": [
+          "#9FE7D2",
+          "#F2B48A",
+          "#FF8FB1",
+          "#7AB8FF",
+          "#FFC94D",
+          "#EEF0F4"
+        ]
+      },
+      {
+        "name": "power",
+        "type": "number",
+        "min": 0.2,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "name": "trigger",
+        "type": "number",
+        "min": 0,
+        "max": 999,
+        "default": 0
+      },
+      {
+        "name": "popper",
+        "type": "boolean",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "basketball-hoop",
+    "displayName": "Basketball Hoop",
+    "category": "interactive",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "game",
+      "sports",
+      "basketball",
+      "arcade",
+      "score",
+      "particles",
+      "sound"
+    ],
+    "aliases": [
+      "hoop",
+      "basketball",
+      "arcade hoop",
+      "shoot hoops"
+    ],
+    "description": "A mini hoop with a ball you tap to shoot: it arcs to the rim for a swish, sparks and a point, or clangs off.",
+    "file": "components/spatial/basketball-hoop.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 999,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 999,
+        "default": 0
+      },
+      {
+        "name": "accuracy",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "ballColor",
+        "type": "color",
+        "default": "#E8743B"
+      }
+    ]
+  },
+  {
+    "name": "health-bar",
+    "displayName": "Health Bar",
+    "category": "interactive",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "game",
+      "hud",
+      "health",
+      "hp",
+      "bar",
+      "progress",
+      "sound"
+    ],
+    "aliases": [
+      "hp bar",
+      "life bar",
+      "health meter",
+      "hit points",
+      "damage bar"
+    ],
+    "description": "A 30 cm glass health bar whose fill springs to the value, with a lagging damage ghost, a heal shimmer and a red low-health pulse; tap it for demo damage.",
+    "file": "components/spatial/health-bar.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 100,
+        "default": 75
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 100,
+        "default": 75
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "min": 1,
+        "max": 1000,
+        "default": 100
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Health"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "score-counter",
+    "displayName": "Score Counter",
+    "category": "interactive",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "game",
+      "hud",
+      "score",
+      "points",
+      "counter",
+      "number",
+      "sound"
+    ],
+    "aliases": [
+      "score",
+      "points",
+      "scoreboard",
+      "point counter",
+      "coins counter"
+    ],
+    "description": "A score panel whose number rolls up on a spring, pops and floats \"+N\"; tap to add points with a coin blip that climbs in pitch on fast taps.",
+    "file": "components/spatial/score-counter.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 999999,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 999999,
+        "default": 0
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "min": 1,
+        "max": 1000,
+        "default": 10
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Score"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#FFC94D"
+      },
+      {
+        "name": "digits",
+        "type": "number",
+        "min": 0,
+        "max": 8,
+        "default": 5
+      }
+    ]
+  },
+  {
+    "name": "cooldown-ring",
+    "displayName": "Cooldown Ring",
+    "category": "interactive",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "game",
+      "hud",
+      "ability",
+      "cooldown",
+      "button",
+      "timer",
+      "sound"
+    ],
+    "aliases": [
+      "ability button",
+      "skill button",
+      "cooldown button",
+      "spell button",
+      "radial cooldown"
+    ],
+    "description": "A 10 cm round ability button with a clockwise cooldown sweep: tap to cast, taps while cooling are denied, and it flashes and pings when ready.",
+    "file": "components/spatial/cooldown-ring.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [],
+    "props": [
+      {
+        "name": "duration",
+        "type": "number",
+        "min": 0.2,
+        "max": 60,
+        "default": 3
+      },
+      {
+        "name": "icon",
+        "type": "enum",
+        "options": [
+          "zap",
+          "flame",
+          "shield",
+          "heart",
+          "sparkles"
+        ],
+        "default": "zap"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Ability"
+      }
+    ]
+  },
+  {
+    "name": "countdown-timer",
+    "displayName": "Countdown Timer",
+    "category": "interactive",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "game",
+      "hud",
+      "timer",
+      "countdown",
+      "clock",
+      "alarm",
+      "sound"
+    ],
+    "aliases": [
+      "timer",
+      "countdown",
+      "stopwatch",
+      "round timer",
+      "time limit"
+    ],
+    "description": "A countdown panel with a draining progress bar and play/pause and reset buttons that beeps through the last five seconds and alarms at zero.",
+    "file": "components/spatial/countdown-timer.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 3600,
+        "default": 30
+      }
+    ],
+    "props": [
+      {
+        "name": "seconds",
+        "type": "number",
+        "min": 1,
+        "max": 3600,
+        "default": 30
+      },
+      {
+        "name": "autoStart",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 3600,
+        "default": 30
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "achievement-popup",
+    "displayName": "Achievement Popup",
+    "category": "interactive",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "game",
+      "hud",
+      "achievement",
+      "toast",
+      "notification",
+      "reward",
+      "sound"
+    ],
+    "aliases": [
+      "achievement",
+      "trophy popup",
+      "unlock toast",
+      "badge popup",
+      "reward toast"
+    ],
+    "description": "An achievement toast that springs up with a trophy, a shine sweep and a three-note fanfare, then auto-hides to a small replay chip.",
+    "file": "components/spatial/achievement-popup.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": true
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Achievement unlocked"
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "default": "First steps"
+      },
+      {
+        "name": "icon",
+        "type": "enum",
+        "options": [
+          "trophy",
+          "medal",
+          "star",
+          "crown"
+        ],
+        "default": "trophy"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#FFC94D"
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "min": 1,
+        "max": 30,
+        "default": 4
+      },
+      {
+        "name": "value",
+        "type": "boolean",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "inventory-grid",
+    "displayName": "Inventory Grid",
+    "category": "interactive",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "game",
+      "inventory",
+      "items",
+      "equip",
+      "grid",
+      "hud",
+      "rpg"
+    ],
+    "aliases": [
+      "inventory",
+      "item grid",
+      "backpack",
+      "item slots",
+      "hotbar"
+    ],
+    "description": "Fingertip-sized inventory slots with game item icons; tap one to equip it with a spring pop, mint glow ring and a metallic shing.",
+    "file": "components/spatial/inventory-grid.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": -1,
+        "max": 7,
+        "default": -1
+      }
+    ],
+    "props": [
+      {
+        "name": "items",
+        "type": "string[]",
+        "options": [
+          "sword",
+          "shield",
+          "potion",
+          "key",
+          "gem",
+          "bow",
+          "map",
+          "coin",
+          "apple",
+          "bomb",
+          "wand",
+          "axe"
+        ],
+        "default": [
+          "sword",
+          "shield",
+          "potion",
+          "key",
+          "gem",
+          "bow"
+        ]
+      },
+      {
+        "name": "cols",
+        "type": "number",
+        "min": 1,
+        "max": 6,
+        "default": 4
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "min": 1,
+        "max": 4,
+        "default": 2
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "min": -1,
+        "max": 23,
+        "default": -1
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "quest-tracker",
+    "displayName": "Quest Tracker",
+    "category": "interactive",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "game",
+      "quest",
+      "objectives",
+      "checklist",
+      "progress",
+      "hud",
+      "rpg"
+    ],
+    "aliases": [
+      "quest log",
+      "objectives",
+      "mission tracker",
+      "todo list",
+      "checklist"
+    ],
+    "description": "Quest card with tappable objectives that pop a check and strike through; finishing all of them flashes warm, chimes and bursts sparks.",
+    "file": "components/spatial/quest-tracker.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "The Lost Chest"
+      },
+      {
+        "name": "objectives",
+        "type": "string[]",
+        "default": [
+          "Find the key",
+          "Open the chest",
+          "Defeat the slime"
+        ]
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 10,
+        "default": 0
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "dialogue-box",
+    "displayName": "Dialogue Box",
+    "category": "interactive",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "game",
+      "dialogue",
+      "npc",
+      "text",
+      "typewriter",
+      "choices",
+      "rpg",
+      "story"
+    ],
+    "aliases": [
+      "dialog box",
+      "npc dialogue",
+      "speech box",
+      "conversation",
+      "visual novel"
+    ],
+    "description": "RPG dialogue panel that types lines out with voice blips; tap to skip or advance, then pick from springy choice buttons.",
+    "file": "components/spatial/dialogue-box.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": -1,
+        "max": 2,
+        "default": -1
+      }
+    ],
+    "props": [
+      {
+        "name": "speaker",
+        "type": "string",
+        "default": "Mira"
+      },
+      {
+        "name": "lines",
+        "type": "string[]",
+        "default": [
+          "Halt, traveller! The old bridge is out.",
+          "They say a slime guards the chest past the falls.",
+          "Will you help me find the key?"
+        ]
+      },
+      {
+        "name": "choices",
+        "type": "string[]",
+        "default": [
+          "I'll help",
+          "Tell me more",
+          "Not today"
+        ]
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 5,
+        "max": 120,
+        "default": 40
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "min": -1,
+        "max": 5,
+        "default": -1
+      }
+    ]
+  },
+  {
+    "name": "item-wheel",
+    "displayName": "Item Wheel",
+    "category": "interactive",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "game",
+      "weapon",
+      "items",
+      "wheel",
+      "selector",
+      "equip",
+      "hud"
+    ],
+    "aliases": [
+      "weapon wheel",
+      "item selector",
+      "quick select",
+      "loadout wheel"
+    ],
+    "description": "Weapon and item wheel whose segments lean out as a finger nears; tap one to equip it with a mint glow and a click.",
+    "file": "components/spatial/item-wheel.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": -1,
+        "max": 5,
+        "default": -1
+      }
+    ],
+    "props": [
+      {
+        "name": "items",
+        "type": "string[]",
+        "options": [
+          "sword",
+          "shield",
+          "potion",
+          "key",
+          "gem",
+          "bow",
+          "map",
+          "coin",
+          "apple",
+          "bomb",
+          "wand",
+          "axe"
+        ],
+        "default": [
+          "sword",
+          "bow",
+          "bomb",
+          "potion",
+          "shield",
+          "wand"
+        ]
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "min": -1,
+        "max": 11,
+        "default": -1
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "target-reticle",
+    "displayName": "Target Reticle",
+    "category": "interactive",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "game",
+      "aim",
+      "target",
+      "crosshair",
+      "shooter",
+      "hud"
+    ],
+    "aliases": [
+      "crosshair",
+      "target",
+      "lock-on",
+      "aim reticle"
+    ],
+    "description": "20 cm crosshair target that locks on when aimed at (ticks snap in, mint turns warm) and fires a shock ring with a hit counter on tap.",
+    "file": "components/spatial/target-reticle.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "lockColor",
+        "type": "color",
+        "default": "#F2B48A"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.5,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "value",
+        "type": "boolean",
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": "minimap",
+    "displayName": "Radar Minimap",
+    "category": "interactive",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "game",
+      "radar",
+      "map",
+      "hud",
+      "sonar"
+    ],
+    "aliases": [
+      "radar",
+      "minimap",
+      "sonar",
+      "mini map"
+    ],
+    "description": "25 cm circular radar whose sweep lights up drifting enemy blips; tap anywhere to send a sonar ping from that spot.",
+    "file": "components/spatial/minimap.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [],
+    "props": [
+      {
+        "name": "blips",
+        "type": "number",
+        "min": 0,
+        "max": 24,
+        "default": 5
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "blipColor",
+        "type": "color",
+        "default": "#FF5A6A"
+      },
+      {
+        "name": "sweepSpeed",
+        "type": "number",
+        "min": 0.2,
+        "max": 6,
+        "default": 1.6
+      }
+    ]
+  },
+  {
+    "name": "lever-switch",
+    "displayName": "Lever Switch",
+    "category": "interactive",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "game",
+      "lever",
+      "switch",
+      "toggle",
+      "physical",
+      "puzzle"
+    ],
+    "aliases": [
+      "lever",
+      "pull switch",
+      "breaker",
+      "wall lever"
+    ],
+    "description": "25 cm wall lever you grab and pull down (or tap) to switch on; it slams home with a heavy clunk and lights its lamp.",
+    "file": "components/spatial/lever-switch.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Power"
+      }
+    ]
+  },
+  {
+    "name": "pressure-plate",
+    "displayName": "Pressure Plate",
+    "category": "interactive",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "game",
+      "floor",
+      "trigger",
+      "plate",
+      "puzzle",
+      "button"
+    ],
+    "aliases": [
+      "floor button",
+      "pressure pad",
+      "step plate",
+      "floor switch"
+    ],
+    "description": "30 cm floor plate that sinks with a thunk when pressed, glowing at the rim and rolling light rings across the floor.",
+    "file": "components/spatial/pressure-plate.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "latch",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "tilt",
+        "type": "number",
+        "min": 0,
+        "max": 1.2,
+        "default": 0.45
+      }
+    ]
+  },
+  {
+    "name": "xylophone",
+    "displayName": "Xylophone",
+    "category": "interactive",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "music",
+      "instrument",
+      "xylophone",
+      "toy",
+      "notes"
+    ],
+    "aliases": [
+      "glockenspiel",
+      "marimba",
+      "mallet instrument"
+    ],
+    "description": "37 cm one-octave xylophone (C5 to C6): poke or click a bar to play it, with a wobble and a puff of note-coloured sparks.",
+    "file": "components/spatial/xylophone.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [],
+    "props": [
+      {
+        "name": "notes",
+        "type": "string[]",
+        "default": [
+          "C5",
+          "D5",
+          "E5",
+          "F5",
+          "G5",
+          "A5",
+          "B5",
+          "C6"
+        ]
+      },
+      {
+        "name": "colors",
+        "type": "string[]",
+        "default": [
+          "#F2A0A0",
+          "#F2B48A",
+          "#F2D58A",
+          "#B9E39A",
+          "#9FE7D2",
+          "#8FD3EC",
+          "#9DB5F5",
+          "#C3A6F2"
+        ]
+      }
+    ]
+  }
+]

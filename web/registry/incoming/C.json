@@ -1,0 +1,446 @@
+[
+  {
+    "name": "bar-chart-3d",
+    "displayName": "3D Bar Chart",
+    "category": "data",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "data",
+      "chart",
+      "bars",
+      "dashboard",
+      "analytics"
+    ],
+    "aliases": [
+      "bar graph",
+      "column chart",
+      "histogram"
+    ],
+    "description": "Solid 3D bars that grow in and reveal their value when you hover a column.",
+    "file": "components/spatial/bar-chart-3d.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Monthly active users (k)"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "default": ""
+      }
+    ]
+  },
+  {
+    "name": "gauge",
+    "displayName": "Gauge / Meter",
+    "category": "data",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "data",
+      "gauge",
+      "dial",
+      "meter",
+      "dashboard"
+    ],
+    "aliases": [
+      "speedometer",
+      "dial",
+      "progress meter"
+    ],
+    "description": "Dial with a springy needle and a tick ring that lights up to a 0-1 value.",
+    "file": "components/spatial/gauge.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.72
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.72
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "CPU load"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "min": 1,
+        "max": 10000,
+        "default": 100
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "default": "%"
+      }
+    ]
+  },
+  {
+    "name": "stat-card",
+    "displayName": "Stat Card",
+    "category": "data",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "data",
+      "kpi",
+      "metric",
+      "card",
+      "dashboard"
+    ],
+    "aliases": [
+      "kpi card",
+      "metric tile",
+      "number card"
+    ],
+    "description": "KPI card on a thick slab with a trend arrow; hover lifts it and shows the comparison.",
+    "file": "components/spatial/stat-card.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "type": "number",
+        "default": 12480
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Active users"
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "default": 12480
+      },
+      {
+        "name": "delta",
+        "type": "number",
+        "min": -100,
+        "max": 100,
+        "default": 12.4
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "default": "vs last week"
+      }
+    ]
+  },
+  {
+    "name": "sparkline",
+    "displayName": "Sparkline",
+    "category": "data",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "data",
+      "chart",
+      "trend",
+      "line",
+      "dashboard"
+    ],
+    "aliases": [
+      "trend line",
+      "mini chart",
+      "line chart"
+    ],
+    "description": "Trend card whose 3D line draws itself in; hover along it to read any point.",
+    "file": "components/spatial/sparkline.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Revenue ($k)"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "default": ""
+      }
+    ]
+  },
+  {
+    "name": "timeline-scrubber",
+    "displayName": "Timeline Scrubber",
+    "category": "data",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "data",
+      "timeline",
+      "scrubber",
+      "seek",
+      "media"
+    ],
+    "aliases": [
+      "seek bar",
+      "progress bar",
+      "playhead"
+    ],
+    "description": "Drag the thumb or tap the rail to scrub; hover previews the time under your finger.",
+    "file": "components/spatial/timeline-scrubber.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.35
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.35
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "min": 1,
+        "max": 7200,
+        "default": 225
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Timeline"
+      }
+    ]
+  },
+  {
+    "name": "video-panel",
+    "displayName": "Video Panel",
+    "category": "media",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "media",
+      "video",
+      "player",
+      "screen"
+    ],
+    "aliases": [
+      "video player",
+      "tv screen",
+      "movie"
+    ],
+    "description": "Floating video screen that plays and pauses on press, with a tap-to-seek bar.",
+    "file": "components/spatial/video-panel.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "src",
+        "type": "string",
+        "default": "https://threejs.org/examples/textures/sintel.mp4"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Sintel (trailer)"
+      }
+    ]
+  },
+  {
+    "name": "curved-gallery",
+    "displayName": "Curved Gallery",
+    "category": "media",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "media",
+      "images",
+      "gallery",
+      "photos",
+      "carousel"
+    ],
+    "aliases": [
+      "photo wall",
+      "image carousel",
+      "arc gallery"
+    ],
+    "description": "Images on an arc that wraps toward you; hover to lift one, press to pull it close.",
+    "file": "components/spatial/curved-gallery.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": []
+  },
+  {
+    "name": "audio-player",
+    "displayName": "Audio Player Card",
+    "category": "media",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "media",
+      "audio",
+      "music",
+      "player"
+    ],
+    "aliases": [
+      "music player",
+      "mp3 player",
+      "now playing"
+    ],
+    "description": "Music card with a spinning 3D record and tonearm, play/pause and a draggable seek bar.",
+    "file": "components/spatial/audio-player.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "src",
+        "type": "string",
+        "default": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "SoundHelix Song 1"
+      },
+      {
+        "name": "artist",
+        "type": "string",
+        "default": "SoundHelix"
+      }
+    ]
+  },
+  {
+    "name": "model-viewer",
+    "displayName": "3D Model Viewer",
+    "category": "media",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "media",
+      "3d",
+      "model",
+      "glb",
+      "turntable"
+    ],
+    "aliases": [
+      "glb viewer",
+      "turntable",
+      "product viewer"
+    ],
+    "description": "Turntable for any GLB: grab and drag to spin it, let go and it coasts.",
+    "file": "components/spatial/model-viewer.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "url",
+        "type": "string",
+        "default": "https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Astronaut"
+      },
+      {
+        "name": "autoRotate",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  }
+]

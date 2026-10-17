@@ -1,0 +1,390 @@
+[
+  {
+    "name": "lamp",
+    "displayName": "Table Lamp",
+    "category": "objects",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "lamp",
+      "light",
+      "toggle",
+      "furniture",
+      "object"
+    ],
+    "aliases": [
+      "light",
+      "desk lamp",
+      "bulb",
+      "light switch"
+    ],
+    "description": "A 40 cm table lamp that switches a real point light on and off when you press it.",
+    "file": "components/spatial/lamp.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": true
+      }
+    ],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#FFD2A1"
+      },
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "tv",
+    "displayName": "TV",
+    "category": "objects",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "tv",
+      "video",
+      "screen",
+      "media",
+      "object"
+    ],
+    "aliases": [
+      "television",
+      "monitor",
+      "video player",
+      "screen"
+    ],
+    "description": "A 43-inch TV on a stand that plays or pauses a muted video when you press the screen.",
+    "file": "components/spatial/tv.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "src",
+        "type": "string",
+        "default": "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+      }
+    ]
+  },
+  {
+    "name": "speaker",
+    "displayName": "Speaker",
+    "category": "objects",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "speaker",
+      "audio",
+      "music",
+      "sound",
+      "object"
+    ],
+    "aliases": [
+      "bookshelf speaker",
+      "boombox",
+      "stereo",
+      "music player"
+    ],
+    "description": "A bookshelf speaker that plays a looping chord groove when you press it, its woofer pumping to the beat.",
+    "file": "components/spatial/speaker.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#1A1D24"
+      }
+    ]
+  },
+  {
+    "name": "globe",
+    "displayName": "Globe",
+    "category": "objects",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "globe",
+      "earth",
+      "map",
+      "spin",
+      "object"
+    ],
+    "aliases": [
+      "world",
+      "planet",
+      "earth globe",
+      "world map"
+    ],
+    "description": "A desk globe with a dot-matrix world map that turns slowly and spins faster when you drag or flick it.",
+    "file": "components/spatial/globe.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "props": [
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 0.25
+      }
+    ]
+  },
+  {
+    "name": "door",
+    "displayName": "Door",
+    "category": "objects",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "door",
+      "portal",
+      "architecture",
+      "furniture",
+      "object"
+    ],
+    "aliases": [
+      "doorway",
+      "entrance",
+      "exit",
+      "gate"
+    ],
+    "description": "A 2 m door that swings open or shut on a spring when you press it, with warm light spilling through.",
+    "file": "components/spatial/door.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#E4DED3"
+      }
+    ]
+  },
+  {
+    "name": "clock",
+    "displayName": "Wall Clock",
+    "category": "objects",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "clock",
+      "time",
+      "wall",
+      "object"
+    ],
+    "aliases": [
+      "analog clock",
+      "watch",
+      "timer",
+      "time"
+    ],
+    "description": "A 30 cm analog wall clock that shows the live local time with a sweeping second hand.",
+    "file": "components/spatial/clock.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#2A2F3A"
+      }
+    ]
+  },
+  {
+    "name": "whiteboard",
+    "displayName": "Whiteboard",
+    "category": "objects",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "whiteboard",
+      "draw",
+      "sketch",
+      "marker",
+      "object"
+    ],
+    "aliases": [
+      "drawing board",
+      "canvas",
+      "sketchpad",
+      "blackboard",
+      "notes"
+    ],
+    "description": "A 1 m whiteboard you draw on with a fingertip, pinch or mouse, with marker colours and an eraser that clears it.",
+    "file": "components/spatial/whiteboard.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "props": [
+      {
+        "name": "ink",
+        "type": "color",
+        "default": "#1B1E26"
+      }
+    ]
+  },
+  {
+    "name": "plant",
+    "displayName": "Potted Plant",
+    "category": "objects",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "plant",
+      "decor",
+      "nature",
+      "object"
+    ],
+    "aliases": [
+      "houseplant",
+      "pot",
+      "greenery",
+      "flower"
+    ],
+    "description": "A 50 cm potted plant whose leaves sway gently.",
+    "file": "components/spatial/plant.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#E8E1D5"
+      }
+    ]
+  },
+  {
+    "name": "desk",
+    "displayName": "Desk",
+    "category": "objects",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "desk",
+      "table",
+      "furniture",
+      "object"
+    ],
+    "aliases": [
+      "table",
+      "workstation",
+      "office desk"
+    ],
+    "description": "A modern 120 x 60 cm work desk with a solid top on a slim steel frame.",
+    "file": "components/spatial/desk.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#CBB08F"
+      }
+    ]
+  },
+  {
+    "name": "chair",
+    "displayName": "Chair",
+    "category": "objects",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "chair",
+      "seat",
+      "furniture",
+      "object"
+    ],
+    "aliases": [
+      "seat",
+      "dining chair",
+      "stool"
+    ],
+    "description": "A mid-century chair with an upholstered seat and back on splayed oak legs.",
+    "file": "components/spatial/chair.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#C9805C"
+      }
+    ]
+  }
+]

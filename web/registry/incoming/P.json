@@ -1,0 +1,24 @@
+[
+  {
+    "name": "mascot",
+    "displayName": "Pix the Mascot",
+    "category": "interactive",
+    "kind": "object",
+    "style": "default",
+    "tags": ["mascot", "assistant", "character", "voxel", "pixel", "ai", "buddy"],
+    "aliases": ["pix", "helper", "assistant buddy", "critter", "pet", "companion", "ask me anything"],
+    "description": "Pix, a 13 cm voxel critter for your AI assistant. It hovers, blinks and looks at you, perks its ears when listening, orbits dots when thinking, chatters when talking, hops with confetti when happy, and giggles when poked.",
+    "file": "components/spatial/mascot.tsx",
+    "status": "ready",
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tier": 2,
+    "props": [
+      { "name": "mood", "type": "enum", "options": ["idle", "listening", "thinking", "talking", "happy"], "default": "idle" },
+      { "name": "color", "type": "color", "default": "#9FE7D2" },
+      { "name": "size", "type": "number", "min": 0.5, "max": 4, "default": 1 }
+    ]
+  }
+]
