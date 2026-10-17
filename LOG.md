@@ -13,6 +13,13 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 4:32: Evan (session ek-b8): **Night Set is in** (guided template + 5 new playable components). Try: Studio, Templates, Night Set, Build with guide
+- New: `drum-pads` (4x4, 16 voices, `hit` out, `samples` prop), `synth-keys` (25 keys, 4 presets, 4 knobs, `note` out), `tempo-lane` (BPM, beat dots, visualizer, PLAY), `drums-lane` (8-step x 4, records pad hits), `keys-lane` (piano roll, records + loops notes). `mixing-console` gained `tempo` and really mixes via the mixer bus (`globalThis.__spatialMixer`, ch1 drums, ch2 keys).
+- Guided templates: Template Library (Blank first, Build with guide, Insert all), ghost slots with labels, drop near a slot to snap + auto-wire, Place next, "8/8 placed - done, press Play"; VR guide panel in the session. A template is one component (root `free` frame): move/scale/delete it as one, pieces stay editable.
+- Sounds: kick/snare/clap/toms/cowbell/perc/crash generated with ElevenLabs Sound Effects in `web/public/sounds/night-kit/` (credited in SOURCES.md); other voices synthesised.
+- Verified in Chromium: 8/8 slots place, code panel wires `tempo`, `keys`, `drums`, 8 bus channels live, 0 errors. **Not verified: by ear, on a Quest.** Run-sheet for the video + table: `DEMO.md`.
+- Also: layouts persist to `.data/layouts` (launch links survive restarts); MCP verified end to end with headless Claude Code (`mcp/README.md`).
+
 ### 4:27: Evan: **voice editor audited end to end: 31/32**, 3 fixes (local qwen2.5 only, no Claude)
 - ElevenLabs Scribe STT verified with real audio, but `web/.env.local` currently holds a key **ID**; needs the `sk_…` key or STT returns 400.
 - New `web/scripts/audit-voice.ts`: 32 spoken commands → live `/api/assist` → `applyOps` on the real store → checks the scene changed as asked (and that "don't…", "never mind", unknown items change nothing). Run: `cd web && node scripts/audit-voice.ts`.
