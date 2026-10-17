@@ -19,6 +19,12 @@ export const ENVIRONMENTS: Record<string, string[]> = {
   stage: ["concert stage", "concert", "stage"],
   gallery: ["minimal gallery", "gallery", "museum"],
   room: ["my room", "your room", "real room", "passthrough", "pass through"],
+  "light-studio": ["light studio", "white studio", "photo studio"],
+  meadow: ["meadow", "field", "grass"],
+  beach: ["beach", "sand", "sea", "ocean", "coast"],
+  "open-lot": ["open lot", "parking lot", "lot", "plaza"],
+  desert: ["desert", "dunes", "canyon"],
+  "night-field": ["night field", "night", "starry"],
 }
 
 export const COLORS: Record<string, string> = {
@@ -152,7 +158,10 @@ function resolveTarget(t: string, ctx: Ctx, adding: string[], hint?: Op, ignoreC
     const sel = ctx.items.find((i) => i.id === ctx.selectedId && i.component === pick)
     return { id: (hinted ?? sel ?? ctx.items.filter((i) => i.component === pick).at(-1))!.id }
   }
-  const absent = mentioned(t, ctx.registry.filter((e) => !adding.includes(e.name) && (!ignoreCategory || e.category !== ignoreCategory)), false, AMBIGUOUS)
+  // "set the text to Hello": the selection's prop names aren't proof that text-3d is missing
+  const selProps = ctx.registry.find((e) => e.name === ctx.items.find((i) => i.id === ctx.selectedId)?.component)?.props ?? []
+  const skip = new Set([...AMBIGUOUS, ...selProps.map((p) => words(p.name).join(" "))])
+  const absent = mentioned(t, ctx.registry.filter((e) => !adding.includes(e.name) && (!ignoreCategory || e.category !== ignoreCategory)), false, skip)
   if (absent.length) return null // "the lamp", but there's no lamp
   if (adding.length) return {}
   return ctx.selectedId ? { id: ctx.selectedId } : null

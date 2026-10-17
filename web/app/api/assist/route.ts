@@ -13,12 +13,13 @@ const isObj = (v: unknown): v is Record<string, unknown> => !!v && typeof v === 
 const str = (v: unknown, max = 80) => (typeof v === "string" ? v.slice(0, max) : "")
 
 async function classify(text: string, ctx: Ctx): Promise<Op[] | null> {
+  // Static parts first: Ollama reuses its cache for an unchanged prefix, so only the layout + command get re-read (12 s → ~1 s).
   const user = JSON.stringify({
-    command: text,
-    selected: ctx.selectedId,
-    layout: ctx.items.map((i) => ({ id: i.id, component: i.component })),
     registry: ctx.registry.map((e) => e.name),
     environments: Object.keys(ENVIRONMENTS),
+    layout: ctx.items.map((i) => ({ id: i.id, component: i.component })),
+    selected: ctx.selectedId,
+    command: text,
   })
   try {
     // Wall-clock deadline: AbortSignal.timeout covers a socket that accepts and never answers.

@@ -27,7 +27,7 @@ import { VoiceButton, XRVoiceButton } from "@/components/studio/voice"
 <XRVoiceButton />    // inside <XR> in scene.tsx, beside <VRShelf />; XR sessions only, on your right
 ```
 
-`applyOps` calls `setEnvironment(id)` only if the store has it. The ids are `space | forest | loft | stage | gallery | room`; edit `ENVIRONMENTS` in `lib/assist-ops.ts` if yours differ.
+`applyOps` calls `setEnvironment(id)` only if the store has it. The ids are `space | forest | loft | stage | gallery | room | light-studio | meadow | beach | open-lot | desert | night-field` (`applyOps` prefixes `env-`); edit `ENVIRONMENTS` in `lib/assist-ops.ts` if yours differ.
 
 ## Things to say
 
@@ -62,3 +62,5 @@ If the model's ops all fail the gate, the keyword grammar runs on its own, so a 
 - One add per sentence. Nothing for undo, duplicate, or "the second knob" (it picks the selected one, else the newest).
 - Web Speech fallback sends audio to Google and isn't available on Quest. In the headset you need the ElevenLabs key.
 - Tests: `node --test web/lib/assist-ops.test.ts`.
+- End-to-end audit (dev server + Ollama running): `cd web && node scripts/audit-voice.ts`. It sends ~30 spoken commands through `/api/assist`, applies the ops to the real store and checks the scene changed as asked (including commands that must change nothing).
+- The model prompt puts the registry first and the command last so Ollama's prefix cache skips re-reading the 226 names (12 s → 0.25 s of prompt time per command). Keep that order.
