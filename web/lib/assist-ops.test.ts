@@ -155,3 +155,16 @@ test("'soon' entries are names, never added", () => {
   // still recognised as a name, so it can't fall through to the selected knob
   assert.deepEqual(extractOps("make the drum pad bigger", { items: [{ id: "k1", component: "knob" }], selectedId: "k1", registry: reg }), [])
 })
+
+test("'set the text to Hello' on a label: the prop name 'text' doesn't mean a missing text-3d", () => {
+  const c: Ctx = { items: [{ id: "t1", component: "label" }], selectedId: "t1", registry: [...REG, { name: "text-3d", displayName: "3D Text", category: "objects" }] }
+  assert.deepEqual(extractOps("set the text to Hello", c), [{ op: "set_prop", target: "t1", prop: "text", value: "Hello" }])
+})
+
+test("photo backdrops are reachable by voice", () => {
+  const c = ctx([])
+  assert.deepEqual(extractOps("take me to the beach", c), [{ op: "set_environment", value: "beach" }])
+  assert.deepEqual(extractOps("go to the desert", c), [{ op: "set_environment", value: "desert" }])
+  assert.deepEqual(extractOps("switch to the night field", c), [{ op: "set_environment", value: "night-field" }])
+  assert.deepEqual(extractOps("take me to outer space", c), [{ op: "set_environment", value: "space" }])
+})

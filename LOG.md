@@ -13,6 +13,12 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 4:27: Evan: **voice editor audited end to end: 31/32**, 3 fixes (local qwen2.5 only, no Claude)
+- ElevenLabs Scribe STT verified with real audio, but `web/.env.local` currently holds a key **ID**; needs the `sk_…` key or STT returns 400.
+- New `web/scripts/audit-voice.ts`: 32 spoken commands → live `/api/assist` → `applyOps` on the real store → checks the scene changed as asked (and that "don't…", "never mind", unknown items change nothing). Run: `cd web && node scripts/audit-voice.ts`.
+- Fixed: (1) model was timing out (15 s) on half the commands: the prompt put the command before the 226-name registry, so Ollama re-read it every time. Registry first, command last → prompt time 12 s → 0.25 s, commands now 1.3–2.9 s. (2) "set the text to Hello" was dropped ("text" read as a missing `text-3d`). (3) beach / meadow / desert / open lot / night field / light studio now reachable by voice.
+- Still fails: "change the label to Welcome Home" (say "set the text to …"). Claude users connect via the existing `mcp/` server.
+
 ### 3:45: Evan (session ek-b8): **DEMO GOAL = the "Night Set"** (the Spatial VR Editor mockup artifact), built by hand from guided slots, then played
 - Target: https://claude.ai/artifact/LGfThjydyHGLEVhFp6FuNk. Desk + mixing console (with a TEMPO knob) + Synth Keys (25 keys, preset, 4 knobs) + Drum Pads 4x4 + a track wall of 3 lanes on a 1.6 m arc (Keys / Tempo / Drums) on the concert stage. Wiring: console tempo -> tempo lane; pads -> drums lane (records hits); keys -> keys lane (records notes).
 - Building now (3 agents, ~4:45): new `drum-pads`, `synth-keys`, `tempo-lane`, `drums-lane`, `keys-lane`; `mixing-console` gains `tempo` + real mixing via a **mixer bus convention** (`globalThis.__spatialMixer`, channel 1 = drums, 2 = keys; each file copies a 10-line `mixerChannel(n)` snippet, still copy-pasteable). **Guided templates:** Template Library (laptop modal + VR panel), ghost slots with labels where each component goes, drop near a slot to snap + auto-wire, tap a slot to place, progress "4/7 placed - next: ...". Template `night-set.json`.
