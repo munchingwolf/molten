@@ -2,12 +2,14 @@ import Link from "next/link"
 import { ComponentCard } from "@/components/site/card"
 import { Logo } from "@/components/site/header"
 import { HeroScene } from "@/components/site/hero-scene"
+import { BlurWords, DriftRow, GlowButton, ScrollLightText, TerminalLines, Ticker, TiltCard, Typewriter } from "@/components/site/fx"
 import { Reveal, Stagger, StaggerItem } from "@/components/site/motion"
 import { Preview } from "@/components/site/preview"
 import { registry } from "@/lib/registry"
 
 const sections = registry.filter((e) => e.kind === "section")
-const general = registry.filter((e) => e.kind === "basic" && e.tier === 1).slice(0, 4)
+// Drift row renders each card twice (seamless loop), so 4 live cards = 8 WebGL canvases; keep the page under ~16.
+const general = registry.filter((e) => e.kind === "basic" && e.status === "ready").slice(0, 4)
 const readyCount = registry.filter((e) => e.status === "ready").length
 
 const faqs = [
@@ -22,30 +24,31 @@ export default function Home() {
   return (
     <main>
       <section className="relative overflow-hidden border-b border-border bg-[linear-gradient(180deg,#0B0C10_0%,#0E1117_60%,#0B0C10_100%)]">
+        <div className="hero-glow" aria-hidden />
         <div className="floor-grid" aria-hidden />
         <div className="relative mx-auto grid max-w-[1240px] items-center gap-10 px-5 pb-10 pt-14 lg:grid-cols-[1fr_1.05fr] lg:pb-16 lg:pt-22">
-          <Stagger>
-            <StaggerItem>
-              <p className="mb-5.5 flex items-center gap-2 text-[13.5px] text-muted">
-                <span className="size-[7px] rounded-full bg-accent shadow-[0_0_0_4px_rgb(159_231_210/0.18)]" />
-                Live in your Quest browser, no install
-              </p>
-            </StaggerItem>
-            <StaggerItem>
-              <h1 className="text-balance font-display text-[clamp(2.6rem,5.4vw,4.6rem)] font-bold leading-[0.98] tracking-[-0.04em]">
-                Interfaces you can <span className="accent-word">walk around</span>
-              </h1>
-            </StaggerItem>
-            <StaggerItem>
-              <p className="mt-5.5 max-w-[46ch] text-lg text-muted">
-                <b className="font-semibold text-text">{registry.length} XR components</b> for WebXR and React Three Fiber.
-                Turn them in 3D, try them in your headset, then paste one prompt and your agent ships the code.
-              </p>
-            </StaggerItem>
-            <StaggerItem className="mt-8 flex flex-wrap gap-3">
-              <Link href="/components" className="inline-flex h-[46px] items-center rounded-[11px] bg-accent px-5 font-semibold text-on-accent hover:brightness-105">
-                Browse components
-              </Link>
+          <div>
+            <Stagger>
+              <StaggerItem>
+                <p className="mb-5.5 flex items-center gap-2.5 font-mono text-[13px] text-muted">
+                  <span className="size-[7px] animate-pulse rounded-full bg-accent shadow-[0_0_0_4px_rgb(159_231_210/0.18)]" />
+                  <span className="text-faint">spatial build</span>
+                  <Typewriter className="text-text" phrases={["a settings panel", "a music DAW", "a 3D dashboard", "a VR landing page", "a wrist menu"]} />
+                </p>
+              </StaggerItem>
+            </Stagger>
+            <h1 className="text-balance font-display text-[clamp(2.6rem,5.4vw,4.6rem)] font-bold leading-[0.98] tracking-[-0.04em]">
+              <BlurWords text="Interfaces you can" accent="walk around" delay={0.15} />
+            </h1>
+            <Stagger>
+              <StaggerItem>
+                <p className="mt-5.5 max-w-[46ch] text-lg text-muted">
+                  <b className="font-semibold text-text"><Ticker value={registry.length} /> XR components</b> for WebXR and React Three Fiber.
+                  Turn them in 3D, try them in your headset, then paste one prompt and your agent ships the code.
+                </p>
+              </StaggerItem>
+              <StaggerItem className="mt-8 flex flex-wrap gap-3">
+                <GlowButton href="/components">Browse components</GlowButton>
               <Link href="/studio" className="inline-flex h-[46px] items-center rounded-[11px] border border-border-2 bg-surface px-5 font-semibold hover:border-faint">
                 Open Studio in VR
               </Link>
@@ -57,7 +60,8 @@ export default function Home() {
                 ))}
               </ul>
             </StaggerItem>
-          </Stagger>
+            </Stagger>
+          </div>
           <Reveal delay={0.25} className="h-[380px] lg:h-[460px]">
             <div className="h-full" aria-label="The three Settings styles floating in a live 3D scene">
               <HeroScene />
@@ -67,16 +71,31 @@ export default function Home() {
 
         <Strip title="Sections" note={`${sections.length} ready`} href="/components?kind=section">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {sections.map((e, i) => <Reveal key={e.name} delay={i * 0.07}><ComponentCard entry={e} /></Reveal>)}
+            {sections.map((e, i) => (
+              <Reveal key={e.name} delay={i * 0.07}>
+                <TiltCard className="rounded-[14px]"><ComponentCard entry={e} /></TiltCard>
+              </Reveal>
+            ))}
           </div>
         </Strip>
       </section>
 
       <Strip title="Components" note={`${registry.length - sections.length} · ${readyCount} live`} href="/components">
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {general.map((e, i) => <Reveal key={e.name} delay={i * 0.07}><ComponentCard entry={e} /></Reveal>)}
-        </div>
+        <DriftRow speed={36}>
+          {general.map((e) => (
+            <div key={e.name} className="w-[300px] shrink-0">
+              <ComponentCard entry={e} />
+            </div>
+          ))}
+        </DriftRow>
       </Strip>
+
+      <section className="mx-auto max-w-[1240px] px-5 pt-24">
+        <ScrollLightText
+          className="max-w-[24ch] font-display text-[clamp(2rem,4.2vw,3.4rem)] font-bold leading-[1.05] tracking-[-0.035em]"
+          text="Every component is live 3D, works with hands and controllers, and lands in your repo as one file you own."
+        />
+      </section>
 
       <section id="mcp" className="mx-auto max-w-[1240px] px-5 pt-26">
         <Reveal>
@@ -86,20 +105,27 @@ export default function Home() {
           </p>
         </Reveal>
         <Reveal delay={0.1} className="mt-10 grid gap-5 md:grid-cols-3">
-          <Agent tone="warm" title="Claude Code" body="Paste the prompt in your terminal. The Spatial MCP finds the file and wires it into your scene.">
-            <span className="text-faint">&gt;</span> add the glass settings panel{"\n"}  from Spatial to my scene{"\n\n"}
-            <span className="text-warm">●</span> spatial.get_component(&quot;settings-glass&quot;){"\n"}
-            <span className="text-warm">●</span> spatial.add_component(...){"\n"}
-            <span className="text-accent">✓</span> components/spatial/settings-glass.tsx
-          </Agent>
-          <Agent tone="cool" title="Cursor and any MCP client" body="Same tools in every editor. Search, pull, then edit it like code you wrote.">
-            <span className="text-faint">{"// any MCP client"}</span>{"\n"}search_components(&quot;settings&quot;){"\n"}  → default, glass, horizon{"\n"}get_component(&quot;settings-glass&quot;){"\n"}
-            <span className="text-accent">✓</span> source + npm deps
-          </Agent>
-          <Agent tone="mint" title="Studio, in your headset" body="Grab components off a floating shelf, place them with your hands, launch a real app.">
-            <span className="text-faint">Studio · my-daw</span>{"\n"}grab   knob       → (0.5, 1.2, -0.6){"\n"}bind   knob.value → tempo{"\n"}
-            <span className="text-accent">✓</span> Launch → /apps/my-daw
-          </Agent>
+          <Agent tone="warm" title="Claude Code" body="Paste the prompt in your terminal. The Spatial MCP finds the file and wires it into your scene." lines={[
+            <><span className="text-faint">&gt;</span> add the glass settings panel from Spatial</>,
+            <><span className="text-warm">●</span> spatial.get_component(&quot;settings-glass&quot;)</>,
+            <><span className="text-warm">●</span> spatial.add_component(...)</>,
+            <><span className="text-accent">✓</span> components/spatial/settings-glass.tsx</>,
+            <><span className="text-accent">✓</span> rendered in &lt;Scene /&gt;</>,
+          ]} />
+          <Agent tone="cool" title="Cursor and any MCP client" body="Same tools in every editor. Search, pull, then edit it like code you wrote." lines={[
+            <span key="c" className="text-faint">{"// any MCP client"}</span>,
+            <>search_components(&quot;settings&quot;)</>,
+            <>  → default, glass, horizon</>,
+            <>get_component(&quot;settings-glass&quot;)</>,
+            <><span className="text-accent">✓</span> source + npm deps</>,
+          ]} />
+          <Agent tone="mint" title="Studio, in your headset" body="Grab components off a floating shelf, place them with your hands, launch a real app." lines={[
+            <span key="s" className="text-faint">Studio · my-daw</span>,
+            <>grab   drum-pad   → (0.2, 1.1, -0.6)</>,
+            <>grab   knob       → (0.5, 1.2, -0.6)</>,
+            <>bind   knob.value → tempo</>,
+            <><span className="text-accent">✓</span> Launch → /apps/my-daw</>,
+          ]} />
         </Reveal>
       </section>
 
@@ -195,15 +221,18 @@ const tones = {
   mint: "border-[#1F3A33] bg-[linear-gradient(180deg,#13231F,#0E1715)]",
 }
 
-function Agent({ tone, title, body, children }: { tone: keyof typeof tones; title: string; body: string; children: React.ReactNode }) {
+function Agent({ tone, title, body, lines }: { tone: keyof typeof tones; title: string; body: string; lines: React.ReactNode[] }) {
   return (
-    <article className={`grid content-start gap-4.5 rounded-[18px] border p-5.5 ${tones[tone]}`}>
-      <pre className="min-h-[148px] overflow-x-auto rounded-xl border border-white/8 bg-black/40 p-3.5 font-mono text-[12.5px] leading-[1.7] text-[#D9DCE3]">
-        {children}
-      </pre>
-      <h3 className="font-display text-lg font-bold tracking-[-0.01em]">{title}</h3>
-      <p className="-mt-2.5 text-[15px] text-muted">{body}</p>
-    </article>
+    <TiltCard className="h-full rounded-[18px]">
+      <article className={`grid h-full content-start gap-4.5 rounded-[18px] border p-5.5 ${tones[tone]}`}>
+        <TerminalLines
+          lines={lines}
+          className="min-h-[164px] overflow-x-auto rounded-xl border border-white/8 bg-black/40 p-3.5 font-mono text-[12.5px] leading-[1.7] text-[#D9DCE3]"
+        />
+        <h3 className="font-display text-lg font-bold tracking-[-0.01em]">{title}</h3>
+        <p className="-mt-2.5 text-[15px] text-muted">{body}</p>
+      </article>
+    </TiltCard>
   )
 }
 

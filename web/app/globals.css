@@ -66,6 +66,70 @@ body {
   pointer-events: none;
 }
 
+/* ---------- motion (paired with components/site/fx.tsx) ---------- */
+
+/* Hero glow: fades in once, then breathes slowly. */
+.hero-glow {
+  position: absolute;
+  left: 50%;
+  top: -18%;
+  width: min(1100px, 120vw);
+  aspect-ratio: 1.6;
+  translate: -50% 0;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--color-accent) 22%, transparent), transparent 70%);
+  filter: blur(20px);
+  pointer-events: none;
+  animation: glow-in 1.6s ease-out both, glow-breathe 10s ease-in-out 1.6s infinite;
+}
+@keyframes glow-in { from { opacity: 0; scale: 0.85; } to { opacity: 1; scale: 1; } }
+@keyframes glow-breathe { 50% { opacity: 0.6; scale: 1.08; } }
+
+/* Accent word: a light sweeps across it, then keeps drifting. */
+.shimmer-text {
+  background: linear-gradient(110deg, var(--color-accent) 35%, #ffffff 50%, var(--color-accent) 65%) 0 0 / 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 3.2s ease-in-out 1s infinite;
+}
+@keyframes shimmer { from { background-position: 100% 0; } to { background-position: -150% 0; } }
+
+/* Blinking caret for typed text and terminals. */
+.caret {
+  display: inline-block;
+  width: 0.5ch;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: currentColor;
+  animation: caret 1s steps(1) infinite;
+}
+@keyframes caret { 50% { opacity: 0; } }
+
+/* Border light that circles the primary button. */
+.spin-border { overflow: hidden; isolation: isolate; }
+.spin-border::before {
+  content: "";
+  position: absolute;
+  inset: -150%;
+  background: conic-gradient(from 0deg, transparent 0 70%, #ffffff 82%, var(--color-accent) 90%, transparent 100%);
+  animation: spin 3.2s linear infinite;
+}
+@keyframes spin { to { rotate: 360deg; } }
+
+/* Slow horizontal drift for preview rows (two copies inside = seamless loop). */
+.drift { animation: drift 40s linear infinite; }
+@keyframes drift { to { translate: calc(-50% - 10px) 0; } }
+.edge-fade { mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+
+/* Floor grid slowly slides toward you. */
+.floor-grid { animation: floor 18s linear infinite; }
+@keyframes floor { to { background-position: 0 64px, 0 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-glow, .shimmer-text, .caret, .spin-border::before, .drift, .floor-grid { animation: none !important; }
+}
+
 .stage-bg {
   background: radial-gradient(90% 70% at 50% 35%, #1A1E27 0%, var(--color-stage) 70%);
 }
