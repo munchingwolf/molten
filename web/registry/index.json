@@ -9050,5 +9050,261 @@
       }
     ],
     "file": "components/spatial/env-night-field.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "website",
+      "landing",
+      "hero",
+      "headline",
+      "cta",
+      "3d"
+    ],
+    "aliases": [
+      "hero",
+      "landing hero",
+      "header",
+      "banner"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "hero-section",
+    "displayName": "Hero Section",
+    "category": "web",
+    "kind": "basic",
+    "description": "Landing-page hero: eyebrow, headline, subline and two calls to action, with a glossy knot floating off the panel.",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "headline",
+        "type": "string",
+        "default": "Build interfaces you can walk around"
+      },
+      {
+        "name": "subline",
+        "type": "string",
+        "default": "Drop in working 3D components, wire them up, and ship to the web and the headset in minutes."
+      },
+      {
+        "name": "eyebrow",
+        "type": "string",
+        "default": "New · Spatial 1.0"
+      },
+      {
+        "name": "cta",
+        "type": "string",
+        "default": "Start building"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      },
+      {
+        "name": "theme",
+        "type": "enum",
+        "options": [
+          "light",
+          "dark"
+        ],
+        "default": "light"
+      }
+    ],
+    "file": "components/spatial/hero-section.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "website",
+      "features",
+      "cards",
+      "landing",
+      "3d"
+    ],
+    "aliases": [
+      "features",
+      "feature grid",
+      "benefits",
+      "cards"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "feature-trio",
+    "displayName": "Feature Cards",
+    "category": "web",
+    "kind": "basic",
+    "description": "Three feature cards on a shallow arc. Hover lifts a card; tap highlights it.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "heading",
+        "type": "string",
+        "default": "Why teams build with Spatial"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      },
+      {
+        "name": "theme",
+        "type": "enum",
+        "options": [
+          "light",
+          "dark"
+        ],
+        "default": "light"
+      }
+    ],
+    "file": "components/spatial/feature-trio.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "website",
+      "pricing",
+      "plans",
+      "tiers",
+      "saas",
+      "3d"
+    ],
+    "aliases": [
+      "pricing",
+      "plans",
+      "tiers",
+      "subscription"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "pricing-table",
+    "displayName": "Pricing Table",
+    "category": "web",
+    "kind": "basic",
+    "description": "Three pricing tiers; the middle one is raised as Most popular. Tap a tier to select it, flip to yearly prices live.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ],
+    "props": [
+      {
+        "name": "yearly",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "default": "$"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      },
+      {
+        "name": "theme",
+        "type": "enum",
+        "options": [
+          "light",
+          "dark"
+        ],
+        "default": "light"
+      }
+    ],
+    "file": "components/spatial/pricing-table.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "website",
+      "store",
+      "product",
+      "turntable",
+      "ecommerce",
+      "3d"
+    ],
+    "aliases": [
+      "product",
+      "turntable",
+      "store",
+      "shop",
+      "product viewer"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "product-showcase",
+    "displayName": "Product Showcase",
+    "category": "web",
+    "kind": "basic",
+    "description": "Product turntable for a 3D store: a smart speaker spins on a plinth, swatches recolour it, and Add to bag fires onPress.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "default": "Halo Speaker"
+      },
+      {
+        "name": "price",
+        "type": "string",
+        "default": "$249"
+      },
+      {
+        "name": "spin",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "theme",
+        "type": "enum",
+        "options": [
+          "light",
+          "dark"
+        ],
+        "default": "light"
+      }
+    ],
+    "file": "components/spatial/product-showcase.tsx"
   }
 ]

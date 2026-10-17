@@ -152,6 +152,10 @@ const C_env_beach = lazy(() => import("@/components/spatial/env-beach"))
 const C_env_open_lot = lazy(() => import("@/components/spatial/env-open-lot"))
 const C_env_desert = lazy(() => import("@/components/spatial/env-desert"))
 const C_env_night_field = lazy(() => import("@/components/spatial/env-night-field"))
+const C_hero_section = lazy(() => import("@/components/spatial/hero-section"))
+const C_feature_trio = lazy(() => import("@/components/spatial/feature-trio"))
+const C_pricing_table = lazy(() => import("@/components/spatial/pricing-table"))
+const C_product_showcase = lazy(() => import("@/components/spatial/product-showcase"))
 
 export const components: Record<string, ComponentType> = {
   "settings-default": C_settings_default as ComponentType,
@@ -304,4 +308,8 @@ export const components: Record<string, ComponentType> = {
   "env-open-lot": C_env_open_lot as ComponentType,
   "env-desert": C_env_desert as ComponentType,
   "env-night-field": C_env_night_field as ComponentType,
+  "hero-section": C_hero_section as ComponentType,
+  "feature-trio": C_feature_trio as ComponentType,
+  "pricing-table": C_pricing_table as ComponentType,
+  "product-showcase": C_product_showcase as ComponentType,
 }
