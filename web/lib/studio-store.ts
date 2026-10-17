@@ -43,6 +43,8 @@ type StudioState = {
   paste: () => void
   removeSelected: () => void
   /** Wrap items in a new frame (auto-layout container); returns the frame id. */
+  /** Insert items (a template / snippet) as ONE undo step: fresh ids, parent links kept, top-level items offset by `at`. */
+  insert: (items: Item[], at?: Vec3) => string[]
   groupIntoFrame: (ids?: string[], frameProps?: Record<string, unknown>) => string | null
   ungroup: (frameId: string) => void
   setParent: (id: string, parentId: string | null) => void
@@ -206,6 +208,23 @@ export const useStudio = create<StudioState>((set, get) => {
       checkpoint()
       const gone = withDescendants(ids)
       set((s) => ({ items: s.items.filter((i) => !gone.has(i.id)), selectedIds: [], selectedId: null }))
+    },
+    insert: (src, at = [0, 0, 0]) => {
+      if (!src.length) return []
+      checkpoint()
+      const ids = new Map(src.map((i) => [i.id, newId()]))
+      const copies = src.map((i) => {
+        const inside = !!i.parentId && ids.has(i.parentId)
+        return {
+          ...i,
+          id: ids.get(i.id)!,
+          parentId: inside ? ids.get(i.parentId!) : undefined,
+          position: (inside ? i.position : [i.position[0] + at[0], i.position[1] + at[1], i.position[2] + at[2]]) as Vec3,
+        }
+      })
+      const tops = copies.filter((c) => !c.parentId).map((c) => c.id)
+      set((s) => ({ items: [...s.items, ...copies], selectedIds: tops, selectedId: tops.at(-1) ?? null }))
+      return tops
     },
     groupIntoFrame: (ids, frameProps) => {
       const picked = get().items.filter((i) => targets(ids).includes(i.id))

@@ -70,3 +70,19 @@ test("load() of a single-scene layout gives one scene", () => {
   assert.equal(S().environment, "env-gallery")
   assert.equal(S().layout().scenes, undefined)
 })
+
+test("insert adds a template as one undo step with fresh ids and kept parent links", () => {
+  S().add("existing")
+  const tpl = [
+    { id: "f", component: "frame", position: [0, 1, 0] as [number, number, number], rotation: [0, 0, 0] as [number, number, number], scale: 1, bind: {} },
+    { id: "c", component: "button", position: [0, 0, 0] as [number, number, number], rotation: [0, 0, 0] as [number, number, number], scale: 1, bind: {}, parentId: "f" },
+  ]
+  const tops = S().insert(tpl, [0, 0.5, -1])
+  assert.equal(tops.length, 1)
+  const frame = S().items.find((i) => i.id === tops[0])!
+  assert.deepEqual(frame.position, [0, 1.5, -1])
+  assert.ok(S().items.some((i) => i.parentId === frame.id && i.component === "button"))
+  assert.ok(!S().items.some((i) => i.id === "f")) // fresh ids
+  S().undo()
+  assert.deepEqual(S().items.map((i) => i.component), ["existing"])
+})

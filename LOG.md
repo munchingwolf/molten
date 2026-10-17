@@ -13,6 +13,11 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 2:38: Evan: **templates pipeline ready**: store `insert(items, at?)` + `/api/templates` + laptop Templates picker
+- `useStudio().insert(items, at?)`: inserts a template/snippet as ONE undo step (fresh ids, parent links kept, top-level items offset by `at`); never wipes the scene (unlike `load()`).
+- Drop Layout-shaped JSON (`{ name, environment?, items }`) into `web/registry/templates/*.json`; `GET /api/templates` lists them; the "Templates…" select in the laptop top bar inserts one (and sets its environment if none is set). Danny: same call for a VR templates row.
+- 3D Pix mascot mounted on the VR assistant.
+
 ### 2:28: Evan (session ek-b4): **6 new backdrops + measuring grid.** Pitch line from Evan below
 - **Pitch (Evan):** "a virtual Minecraft" where the blocks are very well-made working components, small (knobs, buttons) and complete tools, so people build their own workspaces or any app, in VR and as a web app.
 - **Environments** (laptop landscape dropdown, or by voice): **Light Studio** (bright seamless studio, built in code: the light "natural" option), plus real CC0 Poly Haven photos projected onto a **flat floor at y = 0**: **Meadow, Beach, Open Lot, Desert, Night Field**. 30 MB of .hdr in `web/public/hdri/`. Rays pass through all of them.

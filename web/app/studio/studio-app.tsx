@@ -55,6 +55,36 @@ export function StudioApp() {
   )
 }
 
+type Template = { id: string; name: string; environment?: string; items: import("@/lib/layout").Item[] }
+
+/** Start from a template: inserted next to your work as one undo step (never wipes the scene). */
+function TemplatePicker() {
+  const [templates, setTemplates] = useState<Template[]>([])
+  useEffect(() => {
+    fetch("/api/templates").then((r) => r.json()).then(setTemplates).catch(() => {})
+  }, [])
+  if (!templates.length) return null
+  return (
+    <select
+      aria-label="Templates"
+      value=""
+      onChange={(e) => {
+        const t = templates.find((x) => x.id === e.target.value)
+        if (!t) return
+        const s = useStudio.getState()
+        s.insert(t.items)
+        if (t.environment && !s.environment) s.setEnvironment(t.environment)
+      }}
+      className="rounded-md border border-border bg-bg px-2 py-1.5 text-sm"
+    >
+      <option value="">Templates…</option>
+      {templates.map((t) => (
+        <option key={t.id} value={t.id}>{t.name}</option>
+      ))}
+    </select>
+  )
+}
+
 /** Pick the world you build in; "None" = dark studio on the laptop / your real room in AR. */
 function EnvironmentPicker() {
   const environment = useStudio((s) => s.environment)
@@ -110,6 +140,7 @@ function TopBar() {
         className="w-48 rounded-md border border-border bg-bg px-2 py-1 text-sm"
       />
       <span className="ml-auto font-mono text-xs text-muted" aria-live="polite">{status}</span>
+      <TemplatePicker />
       <EnvironmentPicker />
       <ImportModelButton />
       <VoiceButton />
