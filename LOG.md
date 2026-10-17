@@ -13,6 +13,11 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 4:51: Evan: **12 entire components in progress** (6 agents, ~5:35) + **marketplace previews fixed**
+- Fixed: every uikit component with an icon showed "Preview unavailable" (uikit Svg/Content put a signal in `object.boundingBox`, three's Box3 crashed inside drei `<Bounds>`). Guard in `components/site/preview.tsx`.
+- Building complete components, ported from MIT open source where it exists (pmndrs/uikit `examples/dashboard` + `market`, pmndrs/examples `cards` + `image-gallery`): `analytics-dashboard`, `navigation-menu`, `music-app`, `metronome`, `image-carousel`, `image-gallery`, `time-hub`, `focus-timer`, `calendar-planner`, `calculator`, `smart-home-dashboard`, `app-launcher`.
+- Standard footprints so drag-to-replace swaps cleanly: apps/dashboards 640x400 px, tools 360x440 px (pixelSize 0.002). New categories: `dashboards`, `tools`. Only new files + `registry/incoming/full-*.json`.
+
 ### 4:47: Evan (session ek-b4): **FIXED: component previews crashing ("Preview unavailable") + the Box3 "reading 'x'" error**
 - Cause: uikit's `Content` (every lucide icon is an `Svg`, which extends it) stores a signal in a field named `boundingBox`. three's `Box3.expandByObject` treats it as a Box3 and throws. Any component with an icon broke drei `<Bounds>` previews, grab-bar sizing and surface snapping.
 - Fix: `web/lib/three-fixes.ts` measures such objects through their children; loaded from `lib/registry.ts` so every surface gets it. Test: `lib/three-fixes.test.ts`.

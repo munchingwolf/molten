@@ -5,6 +5,19 @@ import { Bounds, useBounds } from "@react-three/drei"
 import { XR, createXRStore } from "@react-three/xr"
 import { Component as ReactComponent, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from "react"
 import { components } from "@/lib/registry"
+import { Box3 } from "three"
+
+// uikit's Svg (every lucide icon) and Content store a signal in `object.boundingBox`; three's Box3 copies it as a box
+// and throws, which made drei <Bounds> blank every preview with an icon. Skip such an object instead (the recursion
+// calls this patched method, so only the offending object and its own children drop out of the fit).
+const expandByObject = Box3.prototype.expandByObject
+Box3.prototype.expandByObject = function (object, precise) {
+  try {
+    return expandByObject.call(this, object, precise)
+  } catch {
+    return this
+  }
+}
 
 /** Live 3D render of a registry component. One WebGL context per preview. */
 // shortcut: one Canvas per card, browsers cap ~16 live contexts; switch to drei <View> if a page shows more.
