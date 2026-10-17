@@ -3559,7 +3559,8 @@
       "clock",
       "time",
       "wall",
-      "object"
+      "object",
+      "mount:wall"
     ],
     "aliases": [
       "analog clock",
@@ -7473,7 +7474,8 @@
       "wall",
       "foam",
       "acoustic",
-      "decor"
+      "decor",
+      "mount:wall"
     ],
     "aliases": [
       "acoustic foam",
@@ -7531,7 +7533,8 @@
       "text",
       "wall",
       "decor",
-      "glow"
+      "glow",
+      "mount:wall"
     ],
     "aliases": [
       "neon",
@@ -7587,7 +7590,8 @@
       "light",
       "wall",
       "blind",
-      "decor"
+      "decor",
+      "mount:wall"
     ],
     "aliases": [
       "window",
@@ -7702,7 +7706,8 @@
       "frame",
       "print",
       "wall",
-      "decor"
+      "decor",
+      "mount:wall"
     ],
     "aliases": [
       "painting",
@@ -11933,5 +11938,125 @@
         "label": "Falloff distance (m)"
       }
     ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "piano",
+      "keys",
+      "keyboard",
+      "instrument",
+      "music",
+      "playable",
+      "samples",
+      "chords"
+    ],
+    "aliases": [
+      "piano",
+      "keyboard",
+      "keys",
+      "grand piano"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "grand-piano",
+    "displayName": "Grand Piano",
+    "category": "music",
+    "kind": "basic",
+    "description": "Playable two-octave piano with real sampled grand-piano sound, at true key size for fingers in a headset. Chords work, strike harder at the front edge, sustain pedal, and the fallboard names your chord.",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "sustain",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "volume",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      },
+      {
+        "name": "tilt",
+        "type": "number",
+        "min": 0,
+        "max": 0.6,
+        "default": 0.24
+      }
+    ],
+    "file": "components/spatial/grand-piano.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "light",
+      "lamp",
+      "pendant",
+      "ceiling",
+      "hanging",
+      "mount:ceiling",
+      "interactive"
+    ],
+    "aliases": [
+      "hanging lamp",
+      "ceiling light",
+      "pendant",
+      "chandelier"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "pendant-light",
+    "displayName": "Pendant Light",
+    "category": "room",
+    "kind": "basic",
+    "description": "Ceiling pendant on a fabric cord: tap to switch it on (the light fades), brush it and it swings like a real pendulum. Origin is the ceiling attach point.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": true
+      }
+    ],
+    "props": [
+      {
+        "name": "shade",
+        "type": "enum",
+        "options": [
+          "dome",
+          "globe",
+          "cone"
+        ],
+        "default": "dome"
+      },
+      {
+        "name": "cord",
+        "type": "number",
+        "min": 0.2,
+        "max": 2,
+        "default": 0.9
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#ECE7DF"
+      },
+      {
+        "name": "glow",
+        "type": "color",
+        "default": "#FFD9A8"
+      }
+    ],
+    "file": "components/spatial/pendant-light.tsx"
   }
 ]

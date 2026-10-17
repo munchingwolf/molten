@@ -1,0 +1,170 @@
+[
+  {
+    "name": "grand-piano",
+    "displayName": "Grand Piano",
+    "category": "music",
+    "kind": "basic",
+    "tags": [
+      "piano",
+      "keys",
+      "keyboard",
+      "instrument",
+      "music",
+      "playable",
+      "samples",
+      "chords"
+    ],
+    "aliases": [
+      "piano",
+      "keyboard",
+      "keys",
+      "grand piano"
+    ],
+    "description": "Playable two-octave piano with real sampled grand-piano sound, at true key size for fingers in a headset. Chords work, strike harder at the front edge, sustain pedal, and the fallboard names your chord.",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "sustain",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "volume",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      },
+      {
+        "name": "tilt",
+        "type": "number",
+        "min": 0,
+        "max": 0.6,
+        "default": 0.24
+      }
+    ]
+  },
+  {
+    "name": "pendant-light",
+    "displayName": "Pendant Light",
+    "category": "room",
+    "kind": "basic",
+    "tags": [
+      "light",
+      "lamp",
+      "pendant",
+      "ceiling",
+      "hanging",
+      "mount:ceiling",
+      "interactive"
+    ],
+    "aliases": [
+      "hanging lamp",
+      "ceiling light",
+      "pendant",
+      "chandelier"
+    ],
+    "description": "Ceiling pendant on a fabric cord: tap to switch it on (the light fades), brush it and it swings like a real pendulum. Origin is the ceiling attach point.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": true
+      }
+    ],
+    "props": [
+      {
+        "name": "shade",
+        "type": "enum",
+        "options": [
+          "dome",
+          "globe",
+          "cone"
+        ],
+        "default": "dome"
+      },
+      {
+        "name": "cord",
+        "type": "number",
+        "min": 0.2,
+        "max": 2,
+        "default": 0.9
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#ECE7DF"
+      },
+      {
+        "name": "glow",
+        "type": "color",
+        "default": "#FFD9A8"
+      }
+    ]
+  },
+  {
+    "name": "clock",
+    "tags": [
+      "clock",
+      "time",
+      "wall",
+      "object",
+      "mount:wall"
+    ]
+  },
+  {
+    "name": "wall-art",
+    "tags": [
+      "room",
+      "art",
+      "poster",
+      "frame",
+      "print",
+      "wall",
+      "decor",
+      "mount:wall"
+    ]
+  },
+  {
+    "name": "neon-sign",
+    "tags": [
+      "room",
+      "neon",
+      "sign",
+      "light",
+      "text",
+      "wall",
+      "decor",
+      "glow",
+      "mount:wall"
+    ]
+  },
+  {
+    "name": "wall-window",
+    "tags": [
+      "room",
+      "window",
+      "sky",
+      "light",
+      "wall",
+      "blind",
+      "decor",
+      "mount:wall"
+    ]
+  },
+  {
+    "name": "acoustic-panels",
+    "tags": [
+      "room",
+      "studio",
+      "wall",
+      "foam",
+      "acoustic",
+      "decor",
+      "mount:wall"
+    ]
+  }
+]

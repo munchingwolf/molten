@@ -198,6 +198,8 @@ const C_metaballs = lazy(() => import("@/components/spatial/metaballs"))
 const C_decal_object = lazy(() => import("@/components/spatial/decal-object"))
 const C_infinite_grid = lazy(() => import("@/components/spatial/infinite-grid"))
 const C_positional_audio = lazy(() => import("@/components/spatial/positional-audio"))
+const C_grand_piano = lazy(() => import("@/components/spatial/grand-piano"))
+const C_pendant_light = lazy(() => import("@/components/spatial/pendant-light"))
 
 export const components: Record<string, ComponentType> = {
   "settings-default": C_settings_default as ComponentType,
@@ -396,4 +398,6 @@ export const components: Record<string, ComponentType> = {
   "decal-object": C_decal_object as ComponentType,
   "infinite-grid": C_infinite_grid as ComponentType,
   "positional-audio": C_positional_audio as ComponentType,
+  "grand-piano": C_grand_piano as ComponentType,
+  "pendant-light": C_pendant_light as ComponentType,
 }

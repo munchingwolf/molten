@@ -13,6 +13,12 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 3:33: Evan (session ek-b4): **drag from the library works**, live Properties on the laptop, **Grand Piano** (real samples), Pendant Light
+- **Studio (049941c):** drag a library row onto the canvas → landing ring → it drops facing you; ⌘Z/⇧⌘Z/⌘D/⌘C/⌘V, Delete, Esc; ↶ ↷ + Play in the top bar; the Inspector edits every registry prop live (colour, toggles, selects, sliders, text). Headless end-to-end run: every demo step passes, 0 console errors.
+- ⚠️ A second `<NotInXR>` in `scene.tsx` makes the canvas remount until WebGL contexts run out (white canvas). Don't add one.
+- **grand-piano:** 2 octaves at real key size, Salamander grand samples (CC-BY, credited in SOURCES.md), chords, harder at the front edge = louder, spring hinge keys, sustain, the fallboard names your chord.
+- **pendant-light:** hangs from its ceiling point (`mount:ceiling`), swings like a pendulum when brushed, tap fades the light. `mount:wall` added to clock, wall-art, neon-sign, wall-window, acoustic-panels.
+- Copy-paste check over all components: no `@/` imports, no site-relative assets. Landscapes and piano now stream from public CORS CDNs, so a copied file works in any project (removed the 30 MB of local .hdr).
 ### 3:31: Evan: **pitch research + red team in `reports/`. Read before judging, both of us**
 - `reports/Spatial XR pitch market research.md`: MOLTEN rubric (5 equal criteria, business NOT scored, tiebreak "It works in space"), competitors, why-not-Claude-Code evidence, demand, 18 judge questions with honest answers.
 - `reports/Spatial holes and counterarguments.md`: pre-mortem, score per criterion today (~12–14/25), repo holes with file:line, ranked fixes for the next 3 h.
