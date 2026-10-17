@@ -18,6 +18,8 @@ import Mascot from "@/components/spatial/mascot"
 import { useAssistantMood } from "./mascot-2d"
 import { xrStore } from "./xr-store"
 import { MeasureGrid } from "./measure-grid"
+import { SlotGuides } from "./slot-guides"
+import { VRGuide } from "./vr-guide"
 
 // Laptop camera orbits the area where components are placed (eye height, ~1.2 m ahead).
 const cameraStore = createScreenCameraStore({ origin: [0, 1.25, -1.2], distance: 2.6, pitch: 0.12, yaw: 0 })
@@ -58,13 +60,15 @@ export function StudioScene() {
           editable={!playMode}
           selectedId={selectedId}
           onSelect={(id) => select(id)}
-          onTransform={(id, patch) => update(id, patch)}
+          onTransform={(id, patch) => (update(id, patch), useStudio.getState().claimSlot(id))}
           snap={snap}
         />
         {xray && !playMode && <XRayOverlay items={items} selectedId={selectedId} />}
+        <SlotGuides />
         <DropProbe />
         <VRShelf />
         <VRWorkspace />
+        <VRGuide />
         <VRAssistant mascot={<VRPix />} />
       </XR>
     </Canvas>

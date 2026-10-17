@@ -1,0 +1,174 @@
+[
+  {
+    "name": "tempo-lane",
+    "displayName": "Tempo Lane",
+    "category": "music",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "music",
+      "lane",
+      "track-wall",
+      "night-set",
+      "playable",
+      "tempo",
+      "bpm",
+      "transport",
+      "visualizer"
+    ],
+    "aliases": [
+      "tempo track",
+      "bpm lane",
+      "transport lane",
+      "master lane",
+      "play button"
+    ],
+    "description": "Track-wall lane: a huge BPM readout, beat dots on the shared transport, a live spectrum of the master output and a PLAY/STOP pill. Bind bpm to a console tempo knob.",
+    "file": "components/spatial/tempo-lane.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "deps": [
+      "tone"
+    ],
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "bindable": [
+      {
+        "prop": "bpm",
+        "type": "number",
+        "min": 60,
+        "max": 180,
+        "default": 120
+      },
+      {
+        "prop": "playing",
+        "event": "onPlayingChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "bpm",
+        "type": "number",
+        "min": 60,
+        "max": 180,
+        "default": 120
+      },
+      {
+        "name": "playing",
+        "type": "boolean",
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": "drums-lane",
+    "displayName": "Drums Lane",
+    "category": "music",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "music",
+      "lane",
+      "track-wall",
+      "night-set",
+      "playable",
+      "drums",
+      "sequencer",
+      "pattern",
+      "record"
+    ],
+    "aliases": [
+      "drum track",
+      "beat lane",
+      "step sequencer lane",
+      "drum sequencer"
+    ],
+    "description": "Track-wall lane: a 4 x 8 kick/snare/hat/clap step grid (eighth notes, 1 bar) on the shared transport, with a punchy synth kit or a sample kit. Wire drum pads into hit to flash rows and live-record them.",
+    "file": "components/spatial/drums-lane.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "deps": [
+      "tone"
+    ],
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "bindable": [
+      {
+        "prop": "hit",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "channel",
+        "type": "number",
+        "min": 1,
+        "max": 8,
+        "default": 1
+      },
+      {
+        "name": "samples",
+        "type": "string",
+        "default": ""
+      }
+    ]
+  },
+  {
+    "name": "keys-lane",
+    "displayName": "Keys Lane",
+    "category": "music",
+    "kind": "basic",
+    "style": "default",
+    "tags": [
+      "music",
+      "lane",
+      "track-wall",
+      "night-set",
+      "playable",
+      "keys",
+      "piano-roll",
+      "synth",
+      "record"
+    ],
+    "aliases": [
+      "keys track",
+      "piano roll",
+      "synth lane",
+      "melody lane"
+    ],
+    "description": "Track-wall lane: a one-bar piano roll (12 pitches x 8 eighths) that lights up as synth keys play, live-records notes while the transport runs and loops them on a soft saw pad.",
+    "file": "components/spatial/keys-lane.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "deps": [
+      "tone"
+    ],
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "bindable": [
+      {
+        "prop": "note",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "channel",
+        "type": "number",
+        "min": 1,
+        "max": 8,
+        "default": 2
+      }
+    ]
+  }
+]

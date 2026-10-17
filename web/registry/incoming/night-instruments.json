@@ -1,0 +1,270 @@
+[
+  {
+    "name": "drum-pads",
+    "displayName": "Drum Pads 4x4",
+    "category": "music",
+    "kind": "object",
+    "style": "default",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": true,
+    "deps": [
+      "tone"
+    ],
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "tags": [
+      "music",
+      "playable",
+      "night-set",
+      "drums",
+      "pads",
+      "beat",
+      "808",
+      "percussion",
+      "launchpad",
+      "mpc",
+      "hardware"
+    ],
+    "aliases": [
+      "drum pads",
+      "pad controller",
+      "launchpad",
+      "mpc pads",
+      "beat pads",
+      "finger drums",
+      "808"
+    ],
+    "description": "A 4x4 pad controller on a tilted stand: 16 backlit pads play a punchy synthesized kit (kick, snare, clap, hats, toms, percussion, crash) plus four 808 bass notes, into mixer channel 1.",
+    "file": "components/spatial/drum-pads.tsx",
+    "bindable": [
+      {
+        "prop": "hit",
+        "event": "onHit",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#3B82F6"
+      },
+      {
+        "name": "channel",
+        "type": "number",
+        "min": 1,
+        "max": 8,
+        "default": 1
+      },
+      {
+        "name": "volume",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      }
+    ]
+  },
+  {
+    "name": "synth-keys",
+    "displayName": "Synth Keys",
+    "category": "music",
+    "kind": "object",
+    "style": "default",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": true,
+    "deps": [
+      "tone"
+    ],
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "tags": [
+      "music",
+      "playable",
+      "night-set",
+      "synth",
+      "keyboard",
+      "keys",
+      "piano",
+      "pad",
+      "lead",
+      "hardware"
+    ],
+    "aliases": [
+      "synth keyboard",
+      "midi keyboard",
+      "keys",
+      "keyboard",
+      "synth",
+      "25 keys"
+    ],
+    "description": "A 25-key synth keyboard (C3-C5): play chords with your fingers, tap the display to cycle SAW PAD, SQUARE LEAD, BELL KEYS and SUB BASS, and shape it with cutoff, resonance, attack and release knobs. Plays into mixer channel 2.",
+    "file": "components/spatial/synth-keys.tsx",
+    "bindable": [
+      {
+        "prop": "note",
+        "event": "onNote",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "prop": "cutoff",
+        "event": "onCutoffChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.6
+      }
+    ],
+    "props": [
+      {
+        "name": "preset",
+        "type": "enum",
+        "options": [
+          "SAW PAD",
+          "SQUARE LEAD",
+          "BELL KEYS",
+          "SUB BASS"
+        ],
+        "default": "SAW PAD"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "channel",
+        "type": "number",
+        "min": 1,
+        "max": 8,
+        "default": 2
+      },
+      {
+        "name": "cutoff",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.6
+      },
+      {
+        "name": "resonance",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.2
+      },
+      {
+        "name": "attack",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.5
+      },
+      {
+        "name": "release",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.5
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "hardware",
+      "mixer",
+      "faders",
+      "console",
+      "volume",
+      "meter",
+      "music",
+      "daw",
+      "tempo",
+      "night-set"
+    ],
+    "aliases": [
+      "mixer",
+      "mixing desk",
+      "soundboard",
+      "faders",
+      "audio mixer"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "mixing-console",
+    "displayName": "Mixing Console",
+    "category": "hardware",
+    "kind": "object",
+    "description": "An 8-channel mixer whose faders and mutes really mix the instruments on each channel, with per-channel LED meters, a big TEMPO knob with BPM readout, and the red MAIN fader on the master output.",
+    "file": "components/spatial/mixing-console.tsx",
+    "bindable": [
+      {
+        "prop": "values",
+        "event": "onChange",
+        "type": "number[]",
+        "min": 0,
+        "max": 1,
+        "default": [
+          0.8,
+          0.72,
+          0.6,
+          0.65,
+          0.78,
+          0.55,
+          0.7,
+          0.5
+        ]
+      },
+      {
+        "prop": "master",
+        "event": "onMasterChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      },
+      {
+        "prop": "tempo",
+        "event": "onTempoChange",
+        "type": "number",
+        "min": 60,
+        "max": 180,
+        "default": 120
+      }
+    ],
+    "props": [
+      {
+        "name": "labels",
+        "type": "string",
+        "default": "KICK,SNARE,HATS,CLAP,BASS,KEYS,VOX,FX"
+      },
+      {
+        "name": "master",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      },
+      {
+        "name": "tempo",
+        "type": "number",
+        "min": 60,
+        "max": 180,
+        "default": 120
+      }
+    ],
+    "status": "ready"
+  }
+]

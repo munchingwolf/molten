@@ -1,8 +1,8 @@
 "use client"
 
-import { Children, useRef, type ReactNode } from "react"
+import { Children, useMemo, useRef, type ReactNode } from "react"
 import { useFrame } from "@react-three/fiber"
-import { Box3, Vector3, type Group, type Mesh } from "three"
+import { Box3, CatmullRomCurve3, TubeGeometry, Vector3, type Group, type Mesh } from "three"
 
 type Vec3 = [number, number, number]
 
@@ -18,6 +18,8 @@ export type FrameProps = {
   radius?: number
   align?: "start" | "center" | "end"
   background?: boolean
+  /** arc only: two horizontal rails behind the panels (frame centre y ± 0.38 m) with end posts, like a track wall. */
+  rails?: boolean
   color?: string
   opacity?: number
   children?: ReactNode
@@ -103,7 +105,7 @@ function measure(slot: Group): Size {
 /** Auto-layout container: lays its children out in a row, column, grid or an arc wall, with gap and padding; `free` just groups them. */
 export default function Frame({
   direction = "row", gap = 0.05, padding = 0.06, columns = 2, radius = 1.4, align = "center",
-  background = true, color = "#15171E", opacity = 0.55, children,
+  background = true, rails = false, color = "#15171E", opacity = 0.55, children,
 }: FrameProps) {
   const slots = useRef<(Group | null)[]>([])
   const bg = useRef<Mesh>(null)
@@ -133,12 +135,47 @@ export default function Frame({
 
   return (
     <group>
+      {rails && direction === "arc" && <Rails radius={radius} />}
       <mesh ref={bg} position={[0, 0, -0.015]}>
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial color={color} transparent opacity={opacity} depthWrite={false} />
       </mesh>
       {Children.map(children, (child, i) => (
         <group ref={(el) => void (slots.current[i] = el)}>{child}</group>
+      ))}
+    </group>
+  )
+}
+
+const RAIL_Y = 0.38 // m above and below the frame centre
+const RAIL_SPAN = 0.64 // rad either side of the arc's middle
+const noRay = () => {}
+
+/** Arc rails 1 cm behind the panels (the viewer stands at (0, 0, radius) in frame space), plus a post at each end. */
+function Rails({ radius }: { radius: number }) {
+  const R = radius + 0.01
+  const at = (theta: number, y: number) => new Vector3(R * Math.sin(theta), y, radius - R * Math.cos(theta))
+  const rails = useMemo(
+    () =>
+      [-RAIL_Y, RAIL_Y].map((y) => {
+        const pts = Array.from({ length: 33 }, (_, i) => at(-RAIL_SPAN + (2 * RAIL_SPAN * i) / 32, y))
+        return new TubeGeometry(new CatmullRomCurve3(pts), 96, 0.008, 8, false)
+      }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [radius],
+  )
+  return (
+    <group>
+      {rails.map((g, i) => (
+        <mesh key={i} geometry={g} raycast={noRay}>
+          <meshStandardMaterial color="#3a404d" metalness={0.6} roughness={0.4} />
+        </mesh>
+      ))}
+      {[-RAIL_SPAN, RAIL_SPAN].map((t) => (
+        <mesh key={t} position={at(t, 0)} raycast={noRay}>
+          <cylinderGeometry args={[0.008, 0.008, RAIL_Y * 2, 12]} />
+          <meshStandardMaterial color="#3a404d" metalness={0.6} roughness={0.4} />
+        </mesh>
       ))}
     </group>
   )

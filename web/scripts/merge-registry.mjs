@@ -43,6 +43,7 @@ byName.set("frame", {
     { name: "columns", type: "number", min: 1, max: 8, default: 2 },
     { name: "radius", type: "number", min: 0.6, max: 4, default: 1.4 },
     { name: "background", type: "boolean", default: true },
+    { name: "rails", type: "boolean", default: false },
   ],
 })
 

@@ -202,6 +202,11 @@ const C_grand_piano = lazy(() => import("@/components/spatial/grand-piano"))
 const C_pendant_light = lazy(() => import("@/components/spatial/pendant-light"))
 const C_room_shell = lazy(() => import("@/components/spatial/room-shell"))
 const C_string_lights = lazy(() => import("@/components/spatial/string-lights"))
+const C_tempo_lane = lazy(() => import("@/components/spatial/tempo-lane"))
+const C_drums_lane = lazy(() => import("@/components/spatial/drums-lane"))
+const C_keys_lane = lazy(() => import("@/components/spatial/keys-lane"))
+const C_drum_pads = lazy(() => import("@/components/spatial/drum-pads"))
+const C_synth_keys = lazy(() => import("@/components/spatial/synth-keys"))
 
 export const components: Record<string, ComponentType> = {
   "settings-default": C_settings_default as ComponentType,
@@ -404,4 +409,9 @@ export const components: Record<string, ComponentType> = {
   "pendant-light": C_pendant_light as ComponentType,
   "room-shell": C_room_shell as ComponentType,
   "string-lights": C_string_lights as ComponentType,
+  "tempo-lane": C_tempo_lane as ComponentType,
+  "drums-lane": C_drums_lane as ComponentType,
+  "keys-lane": C_keys_lane as ComponentType,
+  "drum-pads": C_drum_pads as ComponentType,
+  "synth-keys": C_synth_keys as ComponentType,
 }

@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useEffect, useMemo, useRef, useState } from "react"
 import { generateCode } from "@/lib/codegen"
-import { registry, matches, type Entry } from "@/lib/registry"
+import { registry, matches, findEntry, type Entry } from "@/lib/registry"
 import { useStudio } from "@/lib/studio-store"
 import { bindablesOf } from "@/components/studio/layout-renderer"
 import { StudioScene, dropAt, previewDrop, seatOnFloor } from "@/components/studio/scene"
@@ -13,6 +13,8 @@ import { EnterXRButtons } from "@/components/studio/xr-controls"
 import { AssistantPanel } from "@/components/studio/assistant-panel"
 import { VoiceButton } from "@/components/studio/voice"
 import { useGestureKeys } from "@/components/studio/use-gesture-keys"
+import { slotLabel, useGuideProgress, useTemplates } from "@/components/studio/slot-guides"
+import type { Template } from "@/lib/guides"
 import { ImportModelButton } from "@/components/studio/import-model"
 import { Preview } from "@/components/site/preview"
 import { toggleFavorite, useFavorites } from "@/lib/favorites"
@@ -63,6 +65,7 @@ export function StudioApp() {
       <main className="relative min-h-0 bg-stage">
         <StudioScene />
         <EmptyHint />
+        <GuideBar />
         <div className="absolute right-3 top-3 bottom-3 w-[340px] overflow-hidden rounded-lg border border-border">
           <AssistantPanel />
         </div>
@@ -73,33 +76,93 @@ export function StudioApp() {
   )
 }
 
-type Template = { id: string; name: string; environment?: string; items: import("@/lib/layout").Item[] }
-
-/** Start from a template: inserted next to your work as one undo step (never wipes the scene). */
+/** Template Library: build a template slot by slot with ghost guides, or insert it all at once (one undo step). */
 function TemplatePicker() {
-  const [templates, setTemplates] = useState<Template[]>([])
-  useEffect(() => {
-    fetch("/api/templates").then((r) => r.json()).then(setTemplates).catch(() => {})
-  }, [])
+  const templates = useTemplates()
+  const [open, setOpen] = useState(false)
   if (!templates.length) return null
+  const btn = "rounded-md px-3 py-1.5 text-sm font-medium"
   return (
-    <select
-      aria-label="Templates"
-      value=""
-      onChange={(e) => {
-        const t = templates.find((x) => x.id === e.target.value)
-        if (!t) return
-        const s = useStudio.getState()
-        s.insert(t.items)
-        if (t.environment && !s.environment) s.setEnvironment(t.environment)
-      }}
-      className="rounded-md border border-border bg-bg px-2 py-1.5 text-sm"
-    >
-      <option value="">Templates…</option>
-      {templates.map((t) => (
-        <option key={t.id} value={t.id}>{t.name}</option>
-      ))}
-    </select>
+    <>
+      <button onClick={() => setOpen(true)} className={`${btn} border border-border`} aria-haspopup="dialog">
+        Templates
+      </button>
+      {open && (
+        <div className="fixed inset-0 z-[60] grid place-items-center bg-black/60 p-6" onClick={() => setOpen(false)}>
+          <div
+            role="dialog"
+            aria-label="Template Library"
+            onClick={(e) => e.stopPropagation()}
+            onKeyDown={(e) => e.key === "Escape" && setOpen(false)}
+            className="max-h-[80vh] w-full max-w-3xl overflow-y-auto rounded-xl border border-border bg-surface p-5"
+          >
+            <div className="flex items-center justify-between">
+              <h2 className="font-display text-lg font-bold">Template Library</h2>
+              <button onClick={() => setOpen(false)} className={`${btn} border border-border`} autoFocus>Close</button>
+            </div>
+            <p className="mt-1 text-sm text-muted">Build with guide shows a glowing slot where each part goes. Insert all drops everything in at once.</p>
+            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div className="flex flex-col rounded-lg border border-dashed border-border bg-bg p-4">
+                <h3 className="font-display text-base font-bold">Blank</h3>
+                <p className="mt-1 text-sm text-muted">No template: build freely from the library. Templates are components too, so you can still drag one in later.</p>
+                <div className="mt-auto pt-3">
+                  <button onClick={() => (useStudio.getState().endGuide(), setOpen(false))} className={`${btn} border border-border`}>
+                    Start blank
+                  </button>
+                </div>
+              </div>
+              {templates.map((t) => (
+                <div key={t.id ?? t.name} className="flex flex-col rounded-lg border border-border bg-bg p-4">
+                  <div className="flex items-baseline justify-between gap-2">
+                    <h3 className="font-display text-base font-bold">{t.name}</h3>
+                    {t.category && <span className="font-mono text-xs uppercase text-muted">{t.category}</span>}
+                  </div>
+                  {t.description && <p className="mt-1 text-sm text-muted">{t.description}</p>}
+                  <p className="mt-2 font-mono text-xs text-muted">
+                    {t.items.length} components{t.environment ? ` / ${findEntry(t.environment)?.displayName ?? t.environment}` : ""}
+                  </p>
+                  <div className="mt-3 flex gap-2">
+                    <button
+                      onClick={() => (useStudio.getState().startGuide(t), setOpen(false))}
+                      className={`${btn} bg-accent text-on-accent`}
+                    >
+                      Build with guide
+                    </button>
+                    <button onClick={() => (useStudio.getState().insertAll(t), setOpen(false))} className={`${btn} border border-border`}>
+                      Insert all
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
+
+/** While a guided template runs: progress, the next part, Place next / Exit. */
+function GuideBar() {
+  const p = useGuideProgress()
+  if (!p) return null
+  const btn = "rounded-md px-3 py-1.5 text-sm font-medium"
+  return (
+    <div className="absolute bottom-3 left-3 flex items-center gap-3 rounded-xl border border-border bg-surface/95 px-4 py-2.5 text-sm backdrop-blur" aria-live="polite">
+      <div>
+        <p className="font-mono text-xs uppercase text-muted">{p.name}</p>
+        <p className="font-medium">
+          {p.placed}/{p.total} placed
+          {p.next ? <span className="text-warm"> - next: {slotLabel(p.next)}</span> : <span className="text-accent"> - done, press Play</span>}
+        </p>
+      </div>
+      {p.next && (
+        <button onClick={() => useStudio.getState().placeSlot(p.next!.id)} className={`${btn} bg-accent text-on-accent`}>
+          Place next
+        </button>
+      )}
+      <button onClick={() => useStudio.getState().endGuide()} className={`${btn} border border-border`}>Exit guide</button>
+    </div>
   )
 }
 
@@ -189,6 +252,7 @@ function Library() {
   const [ghost, setGhost] = useState<{ label: string; x: number; y: number; over: boolean } | null>(null)
   const dragged = useRef(false)
   const favorites = useFavorites()
+  const templates = useTemplates().filter((t) => !query || t.name.toLowerCase().includes(query.toLowerCase()))
   // Hovered row: a live 3D preview floats beside the library so you see it before adding.
   const [peek, setPeek] = useState<{ entry: Entry; top: number } | null>(null)
   const peekTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
@@ -226,7 +290,31 @@ function Library() {
       if (!at) return
       add(entry.name, at.position, { rotation: [0, at.yaw, 0] })
       const id = useStudio.getState().selectedId
+      if (id && useStudio.getState().claimSlot(id)) return // dropped near its guide slot: snapped in and wired
       if (floor && id && !at.onItem) seatOnFloor(id)
+    }
+    window.addEventListener("pointermove", move)
+    window.addEventListener("pointerup", up)
+  }
+
+  // A template is one component: drag it onto the floor and the whole set lands there facing you (click = at your spot).
+  const startTemplateDrag = (ev: React.PointerEvent, t: Template) => {
+    if (ev.button !== 0) return
+    dragged.current = false
+    const x0 = ev.clientX
+    const y0 = ev.clientY
+    const move = (e: PointerEvent) => {
+      if (!dragged.current && Math.hypot(e.clientX - x0, e.clientY - y0) < 6) return
+      dragged.current = true
+      setGhost({ label: t.name, x: e.clientX, y: e.clientY, over: previewDrop(e.clientX, e.clientY, true) })
+    }
+    const up = (e: PointerEvent) => {
+      window.removeEventListener("pointermove", move)
+      window.removeEventListener("pointerup", up)
+      previewDrop(null)
+      setGhost(null)
+      const at = dragged.current ? dropAt(e.clientX, e.clientY, true) : null
+      if (at) useStudio.getState().insertAll(t, [at.position[0], 0, at.position[2]], at.yaw)
     }
     window.addEventListener("pointermove", move)
     window.addEventListener("pointerup", up)
@@ -244,6 +332,26 @@ function Library() {
         />
         <p className="mt-1.5 text-[11px] text-faint">Click to add · drag onto the canvas to place</p>
       </div>
+      {templates.length > 0 && (
+        <section className="px-3 pb-3">
+          <h3 className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted">Templates</h3>
+          <ul>
+            {templates.map((t) => (
+              <li key={t.id ?? t.name}>
+                <button
+                  onPointerDown={(ev) => startTemplateDrag(ev, t)}
+                  onClick={() => (dragged.current ? (dragged.current = false) : useStudio.getState().insertAll(t))}
+                  title={`Add ${t.name} as one component (or drag it onto the floor)`}
+                  className="flex w-full cursor-grab select-none items-center justify-between rounded-md py-1.5 pl-2 pr-8 text-left text-sm hover:bg-bg active:cursor-grabbing"
+                >
+                  <span>{t.name}</span>
+                  <span aria-hidden className="text-muted">+</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       {groups.map(([category, entries]) => (
         <section key={category} className="px-3 pb-3">
           <h3 className={`mb-1 text-xs font-semibold uppercase tracking-wide ${category === "★ Favorites" ? "text-accent" : "text-muted"}`}>{category}</h3>

@@ -3293,7 +3293,8 @@
           "row",
           "column",
           "grid",
-          "arc"
+          "arc",
+          "free"
         ],
         "default": "row"
       },
@@ -3329,6 +3330,11 @@
         "name": "background",
         "type": "boolean",
         "default": true
+      },
+      {
+        "name": "rails",
+        "type": "boolean",
+        "default": false
       }
     ]
   },
@@ -3558,7 +3564,6 @@
     "tags": [
       "clock",
       "time",
-      "wall",
       "object",
       "mount:wall"
     ],
@@ -6989,7 +6994,9 @@
       "volume",
       "meter",
       "music",
-      "daw"
+      "daw",
+      "tempo",
+      "night-set"
     ],
     "aliases": [
       "mixer",
@@ -7004,7 +7011,7 @@
     "displayName": "Mixing Console",
     "category": "hardware",
     "kind": "object",
-    "description": "An 8-channel mixer with draggable faders, mute buttons and scribble strips; the red MAIN fader sets the real master volume, with a live stereo meter.",
+    "description": "An 8-channel mixer whose faders and mutes really mix the instruments on each channel, with per-channel LED meters, a big TEMPO knob with BPM readout, and the red MAIN fader on the master output.",
     "file": "components/spatial/mixing-console.tsx",
     "status": "ready",
     "bindable": [
@@ -7032,6 +7039,14 @@
         "min": 0,
         "max": 1,
         "default": 0.8
+      },
+      {
+        "prop": "tempo",
+        "event": "onTempoChange",
+        "type": "number",
+        "min": 60,
+        "max": 180,
+        "default": 120
       }
     ],
     "props": [
@@ -7046,6 +7061,13 @@
         "min": 0,
         "max": 1,
         "default": 0.8
+      },
+      {
+        "name": "tempo",
+        "type": "number",
+        "min": 60,
+        "max": 180,
+        "default": 120
       }
     ]
   },
@@ -7471,7 +7493,6 @@
     "tags": [
       "room",
       "studio",
-      "wall",
       "foam",
       "acoustic",
       "decor",
@@ -7531,7 +7552,6 @@
       "sign",
       "light",
       "text",
-      "wall",
       "decor",
       "glow",
       "mount:wall"
@@ -7588,7 +7608,6 @@
       "window",
       "sky",
       "light",
-      "wall",
       "blind",
       "decor",
       "mount:wall"
@@ -7705,7 +7724,6 @@
       "poster",
       "frame",
       "print",
-      "wall",
       "decor",
       "mount:wall"
     ],
@@ -12217,5 +12235,353 @@
       }
     ],
     "file": "components/spatial/string-lights.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "music",
+      "lane",
+      "track-wall",
+      "night-set",
+      "playable",
+      "tempo",
+      "bpm",
+      "transport",
+      "visualizer"
+    ],
+    "aliases": [
+      "tempo track",
+      "bpm lane",
+      "transport lane",
+      "master lane",
+      "play button"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "tempo-lane",
+    "displayName": "Tempo Lane",
+    "category": "music",
+    "kind": "basic",
+    "description": "Track-wall lane: a huge BPM readout, beat dots on the shared transport, a live spectrum of the master output and a PLAY/STOP pill. Bind bpm to a console tempo knob.",
+    "file": "components/spatial/tempo-lane.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "bpm",
+        "type": "number",
+        "min": 60,
+        "max": 180,
+        "default": 120
+      },
+      {
+        "prop": "playing",
+        "event": "onPlayingChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "bpm",
+        "type": "number",
+        "min": 60,
+        "max": 180,
+        "default": 120
+      },
+      {
+        "name": "playing",
+        "type": "boolean",
+        "default": false
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "music",
+      "lane",
+      "track-wall",
+      "night-set",
+      "playable",
+      "drums",
+      "sequencer",
+      "pattern",
+      "record"
+    ],
+    "aliases": [
+      "drum track",
+      "beat lane",
+      "step sequencer lane",
+      "drum sequencer"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "drums-lane",
+    "displayName": "Drums Lane",
+    "category": "music",
+    "kind": "basic",
+    "description": "Track-wall lane: a 4 x 8 kick/snare/hat/clap step grid (eighth notes, 1 bar) on the shared transport, with a punchy synth kit or a sample kit. Wire drum pads into hit to flash rows and live-record them.",
+    "file": "components/spatial/drums-lane.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "hit",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "channel",
+        "type": "number",
+        "min": 1,
+        "max": 8,
+        "default": 1
+      },
+      {
+        "name": "samples",
+        "type": "string",
+        "default": ""
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "music",
+      "lane",
+      "track-wall",
+      "night-set",
+      "playable",
+      "keys",
+      "piano-roll",
+      "synth",
+      "record"
+    ],
+    "aliases": [
+      "keys track",
+      "piano roll",
+      "synth lane",
+      "melody lane"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "keys-lane",
+    "displayName": "Keys Lane",
+    "category": "music",
+    "kind": "basic",
+    "description": "Track-wall lane: a one-bar piano roll (12 pitches x 8 eighths) that lights up as synth keys play, live-records notes while the transport runs and loops them on a soft saw pad.",
+    "file": "components/spatial/keys-lane.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "note",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "channel",
+        "type": "number",
+        "min": 1,
+        "max": 8,
+        "default": 2
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "music",
+      "playable",
+      "night-set",
+      "drums",
+      "pads",
+      "beat",
+      "808",
+      "percussion",
+      "launchpad",
+      "mpc",
+      "hardware"
+    ],
+    "aliases": [
+      "drum pads",
+      "pad controller",
+      "launchpad",
+      "mpc pads",
+      "beat pads",
+      "finger drums",
+      "808"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "drum-pads",
+    "displayName": "Drum Pads 4x4",
+    "category": "music",
+    "kind": "object",
+    "status": "ready",
+    "xrOnly": true,
+    "description": "A 4x4 pad controller on a tilted stand: 16 backlit pads play a punchy synthesized kit (kick, snare, clap, hats, toms, percussion, crash) plus four 808 bass notes, into mixer channel 1.",
+    "file": "components/spatial/drum-pads.tsx",
+    "bindable": [
+      {
+        "prop": "hit",
+        "event": "onHit",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#3B82F6"
+      },
+      {
+        "name": "channel",
+        "type": "number",
+        "min": 1,
+        "max": 8,
+        "default": 1
+      },
+      {
+        "name": "volume",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "music",
+      "playable",
+      "night-set",
+      "synth",
+      "keyboard",
+      "keys",
+      "piano",
+      "pad",
+      "lead",
+      "hardware"
+    ],
+    "aliases": [
+      "synth keyboard",
+      "midi keyboard",
+      "keys",
+      "keyboard",
+      "synth",
+      "25 keys"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "synth-keys",
+    "displayName": "Synth Keys",
+    "category": "music",
+    "kind": "object",
+    "status": "ready",
+    "xrOnly": true,
+    "description": "A 25-key synth keyboard (C3-C5): play chords with your fingers, tap the display to cycle SAW PAD, SQUARE LEAD, BELL KEYS and SUB BASS, and shape it with cutoff, resonance, attack and release knobs. Plays into mixer channel 2.",
+    "file": "components/spatial/synth-keys.tsx",
+    "bindable": [
+      {
+        "prop": "note",
+        "event": "onNote",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "prop": "cutoff",
+        "event": "onCutoffChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.6
+      }
+    ],
+    "props": [
+      {
+        "name": "preset",
+        "type": "enum",
+        "options": [
+          "SAW PAD",
+          "SQUARE LEAD",
+          "BELL KEYS",
+          "SUB BASS"
+        ],
+        "default": "SAW PAD"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "channel",
+        "type": "number",
+        "min": 1,
+        "max": 8,
+        "default": 2
+      },
+      {
+        "name": "cutoff",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.6
+      },
+      {
+        "name": "resonance",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.2
+      },
+      {
+        "name": "attack",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.5
+      },
+      {
+        "name": "release",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.5
+      }
+    ]
   }
 ]

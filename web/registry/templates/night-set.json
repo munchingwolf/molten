@@ -1,0 +1,238 @@
+{
+  "name": "Night Set",
+  "slug": "night-set",
+  "category": "music",
+  "description": "A live-performance rig on the concert stage: a desk with a tilted mixer, synth keys and a 4x4 drum pad, and a track wall of keys, tempo and drums lanes arcing around you. Pre-wired: one tempo, keys and drums buses.",
+  "environment": "env-concert-stage",
+  "items": [
+    {
+      "id": "desk",
+      "component": "desk",
+      "name": "Desk",
+      "position": [
+        0,
+        0.46,
+        -0.98
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1.2267,
+      "bind": {},
+      "order": 1,
+      "hint": "Desk",
+      "size": [
+        1.2,
+        0.75,
+        0.6
+      ]
+    },
+    {
+      "id": "console",
+      "component": "mixing-console",
+      "name": "Mixing console",
+      "position": [
+        0,
+        0.985,
+        -0.86
+      ],
+      "rotation": [
+        0.28,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {
+        "tempo": "tempo"
+      },
+      "props": {
+        "labels": "DRUMS,KEYS,BASS,FX,VOX,PAD,AUX,RTN"
+      },
+      "order": 2,
+      "hint": "Mixing Console",
+      "size": [
+        0.46,
+        0.12,
+        0.34
+      ]
+    },
+    {
+      "id": "keys",
+      "component": "synth-keys",
+      "name": "Synth keys",
+      "position": [
+        -0.24,
+        0.955,
+        -1.1
+      ],
+      "rotation": [
+        0,
+        0.2141,
+        0
+      ],
+      "scale": 1,
+      "bind": {
+        "note": "keys"
+      },
+      "order": 3,
+      "hint": "Synth Keys",
+      "size": [
+        0.5,
+        0.07,
+        0.18
+      ]
+    },
+    {
+      "id": "pads",
+      "component": "drum-pads",
+      "name": "Drum pads 4x4",
+      "position": [
+        0.2,
+        1,
+        -1.08
+      ],
+      "rotation": [
+        0,
+        -0.1831,
+        0
+      ],
+      "scale": 1,
+      "bind": {
+        "hit": "drums"
+      },
+      "order": 4,
+      "hint": "Drum Pads 4x4",
+      "size": [
+        0.28,
+        0.16,
+        0.26
+      ],
+      "props": {
+        "samples": "/sounds/night-kit"
+      }
+    },
+    {
+      "id": "wall",
+      "component": "frame",
+      "name": "Track wall",
+      "position": [
+        0,
+        1.75,
+        -1.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {},
+      "props": {
+        "direction": "arc",
+        "radius": 1.6,
+        "gap": 0.12,
+        "padding": 0,
+        "rails": true,
+        "background": false
+      },
+      "order": 5,
+      "hint": "Track Wall",
+      "size": [
+        1.9,
+        0.05,
+        0.3
+      ],
+      "center": [
+        0,
+        -0.38,
+        0.12
+      ]
+    },
+    {
+      "id": "keys-lane",
+      "component": "keys-lane",
+      "name": "Lane - Keys",
+      "parentId": "wall",
+      "position": [
+        -0.6231,
+        0,
+        0.1263
+      ],
+      "rotation": [
+        0,
+        0.4,
+        0
+      ],
+      "scale": 1,
+      "bind": {
+        "note": "keys"
+      },
+      "order": 6,
+      "hint": "Keys Lane",
+      "size": [
+        0.52,
+        0.72,
+        0.04
+      ]
+    },
+    {
+      "id": "tempo-lane",
+      "component": "tempo-lane",
+      "name": "Lane - Tempo",
+      "parentId": "wall",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {
+        "bpm": "tempo"
+      },
+      "order": 7,
+      "hint": "Tempo Lane",
+      "size": [
+        0.52,
+        0.72,
+        0.04
+      ]
+    },
+    {
+      "id": "drums-lane",
+      "component": "drums-lane",
+      "name": "Lane - Drums",
+      "parentId": "wall",
+      "position": [
+        0.6231,
+        0,
+        0.1263
+      ],
+      "rotation": [
+        0,
+        -0.4,
+        0
+      ],
+      "scale": 1,
+      "bind": {
+        "hit": "drums"
+      },
+      "order": 8,
+      "hint": "Drums Lane",
+      "size": [
+        0.52,
+        0.72,
+        0.04
+      ],
+      "props": {
+        "samples": "/sounds/night-kit"
+      }
+    }
+  ]
+}

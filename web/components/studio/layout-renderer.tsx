@@ -50,8 +50,8 @@ export function LayoutRenderer(p: Props) {
 /** Each item's content group (surface snapping, X-ray overlay measure these). */
 export const contents = new Map<string, Object3D>()
 
-/** A frame's child: laid out by the frame, so no own transform/gizmo; click selects it. */
-function FrameChild({ item, items, values, setValue, editable, onSelect }: Props & { item: Item }) {
+/** A frame's child: laid out by the frame, so no own transform/gizmo; click selects it. In a `free` frame (a template) it keeps its own position/rotation. */
+function FrameChild({ item, items, values, setValue, editable, onSelect, free }: Props & { item: Item; free?: boolean }) {
   const content = useRef<Group>(null)
   const Component = componentOf(item.component)
   const props = bindingProps(item, bindablesOf(item.component), values, setValue)
@@ -61,10 +61,15 @@ function FrameChild({ item, items, values, setValue, editable, onSelect }: Props
   }, [item.id])
   const kids = items.filter((c) => c.parentId === item.id)
   return (
-    <group ref={content} scale={item.scale} onClick={editable ? (e) => (e.stopPropagation(), onSelect?.(item.id)) : undefined}>
+    <group
+      ref={content}
+      scale={item.scale}
+      {...(free ? { position: item.position, rotation: item.rotation } : {})}
+      onClick={editable ? (e) => (e.stopPropagation(), onSelect?.(item.id)) : undefined}
+    >
       {Component ? (
         <Component {...props}>
-          {kids.length ? kids.map((c) => <FrameChild key={c.id} item={c} items={items} values={values} setValue={setValue} editable={editable} onSelect={onSelect} />) : undefined}
+          {kids.length ? kids.map((c) => <FrameChild key={c.id} item={c} items={items} values={values} setValue={setValue} editable={editable} onSelect={onSelect} free={item.props?.direction === "free"} />) : undefined}
         </Component>
       ) : (
         <Missing name={item.component} />
@@ -82,7 +87,7 @@ function Placed({ item, items, values, setValue, editable, selectedId, onSelect,
   const kids = items.filter((c) => c.parentId === item.id)
   const body = Component ? (
     <Component {...props}>
-      {kids.length ? kids.map((c) => <FrameChild key={c.id} item={c} items={items} values={values} setValue={setValue} editable={editable} onSelect={onSelect} />) : undefined}
+      {kids.length ? kids.map((c) => <FrameChild key={c.id} item={c} items={items} values={values} setValue={setValue} editable={editable} onSelect={onSelect} free={item.props?.direction === "free"} />) : undefined}
     </Component>
   ) : (
     <Missing name={item.component} />
