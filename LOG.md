@@ -13,6 +13,11 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 1:24: Person 1 (Evan): registry backfilled + 4 agents building. **Danny: skip glow-button, glass-button, tabs, window, fader**
+- `registry/index.json`: every entry now has `author`, `license`, `price`, `deps` (Entry type in `lib/registry.ts` too, plus `bindable?`). Added entries (status "soon" until built): label, drum-pad, step-sequencer, tempo-display, vu-meter, piano-keys, fader; transport is "ready". **`segmented-tabs` renamed to `tabs`.** `tier` now matches COMPONENTS.md Tier 1 (17).
+- New optional bindable field **`range: true`**: the Studio inspector shows min/max for it (knob has it). `knob.tsx` takes `min`/`max`; `value` is in min..max units (default 0–1).
+- Evan's agents (no need to coordinate, they only touch their own files): music sound (drum-pad, step-sequencer, tempo-display, vu-meter, piano-keys, transport fix); in-headset building (Edit/Play mode, item toolbar with Duplicate/Delete, **patch-cable wiring**, Save/Launch on the VR shelf); **glow-button, glass-button, tabs, window, fader** (so Danny keeps label, press-button, slider, spring-toggle, glass-card + the site); MCP end-to-end test with headless Claude Code.
+
 ### 1:16: Person 1 (Evan): **NEW SPLIT, Danny read this.** Evan = backend, Danny = frontend (SPEC §41 "Split update")
 - **Evan now owns:** Vercel + Upstash deploy (was 2.6), registry data backfill (author/license/price/deps + entries for all Tier 1, so **don't do the backfill, Danny**), the sound side of the music components, Studio fixes (knob min/max for a 60–180 BPM tempo, `/studio?add=`).
 - **Danny:** general components (label, press-button, slider, spring-toggle, glass-card first), restyle the music components 4:00–4:45 (keep props), site fixes (`npx spatial add` doesn't exist, show the MCP line; author/price badges; props table from `bindable`; preview canvas cap ~16). Run `npm i @react-three/drei` first and push.

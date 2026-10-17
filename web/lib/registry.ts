@@ -5,6 +5,7 @@ import SettingsGlass from "@/components/spatial/settings-glass"
 import SettingsHorizon from "@/components/spatial/settings-horizon"
 import Knob from "@/components/spatial/knob"
 import Transport from "@/components/spatial/transport"
+import type { Bindable } from "./layout"
 
 export type Entry = {
   name: string
@@ -19,6 +20,13 @@ export type Entry = {
   status: "ready" | "soon"
   tier?: number
   xrOnly?: boolean
+  author: string
+  license: string
+  price: string
+  /** npm packages beyond react/three/r3f the file needs, e.g. ["tone"] */
+  deps: string[]
+  /** Props the Studio can wire to a shared name */
+  bindable?: Bindable[]
 }
 
 // name → React component. Add a line here for every new file in components/spatial/.

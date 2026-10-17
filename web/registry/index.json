@@ -18,7 +18,12 @@
     ],
     "description": "A settings panel with master volume, reverb, tempo and haptics. Clean shadcn-style look.",
     "file": "components/spatial/settings-default.tsx",
-    "status": "ready"
+    "status": "ready",
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tier": 2
   },
   {
     "name": "settings-glass",
@@ -39,7 +44,12 @@
     ],
     "description": "The same settings, on a frosted glass panel that floats over your scene.",
     "file": "components/spatial/settings-glass.tsx",
-    "status": "ready"
+    "status": "ready",
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tier": 2
   },
   {
     "name": "settings-horizon",
@@ -60,7 +70,12 @@
     ],
     "description": "The same settings in a Quest-native Horizon style.",
     "file": "components/spatial/settings-horizon.tsx",
-    "status": "ready"
+    "status": "ready",
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tier": 2
   },
   {
     "name": "press-button",
@@ -76,7 +91,11 @@
     "file": "components/spatial/press-button.tsx",
     "status": "soon",
     "tier": 1,
-    "xrOnly": true
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "glow-button",
@@ -92,7 +111,11 @@
     "file": "components/spatial/glow-button.tsx",
     "status": "soon",
     "tier": 1,
-    "xrOnly": true
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "glass-button",
@@ -108,7 +131,11 @@
     "file": "components/spatial/glass-button.tsx",
     "status": "soon",
     "tier": 1,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "neon-button",
@@ -123,8 +150,12 @@
     "description": "Pulsing outline",
     "file": "components/spatial/neon-button.tsx",
     "status": "soon",
-    "tier": 1,
-    "xrOnly": false
+    "tier": 2,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "ripple-button",
@@ -139,8 +170,12 @@
     "description": "Ring ripples from touch point",
     "file": "components/spatial/ripple-button.tsx",
     "status": "soon",
-    "tier": 1,
-    "xrOnly": true
+    "tier": 2,
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "magnetic-button",
@@ -155,8 +190,12 @@
     "description": "Leans toward fingertip",
     "file": "components/spatial/magnetic-button.tsx",
     "status": "soon",
-    "tier": 1,
-    "xrOnly": true
+    "tier": 2,
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "holo-button",
@@ -171,8 +210,12 @@
     "description": "Shimmer shifts with head angle",
     "file": "components/spatial/holo-button.tsx",
     "status": "soon",
-    "tier": 1,
-    "xrOnly": true
+    "tier": 2,
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "icon-button",
@@ -187,8 +230,12 @@
     "description": "uikit + lucide",
     "file": "components/spatial/icon-button.tsx",
     "status": "soon",
-    "tier": 1,
-    "xrOnly": false
+    "tier": 2,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "slider",
@@ -204,7 +251,11 @@
     "file": "components/spatial/slider.tsx",
     "status": "soon",
     "tier": 1,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "knob",
@@ -220,10 +271,22 @@
     "file": "components/spatial/knob.tsx",
     "status": "ready",
     "bindable": [
-      { "prop": "value", "event": "onChange", "type": "number", "min": 0, "max": 1, "default": 0.5 }
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.5,
+        "range": true
+      }
     ],
     "tier": 1,
-    "xrOnly": true
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "spring-toggle",
@@ -239,7 +302,11 @@
     "file": "components/spatial/spring-toggle.tsx",
     "status": "soon",
     "tier": 1,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "checkbox",
@@ -254,11 +321,15 @@
     "description": "kit",
     "file": "components/spatial/checkbox.tsx",
     "status": "soon",
-    "tier": 1,
-    "xrOnly": false
+    "tier": 2,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
-    "name": "segmented-tabs",
+    "name": "tabs",
     "displayName": "Segmented Tabs",
     "category": "controls",
     "kind": "basic",
@@ -268,10 +339,14 @@
     ],
     "aliases": [],
     "description": "kit",
-    "file": "components/spatial/segmented-tabs.tsx",
+    "file": "components/spatial/tabs.tsx",
     "status": "soon",
     "tier": 1,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "stepper",
@@ -286,8 +361,12 @@
     "description": "− / value / +",
     "file": "components/spatial/stepper.tsx",
     "status": "soon",
-    "tier": 1,
-    "xrOnly": false
+    "tier": 2,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "glass-card",
@@ -303,7 +382,11 @@
     "file": "components/spatial/glass-card.tsx",
     "status": "soon",
     "tier": 1,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "flip-card",
@@ -318,8 +401,12 @@
     "description": "3D flip",
     "file": "components/spatial/flip-card.tsx",
     "status": "soon",
-    "tier": 1,
-    "xrOnly": true
+    "tier": 2,
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "tooltip",
@@ -334,8 +421,12 @@
     "description": "kit",
     "file": "components/spatial/tooltip.tsx",
     "status": "soon",
-    "tier": 1,
-    "xrOnly": false
+    "tier": 2,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "toast",
@@ -350,8 +441,12 @@
     "description": "Pops into view",
     "file": "components/spatial/toast.tsx",
     "status": "soon",
-    "tier": 1,
-    "xrOnly": false
+    "tier": 2,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "progress-ring",
@@ -366,8 +461,12 @@
     "description": "",
     "file": "components/spatial/progress-ring.tsx",
     "status": "soon",
-    "tier": 1,
-    "xrOnly": false
+    "tier": 2,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "dialog",
@@ -382,8 +481,12 @@
     "description": "kit",
     "file": "components/spatial/dialog.tsx",
     "status": "soon",
-    "tier": 1,
-    "xrOnly": false
+    "tier": 2,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "window",
@@ -399,7 +502,11 @@
     "file": "components/spatial/window.tsx",
     "status": "soon",
     "tier": 1,
-    "xrOnly": true
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "wrist-menu",
@@ -414,8 +521,12 @@
     "description": "Attached to the hand, shows when you look at it",
     "file": "components/spatial/wrist-menu.tsx",
     "status": "soon",
-    "tier": 1,
-    "xrOnly": true
+    "tier": 2,
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "radial-menu",
@@ -430,8 +541,12 @@
     "description": "Pinch and pull to an option",
     "file": "components/spatial/radial-menu.tsx",
     "status": "soon",
-    "tier": 1,
-    "xrOnly": true
+    "tier": 2,
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "billboard",
@@ -446,8 +561,12 @@
     "description": "Always faces you (wrapper)",
     "file": "components/spatial/billboard.tsx",
     "status": "soon",
-    "tier": 1,
-    "xrOnly": true
+    "tier": 2,
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "lazy-follow",
@@ -462,8 +581,12 @@
     "description": "Drifts after you (wrapper)",
     "file": "components/spatial/lazy-follow.tsx",
     "status": "soon",
-    "tier": 1,
-    "xrOnly": true
+    "tier": 2,
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "hold-to-confirm",
@@ -478,8 +601,12 @@
     "description": "Ring fills while held",
     "file": "components/spatial/hold-to-confirm.tsx",
     "status": "soon",
-    "tier": 1,
-    "xrOnly": true
+    "tier": 2,
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "particle-burst",
@@ -494,8 +621,12 @@
     "description": "Sparks on press (wrapper)",
     "file": "components/spatial/particle-burst.tsx",
     "status": "soon",
-    "tier": 1,
-    "xrOnly": true
+    "tier": 2,
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "model-viewer",
@@ -510,8 +641,12 @@
     "description": "Grab to spin; Kaedim model",
     "file": "components/spatial/model-viewer.tsx",
     "status": "soon",
-    "tier": 1,
-    "xrOnly": true
+    "tier": 2,
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "palm-menu",
@@ -527,7 +662,11 @@
     "file": "components/spatial/palm-menu.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": true
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "orbiter-toolbar",
@@ -543,7 +682,11 @@
     "file": "components/spatial/orbiter-toolbar.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": true
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "dock",
@@ -559,7 +702,11 @@
     "file": "components/spatial/dock.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "vertical-tab-bar",
@@ -575,7 +722,11 @@
     "file": "components/spatial/vertical-tab-bar.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "curved-panel",
@@ -591,7 +742,11 @@
     "file": "components/spatial/curved-panel.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": true
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "wall-anchor",
@@ -607,7 +762,11 @@
     "file": "components/spatial/wall-anchor.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": true
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "grab-handle",
@@ -623,7 +782,11 @@
     "file": "components/spatial/grab-handle.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": true
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "spatial-keyboard",
@@ -639,7 +802,11 @@
     "file": "components/spatial/spatial-keyboard.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": true
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "number-pad",
@@ -655,7 +822,11 @@
     "file": "components/spatial/number-pad.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "color-picker",
@@ -671,7 +842,11 @@
     "file": "components/spatial/color-picker.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": true
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "xy-pad",
@@ -687,7 +862,11 @@
     "file": "components/spatial/xy-pad.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "select",
@@ -703,7 +882,11 @@
     "file": "components/spatial/select.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "range-slider",
@@ -719,7 +902,11 @@
     "file": "components/spatial/range-slider.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "hover-highlight",
@@ -735,7 +922,11 @@
     "file": "components/spatial/hover-highlight.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": true
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "click-sound",
@@ -751,7 +942,11 @@
     "file": "components/spatial/click-sound.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": true
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "haptic-pulse",
@@ -767,7 +962,11 @@
     "file": "components/spatial/haptic-pulse.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": true
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "badge",
@@ -783,7 +982,11 @@
     "file": "components/spatial/badge.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "skeleton",
@@ -799,7 +1002,11 @@
     "file": "components/spatial/skeleton.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "spinner-3d",
@@ -815,7 +1022,11 @@
     "file": "components/spatial/spinner-3d.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "bar-chart-3d",
@@ -831,7 +1042,11 @@
     "file": "components/spatial/bar-chart-3d.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": true
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "gauge",
@@ -847,7 +1062,11 @@
     "file": "components/spatial/gauge.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "stat-card",
@@ -863,7 +1082,11 @@
     "file": "components/spatial/stat-card.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "sparkline",
@@ -879,7 +1102,11 @@
     "file": "components/spatial/sparkline.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "timeline-scrubber",
@@ -895,7 +1122,11 @@
     "file": "components/spatial/timeline-scrubber.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "video-panel",
@@ -911,7 +1142,11 @@
     "file": "components/spatial/video-panel.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "curved-gallery",
@@ -927,7 +1162,11 @@
     "file": "components/spatial/curved-gallery.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": true
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "audio-player",
@@ -943,7 +1182,11 @@
     "file": "components/spatial/audio-player.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "aurora-backdrop",
@@ -959,7 +1202,11 @@
     "file": "components/spatial/aurora-backdrop.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "grid-floor",
@@ -975,7 +1222,11 @@
     "file": "components/spatial/grid-floor.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "hand-spotlight",
@@ -991,7 +1242,11 @@
     "file": "components/spatial/hand-spotlight.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": true
+    "xrOnly": true,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
   },
   {
     "name": "frosted-backplate",
@@ -1007,6 +1262,231 @@
     "file": "components/spatial/frosted-backplate.tsx",
     "status": "soon",
     "tier": 2,
-    "xrOnly": false
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": []
+  },
+  {
+    "kind": "basic",
+    "style": "default",
+    "aliases": [],
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "status": "soon",
+    "name": "label",
+    "displayName": "Label / Title",
+    "category": "containers",
+    "tags": [
+      "text",
+      "title"
+    ],
+    "description": "3D text for section titles",
+    "file": "components/spatial/label.tsx",
+    "xrOnly": false,
+    "deps": [],
+    "tier": 1
+  },
+  {
+    "kind": "basic",
+    "style": "default",
+    "aliases": [],
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "status": "ready",
+    "name": "transport",
+    "displayName": "Transport",
+    "category": "music",
+    "tags": [
+      "music",
+      "play",
+      "tempo"
+    ],
+    "description": "Play/stop for the global Tone transport, sets the BPM",
+    "file": "components/spatial/transport.tsx",
+    "xrOnly": false,
+    "deps": [
+      "tone"
+    ],
+    "bindable": [
+      {
+        "prop": "playing",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "prop": "bpm",
+        "type": "number",
+        "min": 60,
+        "max": 180,
+        "default": 120
+      }
+    ],
+    "tier": 1
+  },
+  {
+    "kind": "basic",
+    "style": "default",
+    "aliases": [],
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "status": "soon",
+    "name": "drum-pad",
+    "displayName": "Drum Pad",
+    "category": "music",
+    "tags": [
+      "music",
+      "drums"
+    ],
+    "description": "Hit it to play a kick, snare, hat or clap",
+    "file": "components/spatial/drum-pad.tsx",
+    "xrOnly": true,
+    "deps": [
+      "tone"
+    ],
+    "tier": 1
+  },
+  {
+    "kind": "basic",
+    "style": "default",
+    "aliases": [],
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "status": "soon",
+    "name": "step-sequencer",
+    "displayName": "Step Sequencer",
+    "category": "music",
+    "tags": [
+      "music",
+      "drums",
+      "pattern"
+    ],
+    "description": "16 steps × 4 drums, plays on the transport",
+    "file": "components/spatial/step-sequencer.tsx",
+    "xrOnly": false,
+    "deps": [
+      "tone"
+    ],
+    "tier": 1
+  },
+  {
+    "kind": "basic",
+    "style": "default",
+    "aliases": [],
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "status": "soon",
+    "name": "tempo-display",
+    "displayName": "Tempo Display",
+    "category": "music",
+    "tags": [
+      "music",
+      "tempo",
+      "bpm"
+    ],
+    "description": "Big BPM readout",
+    "file": "components/spatial/tempo-display.tsx",
+    "xrOnly": false,
+    "deps": [
+      "tone"
+    ],
+    "bindable": [
+      {
+        "prop": "value",
+        "type": "number",
+        "min": 60,
+        "max": 180,
+        "default": 120
+      }
+    ],
+    "tier": 1
+  },
+  {
+    "kind": "basic",
+    "style": "default",
+    "aliases": [],
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "status": "soon",
+    "name": "vu-meter",
+    "displayName": "VU Meter",
+    "category": "music",
+    "tags": [
+      "music",
+      "meter",
+      "level"
+    ],
+    "description": "Live level of the master output",
+    "file": "components/spatial/vu-meter.tsx",
+    "xrOnly": false,
+    "deps": [
+      "tone"
+    ],
+    "tier": 1
+  },
+  {
+    "kind": "basic",
+    "style": "default",
+    "aliases": [],
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "status": "soon",
+    "name": "piano-keys",
+    "displayName": "Piano Keys",
+    "category": "music",
+    "tags": [
+      "music",
+      "keys",
+      "synth"
+    ],
+    "description": "One octave of pokeable keys",
+    "file": "components/spatial/piano-keys.tsx",
+    "xrOnly": true,
+    "deps": [
+      "tone"
+    ],
+    "tier": 1
+  },
+  {
+    "kind": "basic",
+    "style": "default",
+    "aliases": [],
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "status": "soon",
+    "name": "fader",
+    "displayName": "Fader",
+    "category": "controls",
+    "tags": [
+      "controls",
+      "music",
+      "volume"
+    ],
+    "description": "Vertical slider",
+    "file": "components/spatial/fader.tsx",
+    "xrOnly": false,
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.75,
+        "range": true
+      }
+    ],
+    "tier": 1
   }
 ]

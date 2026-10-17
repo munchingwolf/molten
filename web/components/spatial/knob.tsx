@@ -5,29 +5,31 @@ import type { ThreeEvent } from "@react-three/fiber"
 import { Container, Text } from "@react-three/uikit"
 
 const SWEEP = 1.5 * Math.PI // 270° from min to max
-const DRAG_RANGE = 0.15 // metres of vertical drag for the full 0–1 range
+const DRAG_RANGE = 0.15 // metres of vertical drag for the full min–max range
 
-type Props = { value?: number; onChange?: (v: number) => void; label?: string }
+type Props = { value?: number; onChange?: (v: number) => void; label?: string; min?: number; max?: number }
 
-/** 6 cm knob. Drag up/down (mouse, ray or fingertip) to turn. Controlled via `value`, or uncontrolled. */
-export default function Knob({ value, onChange, label = "Knob" }: Props) {
-  const [inner, setInner] = useState(0.5)
+/** 6 cm knob. Drag up/down (mouse, ray or fingertip) to turn. `value` is in min–max units (default 0–1). Controlled via `value`, or uncontrolled. */
+export default function Knob({ value, onChange, label = "Knob", min = 0, max = 1 }: Props) {
+  const span = max - min || 1
+  const [inner, setInner] = useState(min + span / 2)
   const [hover, setHover] = useState(false)
-  const drag = useRef<{ y: number; v: number } | null>(null)
-  const v = value ?? inner
+  const drag = useRef<{ y: number; t: number } | null>(null)
+  const v = Math.min(max, Math.max(min, value ?? inner))
+  const t = (v - min) / span // 0–1 position of the dial
 
   const set = (n: number) => {
-    const c = Math.min(1, Math.max(0, n))
+    const c = min + Math.min(1, Math.max(0, n)) * span
     if (value === undefined) setInner(c)
     onChange?.(c)
   }
 
   const down = (e: ThreeEvent<PointerEvent>) => {
     ;(e.target as Element).setPointerCapture(e.pointerId)
-    drag.current = { y: e.point.y, v }
+    drag.current = { y: e.point.y, t }
   }
   const move = (e: ThreeEvent<PointerEvent>) => {
-    if (drag.current) set(drag.current.v + (e.point.y - drag.current.y) / DRAG_RANGE)
+    if (drag.current) set(drag.current.t + (e.point.y - drag.current.y) / DRAG_RANGE)
   }
   const up = () => {
     drag.current = null
@@ -36,7 +38,7 @@ export default function Knob({ value, onChange, label = "Knob" }: Props) {
   return (
     <group>
       <group
-        rotation={[0, 0, SWEEP / 2 - v * SWEEP]}
+        rotation={[0, 0, SWEEP / 2 - t * SWEEP]}
         onPointerDown={down}
         onPointerMove={move}
         onPointerUp={up}
@@ -59,7 +61,7 @@ export default function Knob({ value, onChange, label = "Knob" }: Props) {
             {label}
           </Text>
           <Text fontSize={12} color="#A3A49D">
-            {`${Math.round(v * 100)}`}
+            {`${span > 1 ? Math.round(v) : Math.round(t * 100)}`}
           </Text>
         </Container>
       </group>
