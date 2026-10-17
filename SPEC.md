@@ -1779,7 +1779,7 @@ One catalog, three ways in:
 | Topic | Decision |
 |---|---|
 | Platform | **WebXR**: Next.js + Tailwind + React Three Fiber + `@react-three/xr` + `pmndrs/uikit` (MIT). One app = website (`/`) + Studio (`/studio`). |
-| Components | Featured: **finished XR sections** (settings panel, media player, tab bar/dock, wrist menu, toast, profile card, confirm dialog, stats dashboard), 2–3 styles each (Default/shadcn, Glass/apfel, Horizon/Meta). Basics tab: the uikit primitives. |
+| Components | **59 premade components, full list + owners in [COMPONENTS.md](COMPONENTS.md).** Tier 1 (28) must ship; Tier 2 shows "Coming soon" if unbuilt. Restyle = swap to another variant of the same category. |
 | Component = | A React (.tsx) file. "Add" = copy the file into your project (shadcn model). |
 | Demo (judged) | In headset: grab and place premade components and tap to restyle them (**hands**), Save. Then Claude Code + Spatial MCP → `get_layout` → code in the project. Navigate track. |
 | Cut for today | Voice (maybe re-add if time: it would earn the 2+ body inputs bonus), audio engine, music/DAW components, Kaedim drum pad (**later phase**), Unity, Rokoko. |
@@ -1788,7 +1788,7 @@ One catalog, three ways in:
 
 ```
 registry/index.json     pure data, read by website, Studio, voice, MCP:
-  [{ name, displayName, category, kind: "section"|"basic", style, tags, aliases, description, file }]
+  [{ name, displayName, category, tier: 1|2, status: "ready"|"soon", tags, description, file }]
 components/spatial/     one .tsx per component, default export, no required props
 lib/registry.ts         name → React component map (React app only)
 Layout (Studio → server → MCP):

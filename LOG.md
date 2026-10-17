@@ -13,6 +13,12 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 1:30: Person 1: FULL CATALOG → COMPONENTS.md (59 components, owners assigned)
+- Tier 1 = 28 must-ship. Tier 2 = 31 build-if-time, else "Coming soon" on the site. Music = later.
+- **P2 owns the kit-based ones** (slider, checkbox, tabs, stepper, card, tooltip, toast, dialog, progress, icon button + Tier 2 data/media/backdrops). P1 owns effects + XR-native (buttons with effects, knob, window, wrist/radial menu, wrappers).
+- Tick `[x]` in COMPONENTS.md when one works. Use Claude to batch-write them.
+- **Website must handle a `status: "soon"` registry entry** (greyed "Coming soon" card).
+
 ### 1:15: Person 1: voice CUT for now
 - Components are all **premade**. Studio = grab/place + tap chips to restyle (Default/Glass/Horizon), resize, delete, Save. Hands only.
 - Voice may come back at the end if there's time (2+ body inputs = judging bonus).
