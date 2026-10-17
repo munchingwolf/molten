@@ -27,7 +27,7 @@ Click, tap or grab a component to select it. A gizmo appears at its origin. Esca
 
 ## Snapping (on by default)
 
-- Moves snap to a 2.5 cm grid, turns to 15° steps, and scale to 0.05 steps.
+- Moves snap to a 1 cm grid, turns to 15° steps, and scale to 0.05 steps.
 - Hold **Shift** while dragging with the mouse to place freely. To turn snapping off everywhere, pass `snap={false}` to `LayoutRenderer`.
 - **Surfaces.** Drop a component with its bottom up to 8 cm above (or 2 cm into) the top of a `desk`, `stage`, `table` or any registry entry tagged `surface`, with its centre over that top. It lands exactly on the surface.
 

@@ -13,6 +13,9 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 3:35: Evan: **micro-snap**: 1 cm / 5° / 0.02 scale (was 2.5 cm / 15° / 0.05); Shift = free; surface/wall/ceiling seating unchanged
+- Evan: "i dont want massive snap to grid, make it micro, so we maintain maximum flexibility". `lib/snap.ts` SNAP + tests updated. VR-UX-SPEC/UI-PLAN still say 2.5 cm/15°: code wins.
+
 ### 3:33: Evan (session ek-b4): **drag from the library works**, live Properties on the laptop, **Grand Piano** (real samples), Pendant Light
 - **Studio (049941c):** drag a library row onto the canvas → landing ring → it drops facing you; ⌘Z/⇧⌘Z/⌘D/⌘C/⌘V, Delete, Esc; ↶ ↷ + Play in the top bar; the Inspector edits every registry prop live (colour, toggles, selects, sliders, text). Headless end-to-end run: every demo step passes, 0 console errors.
 - ⚠️ A second `<NotInXR>` in `scene.tsx` makes the canvas remount until WebGL contexts run out (white canvas). Don't add one.

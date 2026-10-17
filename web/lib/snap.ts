@@ -5,8 +5,8 @@ type XYZ = { x: number; y: number; z: number }
 /** Axis-aligned world bounds; a three `Box3` fits. */
 export type Bounds = { min: XYZ; max: XYZ }
 
-/** Grid steps: 2.5 cm, 15°, 0.05 scale. */
-export const SNAP = { move: 0.025, angle: Math.PI / 12, scale: 0.05 }
+/** Micro-snap (Evan: keep it fine-grained for maximum freedom): 1 cm, 5°, 0.02 scale. Shift = free. */
+export const SNAP = { move: 0.01, angle: Math.PI / 36, scale: 0.02 }
 export const MIN_SCALE = 0.2
 export const MAX_SCALE = 5
 

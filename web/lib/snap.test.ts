@@ -36,19 +36,19 @@ test("surface names and tags", () => {
 })
 
 test("grid and scale clamp", () => {
-  assert.ok(Math.abs(snapTo(0.137, SNAP.move) - 0.125) < 1e-9)
+  assert.ok(Math.abs(snapTo(0.137, SNAP.move) - 0.14) < 1e-9) // 1 cm micro-snap
   assert.equal(clampScale(9), 5)
   assert.equal(clampScale(0.01), 0.2)
 })
 
-test("rotation snaps to 15° steps about the gesture's own axis", () => {
+test("rotation snaps to 5° steps about the gesture's own axis", () => {
   const from = new Quaternion() // facing forward
-  const q = new Quaternion().setFromEuler(new Euler(0, (20 * Math.PI) / 180, 0))
+  const q = new Quaternion().setFromEuler(new Euler(0, (22 * Math.PI) / 180, 0))
   const e = new Euler().setFromQuaternion(snapRotation(q, from, SNAP.angle))
-  assert.ok(Math.abs(e.y - Math.PI / 12) < 1e-6 && Math.abs(e.x) < 1e-6 && Math.abs(e.z) < 1e-6)
-  // A pitched item yawed by 5° snaps back to its start pitch, not to a world grid.
+  assert.ok(Math.abs(e.y - (20 * Math.PI) / 180) < 1e-6 && Math.abs(e.x) < 1e-6 && Math.abs(e.z) < 1e-6)
+  // A pitched item yawed by 2° snaps back to its start pitch, not to a world grid.
   const pitched = new Quaternion().setFromEuler(new Euler(0.3, 0, 0))
-  const nudged = new Quaternion().setFromEuler(new Euler(0, (5 * Math.PI) / 180, 0)).multiply(pitched)
+  const nudged = new Quaternion().setFromEuler(new Euler(0, (2 * Math.PI) / 180, 0)).multiply(pitched)
   assert.ok(snapRotation(nudged, pitched, SNAP.angle).angleTo(pitched) < 1e-6)
 })
 

@@ -30,7 +30,7 @@ type Props = {
   onMove?: (id: string, position: Vec3) => void
   /** Final transform on release (move, two-hand scale/rotate, gizmo). Replaces onMove when given. */
   onTransform?: (id: string, patch: TransformPatch) => void
-  /** Snap moves to 2.5 cm, turns to 15°, scale to 0.05 (hold Shift to bypass). Default true. */
+  /** Micro-snap: moves to 1 cm, turns to 5°, scale to 0.02 (hold Shift to bypass). Default true. */
   snap?: boolean
 }
 
