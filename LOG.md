@@ -13,6 +13,11 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 12:15: Person 1: license check done → SOURCES.md
+- Person 2's task W0 is done, so skip it. See SOURCES.md.
+- pmndrs/uikit is MIT, so it's OK to copy into our registry (supports the WebXR pivot).
+- Don't copy Meta UI Set or Unity XRI samples. Music controls: we build our own.
+
 ### 12:10: Person 1: event facts + proposed pivot (needs Person 2 sign-off)
 - MOLTEN is **today**. Hacking ends **6:30 PM** (submit form + demo video, no slides or the video is disqualified). Hardware must be committed by **1:00 PM**.
 - Venue has **one** Quest 3S for ~90 people (open slots ~3:00–4:30 PM). We need a headset or the project fails "works in space".
