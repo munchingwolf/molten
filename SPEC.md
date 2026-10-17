@@ -1820,12 +1820,12 @@ Plan detail: `/Users/ek/.claude/plans/delegated-forging-moth.md` (local). Order:
 | # | Task | Done when |
 |---|---|---|
 | 1.1 | Core: `lib/layout.ts` (format, bindings), `lib/codegen.ts`, `lib/studio-store.ts`, tests (`node --test web/lib/*.test.ts`) | Tests pass ✅ |
-| 1.2 | Studio on laptop: library panel, R3F scene, click-to-add, **grab bar** to move (`@react-three/handle`, works with mouse and hands), select, delete | Build a scene with the mouse |
-| 1.3 | Inspector: transform + "controls: <name>" per `bindable` prop; shared values | Two components bound to one name stay in sync |
-| 1.4 | Live code panel: layout → generated TSX, Copy / Download | Code matches the scene |
-| 1.5 | Layout API (`POST/GET /api/layout`, Upstash Redis on Vercel, memory fallback locally) + **Launch** → `/apps/[id]` | Launched app renders at its URL |
-| 1.6 | **XR interaction layer** (see below): hands + controllers, poke, pinch, grab, ray, hover cursor, Enter VR/AR, VR shelf to add components | Every interaction works in the Quest |
-| 1.7 | MCP: `search_components`, `get_component`, `add_component`, `get_layout` | Claude Code rebuilds a layout in a fresh project |
+| 1.2 | Studio on laptop: library panel, R3F scene, click-to-add, **grab bar** to move (`@react-three/handle`, works with mouse and hands), select, delete | Build a scene with the mouse ✅ |
+| 1.3 | Inspector: transform + "controls: <name>" per `bindable` prop; shared values | Two components bound to one name stay in sync ✅ (code panel verified) |
+| 1.4 | Live code panel: layout → generated TSX, Copy / Download | Code matches the scene ✅ |
+| 1.5 | Layout API (`POST/GET /api/layout`, Upstash Redis on Vercel, memory fallback locally) + **Launch** → `/apps/[id]` | Launched app renders at its URL ✅ (Upstash not yet configured) |
+| 1.6 | **XR interaction layer** (see below): hands + controllers, poke, pinch, grab, ray, hover cursor, Enter VR/AR, VR shelf to add components | Every interaction works in the Quest (built; **not yet tested on a real Quest**) |
+| 1.7 | MCP: `search_components`, `get_component`, `add_component`, `get_layout` | Claude Code rebuilds a layout in a fresh project (server ✅ 6 tests; end-to-end with Claude pending) |
 | 1.8 | DAW demo build (with P2's music components) | Build → Launch → play in Quest |
 
 ### XR interaction layer (Person 1 owns how the body drives things)
