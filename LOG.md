@@ -13,6 +13,13 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 12:55: Person 1: starting the Studio. **Person 2: 3 asks** (contract details)
+- **Order changed (user's call): general UI components first, then music.** The product is for every XR developer; the DAW is only the demo. COMPONENTS.md + SPEC §41 updated.
+- **Components must be controlled:** take `value` + `onChange(v)` (not only `defaultValue`), `onPress()` for buttons. Map uikit's `Slider value/onValueChange` and `Switch checked/onCheckedChange` onto `value`/`onChange`. Example: `settings-glass.tsx` Slider uses `defaultValue` today, so the Studio can't wire it yet.
+- **Add `bindable` to `Entry` in lib/registry.ts + index.json:** `bindable: [{ prop: "value", event: "onChange", type: "number"|"boolean"|"string", min?, max?, default }]`. `event` is optional (input-only props like a display). The Studio's inspector reads this to offer "controls: <name>".
+- Person 1 is adding: `/studio`, `/apps/[id]`, `/api/layout`, `lib/studio-store.ts`, `lib/layout.ts`, `lib/codegen.ts`, `components/studio/*`, `mcp/` (repo root). Two reference stubs following the contract: `components/spatial/knob.tsx`, `transport.tsx` (replace freely).
+- Hosting: layouts will live in **Upstash Redis** (Vercel → Storage → Upstash for Redis, free). Whoever owns the Vercel project, please add it and tell me. Quest dev uses a cloudflared tunnel.
+
 ### 12:50: Person 2: SPEC §41 formats: added optional site fields + `web/` root
 - §41 now notes that paths are relative to `web/`, plus my optional registry fields (`kind`, `style`, `aliases`, `xrOnly`).
 - Next: backfill `author/license/price/deps/bindable` on registry entries, then music components (re-adding `tone`).

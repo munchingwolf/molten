@@ -2,7 +2,7 @@
 
 Tick `[x]` when the component renders with no props, works with `value`/`onChange` (or `onPress`), and works in the Studio. **Contract:** see SPEC.md §41 "Component contract". Every file must be copy-pasteable on its own.
 
-Build **Tier 1 top to bottom** (music first: the demo is a DAW). Anything unbuilt at **4:45 PM** is set to `status: "soon"` and shows as "Coming soon" on the marketplace.
+Build **Tier 1 top to bottom**: **general UI first** (the product is for every XR developer), **then music** (the DAW is only the demo). Anything unbuilt at **4:45 PM** is set to `status: "soon"` and shows as "Coming soon" on the marketplace.
 
 - Owner: **P2** builds components. P1 helps after 4:00 if behind.
 - `bindable`: the prop the Studio can wire to a shared name (e.g. knob `value` → "tempo")
@@ -10,7 +10,21 @@ Build **Tier 1 top to bottom** (music first: the demo is a DAW). Anything unbuil
 
 ## Tier 1: the DAW + general basics (21)
 
-### Music (build first)
+### General (build first)
+| ✓ | name | Component | bindable / props | Notes |
+|---|---|---|---|---|
+| [ ] | label | Label / Title | `text` | 3D text for section titles |
+| [ ] | press-button | ⭐ Press Button | `onPress` | Physically depresses on poke |
+| [ ] | glow-button | ⭐ Glow Button | `onPress` | Glows as fingertip approaches |
+| [ ] | glass-button | Glass Button | `onPress` | drei `MeshTransmissionMaterial` |
+| [ ] | spring-toggle | Spring Toggle | `value` (bool) | Bouncy snap |
+| [ ] | slider | Slider | `value` (0–1) | uikit |
+| [ ] | tabs | Segmented Tabs | `value` (index) | uikit |
+| [ ] | glass-card | Glass Card | `title`, children | apfel. Backplate to group a section |
+| [ ] | window | ⭐ Window | `title`, children | Grab bar + close. Wraps a section |
+| [ ] | wrist-menu | ⭐ Wrist Menu | `items`, `onSelect` | Attached to hand (headset) |
+
+### Music (second: for the DAW demo)
 | ✓ | name | Component | bindable / props | Notes |
 |---|---|---|---|---|
 | [ ] | transport | Transport (play/stop) | `playing`, `bpm` | Starts/stops global `Tone.Transport`, sets bpm |
@@ -24,20 +38,6 @@ Build **Tier 1 top to bottom** (music first: the demo is a DAW). Anything unbuil
 | [ ] | mixer-strip | Mixer Strip | `volume`, `pan`, `mute` | Fader + knob + mute button + meter |
 | [ ] | waveform | Waveform | — | Live analyser of the master output |
 | [ ] | piano-keys | ⭐ Piano Keys | `onPress(note)` | 1 octave, pokeable keys, Tone synth |
-
-### General
-| ✓ | name | Component | bindable / props | Notes |
-|---|---|---|---|---|
-| [ ] | label | Label / Title | `text` | 3D text for section titles |
-| [ ] | press-button | ⭐ Press Button | `onPress` | Physically depresses on poke |
-| [ ] | glow-button | ⭐ Glow Button | `onPress` | Glows as fingertip approaches |
-| [ ] | glass-button | Glass Button | `onPress` | drei `MeshTransmissionMaterial` |
-| [ ] | spring-toggle | Spring Toggle | `value` (bool) | Bouncy snap |
-| [ ] | slider | Slider | `value` (0–1) | uikit |
-| [ ] | tabs | Segmented Tabs | `value` (index) | uikit |
-| [ ] | glass-card | Glass Card | `title`, children | apfel. Backplate to group a section |
-| [ ] | window | ⭐ Window | `title`, children | Grab bar + close. Wraps a section |
-| [ ] | wrist-menu | ⭐ Wrist Menu | `items`, `onSelect` | Attached to hand (headset) |
 
 ## Tier 2: "Coming soon" unless time (38)
 

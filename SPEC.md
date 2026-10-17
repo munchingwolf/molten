@@ -1830,7 +1830,7 @@ Layout (Studio ⇄ /api/layout ⇄ /apps/<id> ⇄ MCP):
 | # | Task | Done when |
 |---|---|---|
 | 2.1 | Next.js + Tailwind scaffold (**push first**) | `npm run dev` works |
-| 2.2 | **Music components first** (see COMPONENTS.md), then general ones, following the contract | Each renders with no props + works with value/onChange |
+| 2.2 | **General UI components first, then music** (see COMPONENTS.md), following the contract. The product is for every XR developer; the DAW is only the demo | Each renders with no props + works with value/onChange |
 | 2.3 | Request the **Kaedim** drum pad model early (fallback: rounded box) | Model in `public/models/` |
 | 2.4 | Marketplace home: search, categories, cards with live 3D preview, author/price badges, "Coming soon" cards | Search works |
 | 2.5 | Component page: big live preview, props table, **Copy code**, **Copy for Claude Code** (code + `npm i` line), "Open in Studio" | Paste into Claude Code works |
@@ -1841,8 +1841,8 @@ Layout (Studio ⇄ /api/layout ⇄ /apps/<id> ⇄ MCP):
 | Time | Person 1 | Person 2 |
 |---|---|---|
 | 12:45–1:15 | Lock formats together, 1.1 | 2.1 scaffold |
-| 1:15–3:00 | 1.2–1.4 Studio on laptop | 2.2 music components, 2.3 |
-| 3:00–4:00 | 1.5 launch, 1.6 headset | 2.2 general, 2.4 |
+| 1:15–3:00 | 1.2–1.4 Studio on laptop | 2.2 general components, 2.3 |
+| 3:00–4:00 | 1.5 launch, 1.6 headset | 2.2 music, 2.4 |
 | 4:00–4:45 | 1.7 MCP | 2.5, 2.6 |
 | 4:45–5:30 | **Integration: build the DAW in the Studio 3×** | same |
 | 5:30–6:15 | Record video (<1 min, no slides): build DAW → Launch → play in Quest | Fill form, credit libraries |
