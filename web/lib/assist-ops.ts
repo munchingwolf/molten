@@ -335,7 +335,7 @@ export type StudioLike = {
   update: (id: string, patch: Partial<Item>) => void
   remove: (id: string) => void
   select: (id: string | null) => void
-  setEnvironment?: (name: string) => void
+  setEnvironment?: (name: string | null) => void
 }
 /** Viewer pose (XR head / camera) in world space; omit on the laptop to use the store's default slots. */
 export type Viewer = { position: Vec3; direction: Vec3 }
@@ -363,7 +363,10 @@ export function applyOps(ops: Op[], get: () => StudioLike, viewer?: Viewer) {
     }
     if (op.op === "set_environment") {
       if (typeof op.value === "string" && s.setEnvironment) {
-        s.setEnvironment(op.value)
+        // Voice says "space"/"loft"/"stage"; the components are env-space / env-studio-loft / env-concert-stage; "room" = passthrough.
+        const v = op.value.toLowerCase()
+        const ENV: Record<string, string | null> = { room: null, none: null, loft: "env-studio-loft", stage: "env-concert-stage", concert: "env-concert-stage" }
+        s.setEnvironment(v in ENV ? ENV[v] : v.startsWith("env-") ? v : `env-${v}`)
         n++
       }
       continue

@@ -13,6 +13,10 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 2:16: Evan: **DANNY: START HERE → `VR-UX-SPEC.md`** (complete VR UI/UX build spec, 16 sections, acceptance checks per section)
+- Build order is §14 (demo-critical first, time-boxed to 5:15 PM). Architecture/status table is §13. Top decisions: `vr-workspace.tsx` is the one dock (`vr-dock.tsx` = parts only, its PropControl already extracted to `prop-controls.tsx`); dock + assistant share one lazy-follow anchor; Edit keeps components live (grab pointer only moves), Play = `editable={false}`; VR Launch = Save + Play in place; push-to-talk goes through `useAssistant`.
+- The banner at the top lists what landed after it was written. Code wins over the doc; log conflicts here.
+
 ### 2:15: Evan: **Blender-style live editing in VR**: properties + tilt in Danny's in-headset inspector
 - Goal (Evan): "make the components work and look good… Blender, but editing live in VR": select → gizmo transform → tweak properties live.
 - `web/components/studio/prop-controls.tsx` (new): `<PropControls item={item} />` renders live controls from the component's registry `props` (colour swatches, enum chips, number steppers, on/off). Calls `update(id, { props })`; `bindingProps` passes them to the component.

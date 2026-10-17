@@ -146,7 +146,7 @@ test("applyOps edits the store in order", () => {
   assert.ok(Math.abs(k.rotation[1] - Math.PI / 2) < 1e-9)
   assert.deepEqual(k.position, [-0.1, 1, -1])
   assert.deepEqual(state.items.find((i) => i.id === "new")?.props, { color: "#0090ff" })
-  assert.equal(env, "space")
+  assert.equal(env, "env-space") // applyOps maps the spoken id to the environment component
 })
 
 test("'soon' entries are names, never added", () => {
