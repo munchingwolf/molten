@@ -47,3 +47,52 @@ Feedback: particle-burst â­ Â· hover-highlight â­ Â· click-sound â�
 Data: bar-chart-3d â­ Â· gauge Â· stat-card Â· sparkline Â· timeline-scrubber
 Media: model-viewer â­ (Kaedim) Â· video-panel Â· curved-gallery â­ Â· audio-player
 Backdrops: aurora-backdrop Â· grid-floor Â· hand-spotlight â­
+
+## Library batch from the source list (Danny, 3:19): 45 built, all ready
+| ✓ | name | Component | Category |
+|---|---|---|---|
+| [x] | accordion | Accordion | ui kit |
+| [x] | alert | Alert | ui kit |
+| [x] | alert-dialog | Alert Dialog | ui kit |
+| [x] | radio-group | Radio Group | ui kit |
+| [x] | input | Text Input | ui kit |
+| [x] | textarea | Text Area | ui kit |
+| [x] | progress-bar | Progress Bar | ui kit |
+| [x] | toggle-group | Toggle Group | ui kit |
+| [x] | switch | Switch | ui kit |
+| [x] | avatar | Avatar | ui kit |
+| [x] | kit-card | Card | ui kit |
+| [x] | kit-button | Button | ui kit |
+| [x] | audio-visualizer | Audio Visualizer | music |
+| [x] | oscilloscope | Oscilloscope | music |
+| [x] | arpeggiator | Arpeggiator | music |
+| [x] | flow-field-particles | Flow Field Particles | interactive |
+| [x] | particle-emitter | Particle Emitter | interactive |
+| [x] | force-graph | Force Graph | interactive |
+| [x] | poke-button-demo | Poke Button | interactive |
+| [x] | float-object | Float Object | visuals |
+| [x] | sparkles-field | Sparkles Field | visuals |
+| [x] | starfield | Starfield Globe | visuals |
+| [x] | cloud-puff | Cloud Puff | visuals |
+| [x] | text-3d | 3D Text | visuals |
+| [x] | text-label | Text Label | visuals |
+| [x] | image-panel | Image Panel | visuals |
+| [x] | svg-icon | SVG Icon | visuals |
+| [x] | rounded-box | Rounded Box | visuals |
+| [x] | billboard-tag | Billboard Tag | visuals |
+| [x] | motion-trail | Motion Trail | visuals |
+| [x] | bezier-curve | Bezier Curve | visuals |
+| [x] | spline-path | Spline Path | visuals |
+| [x] | wobble-blob | Wobble Blob | materials |
+| [x] | distort-orb | Distort Orb | materials |
+| [x] | glass-orb | Glass Orb | materials |
+| [x] | crystal | Crystal | materials |
+| [x] | mirror-floor | Mirror Floor | materials |
+| [x] | portal-card | Portal Card | materials |
+| [x] | outlined-object | Outlined Object | visuals |
+| [x] | edges-object | Edges Object | visuals |
+| [x] | wireframe-object | Wireframe Object | visuals |
+| [x] | metaballs | Metaballs | visuals |
+| [x] | decal-object | Decal Object | visuals |
+| [x] | infinite-grid | Infinite Grid | visuals |
+| [x] | positional-audio | Positional Audio Speaker | visuals |

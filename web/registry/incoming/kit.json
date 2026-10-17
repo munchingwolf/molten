@@ -1,0 +1,582 @@
+[
+  {
+    "name": "accordion",
+    "displayName": "Accordion",
+    "category": "ui kit",
+    "kind": "basic",
+    "style": "default",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "accordion",
+      "faq",
+      "collapse",
+      "expand",
+      "uikit"
+    ],
+    "aliases": [
+      "collapsible",
+      "faq",
+      "expander",
+      "disclosure"
+    ],
+    "description": "A help panel of questions that each expand to show their answer, one open at a time.",
+    "file": "components/spatial/accordion.tsx",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": "move"
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Studio help"
+      }
+    ]
+  },
+  {
+    "name": "alert",
+    "displayName": "Alert",
+    "category": "ui kit",
+    "kind": "basic",
+    "style": "default",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "alert",
+      "notice",
+      "banner",
+      "message",
+      "uikit"
+    ],
+    "aliases": [
+      "callout",
+      "notice",
+      "warning",
+      "info box"
+    ],
+    "description": "An inline notice with an icon, a title and a short description.",
+    "file": "components/spatial/alert.tsx",
+    "bindable": [],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Unpublished changes"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "You have edits in this layout that others can't see yet. Publish to share them."
+      },
+      {
+        "name": "variant",
+        "type": "enum",
+        "options": [
+          "default",
+          "destructive"
+        ],
+        "default": "default"
+      }
+    ]
+  },
+  {
+    "name": "alert-dialog",
+    "displayName": "Alert Dialog",
+    "category": "ui kit",
+    "kind": "basic",
+    "style": "default",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "dialog",
+      "confirm",
+      "delete",
+      "modal",
+      "uikit"
+    ],
+    "aliases": [
+      "confirm dialog",
+      "are you sure",
+      "delete confirmation",
+      "modal"
+    ],
+    "description": "A track row with a Delete button that asks for confirmation before deleting.",
+    "file": "components/spatial/alert-dialog.tsx",
+    "bindable": [
+      {
+        "prop": "open",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Delete \"Bassline 2\"?"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "This removes the track and its 14 clips from the session. You can't undo this."
+      },
+      {
+        "name": "confirmLabel",
+        "type": "string",
+        "default": "Delete track",
+        "label": "Confirm button"
+      }
+    ]
+  },
+  {
+    "name": "radio-group",
+    "displayName": "Radio Group",
+    "category": "ui kit",
+    "kind": "basic",
+    "style": "default",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "radio",
+      "choice",
+      "options",
+      "form",
+      "uikit"
+    ],
+    "aliases": [
+      "radio buttons",
+      "option list",
+      "single choice"
+    ],
+    "description": "A list of options where tapping one selects it and clears the others.",
+    "file": "components/spatial/radio-group.tsx",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": "Balanced"
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Render quality"
+      },
+      {
+        "name": "options",
+        "type": "string",
+        "default": "Draft, Balanced, High"
+      }
+    ]
+  },
+  {
+    "name": "input",
+    "displayName": "Text Input",
+    "category": "ui kit",
+    "kind": "basic",
+    "style": "default",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "input",
+      "text field",
+      "form",
+      "uikit"
+    ],
+    "aliases": [
+      "text box",
+      "text field",
+      "entry",
+      "name field"
+    ],
+    "description": "A labelled single-line text field.",
+    "file": "components/spatial/input.tsx",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": "Night Session"
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Project name"
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "default": "Untitled scene"
+      }
+    ]
+  },
+  {
+    "name": "textarea",
+    "displayName": "Text Area",
+    "category": "ui kit",
+    "kind": "basic",
+    "style": "default",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "textarea",
+      "multiline",
+      "notes",
+      "form",
+      "uikit"
+    ],
+    "aliases": [
+      "multiline input",
+      "notes field",
+      "comment box"
+    ],
+    "description": "A labelled multi-line text box for notes.",
+    "file": "components/spatial/textarea.tsx",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": "Warm pad enters at bar 17. Keep the hats dry until the drop, then open the filter over 8 bars."
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Scene notes"
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "default": "What happens in this scene?"
+      }
+    ]
+  },
+  {
+    "name": "progress-bar",
+    "displayName": "Progress Bar",
+    "category": "ui kit",
+    "kind": "basic",
+    "style": "default",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "progress",
+      "loading",
+      "status",
+      "bar",
+      "uikit"
+    ],
+    "aliases": [
+      "loading bar",
+      "progress",
+      "completion bar"
+    ],
+    "description": "A labelled bar that fills to show how far a task has got.",
+    "file": "components/spatial/progress-bar.tsx",
+    "bindable": [
+      {
+        "prop": "value",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.62
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Exporting mixdown"
+      }
+    ]
+  },
+  {
+    "name": "toggle-group",
+    "displayName": "Toggle Group",
+    "category": "ui kit",
+    "kind": "basic",
+    "style": "default",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "toggle",
+      "segmented",
+      "choice",
+      "uikit"
+    ],
+    "aliases": [
+      "segmented control",
+      "button group",
+      "toggle buttons"
+    ],
+    "description": "A row of buttons where one stays pressed at a time.",
+    "file": "components/spatial/toggle-group.tsx",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": "5 cm"
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Grid snap"
+      },
+      {
+        "name": "options",
+        "type": "string",
+        "default": "Off, 1 cm, 5 cm, 10 cm"
+      }
+    ]
+  },
+  {
+    "name": "switch",
+    "displayName": "Switch",
+    "category": "ui kit",
+    "kind": "basic",
+    "style": "default",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "switch",
+      "toggle",
+      "on off",
+      "setting",
+      "uikit"
+    ],
+    "aliases": [
+      "toggle switch",
+      "on off",
+      "setting toggle"
+    ],
+    "description": "A setting row with a label and an on/off switch; tap anywhere on the row to flip it.",
+    "file": "components/spatial/switch.tsx",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "boolean",
+        "default": true
+      }
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Hand tracking"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "Use your hands instead of controllers"
+      }
+    ]
+  },
+  {
+    "name": "avatar",
+    "displayName": "Avatar",
+    "category": "ui kit",
+    "kind": "basic",
+    "style": "default",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "avatar",
+      "profile",
+      "user",
+      "presence",
+      "uikit"
+    ],
+    "aliases": [
+      "profile picture",
+      "user chip",
+      "person"
+    ],
+    "description": "A profile chip with a round photo, name, role and online dot.",
+    "file": "components/spatial/avatar.tsx",
+    "bindable": [],
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "default": "Maya Chen"
+      },
+      {
+        "name": "role",
+        "type": "string",
+        "default": "Sound designer"
+      },
+      {
+        "name": "src",
+        "type": "string",
+        "default": "",
+        "label": "Image URL"
+      },
+      {
+        "name": "online",
+        "type": "boolean",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "kit-card",
+    "displayName": "Card",
+    "category": "ui kit",
+    "kind": "basic",
+    "style": "default",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "card",
+      "panel",
+      "summary",
+      "uikit"
+    ],
+    "aliases": [
+      "card",
+      "info card",
+      "content card"
+    ],
+    "description": "A card with a title, a few stat rows and an action button.",
+    "file": "components/spatial/kit-card.tsx",
+    "bindable": [],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Night Session"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "Ambient set · last edited 2 hours ago"
+      },
+      {
+        "name": "buttonLabel",
+        "type": "string",
+        "default": "Open session",
+        "label": "Button"
+      }
+    ]
+  },
+  {
+    "name": "kit-button",
+    "displayName": "Button",
+    "category": "ui kit",
+    "kind": "basic",
+    "style": "default",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "button",
+      "action",
+      "cta",
+      "uikit"
+    ],
+    "aliases": [
+      "button",
+      "action button",
+      "cta"
+    ],
+    "description": "A text button in five styles from solid to ghost.",
+    "file": "components/spatial/kit-button.tsx",
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Publish"
+      },
+      {
+        "name": "variant",
+        "type": "enum",
+        "options": [
+          "default",
+          "secondary",
+          "outline",
+          "ghost",
+          "destructive"
+        ],
+        "default": "default"
+      },
+      {
+        "name": "size",
+        "type": "enum",
+        "options": [
+          "default",
+          "lg"
+        ],
+        "default": "lg"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": false
+      }
+    ]
+  }
+]

@@ -153,6 +153,51 @@ const C_hero_section = lazy(() => import("@/components/spatial/hero-section"))
 const C_feature_trio = lazy(() => import("@/components/spatial/feature-trio"))
 const C_pricing_table = lazy(() => import("@/components/spatial/pricing-table"))
 const C_product_showcase = lazy(() => import("@/components/spatial/product-showcase"))
+const C_audio_visualizer = lazy(() => import("@/components/spatial/audio-visualizer"))
+const C_oscilloscope = lazy(() => import("@/components/spatial/oscilloscope"))
+const C_arpeggiator = lazy(() => import("@/components/spatial/arpeggiator"))
+const C_flow_field_particles = lazy(() => import("@/components/spatial/flow-field-particles"))
+const C_particle_emitter = lazy(() => import("@/components/spatial/particle-emitter"))
+const C_force_graph = lazy(() => import("@/components/spatial/force-graph"))
+const C_poke_button_demo = lazy(() => import("@/components/spatial/poke-button-demo"))
+const C_accordion = lazy(() => import("@/components/spatial/accordion"))
+const C_alert = lazy(() => import("@/components/spatial/alert"))
+const C_alert_dialog = lazy(() => import("@/components/spatial/alert-dialog"))
+const C_radio_group = lazy(() => import("@/components/spatial/radio-group"))
+const C_input = lazy(() => import("@/components/spatial/input"))
+const C_textarea = lazy(() => import("@/components/spatial/textarea"))
+const C_progress_bar = lazy(() => import("@/components/spatial/progress-bar"))
+const C_toggle_group = lazy(() => import("@/components/spatial/toggle-group"))
+const C_switch = lazy(() => import("@/components/spatial/switch"))
+const C_avatar = lazy(() => import("@/components/spatial/avatar"))
+const C_kit_card = lazy(() => import("@/components/spatial/kit-card"))
+const C_kit_button = lazy(() => import("@/components/spatial/kit-button"))
+const C_float_object = lazy(() => import("@/components/spatial/float-object"))
+const C_sparkles_field = lazy(() => import("@/components/spatial/sparkles-field"))
+const C_starfield = lazy(() => import("@/components/spatial/starfield"))
+const C_cloud_puff = lazy(() => import("@/components/spatial/cloud-puff"))
+const C_text_3d = lazy(() => import("@/components/spatial/text-3d"))
+const C_text_label = lazy(() => import("@/components/spatial/text-label"))
+const C_image_panel = lazy(() => import("@/components/spatial/image-panel"))
+const C_svg_icon = lazy(() => import("@/components/spatial/svg-icon"))
+const C_rounded_box = lazy(() => import("@/components/spatial/rounded-box"))
+const C_billboard_tag = lazy(() => import("@/components/spatial/billboard-tag"))
+const C_motion_trail = lazy(() => import("@/components/spatial/motion-trail"))
+const C_bezier_curve = lazy(() => import("@/components/spatial/bezier-curve"))
+const C_spline_path = lazy(() => import("@/components/spatial/spline-path"))
+const C_wobble_blob = lazy(() => import("@/components/spatial/wobble-blob"))
+const C_distort_orb = lazy(() => import("@/components/spatial/distort-orb"))
+const C_glass_orb = lazy(() => import("@/components/spatial/glass-orb"))
+const C_crystal = lazy(() => import("@/components/spatial/crystal"))
+const C_mirror_floor = lazy(() => import("@/components/spatial/mirror-floor"))
+const C_portal_card = lazy(() => import("@/components/spatial/portal-card"))
+const C_outlined_object = lazy(() => import("@/components/spatial/outlined-object"))
+const C_edges_object = lazy(() => import("@/components/spatial/edges-object"))
+const C_wireframe_object = lazy(() => import("@/components/spatial/wireframe-object"))
+const C_metaballs = lazy(() => import("@/components/spatial/metaballs"))
+const C_decal_object = lazy(() => import("@/components/spatial/decal-object"))
+const C_infinite_grid = lazy(() => import("@/components/spatial/infinite-grid"))
+const C_positional_audio = lazy(() => import("@/components/spatial/positional-audio"))
 
 export const components: Record<string, ComponentType> = {
   "settings-default": C_settings_default as ComponentType,
@@ -306,4 +351,49 @@ export const components: Record<string, ComponentType> = {
   "feature-trio": C_feature_trio as ComponentType,
   "pricing-table": C_pricing_table as ComponentType,
   "product-showcase": C_product_showcase as ComponentType,
+  "audio-visualizer": C_audio_visualizer as ComponentType,
+  "oscilloscope": C_oscilloscope as ComponentType,
+  "arpeggiator": C_arpeggiator as ComponentType,
+  "flow-field-particles": C_flow_field_particles as ComponentType,
+  "particle-emitter": C_particle_emitter as ComponentType,
+  "force-graph": C_force_graph as ComponentType,
+  "poke-button-demo": C_poke_button_demo as ComponentType,
+  "accordion": C_accordion as ComponentType,
+  "alert": C_alert as ComponentType,
+  "alert-dialog": C_alert_dialog as ComponentType,
+  "radio-group": C_radio_group as ComponentType,
+  "input": C_input as ComponentType,
+  "textarea": C_textarea as ComponentType,
+  "progress-bar": C_progress_bar as ComponentType,
+  "toggle-group": C_toggle_group as ComponentType,
+  "switch": C_switch as ComponentType,
+  "avatar": C_avatar as ComponentType,
+  "kit-card": C_kit_card as ComponentType,
+  "kit-button": C_kit_button as ComponentType,
+  "float-object": C_float_object as ComponentType,
+  "sparkles-field": C_sparkles_field as ComponentType,
+  "starfield": C_starfield as ComponentType,
+  "cloud-puff": C_cloud_puff as ComponentType,
+  "text-3d": C_text_3d as ComponentType,
+  "text-label": C_text_label as ComponentType,
+  "image-panel": C_image_panel as ComponentType,
+  "svg-icon": C_svg_icon as ComponentType,
+  "rounded-box": C_rounded_box as ComponentType,
+  "billboard-tag": C_billboard_tag as ComponentType,
+  "motion-trail": C_motion_trail as ComponentType,
+  "bezier-curve": C_bezier_curve as ComponentType,
+  "spline-path": C_spline_path as ComponentType,
+  "wobble-blob": C_wobble_blob as ComponentType,
+  "distort-orb": C_distort_orb as ComponentType,
+  "glass-orb": C_glass_orb as ComponentType,
+  "crystal": C_crystal as ComponentType,
+  "mirror-floor": C_mirror_floor as ComponentType,
+  "portal-card": C_portal_card as ComponentType,
+  "outlined-object": C_outlined_object as ComponentType,
+  "edges-object": C_edges_object as ComponentType,
+  "wireframe-object": C_wireframe_object as ComponentType,
+  "metaballs": C_metaballs as ComponentType,
+  "decal-object": C_decal_object as ComponentType,
+  "infinite-grid": C_infinite_grid as ComponentType,
+  "positional-audio": C_positional_audio as ComponentType,
 }

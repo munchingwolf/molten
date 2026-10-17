@@ -1,0 +1,1477 @@
+[
+  {
+    "name": "float-object",
+    "displayName": "Float Object",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "float",
+      "gem",
+      "animated",
+      "hover"
+    ],
+    "aliases": [
+      "floating gem",
+      "bobbing object",
+      "float"
+    ],
+    "description": "A faceted gem that bobs and tilts in place, glows on hover and spins when tapped.",
+    "file": "components/spatial/float-object.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 5,
+        "default": 1.5
+      },
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1,
+        "label": "Float amount"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.05,
+        "max": 0.4,
+        "default": 0.12,
+        "label": "Size (m)"
+      }
+    ]
+  },
+  {
+    "name": "sparkles-field",
+    "displayName": "Sparkles Field",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "sparkles",
+      "particles",
+      "magic",
+      "ambient"
+    ],
+    "aliases": [
+      "sparkles",
+      "fireflies",
+      "glitter",
+      "motes"
+    ],
+    "description": "A box of drifting, twinkling motes that swell and speed up on hover.",
+    "file": "components/spatial/sparkles-field.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#7FE3FF"
+      },
+      {
+        "name": "count",
+        "type": "number",
+        "min": 5,
+        "max": 150,
+        "default": 40
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 0.4
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.1,
+        "max": 0.6,
+        "default": 0.3,
+        "label": "Size (m)"
+      }
+    ]
+  },
+  {
+    "name": "starfield",
+    "displayName": "Starfield Globe",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "stars",
+      "space",
+      "galaxy",
+      "globe"
+    ],
+    "aliases": [
+      "stars",
+      "starfield",
+      "galaxy",
+      "pocket universe",
+      "night sky"
+    ],
+    "description": "A pocket universe of twinkling stars inside a dark glass globe that slowly turns.",
+    "file": "components/spatial/starfield.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.1,
+        "max": 0.6,
+        "default": 0.3,
+        "label": "Size (m)"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.15
+      },
+      {
+        "name": "count",
+        "type": "number",
+        "min": 200,
+        "max": 4000,
+        "default": 1500
+      },
+      {
+        "name": "saturation",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.4
+      }
+    ]
+  },
+  {
+    "name": "cloud-puff",
+    "displayName": "Cloud Puff",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "cloud",
+      "weather",
+      "soft",
+      "volumetric"
+    ],
+    "aliases": [
+      "cloud",
+      "puff",
+      "smoke",
+      "fog"
+    ],
+    "description": "A small soft volumetric cloud that tints on hover and billows when tapped.",
+    "file": "components/spatial/cloud-puff.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#EEF0F4"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 0.3
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.1,
+        "max": 0.8,
+        "default": 0.3,
+        "label": "Size (m)"
+      },
+      {
+        "name": "opacity",
+        "type": "number",
+        "min": 0.1,
+        "max": 1,
+        "default": 0.8
+      }
+    ]
+  },
+  {
+    "name": "text-3d",
+    "displayName": "3D Text",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "text",
+      "3d",
+      "title",
+      "extruded",
+      "pixel"
+    ],
+    "aliases": [
+      "3d text",
+      "extruded text",
+      "title",
+      "logo text",
+      "text3d"
+    ],
+    "description": "Chunky extruded pixel-font letters that sway gently, light up on hover and hop when tapped.",
+    "file": "components/spatial/text-3d.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "HELLO XR"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.02,
+        "max": 0.15,
+        "default": 0.05,
+        "label": "Letter height (m)"
+      },
+      {
+        "name": "depth",
+        "type": "number",
+        "min": 0.002,
+        "max": 0.05,
+        "default": 0.015,
+        "label": "Depth (m)"
+      }
+    ]
+  },
+  {
+    "name": "text-label",
+    "displayName": "Text Label",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "text",
+      "label",
+      "typography"
+    ],
+    "aliases": [
+      "label",
+      "text",
+      "caption",
+      "title"
+    ],
+    "description": "Crisp floating text with a soft outline that reads on any background.",
+    "file": "components/spatial/text-label.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "Hello, space"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#EEF0F4"
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "min": 0.01,
+        "max": 0.15,
+        "default": 0.04,
+        "label": "Letter height (m)"
+      },
+      {
+        "name": "maxWidth",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0,
+        "label": "Wrap width (m)"
+      }
+    ]
+  },
+  {
+    "name": "image-panel",
+    "displayName": "Image Panel",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "image",
+      "picture",
+      "art",
+      "gradient"
+    ],
+    "aliases": [
+      "image",
+      "picture",
+      "photo frame",
+      "artwork"
+    ],
+    "description": "A rounded picture panel with generated gradient art that zooms in and saturates on hover.",
+    "file": "components/spatial/image-panel.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "width",
+        "type": "number",
+        "min": 0.1,
+        "max": 0.6,
+        "default": 0.32,
+        "label": "Width (m)"
+      },
+      {
+        "name": "radius",
+        "type": "number",
+        "min": 0,
+        "max": 0.2,
+        "default": 0.06,
+        "label": "Corner radius"
+      },
+      {
+        "name": "colorA",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "colorB",
+        "type": "color",
+        "default": "#7FE3FF"
+      }
+    ]
+  },
+  {
+    "name": "svg-icon",
+    "displayName": "SVG Icon",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "svg",
+      "icon",
+      "vector",
+      "logo"
+    ],
+    "aliases": [
+      "icon",
+      "svg",
+      "logo",
+      "vector"
+    ],
+    "description": "A flat vector lightning icon parsed from inline SVG that sways, grows on hover and flips when tapped.",
+    "file": "components/spatial/svg-icon.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2",
+        "label": "Bolt color"
+      },
+      {
+        "name": "ringColor",
+        "type": "color",
+        "default": "#7FE3FF",
+        "label": "Ring color"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.05,
+        "max": 0.4,
+        "default": 0.15,
+        "label": "Size (m)"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "rounded-box",
+    "displayName": "Rounded Box",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "box",
+      "cube",
+      "rounded",
+      "primitive"
+    ],
+    "aliases": [
+      "rounded cube",
+      "soft box",
+      "cube",
+      "block"
+    ],
+    "description": "A soft-cornered cube that turns slowly, glows on hover and squashes when pressed.",
+    "file": "components/spatial/rounded-box.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.04,
+        "max": 0.4,
+        "default": 0.12,
+        "label": "Size (m)"
+      },
+      {
+        "name": "roundness",
+        "type": "number",
+        "min": 0,
+        "max": 0.5,
+        "default": 0.2
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 0.4
+      }
+    ]
+  },
+  {
+    "name": "billboard-tag",
+    "displayName": "Billboard Tag",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "billboard",
+      "tag",
+      "label",
+      "marker"
+    ],
+    "aliases": [
+      "tag",
+      "marker",
+      "pin",
+      "hotspot",
+      "billboard"
+    ],
+    "description": "A name tag on a stem that always turns to face you and pops forward on hover.",
+    "file": "components/spatial/billboard-tag.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "Point of interest"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "min": 0.01,
+        "max": 0.06,
+        "default": 0.025,
+        "label": "Letter height (m)"
+      },
+      {
+        "name": "upright",
+        "type": "boolean",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "motion-trail",
+    "displayName": "Motion Trail",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "trail",
+      "comet",
+      "motion",
+      "animated"
+    ],
+    "aliases": [
+      "trail",
+      "comet",
+      "streak",
+      "ribbon"
+    ],
+    "description": "A glowing comet tracing a figure-eight and leaving a fading ribbon; tap to reverse it.",
+    "file": "components/spatial/motion-trail.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#7FE3FF"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "min": 0.02,
+        "max": 0.5,
+        "default": 0.15
+      },
+      {
+        "name": "length",
+        "type": "number",
+        "min": 1,
+        "max": 12,
+        "default": 5
+      }
+    ]
+  },
+  {
+    "name": "bezier-curve",
+    "displayName": "Bezier Curve",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "curve",
+      "line",
+      "arc",
+      "connector"
+    ],
+    "aliases": [
+      "arc",
+      "connector",
+      "bezier",
+      "link line",
+      "energy beam"
+    ],
+    "description": "A swaying dashed energy arc between two nodes whose dashes flow along it.",
+    "file": "components/spatial/bezier-curve.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "lineWidth",
+        "type": "number",
+        "min": 1,
+        "max": 10,
+        "default": 3,
+        "label": "Line width (px)"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "name": "span",
+        "type": "number",
+        "min": 0.1,
+        "max": 0.6,
+        "default": 0.3,
+        "label": "Span (m)"
+      }
+    ]
+  },
+  {
+    "name": "spline-path",
+    "displayName": "Spline Path",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "spline",
+      "path",
+      "line",
+      "curve"
+    ],
+    "aliases": [
+      "path",
+      "spline",
+      "track",
+      "loop"
+    ],
+    "description": "A smooth closed colour-graded path with a bead gliding along it.",
+    "file": "components/spatial/spline-path.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "color2",
+        "type": "color",
+        "default": "#7FE3FF"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.15
+      },
+      {
+        "name": "lineWidth",
+        "type": "number",
+        "min": 1,
+        "max": 10,
+        "default": 3,
+        "label": "Line width (px)"
+      }
+    ]
+  },
+  {
+    "name": "wobble-blob",
+    "displayName": "Wobble Blob",
+    "category": "materials",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "material",
+      "wobble",
+      "jelly",
+      "shader"
+    ],
+    "aliases": [
+      "jelly",
+      "wobble",
+      "wobbly knot"
+    ],
+    "description": "A jelly torus knot that wobbles harder on hover and jolts when tapped.",
+    "file": "components/spatial/wobble-blob.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 5,
+        "default": 1.5
+      },
+      {
+        "name": "factor",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 0.4,
+        "label": "Wobble"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.05,
+        "max": 0.4,
+        "default": 0.18,
+        "label": "Size (m)"
+      }
+    ]
+  },
+  {
+    "name": "distort-orb",
+    "displayName": "Distort Orb",
+    "category": "materials",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "material",
+      "distort",
+      "liquid",
+      "orb",
+      "shader"
+    ],
+    "aliases": [
+      "liquid orb",
+      "blob",
+      "distort sphere"
+    ],
+    "description": "A liquid rippling orb whose surface churns on hover and splashes when tapped.",
+    "file": "components/spatial/distort-orb.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#7FE3FF"
+      },
+      {
+        "name": "distort",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.35
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 6,
+        "default": 2
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.05,
+        "max": 0.4,
+        "default": 0.18,
+        "label": "Size (m)"
+      }
+    ]
+  },
+  {
+    "name": "glass-orb",
+    "displayName": "Glass Orb",
+    "category": "materials",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "material",
+      "glass",
+      "transmission",
+      "refraction"
+    ],
+    "aliases": [
+      "glass ball",
+      "crystal ball",
+      "glass sphere"
+    ],
+    "description": "A thick glass sphere that bends a spinning shape inside it; tap to swap the shape.",
+    "file": "components/spatial/glass-orb.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#EEF0F4",
+        "label": "Glass tint"
+      },
+      {
+        "name": "innerColor",
+        "type": "color",
+        "default": "#9FE7D2",
+        "label": "Inner color"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.08,
+        "max": 0.4,
+        "default": 0.2,
+        "label": "Size (m)"
+      },
+      {
+        "name": "aberration",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.3
+      }
+    ]
+  },
+  {
+    "name": "crystal",
+    "displayName": "Crystal",
+    "category": "materials",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "material",
+      "gem",
+      "diamond",
+      "refraction"
+    ],
+    "aliases": [
+      "gem",
+      "diamond",
+      "jewel",
+      "crystal"
+    ],
+    "description": "A cut gem with real internal bounces and rainbow dispersion, lit by a generated environment.",
+    "file": "components/spatial/crystal.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#EEF0F4"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.05,
+        "max": 0.4,
+        "default": 0.16,
+        "label": "Size (m)"
+      },
+      {
+        "name": "dispersion",
+        "type": "number",
+        "min": 0,
+        "max": 0.1,
+        "default": 0.02
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 0.5
+      }
+    ]
+  },
+  {
+    "name": "mirror-floor",
+    "displayName": "Mirror Floor",
+    "category": "materials",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "material",
+      "reflection",
+      "mirror",
+      "floor",
+      "plinth"
+    ],
+    "aliases": [
+      "mirror",
+      "reflective floor",
+      "plinth",
+      "glossy floor"
+    ],
+    "description": "A glossy reflective disc with a small cube hovering above it that hops when tapped.",
+    "file": "components/spatial/mirror-floor.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.2,
+        "max": 1,
+        "default": 0.4,
+        "label": "Size (m)"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#15171E"
+      },
+      {
+        "name": "mirror",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.75
+      },
+      {
+        "name": "blur",
+        "type": "number",
+        "min": 0,
+        "max": 600,
+        "default": 200
+      }
+    ]
+  },
+  {
+    "name": "portal-card",
+    "displayName": "Portal Card",
+    "category": "materials",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "material",
+      "portal",
+      "window",
+      "card"
+    ],
+    "aliases": [
+      "portal",
+      "window into",
+      "magic card",
+      "doorway"
+    ],
+    "description": "A card that is a window into a small deep room with a spinning shape; tap to light the inside.",
+    "file": "components/spatial/portal-card.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#15171E",
+        "label": "Room color"
+      },
+      {
+        "name": "innerColor",
+        "type": "color",
+        "default": "#9FE7D2",
+        "label": "Shape color"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "min": 0.1,
+        "max": 0.5,
+        "default": 0.24,
+        "label": "Width (m)"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "outlined-object",
+    "displayName": "Outlined Object",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "outline",
+      "toon",
+      "cel",
+      "stroke"
+    ],
+    "aliases": [
+      "outline",
+      "toon",
+      "cel shaded",
+      "ink"
+    ],
+    "description": "A toon-shaded capsule with an inked outline that thickens on hover; tap toggles it.",
+    "file": "components/spatial/outlined-object.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#15171E"
+      },
+      {
+        "name": "outlineColor",
+        "type": "color",
+        "default": "#9FE7D2",
+        "label": "Outline color"
+      },
+      {
+        "name": "thickness",
+        "type": "number",
+        "min": 0,
+        "max": 0.02,
+        "default": 0.004,
+        "label": "Outline (m)"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.05,
+        "max": 0.4,
+        "default": 0.16,
+        "label": "Size (m)"
+      }
+    ]
+  },
+  {
+    "name": "edges-object",
+    "displayName": "Edges Object",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "edges",
+      "lines",
+      "wire",
+      "geometric"
+    ],
+    "aliases": [
+      "edges",
+      "outline shape",
+      "hard edges",
+      "neon shape"
+    ],
+    "description": "A dodecahedron drawn as glowing hard edges over a dark body that pulses when tapped.",
+    "file": "components/spatial/edges-object.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#7FE3FF",
+        "label": "Edge color"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.05,
+        "max": 0.4,
+        "default": 0.16,
+        "label": "Size (m)"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 0.4
+      },
+      {
+        "name": "solid",
+        "type": "boolean",
+        "default": true,
+        "label": "Dark body"
+      }
+    ]
+  },
+  {
+    "name": "wireframe-object",
+    "displayName": "Wireframe Object",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "wireframe",
+      "geodesic",
+      "shader",
+      "mesh"
+    ],
+    "aliases": [
+      "wireframe",
+      "geodesic sphere",
+      "mesh view"
+    ],
+    "description": "A geodesic sphere drawn with thick shader wires whose faces fill on hover; tap toggles dashes.",
+    "file": "components/spatial/wireframe-object.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "stroke",
+        "type": "color",
+        "default": "#9FE7D2",
+        "label": "Wire color"
+      },
+      {
+        "name": "fill",
+        "type": "color",
+        "default": "#15171E",
+        "label": "Fill color"
+      },
+      {
+        "name": "thickness",
+        "type": "number",
+        "min": 0.005,
+        "max": 0.1,
+        "default": 0.04
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.05,
+        "max": 0.4,
+        "default": 0.18,
+        "label": "Size (m)"
+      }
+    ]
+  },
+  {
+    "name": "metaballs",
+    "displayName": "Metaballs",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "metaballs",
+      "blobs",
+      "lava lamp",
+      "organic"
+    ],
+    "aliases": [
+      "lava lamp",
+      "blobs",
+      "metaballs",
+      "goo"
+    ],
+    "description": "Lava-lamp blobs that merge and split, speed up on hover and huddle together when tapped.",
+    "file": "components/spatial/metaballs.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "color2",
+        "type": "color",
+        "default": "#7FE3FF"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 0.6
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.08,
+        "max": 0.5,
+        "default": 0.22,
+        "label": "Size (m)"
+      }
+    ]
+  },
+  {
+    "name": "decal-object",
+    "displayName": "Decal Object",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "decal",
+      "sticker",
+      "projection",
+      "interactive"
+    ],
+    "aliases": [
+      "sticker ball",
+      "decal",
+      "stickers"
+    ],
+    "description": "A ball you can decorate by tapping it to project star stickers onto its surface.",
+    "file": "components/spatial/decal-object.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#EEF0F4",
+        "label": "Ball color"
+      },
+      {
+        "name": "stickerColor",
+        "type": "color",
+        "default": "#9FE7D2",
+        "label": "Sticker color"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.06,
+        "max": 0.4,
+        "default": 0.16,
+        "label": "Size (m)"
+      },
+      {
+        "name": "stickerSize",
+        "type": "number",
+        "min": 0.1,
+        "max": 0.8,
+        "default": 0.35
+      }
+    ]
+  },
+  {
+    "name": "infinite-grid",
+    "displayName": "Infinite Grid",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "grid",
+      "floor",
+      "measure",
+      "shader"
+    ],
+    "aliases": [
+      "grid",
+      "floor grid",
+      "ground grid",
+      "measuring grid"
+    ],
+    "description": "A crisp shader grid, either a 40 cm measuring tile or a floor that fades into the distance.",
+    "file": "components/spatial/infinite-grid.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "cellColor",
+        "type": "color",
+        "default": "#7FE3FF",
+        "label": "Fine lines"
+      },
+      {
+        "name": "sectionColor",
+        "type": "color",
+        "default": "#9FE7D2",
+        "label": "Major lines"
+      },
+      {
+        "name": "cellSize",
+        "type": "number",
+        "min": 0.005,
+        "max": 0.1,
+        "default": 0.02,
+        "label": "Cell (m)"
+      },
+      {
+        "name": "infinite",
+        "type": "boolean",
+        "default": false,
+        "label": "Extend to horizon"
+      }
+    ]
+  },
+  {
+    "name": "positional-audio",
+    "displayName": "Positional Audio Speaker",
+    "category": "visuals",
+    "kind": "object",
+    "style": "default",
+    "tags": [
+      "audio",
+      "sound",
+      "spatial audio",
+      "speaker"
+    ],
+    "aliases": [
+      "speaker",
+      "sound source",
+      "3d audio",
+      "blip"
+    ],
+    "description": "A small speaker that plays a synthesized blip from its spot in space when tapped.",
+    "file": "components/spatial/positional-audio.tsx",
+    "status": "ready",
+    "tier": 2,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "pitch",
+        "type": "number",
+        "min": 110,
+        "max": 1760,
+        "default": 660,
+        "label": "Pitch (Hz)"
+      },
+      {
+        "name": "volume",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      },
+      {
+        "name": "distance",
+        "type": "number",
+        "min": 0.1,
+        "max": 3,
+        "default": 0.5,
+        "label": "Falloff distance (m)"
+      }
+    ]
+  }
+]
