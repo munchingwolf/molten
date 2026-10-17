@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ComponentCard } from "@/components/site/card"
 import { Logo } from "@/components/site/header"
 import { HeroScene } from "@/components/site/hero-scene"
+import { Reveal, Stagger, StaggerItem } from "@/components/site/motion"
 import { Preview } from "@/components/site/preview"
 import { registry } from "@/lib/registry"
 
@@ -23,56 +24,68 @@ export default function Home() {
       <section className="relative overflow-hidden border-b border-border bg-[linear-gradient(180deg,#0B0C10_0%,#0E1117_60%,#0B0C10_100%)]">
         <div className="floor-grid" aria-hidden />
         <div className="relative mx-auto grid max-w-[1240px] items-center gap-10 px-5 pb-10 pt-14 lg:grid-cols-[1fr_1.05fr] lg:pb-16 lg:pt-22">
-          <div>
-            <p className="mb-5.5 flex items-center gap-2 text-[13.5px] text-muted">
-              <span className="size-[7px] rounded-full bg-accent shadow-[0_0_0_4px_rgb(159_231_210/0.18)]" />
-              Live in your Quest browser, no install
-            </p>
-            <h1 className="text-balance font-display text-[clamp(2.6rem,5.4vw,4.6rem)] font-bold leading-[0.98] tracking-[-0.04em]">
-              Interfaces you can <span className="accent-word">walk around</span>
-            </h1>
-            <p className="mt-5.5 max-w-[46ch] text-lg text-muted">
-              <b className="font-semibold text-text">{registry.length} XR components</b> for WebXR and React Three Fiber.
-              Turn them in 3D, try them in your headset, then paste one prompt and your agent ships the code.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+          <Stagger>
+            <StaggerItem>
+              <p className="mb-5.5 flex items-center gap-2 text-[13.5px] text-muted">
+                <span className="size-[7px] rounded-full bg-accent shadow-[0_0_0_4px_rgb(159_231_210/0.18)]" />
+                Live in your Quest browser, no install
+              </p>
+            </StaggerItem>
+            <StaggerItem>
+              <h1 className="text-balance font-display text-[clamp(2.6rem,5.4vw,4.6rem)] font-bold leading-[0.98] tracking-[-0.04em]">
+                Interfaces you can <span className="accent-word">walk around</span>
+              </h1>
+            </StaggerItem>
+            <StaggerItem>
+              <p className="mt-5.5 max-w-[46ch] text-lg text-muted">
+                <b className="font-semibold text-text">{registry.length} XR components</b> for WebXR and React Three Fiber.
+                Turn them in 3D, try them in your headset, then paste one prompt and your agent ships the code.
+              </p>
+            </StaggerItem>
+            <StaggerItem className="mt-8 flex flex-wrap gap-3">
               <Link href="/components" className="inline-flex h-[46px] items-center rounded-[11px] bg-accent px-5 font-semibold text-on-accent hover:brightness-105">
                 Browse components
               </Link>
               <Link href="/studio" className="inline-flex h-[46px] items-center rounded-[11px] border border-border-2 bg-surface px-5 font-semibold hover:border-faint">
                 Open Studio in VR
               </Link>
+            </StaggerItem>
+            <StaggerItem>
+              <ul className="mt-7.5 flex flex-wrap gap-4.5 font-mono text-[12.5px] text-faint">
+                {["React Three Fiber", "WebXR", "pmndrs/uikit", "Quest 3 · 3S"].map((t) => (
+                  <li key={t} className="flex items-center gap-1.5 before:size-[5px] before:rounded-[1px] before:bg-border-2">{t}</li>
+                ))}
+              </ul>
+            </StaggerItem>
+          </Stagger>
+          <Reveal delay={0.25} className="h-[380px] lg:h-[460px]">
+            <div className="h-full" aria-label="The three Settings styles floating in a live 3D scene">
+              <HeroScene />
             </div>
-            <ul className="mt-7.5 flex flex-wrap gap-4.5 font-mono text-[12.5px] text-faint">
-              {["React Three Fiber", "WebXR", "pmndrs/uikit", "Quest 3 · 3S"].map((t) => (
-                <li key={t} className="flex items-center gap-1.5 before:size-[5px] before:rounded-[1px] before:bg-border-2">{t}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="h-[380px] lg:h-[460px]" aria-label="The three Settings styles floating in a live 3D scene">
-            <HeroScene />
-          </div>
+          </Reveal>
         </div>
 
         <Strip title="Sections" note={`${sections.length} ready`} href="/components?kind=section">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {sections.map((e) => <ComponentCard key={e.name} entry={e} />)}
+            {sections.map((e, i) => <Reveal key={e.name} delay={i * 0.07}><ComponentCard entry={e} /></Reveal>)}
           </div>
         </Strip>
       </section>
 
       <Strip title="Components" note={`${registry.length - sections.length} · ${readyCount} live`} href="/components">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {general.map((e) => <ComponentCard key={e.name} entry={e} />)}
+          {general.map((e, i) => <Reveal key={e.name} delay={i * 0.07}><ComponentCard entry={e} /></Reveal>)}
         </div>
       </Strip>
 
       <section id="mcp" className="mx-auto max-w-[1240px] px-5 pt-26">
-        <H2>Copy the prompt. <span className="accent-word">Paste it</span> anywhere.</H2>
-        <p className="mt-3.5 max-w-[52ch] text-[17px] text-muted">
-          Every component ships as one self-contained .tsx file and a prompt your coding agent can act on. Or skip the code and place it with your hands in the Studio.
-        </p>
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
+        <Reveal>
+          <H2>Copy the prompt. <span className="accent-word">Paste it</span> anywhere.</H2>
+          <p className="mt-3.5 max-w-[52ch] text-[17px] text-muted">
+            Every component ships as one self-contained .tsx file and a prompt your coding agent can act on. Or skip the code and place it with your hands in the Studio.
+          </p>
+        </Reveal>
+        <Reveal delay={0.1} className="mt-10 grid gap-5 md:grid-cols-3">
           <Agent tone="warm" title="Claude Code" body="Paste the prompt in your terminal. The Spatial MCP finds the file and wires it into your scene.">
             <span className="text-faint">&gt;</span> add the glass settings panel{"\n"}  from Spatial to my scene{"\n\n"}
             <span className="text-warm">●</span> spatial.get_component(&quot;settings-glass&quot;){"\n"}
@@ -87,13 +100,15 @@ export default function Home() {
             <span className="text-faint">Studio · my-daw</span>{"\n"}grab   knob       → (0.5, 1.2, -0.6){"\n"}bind   knob.value → tempo{"\n"}
             <span className="text-accent">✓</span> Launch → /apps/my-daw
           </Agent>
-        </div>
+        </Reveal>
       </section>
 
       <section className="mx-auto max-w-[1240px] px-5 pt-26">
-        <H2>One component, <span className="accent-word">three</span> looks.</H2>
-        <p className="mt-3.5 max-w-[52ch] text-[17px] text-muted">Switch styles without touching your app&apos;s state. Same props, same events, different material.</p>
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
+        <Reveal>
+          <H2>One component, <span className="accent-word">three</span> looks.</H2>
+          <p className="mt-3.5 max-w-[52ch] text-[17px] text-muted">Switch styles without touching your app&apos;s state. Same props, same events, different material.</p>
+        </Reveal>
+        <Reveal delay={0.1} className="mt-10 grid gap-5 md:grid-cols-3">
           {sections.map((e) => (
             <Link key={e.name} href={`/components/${e.name}`} className="group overflow-hidden rounded-[18px] border border-border bg-bg-2 hover:border-border-2">
               <div className="stage-bg aspect-[16/10]">
@@ -105,7 +120,7 @@ export default function Home() {
               </div>
             </Link>
           ))}
-        </div>
+        </Reveal>
       </section>
 
       <section className="relative mt-30 overflow-hidden border-y border-border">

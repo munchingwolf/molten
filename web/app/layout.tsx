@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Familjen_Grotesk, Hanken_Grotesk, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/site/header";
+import { MotionProvider } from "@/components/site/motion";
 
 const familjen = Familjen_Grotesk({ variable: "--font-familjen", subsets: ["latin"], weight: ["500", "700"] });
 const hanken = Hanken_Grotesk({ variable: "--font-hanken", subsets: ["latin"], weight: ["400", "500", "600"] });
@@ -21,8 +22,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${familjen.variable} ${hanken.variable} ${instrument.variable} ${mono.variable}`}>
-        <Header />
-        {children}
+        <MotionProvider>
+          <Header />
+          {children}
+        </MotionProvider>
       </body>
     </html>
   );
