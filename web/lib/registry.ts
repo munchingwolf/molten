@@ -1,18 +1,12 @@
-import type { ComponentType } from "react"
 import index from "@/registry/index.json"
-import SettingsDefault from "@/components/spatial/settings-default"
-import SettingsGlass from "@/components/spatial/settings-glass"
-import SettingsHorizon from "@/components/spatial/settings-horizon"
-import Knob from "@/components/spatial/knob"
-import Transport from "@/components/spatial/transport"
 import type { Bindable } from "./layout"
 
 export type Entry = {
   name: string
   displayName: string
   category: string
-  kind: "section" | "basic"
-  style: "default" | "glass" | "horizon"
+  kind: "section" | "basic" | "object" | "environment" | "layout"
+  style: string
   tags: string[]
   aliases: string[]
   description: string
@@ -27,16 +21,21 @@ export type Entry = {
   deps: string[]
   /** Props the Studio can wire to a shared name */
   bindable?: Bindable[]
+  /** Editable props for the inspector + voice (colour, label, size…) */
+  props?: PropSpec[]
 }
 
-// name → React component. Add a line here for every new file in components/spatial/.
-export const components: Record<string, ComponentType> = {
-  "settings-default": SettingsDefault,
-  "settings-glass": SettingsGlass,
-  "settings-horizon": SettingsHorizon,
-  knob: Knob,
-  transport: Transport,
+export type PropSpec = {
+  name: string
+  type: "color" | "string" | "number" | "boolean" | "enum"
+  options?: string[]
+  min?: number
+  max?: number
+  default?: unknown
 }
+
+// name → React component, generated from index.json (run `node web/scripts/merge-registry.mjs` after adding a component).
+export { components } from "./components.generated"
 
 export const registry = index as Entry[]
 

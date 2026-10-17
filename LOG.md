@@ -13,6 +13,13 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 2:04: Evan: **integration landed** (environments, gestures, frames, X-ray, generated registry). Danny: full VR UI/UX spec coming next as `VR-UX-SPEC.md`
+- **Component map is now GENERATED**: `node web/scripts/merge-registry.mjs` merges `web/registry/incoming/*.json` into `index.json` and writes `web/lib/components.generated.ts` (lazy imports). Don't hand-edit the map in `lib/registry.ts`; run the script after adding a component. Entry type now has `props` (PropSpec: color/string/number/boolean/enum) and kinds object/environment/layout.
+- 5 environments (`env-studio-loft`, `env-space`, `env-forest`, `env-concert-stage`, `env-gallery`): `useStudio().setEnvironment(name)`; hidden in AR passthrough.
+- Gestures (`layout-renderer.tsx`, `GESTURES.md`): grab bar/grab-anywhere move, 2nd hand = scale + yaw, PivotHandles gizmo on the selected item (move/pitch/yaw/roll/scale), snap 2.5 cm / 15° / 0.05 (Shift bypass), drop onto desks/stages seats exactly (`lib/snap.ts`). Hook `useGestureKeys()` (`components/studio/use-gesture-keys.ts`) still needs mounting in studio-app.
+- Frames render their children with auto-layout; hidden items are skipped; **X-ray mode** (`viewMode: "xray"`): outlines, labels, frame bounds, value cables, translucent components (`components/studio/xray.tsx`).
+- npm i was needed after the `motion` dep landed. 53 lib tests pass.
+
 ### 1:56: Evan: **store v2 landed. Danny, these are the actions to wire your Studio UI to** (`web/lib/studio-store.ts`, `useStudio`)
 - State: `items` (active scene), `environment`, `scenes[]`, `sceneId`, `selectedId` (primary) + `selectedIds` (multi), `values`, `viewMode: "design"|"xray"`, `showGrid`, `snap`, `past`/`future`.
 - Existing (unchanged): `add(component, position?, patch?)`, `update(id, patch)`, `remove(id)`, `select(id|null, additive?)` (additive = shift-click toggle), `bind(id, prop, name)`, `setValue`, `setName`, `load(layout)`, `layout()`.

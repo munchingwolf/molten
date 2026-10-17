@@ -54,3 +54,25 @@ test("toIdent makes valid identifiers", () => {
   assert.equal(toIdent("master volume"), "masterVolume")
   assert.equal(toIdent("2nd knob"), "v2ndKnob")
 })
+
+test("frames nest children inside <Frame> without their own group; hidden items are skipped", () => {
+  const frame: Item = { ...item("frame"), id: "f1", props: { direction: "row", gap: 0.05 } }
+  const child: Item = { ...item("slider"), id: "c1", parentId: "f1", position: [9, 9, 9] }
+  const ghost: Item = { ...item("readout"), id: "h1", hidden: true }
+  const code = generateCode({ name: "x", items: [frame, child, ghost] }, of)
+  assert.match(code, /<group position=\{\[0, 1\.2, -1\]\}>\n\s+<Frame direction=\{"row"\} gap=\{0\.05\}>\n\s+<Slider \/>\n\s+<\/Frame>\n\s+<\/group>/)
+  assert.doesNotMatch(code, /\[9, 9, 9\]/) // auto-layout decides child positions
+  assert.doesNotMatch(code, /Readout/)
+})
+
+test("environment renders first; multi-scene takes a scene prop", () => {
+  const code = generateCode({
+    name: "site", items: [], scenes: [
+      { id: "a", name: "Home", environment: "env-space", items: [item("slider")] },
+      { id: "b", name: "About", environment: "env-forest", items: [item("readout")] },
+    ],
+  }, of)
+  assert.match(code, /import EnvSpace from "@\/components\/spatial\/env-space"/)
+  assert.match(code, /export default function Site\(\{ scene = 0 \}: \{ scene\?: number \}\)/)
+  assert.match(code, /\{scene === 1 && \(\n\s+<>\n\s+<EnvForest \/>/)
+})

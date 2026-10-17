@@ -1,16 +1,22 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState, type ComponentType, type ReactNode } from "react"
 import { useFrame } from "@react-three/fiber"
-import { Handle, defaultApply } from "@react-three/handle"
+import { Handle, HandleStore, PivotHandlesContext, PivotHandlesHandles, defaultApply, type HandleState } from "@react-three/handle"
 import { Container, Text } from "@react-three/uikit"
-import { Box3, Vector3, type Group } from "three"
+import { Box3, Vector3, type Group, type Object3D } from "three"
 import { components, findEntry } from "@/lib/registry"
 import { bindingProps, type Bindable, type Item, type Vec3 } from "@/lib/layout"
+import { SNAP, clampScale, isSurface, restOn, snapRotation, snapTo } from "@/lib/snap"
 
 /** Registry `bindable` metadata (Person 2 adds it per entry); empty until then. */
 export const bindablesOf = (name: string): Bindable[] =>
   (findEntry(name) as { bindable?: Bindable[] } | undefined)?.bindable ?? []
+
+// Registry components take arbitrary props; frames also take children.
+const componentOf = (name: string) => components[name] as ComponentType<Record<string, unknown> & { children?: ReactNode }> | undefined
+
+export type TransformPatch = { position?: Vec3; rotation?: Vec3; scale?: number }
 
 type Props = {
   items: Item[]
@@ -21,56 +27,152 @@ type Props = {
   selectedId?: string | null
   onSelect?: (id: string) => void
   onMove?: (id: string, position: Vec3) => void
+  /** Final transform on release (move, two-hand scale/rotate, gizmo). Replaces onMove when given. */
+  onTransform?: (id: string, patch: TransformPatch) => void
+  /** Snap moves to 2.5 cm, turns to 15°, scale to 0.05 (hold Shift to bypass). Default true. */
+  snap?: boolean
 }
 
 export function LayoutRenderer(p: Props) {
+  const visible = p.items.filter((i) => !i.hidden)
+  const ids = new Set(visible.map((i) => i.id))
   return (
     <>
-      {p.items.map((item) => (
-        <Placed key={item.id} item={item} {...p} />
-      ))}
+      {visible.map((item) =>
+        // Frame children render inside their frame (auto-layout places them); orphans render at the top level.
+        item.parentId && ids.has(item.parentId) ? null : <Placed key={item.id} item={item} {...p} items={visible} />,
+      )}
     </>
   )
 }
 
-function Placed({ item, values, setValue, editable, selectedId, onSelect, onMove }: Props & { item: Item }) {
-  const ref = useRef<Group>(null)
+/** Each item's content group (surface snapping, X-ray overlay measure these). */
+export const contents = new Map<string, Object3D>()
+
+/** A frame's child: laid out by the frame, so no own transform/gizmo; click selects it. */
+function FrameChild({ item, items, values, setValue, editable, onSelect }: Props & { item: Item }) {
   const content = useRef<Group>(null)
-  const Component = components[item.component]
+  const Component = componentOf(item.component)
   const props = bindingProps(item, bindablesOf(item.component), values, setValue)
+  useEffect(() => {
+    if (content.current) contents.set(item.id, content.current)
+    return () => void contents.delete(item.id)
+  }, [item.id])
+  const kids = items.filter((c) => c.parentId === item.id)
   return (
-    <group
-      ref={ref}
-      position={item.position}
-      rotation={item.rotation}
-      scale={item.scale}
-      onClick={editable ? () => onSelect?.(item.id) : undefined}
-    >
-      <group ref={content}>{Component ? <Component {...props} /> : <Missing name={item.component} />}</group>
-      {editable && (
-        <GrabBar
-          target={ref}
-          content={content}
-          selected={selectedId === item.id}
-          onGrab={() => onSelect?.(item.id)}
-          onDrop={(pos) => onMove?.(item.id, pos)}
-        />
+    <group ref={content} scale={item.scale} onClick={editable ? (e) => (e.stopPropagation(), onSelect?.(item.id)) : undefined}>
+      {Component ? (
+        <Component {...props}>
+          {kids.length ? kids.map((c) => <FrameChild key={c.id} item={c} items={items} values={values} setValue={setValue} editable={editable} onSelect={onSelect} />) : undefined}
+        </Component>
+      ) : (
+        <Missing name={item.component} />
       )}
     </group>
   )
 }
 
+function Placed({ item, items, values, setValue, editable, selectedId, onSelect, onMove, onTransform, snap = true }: Props & { item: Item }) {
+  const ref = useRef<Group>(null)
+  const content = useRef<Group>(null)
+  const Component = componentOf(item.component)
+  const props = bindingProps(item, bindablesOf(item.component), values, setValue)
+  const kids = items.filter((c) => c.parentId === item.id)
+  const body = Component ? (
+    <Component {...props}>
+      {kids.length ? kids.map((c) => <FrameChild key={c.id} item={c} items={items} values={values} setValue={setValue} editable={editable} onSelect={onSelect} />) : undefined}
+    </Component>
+  ) : (
+    <Missing name={item.component} />
+  )
+  useEffect(() => {
+    if (content.current) contents.set(item.id, content.current)
+    return () => void contents.delete(item.id)
+  }, [item.id])
+
+  // Shared by the grab bar / hand grab and the gizmo: snap while dragging, seat on a surface and report on release.
+  const apply = (state: HandleState<unknown>, t: Object3D) => {
+    if (state.first) onSelect?.(item.id)
+    applySnapped(state, t, snap)
+    if (!state.last) return
+    seatOnSurface(t, item.id, items)
+    const position = t.position.toArray() as Vec3
+    if (onTransform) onTransform(item.id, { position, rotation: [t.rotation.x, t.rotation.y, t.rotation.z], scale: t.scale.x })
+    else onMove?.(item.id, position)
+  }
+
+  return (
+    // PivotHandlesContext is a plain group that the gizmo below transforms. Its types omit `scale`, so it goes in via spread.
+    <PivotHandlesContext
+      ref={ref}
+      position={item.position}
+      rotation={item.rotation}
+      {...{ scale: item.scale }}
+      apply={apply}
+      onClick={editable ? () => onSelect?.(item.id) : undefined}
+    >
+      {editable && selectedId === item.id && <PivotHandlesHandles fixed={false} size={0.35} />}
+      {editable ? (
+        <GrabHandle target={ref} content={content} selected={selectedId === item.id} apply={apply}>
+          <group ref={content}>{body}</group>
+        </GrabHandle>
+      ) : (
+        <group ref={content}>{body}</group>
+      )}
+    </PivotHandlesContext>
+  )
+}
+
+function applySnapped(state: HandleState<unknown>, t: Object3D, snap: boolean) {
+  defaultApply(state, t)
+  // Items have one uniform scale: the axis the gesture changed most drives all three (so the gizmo's axis-scale cubes scale uniformly too).
+  const s0 = state.initial.scale.x
+  let s = [t.scale.x, t.scale.y, t.scale.z].reduce((a, b) => (Math.abs(b - s0) > Math.abs(a - s0) ? b : a))
+  if (snap && !state.event?.shiftKey) {
+    t.position.set(snapTo(t.position.x, SNAP.move), snapTo(t.position.y, SNAP.move), snapTo(t.position.z, SNAP.move))
+    snapRotation(t.quaternion, state.initial.quaternion, SNAP.angle)
+    s = snapTo(s, SNAP.scale)
+  }
+  t.scale.setScalar(clampScale(s))
+  t.rotation.reorder("XYZ") // Item.rotation is an XYZ euler
+}
+
+/** On release: if the item's bottom is just above a desk/stage/table top, drop it exactly onto it. */
+function seatOnSurface(t: Object3D, id: string, items: Item[]) {
+  const self = contents.get(id)
+  const tops = items.flatMap((i) => {
+    const o = i.id !== id && isSurface(i.component, findEntry(i.component)?.tags) ? contents.get(i.id) : undefined
+    return o ? [new Box3().setFromObject(o)] : []
+  })
+  if (!self || tops.length === 0) return
+  t.updateWorldMatrix(true, true)
+  const dy = restOn(new Box3().setFromObject(self), tops)
+  if (dy === 0) return
+  const p = t.getWorldPosition(new Vector3())
+  p.y += dy
+  t.position.copy(t.parent ? t.parent.worldToLocal(p) : p)
+}
+
+// One pointer only moves. A second pointer on the same item adds uniform scale (hand distance) and yaw (hand twist).
+const ONE_POINTER = { rotate: false, scale: false } as const
+const TWO_POINTERS = { rotate: { x: false, y: true, z: false }, scale: { uniform: true } }
+
 const box = new Box3()
 const size = new Vector3()
 
-/** Bar under the component: grab it (mouse drag, hand grab, controller grip) to move the whole item. */
-function GrabBar({ target, content, selected, onGrab, onDrop }: {
+/**
+ * Grab bar under the component (mouse drag, ray, poke, hand grab, controller grip) moves the whole item.
+ * The grab pointer (pinch near / controller grip) also grabs anywhere on the component, so two hands can scale and turn it,
+ * while poke and ray presses still reach the component's own controls.
+ */
+function GrabHandle({ target, content, selected, apply, children }: {
   target: React.RefObject<Group | null>
   content: React.RefObject<Group | null>
   selected: boolean
-  onGrab: () => void
-  onDrop: (p: Vec3) => void
+  apply: (state: HandleState<unknown>, t: Object3D) => void
+  children: React.ReactNode
 }) {
+  const store = useRef<HandleStore<unknown>>(null)
   const bar = useRef<Group>(null)
   const [width, setWidth] = useState(0.3)
   const frame = useRef(0)
@@ -89,16 +191,16 @@ function GrabBar({ target, content, selected, onGrab, onDrop }: {
   })
   return (
     <Handle
+      ref={store}
       targetRef={target}
       translate
-      rotate={false}
-      scale={false}
-      apply={(state, t) => {
-        if (state.first) onGrab()
-        defaultApply(state, t)
-        if (state.last) onDrop(t.position.toArray() as Vec3)
-      }}
+      multitouch
+      filter={(e) => e.pointerType === "grab" || e.object.parent === bar.current}
+      // rotate/scale must come from here, not props: props override getHandleOptions.
+      getHandleOptions={() => ((store.current?.inputState.size ?? 0) > 1 ? TWO_POINTERS : ONE_POINTER)}
+      apply={apply}
     >
+      {children}
       <group ref={bar} position={[0, -0.25, 0]}>
         <mesh rotation={[0, 0, Math.PI / 2]}>
           <capsuleGeometry args={[0.012, width, 4, 12]} />

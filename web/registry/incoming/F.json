@@ -1,0 +1,240 @@
+[
+  {
+    "name": "env-studio-loft",
+    "displayName": "Studio Loft",
+    "category": "environments",
+    "kind": "environment",
+    "style": "default",
+    "tags": [
+      "environment",
+      "indoor",
+      "loft",
+      "warm",
+      "daylight",
+      "wood",
+      "brick"
+    ],
+    "aliases": [
+      "loft",
+      "studio",
+      "apartment",
+      "warehouse",
+      "indoor",
+      "room"
+    ],
+    "description": "Warm indoor loft with an oak floor, brick wall, tall steel windows and soft daylight.",
+    "file": "components/spatial/env-studio-loft.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "tint",
+        "type": "color",
+        "default": "#ffe2bf",
+        "label": "Daylight color"
+      }
+    ]
+  },
+  {
+    "name": "env-space",
+    "displayName": "Outer Space",
+    "category": "environments",
+    "kind": "environment",
+    "style": "default",
+    "tags": [
+      "environment",
+      "space",
+      "stars",
+      "planet",
+      "nebula",
+      "sci-fi"
+    ],
+    "aliases": [
+      "space",
+      "stars",
+      "galaxy",
+      "cosmos",
+      "outer space",
+      "nebula"
+    ],
+    "description": "Deep space with a star field, a ringed gas giant, nebula glow and a floating hex platform under you.",
+    "file": "components/spatial/env-space.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "tint",
+        "type": "color",
+        "default": "#6c5cff",
+        "label": "Nebula and platform glow color"
+      }
+    ]
+  },
+  {
+    "name": "env-forest",
+    "displayName": "Forest Clearing",
+    "category": "environments",
+    "kind": "environment",
+    "style": "default",
+    "tags": [
+      "environment",
+      "outdoor",
+      "nature",
+      "forest",
+      "trees",
+      "sky",
+      "low-poly"
+    ],
+    "aliases": [
+      "forest",
+      "woods",
+      "nature",
+      "outdoors",
+      "trees",
+      "park"
+    ],
+    "description": "Outdoor clearing ringed by stylised low-poly trees under a gradient sky with light fog.",
+    "file": "components/spatial/env-forest.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "tint",
+        "type": "color",
+        "default": "#fff0d6",
+        "label": "Sunlight color"
+      }
+    ]
+  },
+  {
+    "name": "env-concert-stage",
+    "displayName": "Concert Stage",
+    "category": "environments",
+    "kind": "environment",
+    "style": "default",
+    "tags": [
+      "environment",
+      "stage",
+      "concert",
+      "music",
+      "lights",
+      "night",
+      "truss"
+    ],
+    "aliases": [
+      "concert",
+      "stage",
+      "gig",
+      "club",
+      "venue",
+      "show"
+    ],
+    "description": "Dark concert stage with truss, sweeping colored beams, an LED wall, a glossy floor and an audience glow.",
+    "file": "components/spatial/env-concert-stage.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "tint",
+        "type": "color",
+        "default": "#b14dff",
+        "label": "Main light and LED color"
+      }
+    ]
+  },
+  {
+    "name": "env-gallery",
+    "displayName": "Minimal Gallery",
+    "category": "environments",
+    "kind": "environment",
+    "style": "default",
+    "tags": [
+      "environment",
+      "gallery",
+      "museum",
+      "minimal",
+      "white",
+      "indoor",
+      "art"
+    ],
+    "aliases": [
+      "gallery",
+      "museum",
+      "white room",
+      "exhibition",
+      "showroom"
+    ],
+    "description": "Minimal white gallery with soft even light, framed abstract works and plinths with turning sculptures.",
+    "file": "components/spatial/env-gallery.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "tint",
+        "type": "color",
+        "default": "#2f5bea",
+        "label": "Accent color for artworks"
+      }
+    ]
+  }
+]
