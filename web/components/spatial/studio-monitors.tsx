@@ -73,7 +73,7 @@ function Cabinet({ finish, env, cone, wooferRef, ledRef, on, onPower }: CabinetP
       <RoundedBox args={[CW - 0.006, CH - 0.006, 0.004]} radius={0.0018} smoothness={2} position={[0, 0, front - 0.0015]}>
         <meshPhysicalMaterial color={f.baffle} roughness={0.35} clearcoat={0.6} envMap={env} />
       </RoundedBox>
-      {/* woofer: frame ring, rubber surround, cone, dust cap — the moving part pulses with the master output */}
+      {/* woofer: frame ring, rubber surround, cone, dust cap - the moving part pulses with the master output */}
       <group position={[0, WOOFER_Y, front + 0.001]}>
         <mesh>
           <torusGeometry args={[0.064, 0.0045, 10, 48]} />

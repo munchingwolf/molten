@@ -163,7 +163,7 @@ export default function CoinPickup({ value, onChange, color = "#FFC94D", respawn
         <group ref={chip} position={[0, -0.095, 0]}>
           <Container pixelSize={0.002} pointerEvents="none" flexDirection="row" alignItems="center" gap={6} paddingX={10} paddingY={4} borderRadius={12} backgroundColor="#15171E" borderWidth={1} borderColor="#323745">
             <Coins width={14} height={14} color={color} />
-            <Text fontSize={14} fontWeight="semi-bold" color="#EEF0F4">{`× ${count}`}</Text>
+            <Text fontSize={14} fontWeight="semi-bold" color="#EEF0F4">{`x ${count}`}</Text>
           </Container>
         </group>
       )}

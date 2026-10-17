@@ -32,7 +32,7 @@ function getMatcap() {
   return matcap
 }
 
-/** Rounded-rect plane whose UVs span 0–1, so a texture fills it. */
+/** Rounded-rect plane whose UVs span 0-1, so a texture fills it. */
 function roundedRect(w: number, h: number, r: number) {
   const x = -w / 2
   const y = -h / 2
@@ -157,7 +157,7 @@ function Card({ url, index, count, focused, onPress, plane, frame, matcap }: Car
   const active = hover || focused
   return (
     <group ref={lift}>
-      {/* Press target: the image itself (16 × 10.7 cm). */}
+      {/* Press target: the image itself (16 x 10.7 cm). */}
       <mesh geometry={plane} onClick={press} onPointerOver={() => setHover(true)} onPointerOut={() => setHover(false)}>
         {tex ? <meshBasicMaterial map={tex} toneMapped={false} /> : <meshBasicMaterial color="#1B1E26" />}
       </mesh>

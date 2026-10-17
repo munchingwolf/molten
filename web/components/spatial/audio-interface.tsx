@@ -114,7 +114,7 @@ function Knob({ x, r, t, onSet, root, env, halo }: KnobProps) {
 
 /**
  * Two-input USB audio interface with gain halos that light green/amber/red from the live master level,
- * and a MONITOR knob that really sets the speaker volume (Tone.js). Every knob is 0–1, controlled-or-uncontrolled.
+ * and a MONITOR knob that really sets the speaker volume (Tone.js). Every knob is 0-1, controlled-or-uncontrolled.
  */
 export default function AudioInterface({
   gain1,
@@ -127,7 +127,7 @@ export default function AudioInterface({
 }: {
   gain1?: number
   gain2?: number
-  /** Speaker volume, 0–1 (0.8 = unity). */
+  /** Speaker volume, 0-1 (0.8 = unity). */
   monitor?: number
   onGain1Change?: (v: number) => void
   onGain2Change?: (v: number) => void

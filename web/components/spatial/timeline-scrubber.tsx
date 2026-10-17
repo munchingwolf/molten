@@ -8,7 +8,7 @@ import { Container, Text } from "@react-three/uikit"
 type Props = { value?: number; onChange?: (v: number) => void; duration?: number; label?: string }
 
 const W = 0.5 // rail length, metres
-const PW = 300 // card, px at pixelSize 0.002 → 60 × 19 cm
+const PW = 300 // card, px at pixelSize 0.002 -> 60 x 19 cm
 const PH = 96
 const RAIL_Y = -0.03
 const Z = 0.014 // rail floats 1.4 cm in front of the card
@@ -36,7 +36,7 @@ const clock = (s: number) => {
   return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, "0")}`
 }
 
-/** 50 cm timeline. Drag the thumb or tap the rail to scrub; hover the rail to preview a time. `value` is 0–1, controlled or uncontrolled. */
+/** 50 cm timeline. Drag the thumb or tap the rail to scrub; hover the rail to preview a time. `value` is 0-1, controlled or uncontrolled. */
 export default function TimelineScrubber({ value, onChange, duration = 225, label = "Timeline" }: Props) {
   const [inner, setInner] = useState(0.35)
   const v = Math.min(1, Math.max(0, value ?? inner))
@@ -165,7 +165,7 @@ export default function TimelineScrubber({ value, onChange, duration = 225, labe
             </Container>
           </group>
         )}
-        {/* Rail hit box: 54 × 5 cm, so a fingertip or ray finds it easily. Pointer capture keeps the drag alive off the rail. */}
+        {/* Rail hit box: 54 x 5 cm, so a fingertip or ray finds it easily. Pointer capture keeps the drag alive off the rail. */}
         <mesh
           visible={false}
           onPointerDown={down}

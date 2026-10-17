@@ -42,7 +42,7 @@ function layoutFrame(p: LayoutProps, sizes: Size[]): { placements: Placement[]; 
       const c = cursor + sz[main] / 2
       cursor += sz[main] + p.gap
       const off = p.align === "center" || !p.align ? 0 : ((p.align === "start" ? -1 : 1) * (cross - sz[1 - main])) / 2
-      // rows run left→right (start = top); columns run top→bottom (start = left)
+      // rows run left->right (start = top); columns run top->bottom (start = left)
       const position: Vec3 = main === 0 ? [c, -off, 0] : [off, -c, 0]
       return { position, rotation: [0, 0, 0] as Vec3 }
     })

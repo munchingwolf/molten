@@ -9,7 +9,7 @@ const W = 0.2 // track length in metres
 
 type Props = { value?: number; onChange?: (v: number) => void; label?: string }
 
-/** 20 cm horizontal slider, value 0–1. Drag along it (mouse, ray or fingertip). Controlled via `value`, or uncontrolled. */
+/** 20 cm horizontal slider, value 0-1. Drag along it (mouse, ray or fingertip). Controlled via `value`, or uncontrolled. */
 export default function Slider({ value, onChange, label = "Slider" }: Props) {
   const [inner, setInner] = useState(0.5)
   const [hover, setHover] = useState(false)

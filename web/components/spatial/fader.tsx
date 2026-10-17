@@ -30,7 +30,7 @@ type Props = {
   max?: number
 }
 
-/** 21 cm vertical fader with a real 3D cap. Grab the cap and slide, or tap the track to jump. `value` is in min–max units (default 0–1). Controlled via `value`, or uncontrolled. */
+/** 21 cm vertical fader with a real 3D cap. Grab the cap and slide, or tap the track to jump. `value` is in min-max units (default 0-1). Controlled via `value`, or uncontrolled. */
 export default function Fader({ value, onChange, label = "Fader", color = ACCENT, min = 0, max = 1 }: Props) {
   const span = max - min || 1
   const [inner, setInner] = useState(min + span * 0.75)
@@ -39,7 +39,7 @@ export default function Fader({ value, onChange, label = "Fader", color = ACCENT
   const root = useRef<Group>(null)
   const drag = useRef<{ id: number; offset: number } | null>(null)
   const v = Math.min(max, Math.max(min, value ?? inner))
-  const t = (v - min) / span // 0–1 cap position
+  const t = (v - min) / span // 0-1 cap position
 
   const plate = useMemo(() => new RoundedBoxGeometry(W, H, 0.012, 4, 0.008), [])
   const cap = useMemo(() => new RoundedBoxGeometry(CAP[0], CAP[1], CAP[2], 4, 0.005), [])
@@ -50,7 +50,7 @@ export default function Fader({ value, onChange, label = "Fader", color = ACCENT
     if (value === undefined) setInner(c)
     onChange?.(c)
   }
-  // Pointer position along the track, 0–1, in the fader's own space (works when the Studio rotates or scales it).
+  // Pointer position along the track, 0-1, in the fader's own space (works when the Studio rotates or scales it).
   const at = (e: ThreeEvent<PointerEvent>) => (root.current ? root.current.worldToLocal(e.point.clone()).y / TRAVEL + 0.5 : t)
 
   const down = (e: ThreeEvent<PointerEvent>) => {

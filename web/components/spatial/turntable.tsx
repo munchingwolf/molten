@@ -71,7 +71,7 @@ function recordTexture(label: string, labelColor: string) {
   g.font = "700 22px Helvetica, Arial, sans-serif"
   g.fillText(label.slice(0, 14).toUpperCase(), m, m - 22)
   g.font = "500 13px Helvetica, Arial, sans-serif"
-  g.fillText("SIDE A  ·  33⅓ RPM", m, m + 34)
+  g.fillText("SIDE A  -  33⅓ RPM", m, m + 34)
   const t = new THREE.CanvasTexture(c)
   t.colorSpace = THREE.SRGBColorSpace
   t.anisotropy = 4
@@ -94,7 +94,7 @@ function strobeTexture() {
   return t
 }
 
-/** A small lo-fi groove on the shared Tone transport: Am7–Dm7–G7–Cmaj7 keys, bass, kick, snare and vinyl hiss. */
+/** A small lo-fi groove on the shared Tone transport: Am7-Dm7-G7-Cmaj7 keys, bass, kick, snare and vinyl hiss. */
 function startGroove() {
   const out = new Tone.Volume(-8).toDestination()
   const warm = new Tone.Filter(1600, "lowpass").connect(out)

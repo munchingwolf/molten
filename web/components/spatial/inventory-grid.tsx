@@ -47,7 +47,7 @@ function glowTexture() {
 const iconFor = (name: string) => ICONS[name.trim().toLowerCase() as keyof typeof ICONS] ?? Package
 const title = (s: string) => s.trim().charAt(0).toUpperCase() + s.trim().slice(1)
 
-/** 49 × 39 cm game inventory: tap a slot to equip its item (spring pop, mint glow ring, "shing"). */
+/** 49 x 39 cm game inventory: tap a slot to equip its item (spring pop, mint glow ring, "shing"). */
 export default function InventoryGrid({ items = DEFAULT_ITEMS, cols = 4, rows = 2, value, color = "#9FE7D2", onChange }: Props) {
   const c = Math.max(1, Math.round(cols))
   const r = Math.max(1, Math.round(rows))

@@ -47,9 +47,12 @@ byName.set("frame", {
 })
 
 // Truth comes from the filesystem: a file that exists is ready, a missing one is "soon".
+// Components that failed visual QA (registry/qa-broken.json) are held back as "soon" until fixed.
+const brokenPath = join(web, "registry/qa-broken.json")
+const broken = new Set(existsSync(brokenPath) ? JSON.parse(readFileSync(brokenPath, "utf8")) : [])
 const all = [...byName.values()].map((e) => {
   const has = existsSync(join(web, e.file ?? `components/spatial/${e.name}.tsx`))
-  return { ...e, status: has ? (e.status === "soon" && !e.file ? "soon" : "ready") : "soon" }
+  return { ...e, status: has && !broken.has(e.name) ? (e.status === "soon" && !e.file ? "soon" : "ready") : "soon" }
 })
 writeFileSync(indexPath, JSON.stringify(all, null, 2) + "\n")
 

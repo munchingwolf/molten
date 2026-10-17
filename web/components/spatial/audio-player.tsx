@@ -9,9 +9,9 @@ import { Pause, Play } from "@react-three/uikit-lucide"
 type Props = { src?: string; label?: string; artist?: string }
 
 const SAMPLE = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-const PW = 300 // card, px at pixelSize 0.002 → 60 × 24 cm
+const PW = 300 // card, px at pixelSize 0.002 -> 60 x 24 cm
 const PH = 120
-const px = (x: number) => (x - PW / 2) * 0.002 // card px → metres from centre
+const px = (x: number) => (x - PW / 2) * 0.002 // card px -> metres from centre
 const py = (y: number) => (PH / 2 - y) * 0.002
 const DISC = 0.092 // vinyl radius
 const DISC_X = px(64)
@@ -232,7 +232,7 @@ export default function AudioPlayer({ src = SAMPLE, label = "SoundHelix Song 1",
           <boxGeometry args={[1, 0.006, 0.002]} />
           <meshBasicMaterial color="#9FE7D2" toneMapped={false} />
         </mesh>
-        {/* 21 × 3 cm hit strip; capture keeps a drag alive past its ends. */}
+        {/* 21 x 3 cm hit strip; capture keeps a drag alive past its ends. */}
         <mesh
           visible={false}
           position={[TRACK_L + TRACK_W / 2, 0, 0.006]}

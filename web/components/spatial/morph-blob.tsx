@@ -95,7 +95,7 @@ export default function MorphBlob({
       onPointerDown={poke}
       onClick={() => onPress?.()}
     >
-      {/* displaced in the shader (raycasts hit the undisplaced sphere); 120×72 ≈ 17k triangles */}
+      {/* displaced in the shader (raycasts hit the undisplaced sphere); 120x72 ≈ 17k triangles */}
       <sphereGeometry args={[radius, 120, 72]} />
       <shaderMaterial uniforms={u} vertexShader={BLOB_VERT} fragmentShader={BLOB_FRAG} />
     </mesh>

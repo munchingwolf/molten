@@ -9,7 +9,7 @@ import { TrendingDown, TrendingUp } from "@react-three/uikit-lucide"
 
 type Props = { label?: string; value?: number | string; delta?: number; caption?: string }
 
-const W = 230 // px at pixelSize 0.002 → 46 cm
+const W = 230 // px at pixelSize 0.002 -> 46 cm
 const H = 124
 
 let matcap: CanvasTexture | undefined

@@ -15,7 +15,7 @@ const D = 0.018
 const CH = 17 // px per digit cell: fixed width so the rolling number doesn't jitter
 const SLOTS = 4 // "+N" floaters in flight at once
 
-/** 20 × 10 cm score panel: the number rolls up on a spring, pops and floats "+N". Tap to add `step`; the coin blip climbs in pitch on fast taps. */
+/** 20 x 10 cm score panel: the number rolls up on a spring, pops and floats "+N". Tap to add `step`; the coin blip climbs in pitch on fast taps. */
 export default function ScoreCounter({ value, step = 10, label = "Score", color = "#FFC94D", digits = 5, onChange }: Props) {
   const [inner, setInner] = useState(0)
   const v = value ?? inner

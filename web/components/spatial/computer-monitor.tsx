@@ -149,7 +149,7 @@ function drawBackground(title: string) {
   g.fillRect(0, CH - 26, CW, 26)
   g.fillStyle = "#7d8390"
   g.font = "500 11px Helvetica, Arial, sans-serif"
-  g.fillText("48 kHz  ·  24-bit  ·  CPU 12%", 12, CH - 9)
+  g.fillText("48 kHz  -  24-bit  -  CPU 12%", 12, CH - 9)
   return c
 }
 
@@ -160,7 +160,7 @@ function drawBackground(title: string) {
 export default function ComputerMonitor({
   on,
   onChange,
-  title = "Spatial Session — Arrangement",
+  title = "Spatial Session - Arrangement",
   color = "#9FE7D2",
 }: {
   on?: boolean

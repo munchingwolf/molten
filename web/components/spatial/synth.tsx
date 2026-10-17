@@ -44,7 +44,7 @@ type Props = {
   color?: string
 }
 
-/** 0–1 knob value → filter cutoff in Hz, exponential from 80 Hz to 12 kHz so the sweep sounds even. */
+/** 0-1 knob value -> filter cutoff in Hz, exponential from 80 Hz to 12 kHz so the sweep sounds even. */
 const toHz = (c: number) => 80 * Math.pow(150, c)
 const toDb = (v: number) => 40 * Math.log10(Math.max(1e-4, v))
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n))
@@ -187,8 +187,8 @@ function Pad({ note, x, color, geometry, onDown, onUp }: PadProps) {
 }
 
 /**
- * 36 × 20 cm mono synth: 8 pokeable note pads, a lowpass filter with `cutoff` and `resonance` dials (0–1 each),
- * last-note priority with glide. Output runs through a channel with `volume` (0–1), `pan` (-1…1) and `mute`.
+ * 36 x 20 cm mono synth: 8 pokeable note pads, a lowpass filter with `cutoff` and `resonance` dials (0-1 each),
+ * last-note priority with glide. Output runs through a channel with `volume` (0-1), `pan` (-1...1) and `mute`.
  */
 export default function Synth({
   cutoff,
@@ -288,7 +288,7 @@ export default function Synth({
             {label}
           </Text>
           <Text fontSize={10} color={FAINT}>
-            {`${wave.toUpperCase()} · MONO · LP24`}
+            {`${wave.toUpperCase()} - MONO - LP24`}
           </Text>
         </Container>
       </group>

@@ -30,7 +30,7 @@ type Props = {
 
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n))
 
-/** 20 cm XY pad: drag the glowing puck to set two values at once (0–1 each). Controlled via `x` / `y`, or uncontrolled. */
+/** 20 cm XY pad: drag the glowing puck to set two values at once (0-1 each). Controlled via `x` / `y`, or uncontrolled. */
 export default function XyPad({ x, y, onXChange, onYChange, onChange, label = "XY Pad", color = ACCENT }: Props) {
   const [inner, setInner] = useState({ x: 0.5, y: 0.5 })
   const [hover, setHover] = useState(false)

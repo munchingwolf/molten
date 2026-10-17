@@ -8,7 +8,7 @@ import { CapsuleGeometry, Color, CylinderGeometry, MeshBasicMaterial, MeshStanda
 
 type Props = { value?: number; max?: number; label?: string; color?: string; onChange?: (v: number) => void }
 
-const L = 0.27 // straight part of the tube; the round caps add 2 × R
+const L = 0.27 // straight part of the tube; the round caps add 2 x R
 const R = 0.018 // glass tube radius
 const RF = 0.0135 // fill radius
 const X0 = -L / 2

@@ -31,8 +31,8 @@ const MUTE_Y = 0.05
 const SWEEP = 1.5 * Math.PI
 const SEGS = 12
 
-const angle = (t: number) => 1.25 * Math.PI - t * SWEEP // knob angle for 0–1, CCW from +x
-/** Fader position (0–1) → gain in dB, on a 40·log10 taper: 0.75 ≈ -5 dB, 0.5 ≈ -12 dB. */
+const angle = (t: number) => 1.25 * Math.PI - t * SWEEP // knob angle for 0-1, CCW from +x
+/** Fader position (0-1) -> gain in dB, on a 40-log10 taper: 0.75 ≈ -5 dB, 0.5 ≈ -12 dB. */
 const toDb = (v: number) => 40 * Math.log10(Math.max(0, v))
 
 type Props = {
@@ -47,7 +47,7 @@ type Props = {
 }
 
 /**
- * 10 × 40 cm channel strip: 3D fader (`volume` 0–1), pan knob (`pan` -1…1, double-click to centre), mute button and a
+ * 10 x 40 cm channel strip: 3D fader (`volume` 0-1), pan knob (`pan` -1...1, double-click to centre), mute button and a
  * post-fader mini meter of the master output. Each value is controlled via its prop, or uncontrolled.
  * Wire volume/pan/mute to a synth or loop player (same props) to mix it.
  */
@@ -96,7 +96,7 @@ export default function MixerStrip({
     const m = meter.current
     if (!m) return
     const g = m.getValue()
-    // Post-fader: master level, plus this strip's gain, silenced by mute. -48…0 dB → 0…1.
+    // Post-fader: master level, plus this strip's gain, silenced by mute. -48...0 dB -> 0...1.
     const db = Tone.gainToDb(Array.isArray(g) ? Math.max(...g) : g) + (muted ? -Infinity : toDb(vol))
     const n = Math.round(Math.min(1, Math.max(0, (db + 48) / 48)) * SEGS)
     if (n === lit.current) return
@@ -142,7 +142,7 @@ export default function MixerStrip({
     const d = drag.current
     if (!d || d.id !== e.pointerId) return
     if (d.kind === "fader") setVol(faderT(e) - d.offset)
-    else setPan(d.v + ((localY(e) - d.y) / 0.12) * 2) // 12 cm of drag sweeps L→R
+    else setPan(d.v + ((localY(e) - d.y) / 0.12) * 2) // 12 cm of drag sweeps L->R
   }
   const up = (e: ThreeEvent<PointerEvent>) => {
     if (drag.current?.id !== e.pointerId) return

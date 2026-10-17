@@ -17,7 +17,6 @@ const C_slider = lazy(() => import("@/components/spatial/slider"))
 const C_knob = lazy(() => import("@/components/spatial/knob"))
 const C_spring_toggle = lazy(() => import("@/components/spatial/spring-toggle"))
 const C_checkbox = lazy(() => import("@/components/spatial/checkbox"))
-const C_tabs = lazy(() => import("@/components/spatial/tabs"))
 const C_stepper = lazy(() => import("@/components/spatial/stepper"))
 const C_glass_card = lazy(() => import("@/components/spatial/glass-card"))
 const C_flip_card = lazy(() => import("@/components/spatial/flip-card"))
@@ -134,7 +133,6 @@ const C_neon_sign = lazy(() => import("@/components/spatial/neon-sign"))
 const C_wall_window = lazy(() => import("@/components/spatial/wall-window"))
 const C_floor_lamp = lazy(() => import("@/components/spatial/floor-lamp"))
 const C_wall_art = lazy(() => import("@/components/spatial/wall-art"))
-const C_kinetic_title = lazy(() => import("@/components/spatial/kinetic-title"))
 const C_particle_field = lazy(() => import("@/components/spatial/particle-field"))
 const C_morph_blob = lazy(() => import("@/components/spatial/morph-blob"))
 const C_gradient_orb = lazy(() => import("@/components/spatial/gradient-orb"))
@@ -145,7 +143,6 @@ const C_typewriter_panel = lazy(() => import("@/components/spatial/typewriter-pa
 const C_aurora_ribbon = lazy(() => import("@/components/spatial/aurora-ribbon"))
 const C_reveal_card = lazy(() => import("@/components/spatial/reveal-card"))
 const C_liquid_button = lazy(() => import("@/components/spatial/liquid-button"))
-const C_spotlight_text = lazy(() => import("@/components/spatial/spotlight-text"))
 const C_env_light_studio = lazy(() => import("@/components/spatial/env-light-studio"))
 const C_env_meadow = lazy(() => import("@/components/spatial/env-meadow"))
 const C_env_beach = lazy(() => import("@/components/spatial/env-beach"))
@@ -173,7 +170,6 @@ export const components: Record<string, ComponentType> = {
   "knob": C_knob as ComponentType,
   "spring-toggle": C_spring_toggle as ComponentType,
   "checkbox": C_checkbox as ComponentType,
-  "tabs": C_tabs as ComponentType,
   "stepper": C_stepper as ComponentType,
   "glass-card": C_glass_card as ComponentType,
   "flip-card": C_flip_card as ComponentType,
@@ -290,7 +286,6 @@ export const components: Record<string, ComponentType> = {
   "wall-window": C_wall_window as ComponentType,
   "floor-lamp": C_floor_lamp as ComponentType,
   "wall-art": C_wall_art as ComponentType,
-  "kinetic-title": C_kinetic_title as ComponentType,
   "particle-field": C_particle_field as ComponentType,
   "morph-blob": C_morph_blob as ComponentType,
   "gradient-orb": C_gradient_orb as ComponentType,
@@ -301,7 +296,6 @@ export const components: Record<string, ComponentType> = {
   "aurora-ribbon": C_aurora_ribbon as ComponentType,
   "reveal-card": C_reveal_card as ComponentType,
   "liquid-button": C_liquid_button as ComponentType,
-  "spotlight-text": C_spotlight_text as ComponentType,
   "env-light-studio": C_env_light_studio as ComponentType,
   "env-meadow": C_env_meadow as ComponentType,
   "env-beach": C_env_beach as ComponentType,

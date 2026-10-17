@@ -119,7 +119,7 @@ const CLIPS: Clip[] = [
     drum: false,
     make: (out) => {
       const s = new Tone.FMSynth({ harmonicity: 2, modulationIndex: 3, envelope: { attack: 0.01, decay: 0.3, sustain: 0.2, release: 0.4 }, volume: -18 }).connect(out)
-      const motif: Record<number, number> = { 0: 2, 3: 1, 6: 0, 8: 1, 11: 2 } // step → chord tone
+      const motif: Record<number, number> = { 0: 2, 3: 1, 6: 0, 8: 1, 11: 2 } // step -> chord tone
       return { play: (st, b, t) => void (st in motif && s.triggerAttackRelease(up(CHORDS[b][motif[st]], 12), "8n", t)), dispose: () => s.dispose() }
     },
   },
@@ -216,10 +216,10 @@ function Pad({ i, x, y, on, playing, geometry, glow, onToggle, skin, halo }: Pad
 }
 
 /**
- * 2 × 4 clip launcher on the global Tone transport: drums on top, bass/pad/arp/lead below, a four-bar loop in A minor.
+ * 2 x 4 clip launcher on the global Tone transport: drums on top, bass/pad/arp/lead below, a four-bar loop in A minor.
  * Tap a pad to queue its loop; it starts (or stops) on the next bar and pulses with the beat while playing.
  * Starts the transport on the first tap. `value` = which clips are on (controlled), or uncontrolled.
- * Output runs through a channel with `volume` (0–1), `pan` (-1…1) and `mute`.
+ * Output runs through a channel with `volume` (0-1), `pan` (-1...1) and `mute`.
  */
 export default function LoopPlayer({ value, onChange, volume = 0.8, pan = 0, mute = false, label = "Loops" }: Props) {
   const [inner, setInner] = useState<boolean[]>(() => CLIPS.map(() => false))

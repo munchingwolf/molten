@@ -11,7 +11,7 @@ type Props = {
   /** The digits typed so far. */
   value?: string
   onChange?: (v: string) => void
-  /** Fires when ✓ is pressed. */
+  /** Fires when ok is pressed. */
   onPress?: () => void
   label?: string
   maxLength?: number
@@ -21,7 +21,7 @@ type Props = {
   size?: number
 }
 
-const KW = 0.05 // key 5 × 4.4 cm
+const KW = 0.05 // key 5 x 4.4 cm
 const KH = 0.044
 const GAP = 0.006
 const D = 0.014
@@ -30,7 +30,7 @@ const DISPLAY_H = 0.05
 const TOTAL_H = DISPLAY_H + 0.01 + 4 * KH + 3 * GAP
 const KEYS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "del", "0", "ok"]
 
-/** 16 × 25 cm keypad with a display: 12 pressable 3D keys, ⌫ to delete, ✓ to submit (`onPress`). Controlled via `value`, or uncontrolled. */
+/** 16 x 25 cm keypad with a display: 12 pressable 3D keys, ⌫ to delete, ok to submit (`onPress`). Controlled via `value`, or uncontrolled. */
 export default function NumberPad({ value, onChange, onPress, label = "Enter code", maxLength = 6, mask = false, color = "#9FE7D2", size = 1 }: Props) {
   const [inner, setInner] = useState("")
   const text = (value ?? inner).slice(0, Math.max(1, maxLength))
@@ -67,7 +67,7 @@ export default function NumberPad({ value, onChange, onPress, label = "Enter cod
         <group position={[0, 0, 0.001]}>
           <Container pixelSize={0.002} pointerEvents="none">
             <Text fontSize={text ? 16 : 11} fontWeight={text ? "bold" : "normal"} letterSpacing={text ? 3 : 0} color={text ? "#EEF0F4" : "#6B7180"}>
-              {text ? (mask ? "•".repeat(text.length) : text) : label}
+              {text ? (mask ? "-".repeat(text.length) : text) : label}
             </Text>
           </Container>
         </group>

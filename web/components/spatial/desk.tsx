@@ -11,7 +11,7 @@ const TOP = 0.028
 const LEG = 0.035
 const H = 0.75
 
-/** Modern work desk, 120 × 60 cm and 75 cm tall: a solid top on a slim steel frame. Decorative. `color` sets the top. */
+/** Modern work desk, 120 x 60 cm and 75 cm tall: a solid top on a slim steel frame. Decorative. `color` sets the top. */
 export default function Desk({ color = "#CBB08F" }: Props) {
   const top = useMemo(() => new RoundedBoxGeometry(W, TOP, D, 3, 0.008), [])
   useEffect(() => () => top.dispose(), [top])

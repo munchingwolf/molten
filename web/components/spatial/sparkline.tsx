@@ -19,7 +19,7 @@ import { Container, Text } from "@react-three/uikit"
 type Props = { data?: number[]; label?: string; color?: string; unit?: string }
 
 const SAMPLE = [12, 18, 15, 22, 19, 27, 24, 31, 29, 36, 33, 41]
-const PW = 260 // card, px at pixelSize 0.002 → 52 × 28 cm
+const PW = 260 // card, px at pixelSize 0.002 -> 52 x 28 cm
 const PH = 140
 const LW = 0.44 // line area, metres
 const LH = 0.1
@@ -187,7 +187,7 @@ export default function Sparkline({ data = SAMPLE, label = "Revenue ($k)", color
           </group>
         </>
       )}
-      {/* Hover strip over the line area (48 × 14 cm). */}
+      {/* Hover strip over the line area (48 x 14 cm). */}
       <mesh
         visible={false}
         position={[0, LY + LH / 2, LZ]}

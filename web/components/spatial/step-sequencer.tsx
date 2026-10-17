@@ -37,7 +37,7 @@ function makeVoice(sound: Sound): { hit: (time: number) => void; dispose: () => 
   return { hit: (t) => kick.triggerAttackRelease("C1", "8n", t), dispose: () => kick.dispose() }
 }
 
-/** 4 × 16 drum grid on the global Tone transport (start it with the Transport). Controlled via `steps`, or uncontrolled. */
+/** 4 x 16 drum grid on the global Tone transport (start it with the Transport). Controlled via `steps`, or uncontrolled. */
 export default function StepSequencer({ steps, onChange }: Props) {
   const [inner, setInner] = useState(DEFAULT)
   const [step, setStep] = useState(-1)

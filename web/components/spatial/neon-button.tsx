@@ -26,7 +26,7 @@ function outline(radius: number) {
   return new TubeGeometry(new CatmullRomCurve3(pts, true, "centripetal"), 180, radius, 6, true)
 }
 
-/** 16 × 5.6 cm dark button with a neon tube outline that breathes at rest, burns steady on hover and flares on press. */
+/** 16 x 5.6 cm dark button with a neon tube outline that breathes at rest, burns steady on hover and flares on press. */
 export default function NeonButton({ label = "Neon", color = "#9FE7D2", size = 1, onPress }: Props) {
   const body = useRef<Group>(null)
   const coreMat = useRef<MeshBasicMaterial>(null)

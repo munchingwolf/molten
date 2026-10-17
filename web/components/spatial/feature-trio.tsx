@@ -17,7 +17,7 @@ type Props = {
   onChange?: (index: number) => void
 }
 
-const CARD_W = 270 // px at pixelSize 0.002 → 54 cm
+const CARD_W = 270 // px at pixelSize 0.002 -> 54 cm
 const CARD_H = 300
 const PX = 0.002
 const GAP = 0.6 // m between card centres

@@ -87,7 +87,7 @@ export default function AuroraRibbon({
     <group ref={group}>
       {RIBBONS.map((r, i) => (
         <mesh key={i} position={[0, r.y, r.z]} scale={[width * r.sx, 1, 1]} frustumCulled={false} raycast={() => null}>
-          {/* unit-length strip, scaled to `width`; 220×6 segments ≈ 2.6k triangles */}
+          {/* unit-length strip, scaled to `width`; 220x6 segments ≈ 2.6k triangles */}
           <planeGeometry args={[1, 0.3, 220, 6]} />
           <shaderMaterial
             uniforms={ribbons[i]}

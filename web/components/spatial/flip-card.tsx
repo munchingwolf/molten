@@ -29,7 +29,7 @@ type Props = {
 /** A 6 mm thick card that flips over (with a little lift) when you poke, pinch or click it. */
 export default function FlipCard({
   title = "Neon Drift",
-  subtitle = "Synth preset · 124 BPM",
+  subtitle = "Synth preset - 124 BPM",
   backTitle = "About this preset",
   backText = "Detuned saws through a slow filter sweep. Sits best under a four-on-the-floor kick.",
   front,

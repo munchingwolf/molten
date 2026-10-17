@@ -25,7 +25,7 @@ const LIFE = 0.5 // spark seconds
 type Bar = { z: number; zv: number; r: number; rv: number; glow: number }
 type Spark = { age: number; p: Vector3; v: Vector3 }
 
-/** 37 cm xylophone, one octave (C5–C6): poke or click a bar to play it. */
+/** 37 cm xylophone, one octave (C5-C6): poke or click a bar to play it. */
 export default function Xylophone({ notes = NOTES, colors = COLORS, onPress, onChange }: Props) {
   const n = notes.length
   const root = useRef<Group>(null)
@@ -41,7 +41,7 @@ export default function Xylophone({ notes = NOTES, colors = COLORS, onPress, onC
   const layout = useMemo(() => {
     const x = (i: number) => (i - (n - 1) / 2) * STEP
     const len = (i: number) => (n > 1 ? LONG + ((SHORT - LONG) * i) / (n - 1) : LONG)
-    // Rails follow the nodes, so they converge left→right like a real frame.
+    // Rails follow the nodes, so they converge left->right like a real frame.
     const node = (xx: number) => NODE * (n > 1 ? LONG + ((SHORT - LONG) * (xx - x(0))) / (x(n - 1) - x(0)) : LONG)
     const xl = x(0) - STEP * 0.75
     const xr = x(n - 1) + STEP * 0.75
@@ -68,8 +68,8 @@ export default function Xylophone({ notes = NOTES, colors = COLORS, onPress, onC
     const g = root.current
     if (!b || !g) return
     const p = g.worldToLocal(tmp.v.copy(e.point))
-    b.zv -= 0.09 // dip back ~4 mm…
-    b.rv -= (p.y / (layout.len(i) / 2)) * 1.2 // …and rock away from where it was struck
+    b.zv -= 0.09 // dip back ~4 mm...
+    b.rv -= (p.y / (layout.len(i) / 2)) * 1.2 // ...and rock away from where it was struck
     b.glow = 1
     tmp.c.set(color(i))
     const m = sparks.current

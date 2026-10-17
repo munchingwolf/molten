@@ -11,7 +11,7 @@ type Props = { label?: string; duration?: number; color?: string; size?: number;
 const R = 0.04 // 8 cm disc
 const D = 0.016
 
-// Disc with a rounded rim, facing +z (lathe profile runs bottom → top so normals face out).
+// Disc with a rounded rim, facing +z (lathe profile runs bottom -> top so normals face out).
 function puck(r: number, d: number, b: number) {
   const pts = [new Vector2(0, -d / 2)]
   const arc = (y: number, from: number) => {

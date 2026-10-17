@@ -166,7 +166,7 @@ function Fader({ x, v, set, root, capColor, env }: FaderProps) {
 
 /**
  * 8-channel mixing console: channel faders with mute buttons + LEDs, LCD scribble strips, and a MAIN fader that sets
- * the real master volume (Tone.js), with a live stereo meter. `values` (8 numbers, 0–1) and `muted` are controlled-or-uncontrolled.
+ * the real master volume (Tone.js), with a live stereo meter. `values` (8 numbers, 0-1) and `muted` are controlled-or-uncontrolled.
  */
 export default function MixingConsole({
   values,
@@ -181,7 +181,7 @@ export default function MixingConsole({
   onChange?: (values: number[]) => void
   muted?: boolean[]
   onMuteChange?: (muted: boolean[]) => void
-  /** MAIN fader 0–1 (0.8 = unity gain). Moves the real master output. */
+  /** MAIN fader 0-1 (0.8 = unity gain). Moves the real master output. */
   master?: number
   onMasterChange?: (v: number) => void
   /** Comma-separated scribble-strip names */

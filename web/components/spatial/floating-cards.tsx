@@ -8,7 +8,7 @@ import { Container, Text, withOpacity } from "@react-three/uikit"
 type Item = { title?: string; subtitle?: string; color?: string }
 
 type Props = {
-  /** 1–7 cards; each takes a title, subtitle and optional colour */
+  /** 1-7 cards; each takes a title, subtitle and optional colour */
   items?: Item[]
   /** Colour of the first card (cards blend toward secondary) */
   primaryColor?: string

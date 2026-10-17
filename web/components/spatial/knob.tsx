@@ -5,18 +5,18 @@ import type { ThreeEvent } from "@react-three/fiber"
 import { Container, Text } from "@react-three/uikit"
 
 const SWEEP = 1.5 * Math.PI // 270° from min to max
-const DRAG_RANGE = 0.15 // metres of vertical drag for the full min–max range
+const DRAG_RANGE = 0.15 // metres of vertical drag for the full min-max range
 
 type Props = { value?: number; onChange?: (v: number) => void; label?: string; min?: number; max?: number }
 
-/** 6 cm knob. Drag up/down (mouse, ray or fingertip) to turn. `value` is in min–max units (default 0–1). Controlled via `value`, or uncontrolled. */
+/** 6 cm knob. Drag up/down (mouse, ray or fingertip) to turn. `value` is in min-max units (default 0-1). Controlled via `value`, or uncontrolled. */
 export default function Knob({ value, onChange, label = "Knob", min = 0, max = 1 }: Props) {
   const span = max - min || 1
   const [inner, setInner] = useState(min + span / 2)
   const [hover, setHover] = useState(false)
   const drag = useRef<{ y: number; t: number } | null>(null)
   const v = Math.min(max, Math.max(min, value ?? inner))
-  const t = (v - min) / span // 0–1 position of the dial
+  const t = (v - min) / span // 0-1 position of the dial
 
   const set = (n: number) => {
     const c = min + Math.min(1, Math.max(0, n)) * span

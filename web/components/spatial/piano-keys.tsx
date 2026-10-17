@@ -51,7 +51,7 @@ function Key({ note, x, black, onDown, onUp }: KeyProps) {
   )
 }
 
-/** One octave (C4–C5) of pokeable piano keys. Notes sustain while held. */
+/** One octave (C4-C5) of pokeable piano keys. Notes sustain while held. */
 export default function PianoKeys({ onPress }: Props) {
   const synth = useRef<Tone.PolySynth | null>(null)
   const held = useRef(new Set<string>())

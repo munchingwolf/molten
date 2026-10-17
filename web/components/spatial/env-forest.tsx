@@ -56,7 +56,7 @@ function buildForest() {
     return [Math.sin(a) * d, Math.cos(a) * d] as const
   }
 
-  // Tree ring 7–22 m out: 70% two-tier pines, 30% round low-poly crowns.
+  // Tree ring 7-22 m out: 70% two-tier pines, 30% round low-poly crowns.
   for (let i = 0; i < 72; i++) {
     const a = (i / 72) * Math.PI * 2 + r() * 0.08
     const d = 7 + r() * 15

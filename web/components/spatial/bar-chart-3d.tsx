@@ -106,7 +106,7 @@ export default function BarChart3D({ data = SAMPLE, label = "Monthly active user
           >
             <meshMatcapMaterial matcap={mc} color={hover === i ? "#F2B48A" : color} />
           </mesh>
-          {/* Full-height column hit box: even a zero bar is easy to hover (6.6 × 26 cm). */}
+          {/* Full-height column hit box: even a zero bar is easy to hover (6.6 x 26 cm). */}
           <mesh
             visible={false}
             position={[0, H / 2, 0]}

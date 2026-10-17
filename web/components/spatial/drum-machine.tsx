@@ -47,7 +47,7 @@ const BUTTONS: [string, number][] = [["PLAY", 0.118], ["STOP", 0.084], ["TAP TEM
 const ROW_NAMES = ["KICK", "SNARE", "HAT", "CLAP"]
 const ROW_COLORS = ["#FF5A36", "#FFB020", "#36E2C8", "#B37CFF"]
 
-// Default beat: pad index → 16th-note steps
+// Default beat: pad index -> 16th-note steps
 const PATTERN: [number, number[]][] = [
   [0, [0, 3, 8, 10]],
   [4, [4, 12]],
@@ -165,7 +165,7 @@ export default function DrumMachine({
 }: {
   playing?: boolean
   onChange?: (playing: boolean) => void
-  /** Fires with the pad index (0–15) on every hand hit. */
+  /** Fires with the pad index (0-15) on every hand hit. */
   onPress?: (pad: number) => void
   /** One glow colour for every pad (default: a colour per row). */
   color?: string

@@ -28,7 +28,7 @@ function glowTexture() {
   return new CanvasTexture(c)
 }
 
-/** 16 × 5.6 cm button that glows brighter as a fingertip approaches, sinks when pressed and flashes on click. */
+/** 16 x 5.6 cm button that glows brighter as a fingertip approaches, sinks when pressed and flashes on click. */
 export default function GlowButton({ label = "Glow", color = "#9FE7D2", size = 1, onPress }: Props) {
   const body = useRef<Mesh>(null)
   const halo = useRef<MeshBasicMaterial>(null)

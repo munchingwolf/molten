@@ -13,6 +13,12 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 2:50: Evan: **visual QA of all 150 components** → 79 good / 37 ok / 30 ugly / 4 broken (`web/registry/qa-report.md`)
+- Fixed globally: marketplace previews now have lights + auto-framing (`components/site/preview.tsx` `Stage`: drei `<Bounds fit>`, camera slightly above). That cures the ~12 black objects, tiny controls and clipped big objects. **Danny: heads-up, I edited your preview.tsx (Stage wrapper only).**
+- Fixed: glyphs the uikit font lacks (curly quotes, ·, ×, …, —, →, ✓) swapped for ASCII in 61 component files.
+- Hidden as "soon" until fixed (`registry/qa-broken.json`, honoured by merge-registry): `tabs` (uikit throws), `kinetic-title` + `spotlight-text` (text never renders). Rug was only seen edge-on (fixed by the new camera).
+- Remaining "ugly" list (framing/palette nits) is in qa-report.md for Danny's polish pass.
+
 ### 2:52: Evan (session ek-b4): **UI-PLAN.md** (read it, Danny) + 4 web blocks + first 2 templates
 - **UI-PLAN.md** merges 4 planning agents: templates first then free building; components open like browser windows facing you; one dock that follows you (Danny decides: vr-dock vs vr-workspace); **🔒 = Play mode**; hide the gizmo in XR; laptop gets a Figma-style split + a scoped light theme; static previews. Owners are marked per item.
 - **Web category** (new): `hero-section`, `feature-trio`, `pricing-table`, `product-showcase`. Spring entrances, hover lift + tilt toward the pointer, light/dark `theme` prop.

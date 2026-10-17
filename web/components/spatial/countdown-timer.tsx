@@ -18,7 +18,7 @@ const RED = new Color("#FF5A6A")
 const ALARM = ["C6", "E6", "G6", "C7", "C6", "E6", "G6", "C7"]
 const pad2 = (n: number) => `${n}`.padStart(2, "0")
 
-/** 20 × 17 cm countdown panel with a draining progress bar, play/pause and reset. Beeps through the last 5 s, alarms and shakes at zero. */
+/** 20 x 17 cm countdown panel with a draining progress bar, play/pause and reset. Beeps through the last 5 s, alarms and shakes at zero. */
 export default function CountdownTimer({ seconds = 30, autoStart = false, value, color = "#9FE7D2", onChange, onComplete }: Props) {
   const total = seconds > 0 ? Math.round(seconds) : 30
   const [inner, setInner] = useState(total)

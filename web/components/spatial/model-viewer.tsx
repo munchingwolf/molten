@@ -154,7 +154,7 @@ export default function ModelViewer({ url = SAMPLE, label = "Astronaut", autoRot
             </mesh>
           )}
         </group>
-        {/* Grab volume around the model (34 × 34 × 34 cm). */}
+        {/* Grab volume around the model (34 x 34 x 34 cm). */}
         <mesh
           visible={false}
           position={[0, BASE_Y + FIT / 2, 0]}

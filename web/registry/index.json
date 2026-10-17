@@ -706,7 +706,7 @@
     "kind": "basic",
     "description": "Segmented tabs whose mint pill springs to the tab you poke, pinch or click.",
     "file": "components/spatial/tabs.tsx",
-    "status": "ready",
+    "status": "soon",
     "xrOnly": false,
     "bindable": [
       {
@@ -7775,7 +7775,7 @@
     "kind": "basic",
     "description": "A big extruded 3D headline whose letters flip up one by one with a trailing echo, then breathe and lift toward your pointer.",
     "file": "components/spatial/kinetic-title.tsx",
-    "status": "ready",
+    "status": "soon",
     "xrOnly": false,
     "bindable": [
       {
@@ -8725,7 +8725,7 @@
     "kind": "basic",
     "description": "A dark wall of text lit by a moving spotlight cone that wanders on its own and follows your pointer or fingertip.",
     "file": "components/spatial/spotlight-text.tsx",
-    "status": "ready",
+    "status": "soon",
     "xrOnly": false,
     "bindable": [
       {

@@ -48,7 +48,7 @@ const VOX: Vox[] = []
 const add = (part: number, p: Vox["p"], s: Vox["s"], c: string | null, glow = 0, shade = 1, kind: Vox["kind"] = 0) =>
   VOX.push({ part, p, s, c, shade, glow, kind })
 
-// Body: a 10×9×6 gumdrop (round dome, flat face, chamfered base). Only surface voxels are kept.
+// Body: a 10x9x6 gumdrop (round dome, flat face, chamfered base). Only surface voxels are kept.
 const inBody = (x: number, y: number, z: number) => {
   if (y < 0 || y > 8) return false
   const rh = (Math.abs(x / 5.2) ** 4 + Math.abs(z / 3.4) ** 4) ** 0.25
@@ -67,7 +67,7 @@ for (let y = 0; y <= 8; y++)
       add(BODY, [x, y, z], [1, 1, 1], null, 0.07, (y >= 7 ? 1.18 : y <= 1 ? 0.72 : 1) * jitter(), 1)
     }
 
-// Face (front surface is z = 3). Eyes: 3×3 whites, 2×2 pupils with a 1-voxel shine, looking slightly inward.
+// Face (front surface is z = 3). Eyes: 3x3 whites, 2x2 pupils with a 1-voxel shine, looking slightly inward.
 add(EYE_L, [0, 0, 0], [3, 3, 0.3], WHITE, 0.12)
 add(EYE_R, [0, 0, 0], [3, 3, 0.3], WHITE, 0.12)
 add(PUP_L, [0, 0, 0], [2, 2, 0.3], INK)

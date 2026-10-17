@@ -23,7 +23,7 @@ type Props = { icon?: IconName; label?: string; color?: string; size?: number; o
 const S = 0.064 // 6.4 cm round key
 const D = 0.02
 
-// Disc with a rounded rim, facing +z (lathe profile runs bottom → top so normals face out).
+// Disc with a rounded rim, facing +z (lathe profile runs bottom -> top so normals face out).
 function puck(r: number, d: number, b: number) {
   const pts = [new Vector2(0, -d / 2)]
   const arc = (y: number, from: number) => {

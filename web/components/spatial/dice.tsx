@@ -8,7 +8,7 @@ import { AdditiveBlending, Object3D, Quaternion, Vector3, type Group, type Insta
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js"
 
 type Props = {
-  /** Face showing, 1–6. Set it to turn the die to that face. */
+  /** Face showing, 1-6. Set it to turn the die to that face. */
   value?: number
   onChange?: (face: number) => void
   color?: string
@@ -225,7 +225,7 @@ export default function Dice({ value, onChange, color = "#EEF0F4", pipColor = "#
       <group ref={chip} position={[0, -0.085, 0]}>
         <Container pixelSize={0.002} pointerEvents="none" paddingX={10} paddingY={3} borderRadius={10} backgroundColor="#15171E" borderWidth={1} borderColor="#323745">
           <Text fontSize={14} fontWeight="semi-bold" color={rolling ? "#9AA0AD" : "#9FE7D2"}>
-            {rolling ? "rolling…" : `${face}`}
+            {rolling ? "rolling..." : `${face}`}
           </Text>
         </Container>
       </group>

@@ -45,7 +45,7 @@ void main() {
   #include <colorspace_fragment>
 }`
 
-/** 16 × 5.6 cm hologram button: an iridescent sheet whose shimmer shifts with your head angle; brightens and sweeps on hover. */
+/** 16 x 5.6 cm hologram button: an iridescent sheet whose shimmer shifts with your head angle; brightens and sweeps on hover. */
 export default function HoloButton({ label = "Holo", color = "#9FE7D2", size = 1, onPress }: Props) {
   const sheet = useRef<Group>(null)
   const st = useRef({ hover: 0, target: 0, z: 0, zv: 0, down: false, flash: 0 })

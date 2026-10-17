@@ -27,7 +27,7 @@ type Props = {
 /** Confirm / cancel dialog that springs in with a halo behind it. */
 export default function Dialog({
   title = "Delete track?",
-  message = "“Drums 2” and its 12 clips will be removed. You can't undo this.",
+  message = "'Drums 2' and its 12 clips will be removed. You can't undo this.",
   confirmLabel = "Delete",
   cancelLabel = "Cancel",
   tone = "danger",

@@ -37,7 +37,7 @@ function ribbon() {
 
 type Props = { color?: string; label?: string }
 
-/** 40 × 12 cm oscilloscope of everything going to the speakers (Tone.getDestination), drawn as a glowing line. */
+/** 40 x 12 cm oscilloscope of everything going to the speakers (Tone.getDestination), drawn as a glowing line. */
 export default function Waveform({ color = ACCENT, label = "Output" }: Props) {
   const analyser = useRef<Tone.Waveform | null>(null)
   const dot = useRef<MeshBasicMaterial>(null)

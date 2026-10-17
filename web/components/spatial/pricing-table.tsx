@@ -20,7 +20,7 @@ type Props = {
   onPress?: (index: number) => void
 }
 
-const COL_W = 260 // px at pixelSize 0.002 → 52 cm
+const COL_W = 260 // px at pixelSize 0.002 -> 52 cm
 const COL_H = 420
 const STEP = 0.56 // m between column centres
 const THEMES = {

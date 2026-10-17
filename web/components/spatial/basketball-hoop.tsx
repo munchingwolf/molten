@@ -13,7 +13,7 @@ type Props = {
   onChange?: (score: number) => void
   /** Fires on every shot. */
   onPress?: () => void
-  /** Chance a shot goes in, 0–1. */
+  /** Chance a shot goes in, 0-1. */
   accuracy?: number
   color?: string
   ballColor?: string
@@ -212,7 +212,7 @@ export default function BasketballHoop({ value, onChange, onPress, accuracy = 0.
       <group position={[0, BY + 0.062, BZ + 0.008]}>
         <Container pixelSize={0.002} pointerEvents="none" flexDirection="column" alignItems="center">
           <Text fontSize={9} fontWeight="semi-bold" letterSpacing={1} color={hot ? "#F2B48A" : "#9AA0AD"}>
-            {hot ? `ON FIRE ×${streak}` : "SCORE"}
+            {hot ? `ON FIRE x${streak}` : "SCORE"}
           </Text>
           <Text fontSize={24} fontWeight="bold" color={hot ? "#F2B48A" : "#EEF0F4"}>{`${score}`}</Text>
         </Container>

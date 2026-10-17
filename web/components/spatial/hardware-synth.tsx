@@ -50,7 +50,7 @@ const KNOB_X = [-0.035, 0.025, 0.085, 0.145]
 const KNOB_Z = DECK_Z0 + DECK_D * 0.48
 const SCREEN = { x: -0.125, z: KNOB_Z, w: 0.1, d: 0.05 }
 
-const cutoffHz = (v: number) => 60 * Math.pow(200, v) // 60 Hz – 12 kHz
+const cutoffHz = (v: number) => 60 * Math.pow(200, v) // 60 Hz - 12 kHz
 const attackS = (v: number) => 0.002 + v * v * 1.5
 const releaseS = (v: number) => 0.05 + v * v * 3
 const volumeDb = (v: number) => (v < 0.01 ? -Infinity : Tone.gainToDb(v * v))
@@ -275,8 +275,8 @@ function Key({ note, x, z, black, mat, onDown, onUp }: KeyProps) {
 }
 
 /**
- * Desktop polysynth with a 13-key keybed (C4–C5), four knobs (cutoff, attack, release, volume) and an OLED screen.
- * Every knob is controlled-or-uncontrolled (0–1). Plays through Tone.js.
+ * Desktop polysynth with a 13-key keybed (C4-C5), four knobs (cutoff, attack, release, volume) and an OLED screen.
+ * Every knob is controlled-or-uncontrolled (0-1). Plays through Tone.js.
  */
 export default function HardwareSynth({
   cutoff,
@@ -311,7 +311,7 @@ export default function HardwareSynth({
     setLast(p)
   }
 
-  // Audio graph: PolySynth → low-pass filter → volume → speakers
+  // Audio graph: PolySynth -> low-pass filter -> volume -> speakers
   const audio = useRef<{ synth: Tone.PolySynth; filter: Tone.Filter; vol: Tone.Volume } | null>(null)
   useEffect(() => {
     const vol = new Tone.Volume(-6).toDestination()

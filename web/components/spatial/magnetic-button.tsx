@@ -27,7 +27,7 @@ function shadowTexture() {
   return new CanvasTexture(c)
 }
 
-/** 16 × 5.6 cm button that leans, slides and lifts toward your fingertip or ray, then springs back when you leave. */
+/** 16 x 5.6 cm button that leans, slides and lifts toward your fingertip or ray, then springs back when you leave. */
 export default function MagneticButton({ label = "Magnetic", color = "#9FE7D2", strength = 1, size = 1, onPress }: Props) {
   const body = useRef<Group>(null)
   const skin = useRef<MeshStandardMaterial>(null)

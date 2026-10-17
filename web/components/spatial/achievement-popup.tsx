@@ -49,7 +49,7 @@ function shineTextures() {
   return { band: new CanvasTexture(band), mask: new CanvasTexture(mask) }
 }
 
-/** 32 × 9 cm achievement toast: springs up with overshoot, a shine sweeps across, 3-note fanfare. Auto-hides to a replay chip; tap the card to dismiss. */
+/** 32 x 9 cm achievement toast: springs up with overshoot, a shine sweeps across, 3-note fanfare. Auto-hides to a replay chip; tap the card to dismiss. */
 export default function AchievementPopup({
   title = "Achievement unlocked",
   text = "First steps",
@@ -124,7 +124,7 @@ export default function AchievementPopup({
     }
     s.spin *= Math.exp(-dt * 3.5)
     if (medal.current) medal.current.rotation.y = s.spin
-    const k = (s.age - 0.35) / 0.75 // shine runs 0.35–1.1 s after showing
+    const k = (s.age - 0.35) / 0.75 // shine runs 0.35-1.1 s after showing
     if (shine.current && tex) {
       shine.current.visible = v && k > 0 && k < 1
       tex.band.offset.x = 0.7 - 1.4 * k

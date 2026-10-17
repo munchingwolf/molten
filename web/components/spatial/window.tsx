@@ -10,7 +10,7 @@ const PX = 0.002 // metres per uikit pixel
 
 type Props = {
   title?: string
-  /** uikit content (Text, Container, …) for the body. Sample content shows when empty. */
+  /** uikit content (Text, Container, ...) for the body. Sample content shows when empty. */
   children?: ReactNode
   /** Size in metres. */
   width?: number
@@ -125,7 +125,7 @@ function Sample() {
       </Text>
       {[
         ["Length", "3:42"],
-        ["Format", "WAV · 48 kHz"],
+        ["Format", "WAV - 48 kHz"],
         ["Size", "41 MB"],
       ].map(([k, v]) => (
         <Container

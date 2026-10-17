@@ -43,7 +43,7 @@ const vertexShader = /* glsl */ `
 varying vec2 vPos;
 void main() { vPos = position.xy; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }`
 
-/** 16 × 5.6 cm button: every press sends rings rippling out from the exact touch point. */
+/** 16 x 5.6 cm button: every press sends rings rippling out from the exact touch point. */
 export default function RippleButton({ label = "Ripple", color = "#9FE7D2", size = 1, onPress }: Props) {
   const body = useRef<Group>(null)
   const st = useRef({ hover: 0, target: 0, z: 0, zv: 0, down: false, next: 0 })

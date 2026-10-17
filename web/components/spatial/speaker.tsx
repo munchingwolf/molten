@@ -8,7 +8,7 @@ import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.j
 
 type Props = { value?: boolean; onChange?: (playing: boolean) => void; color?: string }
 
-// 4 bars of eighth notes: Am7 → Fmaj7 → C → G arpeggios over a soft kick and bass.
+// 4 bars of eighth notes: Am7 -> Fmaj7 -> C -> G arpeggios over a soft kick and bass.
 const CHORDS = [
   ["A3", "C4", "E4", "G4"],
   ["F3", "A3", "C4", "E4"],

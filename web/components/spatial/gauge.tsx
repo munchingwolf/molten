@@ -34,7 +34,7 @@ function getMatcap() {
 // Angle from +y, counter-clockwise: t = 0 is lower-left, t = 1 lower-right.
 const angleOf = (t: number) => SWEEP / 2 - t * SWEEP
 
-/** 25 cm dial gauge. `value` is 0–1; the needle springs to it and the tick ring lights up. Readout shows value × `max` + `unit`. */
+/** 25 cm dial gauge. `value` is 0-1; the needle springs to it and the tick ring lights up. Readout shows value x `max` + `unit`. */
 export default function Gauge({ value = 0.72, label = "CPU load", color = "#9FE7D2", max = 100, unit = "%" }: Props) {
   const t = Number.isFinite(value) ? Math.min(1, Math.max(0, value)) : 0
   const [hover, setHover] = useState(false)

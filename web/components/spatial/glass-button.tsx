@@ -13,7 +13,7 @@ const H = 0.06
 const D = 0.022
 
 /**
- * 16 × 6 cm slab of frosted glass over a glowing core. The glass lifts toward a fingertip,
+ * 16 x 6 cm slab of frosted glass over a glowing core. The glass lifts toward a fingertip,
  * squashes when pressed and the core brightens. Uses three's physical transmission
  * (one shared transmission pass, cheaper on Quest than a per-material scene render).
  */

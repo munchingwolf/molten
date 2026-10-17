@@ -120,9 +120,9 @@ function TextRing({ text, radius, height, shared, swap = false }: { text: string
   )
 }
 
-/** One copy of "TEXT  •  " in a canvas; the shader repeats it around the ring. */
+/** One copy of "TEXT  -  " in a canvas; the shader repeats it around the ring. */
 function buildStrip(text: string) {
-  const unit = `${text.trim()}   •   `
+  const unit = `${text.trim()}   -   `
   const canvas = document.createElement("canvas")
   const ctx = canvas.getContext("2d")!
   let px = 96

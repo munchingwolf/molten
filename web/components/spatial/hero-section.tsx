@@ -17,7 +17,7 @@ type Props = {
   onPress?: (which: "primary" | "secondary") => void
 }
 
-const W = 920 // px at pixelSize 0.002 → 1.84 m
+const W = 920 // px at pixelSize 0.002 -> 1.84 m
 const H = 430
 const THEMES = {
   light: { panel: "#FFFFFF", border: "#E4E6EC", ink: "#111218", muted: "#5B5F6D", chip: "#F1F2F6", onInk: "#FFFFFF" },
@@ -61,7 +61,7 @@ const clamp01 = (x: number) => Math.min(1, Math.max(0, x))
 /** Landing-page hero: eyebrow, headline, subline and two calls to action, with a glossy knot floating off the panel.
  * The panel rises in, the knot springs in after it and keeps floating; the halo behind it breathes. */
 export default function HeroSection({
-  eyebrow = "New · Spatial 1.0",
+  eyebrow = "New - Spatial 1.0",
   headline = "Build interfaces you can walk around",
   subline = "Drop in working 3D components, wire them up, and ship to the web and the headset in minutes.",
   cta = "Start building",

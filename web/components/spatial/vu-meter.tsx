@@ -13,7 +13,7 @@ const COLORS = Array.from({ length: N }, (_, i) => (i < 8 ? "#1FB54A" : i < 10 ?
 
 type Props = { value?: number }
 
-/** 12-segment level meter of everything going to the speakers. `value` (0–1) overrides the live level. */
+/** 12-segment level meter of everything going to the speakers. `value` (0-1) overrides the live level. */
 export default function VuMeter({ value }: Props) {
   const meter = useRef<Tone.Meter | null>(null)
   const mats = useRef<(MeshBasicMaterial | null)[]>([])
@@ -35,7 +35,7 @@ export default function VuMeter({ value }: Props) {
     let v = value
     if (v === undefined && meter.current) {
       const g = meter.current.getValue()
-      // Map -48…0 dB to 0…1: raw RMS of a full mix rarely passes 0.3, so a linear scale barely moves.
+      // Map -48...0 dB to 0...1: raw RMS of a full mix rarely passes 0.3, so a linear scale barely moves.
       v = (Tone.gainToDb(Array.isArray(g) ? Math.max(...g) : g) + 48) / 48
     }
     const n = Number.isFinite(v) ? Math.round(Math.min(1, Math.max(0, v!)) * N) : 0

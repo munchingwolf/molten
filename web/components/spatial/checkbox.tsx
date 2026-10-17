@@ -22,7 +22,7 @@ const D = 0.014
 const X = -0.07 // box sits left of centre, label to its right
 const OFF = new Color("#1B1E26")
 
-// Disc with a rounded rim, facing +z (lathe profile runs bottom → top so normals face out).
+// Disc with a rounded rim, facing +z (lathe profile runs bottom -> top so normals face out).
 function puck(r: number, d: number, b: number) {
   const pts = [new Vector2(0, -d / 2)]
   const arc = (y: number, from: number) => {

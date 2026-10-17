@@ -9,7 +9,7 @@ const PX = 0.002 // metres per uikit pixel
 const STEPS = 400 // arc resolution: the geometry is rebuilt only when the shown value crosses a step
 
 type Props = {
-  /** Progress, 0–1. */
+  /** Progress, 0-1. */
   value?: number
   label?: string
   accent?: string
