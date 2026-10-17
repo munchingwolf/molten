@@ -1,0 +1,153 @@
+{
+  "name": "Focus Desk",
+  "slug": "focus-desk",
+  "category": "workspace",
+  "description": "A calm work corner: desk, monitor and lamp, your tasks and calendar floating either side, a clock overhead, a plant to look at.",
+  "environment": "env-studio-loft",
+  "items": [
+    {
+      "id": "desk",
+      "component": "desk",
+      "position": [
+        0,
+        0.375,
+        -0.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "chair",
+      "component": "chair",
+      "position": [
+        0,
+        0.45,
+        -0.15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "monitor",
+      "component": "computer-monitor",
+      "position": [
+        0,
+        1.02,
+        -0.95
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "lamp",
+      "component": "lamp",
+      "position": [
+        0.55,
+        0.9,
+        -0.9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "headphones",
+      "component": "headphones-stand",
+      "position": [
+        -0.55,
+        0.88,
+        -0.9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "todo",
+      "component": "todo-list",
+      "position": [
+        -0.9,
+        1.45,
+        -1.15
+      ],
+      "rotation": [
+        0,
+        0.664,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "calendar",
+      "component": "calendar",
+      "position": [
+        0.9,
+        1.45,
+        -1.15
+      ],
+      "rotation": [
+        0,
+        -0.664,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "clock",
+      "component": "clock-widget",
+      "position": [
+        0,
+        1.65,
+        -1.3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "plant",
+      "component": "plant",
+      "position": [
+        1.1,
+        0.4,
+        -1.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    }
+  ]
+}
