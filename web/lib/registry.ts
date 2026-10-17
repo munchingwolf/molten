@@ -3,6 +3,8 @@ import index from "@/registry/index.json"
 import SettingsDefault from "@/components/spatial/settings-default"
 import SettingsGlass from "@/components/spatial/settings-glass"
 import SettingsHorizon from "@/components/spatial/settings-horizon"
+import Knob from "@/components/spatial/knob"
+import Transport from "@/components/spatial/transport"
 
 export type Entry = {
   name: string
@@ -24,6 +26,8 @@ export const components: Record<string, ComponentType> = {
   "settings-default": SettingsDefault,
   "settings-glass": SettingsGlass,
   "settings-horizon": SettingsHorizon,
+  knob: Knob,
+  transport: Transport,
 }
 
 export const registry = index as Entry[]

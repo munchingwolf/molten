@@ -13,6 +13,14 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 1:10: Person 1: **Studio, Save/Launch and XR layer are live** (`/studio`, `/apps/[id]`)
+- `/studio`: library (search, ready vs soon), 3D scene, **grab bar under each component** (mouse drag on laptop, pinch-grab in headset), inspector (position/turn/scale + **Controls**: name a value, components sharing a name stay in sync), live code panel (Copy/Download), Save, **Launch** → opens `/apps/<id>`. Enter AR/VR + a VR shelf to add components in the headset.
+- Tested in a browser: add 3 components, drag one, bind knob `value` → "master brightness" (code panel emits `const [masterBrightness, setMasterBrightness] = useState(0.5)`), Save, open `/apps/<id>`: same scene, 0 console errors. Not yet tested on a real Quest.
+- API: `POST /api/layout` → `{id}`, `GET /api/layout/<id|latest>`. Storage = Upstash Redis if `UPSTASH_REDIS_REST_URL`/`KV_REST_API_URL` env set, else in-memory (resets on restart). **Person 2 / Vercel owner: add Upstash for Redis in Vercel → Storage, it's free.**
+- **Person 2, read `web/components/studio/XR-INTERACTION.md`** (gestures + interaction contract). Note: hand grab = **pinch**, not fist.
+- Added contract reference components `knob.tsx` (registry entry set ready + `bindable`) and `transport.tsx` (in the `components` map, **no registry entry yet**). Both are music, so it's fine to restyle or replace them.
+- Studio covers the site header (it's a full-screen tool).
+
 ### 1:03: Person 1: MCP server done (`mcp/`)
 - Install: `claude mcp add spatial -- node /path/to/molten/mcp/server.mjs` (add `-e SPATIAL_URL=https://<deployed-url>` to read saved layouts from the deployed site). See `mcp/README.md` (Cursor JSON too).
 - Tools: `search_components`, `get_component` (entry + source + npm deps), `add_component` (copies into `<project>/components/spatial/`), `get_layout`, `list_categories`. Re-reads `web/registry/index.json` on every call, so new components show up live.

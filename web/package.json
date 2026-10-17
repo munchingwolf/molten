@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@pmndrs/handle": "^6.6.32",
     "@react-three/fiber": "^9.8.2",
     "@react-three/handle": "^6.6.32",
     "@react-three/uikit": "^1.0.77",
@@ -22,6 +23,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "three": "^0.186.1",
+    "tone": "^15.1.22",
     "zustand": "^5.0.15"
   },
   "devDependencies": {

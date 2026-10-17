@@ -218,7 +218,10 @@
     "aliases": [],
     "description": "Grab and twist (reused for music later)",
     "file": "components/spatial/knob.tsx",
-    "status": "soon",
+    "status": "ready",
+    "bindable": [
+      { "prop": "value", "event": "onChange", "type": "number", "min": 0, "max": 1, "default": 0.5 }
+    ],
     "tier": 1,
     "xrOnly": true
   },

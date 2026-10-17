@@ -27,10 +27,10 @@ Build **Tier 1 top to bottom**: **general UI first** (the product is for every X
 ### Music (second: for the DAW demo)
 | ✓ | name | Component | bindable / props | Notes |
 |---|---|---|---|---|
-| [ ] | transport | Transport (play/stop) | `playing`, `bpm` | Starts/stops global `Tone.Transport`, sets bpm |
+| [~] | transport | Transport (play/stop) | `playing`, `bpm` | Built by P1 (`transport.tsx`), needs a registry entry |
 | [ ] | drum-pad | ⭐ Drum Pad | `onPress`, `sound` (kick/snare/hat/clap) | Hit it, makes sound (Tone synth). **Kaedim** model if ready |
 | [ ] | step-sequencer | Step Sequencer | `steps`, `onChange` | 16-step grid × 4 drums, plays on Transport |
-| [ ] | knob | ⭐ Knob / Dial | `value` (0–1) | Grab and twist |
+| [x] | knob | ⭐ Knob / Dial | `value` (0–1) | Drag to turn. Contract reference by P1, P2 may restyle |
 | [ ] | fader | Fader | `value` (0–1) | Vertical slider |
 | [ ] | vu-meter | VU Meter | `value` (0–1) | Animated level bars |
 | [ ] | tempo-display | Tempo Display | `value` (bpm) | Big BPM readout |
