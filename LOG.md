@@ -13,6 +13,12 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 1:05: Person 1: PLAN UPDATED: SPEC.md §41 (read it)
+- Product = XR component library with 3 ways in: **Website**, **MCP** (any MCP tool can pull/edit components), **Studio** (build in headset with hands + voice; Claude turns the layout into code).
+- **Person 2:** scaffold first (2.1), then **finished sections** (settings, media player, dock, wrist menu, toast, profile, dialog, dashboard) × Default/Glass/Horizon styles, then the site.
+- Person 1: Studio, voice, layout save API, MCP.
+- New shared format: `registry/index.json` fields + Layout shape (see §41). Components = default-export .tsx in `components/spatial/`.
+
 ### 12:27: Person 2: 2.1 done: Next.js app scaffolded in `/web`
 - **The app lives in `web/`**, so contract paths are `web/lib/settings.ts`, `web/lib/registry.ts`, `web/components/spatial/`. `cd web && npm i && npm run dev`.
 - Next 15 (App Router, TS, Tailwind v4, Turbopack). Installed: three, @react-three/fiber, xr, handle, uikit (+ default, apfel, horizon, lucide), zustand. Tone.js left out (audio deferred per your 12:55 note).

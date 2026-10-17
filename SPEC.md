@@ -1758,72 +1758,84 @@ First optimize for a convincing, working hackathon MVP that demonstrates the cor
 
 ---
 
-# 41. Hackathon Plan & Work Split (WebXR, decided 12:20 PM Oct 17)
+# 41. Hackathon Plan & Work Split (WebXR, updated 1:05 PM Oct 17)
 
-> Supersedes §7 (Unity) and older plans. Event rules and judging: https://moltenhack.com/agents.md
+> Supersedes §7 (Unity), §13 (music app) and older plans. Event rules and judging: https://moltenhack.com/agents.md
+
+## What we're building
+
+**Spatial: a library of 3D UI components for XR (21st.dev / shadcn for spatial apps), usable from anywhere you build.**
+
+One catalog, three ways in:
+
+| Way in | For | What happens |
+|---|---|---|
+| **Website** (laptop) | Browsing | See components live in 3D, copy the code |
+| **MCP** (Claude Code, Cursor, any MCP client) | Building in your own tool (an XR app, a DAW, a site) | The agent searches the catalog, pulls components into the project, and edits them, like 21st.dev's MCP for websites |
+| **Studio** (headset) | Creating | Grab components from a floating catalog and place them (hands). Restyle them by voice. Save the layout. The MCP's `get_layout` lets Claude turn it into code |
 
 ## Decisions
 
 | Topic | Decision |
 |---|---|
-| Platform | **WebXR**: Next.js + Tailwind + React Three Fiber + `@react-three/xr` + `pmndrs/uikit` (MIT). Runs in the Quest browser, so no app builds. |
-| One app | The laptop catalog site and the in-headset experience are **the same Next.js app**. |
-| Headline demo | In VR: grab a component from a floating catalog and place it (**hands**), then say "make it cyber" and it swaps live while the beat keeps playing (**voice**). 2 body inputs. **Navigate** track. |
-| Component = | A React component file. "Add" = copy the file into your project (literally shadcn). |
-| Contract | `settings`: `masterVolume`, `reverb`, `tempo`, `haptics`. Every settings skin takes the same props, so swapping never touches app state. |
-| Cut | Unity, Rokoko, music-component collection, business slides (videos with slides are disqualified). |
-| Stretch | MCP: Claude adds a component file to a project. |
+| Platform | **WebXR**: Next.js + Tailwind + React Three Fiber + `@react-three/xr` + `pmndrs/uikit` (MIT). One app = website (`/`) + Studio (`/studio`). |
+| Components | Featured: **finished XR sections** (settings panel, media player, tab bar/dock, wrist menu, toast, profile card, confirm dialog, stats dashboard), 2–3 styles each (Default/shadcn, Glass/apfel, Horizon/Meta). Basics tab: the uikit primitives. |
+| Component = | A React (.tsx) file. "Add" = copy the file into your project (shadcn model). |
+| Demo (judged) | In headset: grab and place components (**hands**), "make it glass" (**voice**), Save. Then Claude Code + Spatial MCP → `get_layout` → code in the project. Navigate track. |
+| Cut for today | Audio engine, music/DAW components, Kaedim drum pad (**later phase**), Unity, Rokoko. |
 
 ## Shared contract (lock first, 20 min together)
 
 ```
-lib/settings.ts        zustand store: { masterVolume, reverb, tempo, haptics, set(key, value) }
-lib/registry.ts        Component[]: { name, displayName, category, contract?, tags, description, Component }
-components/spatial/    one file per component, e.g. glass-settings.tsx
-  settings skins export: (props: { state, set }) => uikit JSX
+registry/index.json     pure data, read by website, Studio, voice, MCP:
+  [{ name, displayName, category, kind: "section"|"basic", style, tags, aliases, description, file }]
+components/spatial/     one .tsx per component, default export, no required props
+lib/registry.ts         name → React component map (React app only)
+Layout (Studio → server → MCP):
+  { id, items: [{ component, position:[x,y,z], rotation:[x,y,z], scale }] }
 ```
 
 Change these only after logging it in LOG.md.
 
-## Person 1: XR experience, audio, voice, registry plumbing
+## Person 1: Studio + MCP + server
 
 | # | Task | Done when |
 |---|---|---|
-| 1.1 | `lib/settings.ts` store + `lib/registry.ts` | Both import cleanly |
-| 1.2 | Audio: looping beat (Tone.js) driven by the store: volume, reverb, tempo audible | Moving a value changes the sound |
-| 1.3 | `/xr` page: `<XR>` scene, hands + controllers, one **slot** rendering the current settings skin | Shows in the Quest browser |
-| 1.4 | Floating catalog in VR: registry items as live mini-previews; grab one and drop it in the slot to swap | Swap by hand works in headset |
-| 1.5 | **Voice swap**: "make it glass/cyber/default". **Verify first hour** that Web Speech works in the Quest browser. Fallback: AssemblyAI or ElevenLabs STT | Swap by voice works in headset |
-| 1.6 (stretch) | MCP: `search_components`, `add_component` (copies the .tsx into a project) | Claude adds Glass to a fresh app |
+| 1.1 | `registry/index.json` + `lib/registry.ts` + 2 stub components so work isn't blocked | Imports work |
+| 1.2 | `/studio`: `<XR>` scene (AR passthrough), hands + controllers | Shows in Quest browser |
+| 1.3 | Floating catalog shelf: live mini-previews. **Tap** to place in front of you (fallback), then **grab** to move (`@react-three/handle`) | Place + move works in headset |
+| 1.4 | Voice (ElevenLabs `useScribe` + `/api/scribe-token`): "make it glass / horizon / default" restyles the selected item; "add a <thing>"; "bigger/smaller"; "save" | Works in headset |
+| 1.5 | Layout save: `POST /api/layout`, `GET /api/layout/:id` (shortcut: in-memory/file, needs dev server) | Studio saves, curl reads |
+| 1.6 | MCP server (`mcp/`): `search_components`, `get_component` (returns code), `add_component` (copies .tsx into a project), `get_layout` | Claude Code installs a component + rebuilds a saved layout |
 
-## Person 2: Website + the components themselves
+## Person 2: Website + components
 
 | # | Task | Done when |
 |---|---|---|
-| 2.1 | Next.js + Tailwind scaffold (push ASAP, Person 1 builds inside it) | Repo runs with `npm run dev` |
-| 2.2 | **Three settings skins**: Default (plain), Glass, Cyber, built with uikit against the `settings` contract. They have to look great: they *are* the demo | Each renders and edits the shared store |
-| 2.3 | Home: hero, search, category chips, cards with **live 3D previews** (an R3F canvas rendering the real component) | Search "settings" shows 3 |
-| 2.4 | Detail page: big live preview, tags, "Copy code" / `npx spatial add <name>` text, "Enter VR" button → `/xr` | Copy works, VR button opens /xr |
-| 2.5 | 1–2 extra components (knob, fader) for catalog depth | In registry |
-| 2.6 | Deploy (Vercel) so the Quest can open a public HTTPS URL (WebXR needs HTTPS) | URL opens on Quest |
+| 2.1 | Next.js + Tailwind scaffold (push ASAP, Person 1 builds inside it) | `npm run dev` works |
+| 2.2 | **Finished sections** (list above) in 2–3 styles each, from uikit kits | ~8 sections render |
+| 2.3 | Home: hero, search, category chips, cards with **live 3D previews** | Search filters |
+| 2.4 | Detail page: big live preview, style switcher, **Copy code**, **Copy MCP prompt**, "Open in Studio" | Copy works |
+| 2.5 | Basics tab (uikit primitives) | Listed |
+| 2.6 | Deploy (Vercel) for the public site | URL works |
 
 ## Timeline (submit by 6:30 PM)
 
-| Time | Both |
+| Time | |
 |---|---|
-| 12:30–1:00 | Lock contract, 2.1 scaffold pushed |
-| 1:00–3:00 | P1: 1.1–1.3, voice check · P2: 2.2, 2.3 |
-| ~3:00 | **First headset test** on the deployed URL |
-| 3:00–5:00 | P1: 1.4–1.5 · P2: 2.4–2.6 |
-| 5:00–5:45 | Integration + bug fixes; P1 stretch MCP only if all green |
-| 5:45–6:15 | Record demo video in headset (<1 min, no slides), fill form, credit uikit/R3F/Tone.js |
+| 1:05–1:30 | Lock contract; scaffold pushed |
+| 1:30–3:30 | P1: 1.1–1.3 · P2: 2.2–2.3 |
+| ~3:30 | **First headset test** |
+| 3:30–5:15 | P1: 1.4–1.6 · P2: 2.4–2.6 |
+| 5:15–5:45 | Integration: full demo run 3× |
+| 5:45–6:15 | Record video in headset (<1 min, no slides), fill form, credit uikit/R3F/ElevenLabs |
 | 6:30 | Submitted |
 
 ## Top risks
 
 | Risk | Fallback |
 |---|---|
-| Web Speech not available in Quest browser | AssemblyAI / ElevenLabs streaming STT, or a pinch gesture as the second input |
-| Only one venue Quest | Test early on desktop with `@react-three/xr` emulator; book headset for one solid block |
-| uikit skins look mediocre | 2 great skins > 3 okay ones |
-| WebXR needs HTTPS | Deploy to Vercel early (2.6), or a `--experimental-https` dev server |
+| ElevenLabs/mic fails in Quest browser | Web Speech API; else voice from laptop mic drives the headset via the same server |
+| Grab is fiddly | Tap-to-place already works |
+| Layout save needs persistence on Vercel | Demo from the laptop's HTTPS dev server (`next dev --experimental-https`) |
+| One venue Quest | Desktop XR emulator for dev; book one solid headset block |
