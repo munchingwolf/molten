@@ -1,5 +1,6 @@
 import index from "@/registry/index.json"
 import type { Bindable } from "./layout"
+import "./three-fixes" // every surface that renders components imports the registry, so the Box3 fix loads first
 
 export type Entry = {
   name: string

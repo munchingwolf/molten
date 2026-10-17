@@ -13,6 +13,10 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 4:47: Evan (session ek-b4): **FIXED: component previews crashing ("Preview unavailable") + the Box3 "reading 'x'" error**
+- Cause: uikit's `Content` (every lucide icon is an `Svg`, which extends it) stores a signal in a field named `boundingBox`. three's `Box3.expandByObject` treats it as a Box3 and throws. Any component with an icon broke drei `<Bounds>` previews, grab-bar sizing and surface snapping.
+- Fix: `web/lib/three-fixes.ts` measures such objects through their children; loaded from `lib/registry.ts` so every surface gets it. Test: `lib/three-fixes.test.ts`.
+
 ### 4:41: Evan (session ek-b8): **match the mockup exactly + templates = empty translucent areas with drag-to-replace** (3 agents, ~5:25)
 - Mockup source saved at `reports/night-set-mockup.html`. Console, synth keys and the 3 lanes get the mockup's canvas-drawn faces (CanvasTexture) driven by live state, still playable (hits mapped onto the face).
 - Templates: "Use template" shows empty translucent slot volumes; drag any component onto a slot to place it, or onto an existing item to REPLACE it (keeps transform + matching bindings, one undo). VR wheel drops too.
