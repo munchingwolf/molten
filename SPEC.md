@@ -1810,45 +1810,56 @@ Website (/web)  reads registry/index.json, card grid, detail page, "copy install
 
 Why `SettingsSlot` + `spatial.json` and not scene editing: editing Unity scene files through an agent is fragile. Swapping a string in a JSON file always works, and it's what makes the swap feel instant.
 
-## 41. Lock this first (both, ~1 hour together)
+## 41. Phase 1: Registry, MCP, Website (two people, in parallel)
 
-1. `SettingsState` fields + names (C#) and the `spatial.json` manifest schema (JSON). **Do not change them after this without telling the other person.**
-2. Agree on the 3 settings skins' look (Default / Glass / Cyber). Do a quick moodboard.
+### Lock first (both, ~30 min)
 
-## 41. Person A: Unity / Quest
+The **registry format** is the contract between the two halves: the MCP reads it, the website renders it.
 
-| # | Task | Done when |
-|---|---|---|
-| A0 | **Day-1 risk spike:** build an empty scene to the Quest 3S from the Mac. Time the build-and-deploy loop. Try Meta XR Simulator for in-editor testing. | Something runs in the headset, and we know the rebuild time |
-| A1 | Unity project + XRI + OpenXR setup; Unity `.gitignore` | Teammate can clone and open |
-| A2 | `SettingsState` + `SettingsSlot` (reads `spatial.json`) | Changing the JSON swaps the panel |
-| A3 | Music demo: one looping beat + one playable instrument (drum pads). Volume, reverb and tempo are *audible*. | Settings changes are heard |
-| A4 | DefaultSettings prefab (plain) | Works in headset |
-| A5 | GlassSettings prefab | Looks great, same state |
-| A6 | CyberSettings prefab | Looks great, same state |
-| A7 | 2–4 primitives / music parts (knob, fader, drum pad) for registry depth | In registry |
-| A8 | Record a preview clip of each component for the website | `preview.mp4` per component |
-| Stretch | Rokoko glove gesture instrument | Only after A1–A8 |
+1. `registry/index.json` shape and the per-component `spatial.json` manifest fields (name, displayName, category, style tags, platform, interaction, dependencies, license, preview, files).
+2. Seed 6–8 placeholder components (Default/Glass/Cyber Settings, knob, fader, drum pad, toggle, mixer) with stock preview images. Both people build against these until real demo components exist.
 
-## 41. Person B: Registry / MCP / Website
+**Do not change the format after this without telling the other person.**
+
+### Person 1: Registry + MCP (the agent side)
 
 | # | Task | Done when |
 |---|---|---|
-| B0 | **License check** on sources: Meta Horizon OS UI Set, JetStyle Vision Pro UI Kit, MRTK3, XRI samples. What may we redistribute? | Table in `SOURCES.md` |
-| B1 | Registry folder + `index.json` + manifests for each component | Valid JSON for all components |
-| B2 | MCP server: `search_components`, `get_component` | Claude Code finds "glass settings" |
-| B3 | MCP: `add_component` (copy files into a Unity project) and `swap_component` (edit `spatial.json`) | Claude installs + swaps in A's project |
-| B4 | Website: home (search + category chips + card grid) and detail page (preview, compatibility, install prompt) | Deployed URL |
-| B5 | Pitch deck + demo script (with A) | Rehearsed run-through |
+| R1 | `registry/` folder, `index.json`, a manifest per seeded component, and a tiny validator script | Validator passes on all components |
+| R2 | MCP server: `search_components(query, category?)`, `get_component(name)` | In Claude Code, "find me a glass settings panel" returns it |
+| R3 | MCP: `add_component(name, projectPath)` copies files into `Assets/Spatial/<name>/` | Files appear in a Unity project |
+| R4 | MCP: `swap_component(slot, name)` rewrites `Assets/Spatial/spatial.json` | Slot entry changes |
+| R5 | `get_component` returns the preview image URL, so multimodal agents can *see* options | Claude describes the preview |
+| R6 | One-line install for the MCP in the README (`claude mcp add ...`) | Fresh machine installs it in under 1 min |
 
-## 41. Build order
+### Person 2: Website + sourcing (the human side)
 
-1. **Together:** lock the contract (above).
-2. **In parallel:** A0–A2 | B0–B2
-3. **In parallel:** A3–A5 | B3–B4
-4. **Integration (both):** B's MCP installs and swaps A's real Glass/Cyber prefabs in A's project, end to end.
-5. A6–A8 | B4 polish + B5
-6. **Rehearse the demo 3 times. Record the backup video.**
+| # | Task | Done when |
+|---|---|---|
+| W0 | **License check**: Meta Horizon OS UI Set, JetStyle Vision Pro UI Kit, MRTK3, XRI samples. What may we redistribute and show? | Table in `SOURCES.md` |
+| W1 | Site scaffold that reads `registry/index.json` (static, no backend) | Lists all seeded components |
+| W2 | Home: hero, search, category chips, big-preview card grid | Search "settings" filters to 3 cards |
+| W3 | Detail page: large preview, style tags, compatibility, dependencies, license, **"Copy install prompt"** + `spatial add <name>` | Copy button gives a prompt Claude can act on |
+| W4 | Visual polish: this site *is* the pitch for "beautiful components" | Looks better than 21st.dev on a projector |
+| W5 | Deploy | Public URL |
+
+### Phase 1 integration (both)
+
+Claude Code + Spatial MCP: search, then see the preview, then `add_component` into an empty Unity project. The site shows the same component and the same install prompt.
+
+## 41. Phase 2: Demo (after Phase 1)
+
+| # | Task | Done when |
+|---|---|---|
+| D0 | **Risk spike:** build to the Quest 3S from the Mac and time the build-and-deploy loop. Try Meta XR Simulator. | We know the iteration time |
+| D1 | Unity project + XRI + OpenXR, Unity `.gitignore` | Teammate can clone and open |
+| D2 | `SettingsState` + `SettingsSlot` (reads `spatial.json`) | Changing the JSON swaps the panel |
+| D3 | Music demo: looping beat + drum pads. Volume, reverb and tempo are audible | Changes are heard |
+| D4 | Default, Glass, Cyber settings prefabs: replace the placeholder registry entries with the real ones | Real files in the registry |
+| D5 | Preview clips recorded, website uses them | `preview.mp4` per component |
+| D6 | End to end: MCP installs Glass, then swaps to Cyber in the real app | Works 3 times in a row |
+| D7 | Pitch deck, demo script, backup video | Rehearsed |
+| Stretch | Rokoko gesture instrument | Only after D6 |
 
 ## 41. Top risks
 
@@ -1861,5 +1872,5 @@ Why `SettingsSlot` + `spatial.json` and not scene editing: editing Unity scene f
 
 ## 41. Open
 
-- Hours available and who is A vs B
+- Hours available, and who is Person 1 vs Person 2
 - Final product name (keep "Spatial" until the website build)
