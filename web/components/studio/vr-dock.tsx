@@ -5,7 +5,7 @@ import { useFrame, useThree } from "@react-three/fiber"
 import { IfInSessionMode } from "@react-three/xr"
 import { Container, Text, type ContainerProperties } from "@react-three/uikit"
 import {
-  Box, Copy, Eye, EyeOff, Frame, Globe, Layers, LibraryBig, Pin, PinOff, Plus, Redo2, SlidersHorizontal, Trash2, Undo2,
+  Box, Copy, Eye, EyeOff, Frame, Globe, Layers, LibraryBig, Minus, Pin, PinOff, Plus, Redo2, RotateCcw, RotateCw, SlidersHorizontal, Trash2, Undo2,
 } from "@react-three/uikit-lucide"
 import { Vector3, type Camera, type Group } from "three"
 import { findEntry, registry } from "@/lib/registry"
@@ -96,7 +96,7 @@ function Dock() {
     const yaw = dir.x * dir.x + dir.z * dir.z < 1e-6 ? f.yaw : Math.atan2(-dir.x, -dir.z)
 
     // First frame, or the head jumped (session start / reference space reset): snap, don't glide.
-    if (!f.init || head.distanceTo(f.pos) > 1) {
+    if (!f.init || (!pinned && head.distanceTo(f.pos) > 1)) {
       f.init = true
       f.chasing = false
       f.yaw = yaw
@@ -254,20 +254,20 @@ function InspectTab() {
           {nameOf(item)}
         </Text>
         <Text fontSize={14} color={xr.muted}>
-          {count > 1 ? `${item.component} · ${count} selected` : item.component}
+          {count > 1 ? `${item.component}, ${count} selected` : item.component}
         </Text>
       </Container>
       <Field label="Size">
-        <Btn width={52} onClick={() => scale(0.9)}><Text fontSize={18}>−</Text></Btn>
-        <Text flexGrow={1} textAlign="center" fontSize={16}>{`${item.scale.toFixed(2)}×`}</Text>
-        <Btn width={52} onClick={() => scale(1.1)}><Text fontSize={18}>+</Text></Btn>
+        <Btn width={52} onClick={() => scale(0.9)}><Minus width={20} height={20} /></Btn>
+        <Text flexGrow={1} textAlign="center" fontSize={16}>{`${item.scale.toFixed(2)}x`}</Text>
+        <Btn width={52} onClick={() => scale(1.1)}><Plus width={20} height={20} /></Btn>
       </Field>
       <Field label="Turn">
-        <Btn flexGrow={1} onClick={() => turn(1)}><Text fontSize={14}>◀ 15°</Text></Btn>
-        <Btn flexGrow={1} onClick={() => turn(-1)}><Text fontSize={14}>15° ▶</Text></Btn>
+        <Btn flexGrow={1} onClick={() => turn(1)}><RotateCcw width={18} height={18} /><Text fontSize={14}>15°</Text></Btn>
+        <Btn flexGrow={1} onClick={() => turn(-1)}><RotateCw width={18} height={18} /><Text fontSize={14}>15°</Text></Btn>
       </Field>
       <Field label="Tilt">
-        <Btn flexGrow={1} onClick={() => tilt(-1)}><Text fontSize={14}>−15°</Text></Btn>
+        <Btn flexGrow={1} onClick={() => tilt(-1)}><Text fontSize={14}>-15°</Text></Btn>
         <Btn flexGrow={1} onClick={() => tilt(1)}><Text fontSize={14}>+15°</Text></Btn>
       </Field>
       <Field label="Move">
@@ -349,16 +349,16 @@ function PropControl({ item, meta: m }: { item: Item; meta: PropMeta }) {
     const clamp = (n: number) => Math.round(Math.min(m.max ?? Infinity, Math.max(m.min ?? -Infinity, n)) * 1000) / 1000
     return (
       <Field label={label}>
-        <Btn width={52} dim={m.min !== undefined && v <= m.min} onClick={() => set(clamp(v - step))}><Text fontSize={18}>−</Text></Btn>
+        <Btn width={52} dim={m.min !== undefined && v <= m.min} onClick={() => set(clamp(v - step))}><Minus width={20} height={20} /></Btn>
         <Text flexGrow={1} textAlign="center" fontSize={16}>{fmt(v)}</Text>
-        <Btn width={52} dim={m.max !== undefined && v >= m.max} onClick={() => set(clamp(v + step))}><Text fontSize={18}>+</Text></Btn>
+        <Btn width={52} dim={m.max !== undefined && v >= m.max} onClick={() => set(clamp(v + step))}><Plus width={20} height={20} /></Btn>
       </Field>
     )
   }
   return (
     <Field label={label}>
       <Text flexGrow={1} flexShrink={1} fontSize={14} color={xr.muted}>
-        {value === undefined || value === null ? "—" : String(value)}
+        {value === undefined || value === null ? "not set" : String(value)}
       </Text>
     </Field>
   )

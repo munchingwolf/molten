@@ -114,7 +114,7 @@ export default function XyPad({ x, y, onXChange, onYChange, onChange, label = "X
       {/* Static hit surface in front of the puck: drag anywhere on the pad. */}
       <mesh
         visible={false}
-        position={[0, 0, 0.015]}
+        position={[0, 0, 0.01]}
         onPointerDown={down}
         onPointerMove={move}
         onPointerUp={up}
@@ -122,7 +122,7 @@ export default function XyPad({ x, y, onXChange, onYChange, onChange, label = "X
         onPointerOver={() => setHover(true)}
         onPointerOut={() => setHover(false)}
       >
-        <boxGeometry args={[PAD, PAD, 0.03]} />
+        <boxGeometry args={[PAD, PAD, 0.016]} />
       </mesh>
       <group position={[0, -S / 2 - 0.024, 0]}>
         <Container pixelSize={0.002} flexDirection="row" alignItems="center" gap={14} pointerEvents="none">

@@ -63,7 +63,10 @@ export default function Dock({ items = ["Home", "Music", "Camera", "Photos", "Se
       a.bv += (-a.b * 260 - a.bv * 7) * d // bounce: springy, shown as |b| so it hops like a ball
       a.b += a.bv * d
       if (Math.abs(t - a.s) > 1e-3 || Math.abs(a.b) > 1e-4 || Math.abs(a.bv) > 1e-3) moving = true
-      if (a.s > bestS) (bestS = a.s), (best = i)
+      if (a.s > bestS) {
+        bestS = a.s
+        best = i
+      }
       total += S * a.s + G
     }
     let x = -total / 2
@@ -72,7 +75,10 @@ export default function Dock({ items = ["Home", "Music", "Camera", "Photos", "Se
       const w = S * a.s
       const g = nodes.current[i]
       // Bottom-aligned growth, and magnified icons come toward you.
-      if (g) g.position.set(x + w / 2, (w - S) / 2 + Math.abs(a.b), (a.s - 1) * 0.03), g.scale.setScalar(a.s)
+      if (g) {
+        g.position.set(x + w / 2, (w - S) / 2 + Math.abs(a.b), (a.s - 1) * 0.03)
+        g.scale.setScalar(a.s)
+      }
       if (i === best && label.current) label.current.position.set(x + w / 2, S / 2 + (w - S) + 0.024 + Math.abs(a.b), 0.02)
       x += w + G
     }

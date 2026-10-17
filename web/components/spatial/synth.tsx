@@ -98,7 +98,7 @@ function Dial({ x, t, label, readout, color, space, onChange }: DialProps) {
       </group>
       <mesh
         visible={false}
-        position={[0, 0, 0.014]}
+        position={[0, 0, 0.009]}
         onPointerDown={(e) => {
           ;(e.target as Element).setPointerCapture(e.pointerId)
           drag.current = { id: e.pointerId, y: localY(e), t }
@@ -120,7 +120,7 @@ function Dial({ x, t, label, readout, color, space, onChange }: DialProps) {
         onPointerOver={() => setHover(true)}
         onPointerOut={() => setHover(false)}
       >
-        <boxGeometry args={[2 * KNOB_R + 0.018, 2 * KNOB_R + 0.018, 0.03]} />
+        <boxGeometry args={[2 * KNOB_R + 0.018, 2 * KNOB_R + 0.018, 0.018]} />
       </mesh>
       <group position={[0, -KNOB_R - 0.022, 0.001]}>
         <Container pixelSize={0.002} flexDirection="column" alignItems="center" pointerEvents="none">
@@ -167,7 +167,7 @@ function Pad({ note, x, color, geometry, onDown, onUp }: PadProps) {
       {/* Static hit box: the pad sinks on press, the hit surface must not, or a poke would re-trigger. */}
       <mesh
         visible={false}
-        position={[0, 0, 0.006]}
+        position={[0, 0, 0.002]}
         onPointerDown={() => {
           setDown(true)
           onDown(note)
@@ -180,7 +180,7 @@ function Pad({ note, x, color, geometry, onDown, onUp }: PadProps) {
           if (down) release()
         }}
       >
-        <boxGeometry args={[PAD[0], PAD[1], PAD[2] + 0.008]} />
+        <boxGeometry args={[PAD[0], PAD[1], PAD[2]]} />
       </mesh>
     </group>
   )

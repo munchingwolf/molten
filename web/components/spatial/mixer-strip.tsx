@@ -205,7 +205,7 @@ export default function MixerStrip({
         </group>
         <mesh
           visible={false}
-          position={[0, 0, 0.012]}
+          position={[0, 0, 0.008]}
           onPointerDown={downPan}
           onPointerMove={move}
           onPointerUp={up}
@@ -213,7 +213,7 @@ export default function MixerStrip({
           onDoubleClick={() => setPan(0)}
           {...hover("pan")}
         >
-          <boxGeometry args={[0.05, 0.05, 0.03]} />
+          <boxGeometry args={[0.05, 0.05, 0.016]} />
         </mesh>
       </group>
       <group position={[0, PAN_Y - 0.033, FRONT + 0.001]}>
@@ -244,7 +244,7 @@ export default function MixerStrip({
       </group>
       <mesh
         visible={false}
-        position={[0, MUTE_Y, 0.016]}
+        position={[0, MUTE_Y, 0.01]}
         onPointerDown={toggleMute}
         onPointerUp={() => setPressed(false)}
         onPointerCancel={() => setPressed(false)}
@@ -254,7 +254,7 @@ export default function MixerStrip({
           setHot((h) => (h === "mute" ? null : h))
         }}
       >
-        <boxGeometry args={[0.064, 0.03, 0.024]} />
+        <boxGeometry args={[0.064, 0.03, 0.016]} />
       </mesh>
 
       {/* fader */}
@@ -290,14 +290,14 @@ export default function MixerStrip({
         </group>
         <mesh
           visible={false}
-          position={[0, 0, 0.012]}
+          position={[0, 0, 0.009]}
           onPointerDown={downFader}
           onPointerMove={move}
           onPointerUp={up}
           onPointerCancel={up}
           {...hover("fader")}
         >
-          <boxGeometry args={[0.05, TRAVEL + CAP[1], 0.03]} />
+          <boxGeometry args={[0.05, TRAVEL + CAP[1], 0.018]} />
         </mesh>
       </group>
 

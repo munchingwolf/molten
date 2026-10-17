@@ -38,7 +38,7 @@ void main() {
   float fres = 1. - abs(dot(vView, vNormal));
   vec3 iri = hue(fract(vView.x * 1.6 + vView.y * 1.1 + (vUv.x + vUv.y) * .35 + uTime * .03));
   float lines = .5 + .5 * sin((vUv.y * ${H} + uTime * .004) * 1400.);
-  float sweep = smoothstep(.06, 0., abs(fract(uTime * .4) * 1.8 - .4 - (vUv.x + vUv.y * .3))) * (.25 + uHover);
+  float sweep = (1. - smoothstep(0., .06, abs(fract(uTime * .4) * 1.8 - .4 - (vUv.x + vUv.y * .3)))) * (.25 + uHover);
   float rim = smoothstep(-.003, 0., d);
   vec3 col = mix(uColor, iri, .6) * (.3 + .15 * lines + .7 * fres + .35 * uHover) + sweep + rim * uColor;
   gl_FragColor = vec4(col, clamp(.45 + .3 * fres + .25 * uHover + rim, 0., 1.));

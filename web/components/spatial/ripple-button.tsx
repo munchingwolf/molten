@@ -32,8 +32,8 @@ void main() {
     float k = r.z / ${LIFE.toFixed(2)};
     float rad = .02 + k * .17;
     float dist = length(vPos - r.xy);
-    float ring = smoothstep(.007, 0., abs(dist - rad)) + smoothstep(.004, 0., abs(dist - rad * .62)) * .5;
-    a += (ring + smoothstep(rad, 0., dist) * .18) * (1. - k) * (1. - k);
+    float ring = 1. - smoothstep(0., .007, abs(dist - rad)) + (1. - smoothstep(0., .004, abs(dist - rad * .62))) * .5;
+    a += (ring + (1. - smoothstep(0., rad, dist)) * .18) * (1. - k) * (1. - k);
   }
   float rim = smoothstep(-.004, 0., d) * (.25 + uHover * .6);
   gl_FragColor = vec4(uColor, clamp(a + rim, 0., 1.));

@@ -12,7 +12,7 @@ type Props = { src?: string; label?: string }
 // Sintel (Blender Foundation, CC BY 3.0), served with CORS so it can be a WebGL texture.
 const SAMPLE = "https://threejs.org/examples/textures/sintel.mp4"
 const W = 0.64 // screen width, metres
-const STRIP = 0.08 // seek bar + control row under the screen
+const STRIP = 0.1 // seek bar + control row under the screen
 const PAD = 0.012
 
 let matcap: CanvasTexture | undefined
@@ -39,6 +39,7 @@ const clock = (s: number) => {
 }
 
 type Media = { video: HTMLVideoElement; texture: VideoTexture }
+const noHit = () => {}
 
 /** 64 cm video screen. Press the screen (or the play button) to play/pause; sound unmutes on the first press. Tap the bar under the screen to seek. */
 export default function VideoPanel({ src = SAMPLE, label = "Sintel (trailer)" }: Props) {
@@ -167,23 +168,24 @@ export default function VideoPanel({ src = SAMPLE, label = "Sintel (trailer)" }:
       )}
       {status === "ready" && (!playing || hover) && (
         <group position={[0, screenY, 0.006]} scale={hover ? 1.12 : 1}>
-          <mesh>
+          {/* Overlay meshes don't raycast, so a press always reaches the screen behind them. */}
+          <mesh raycast={noHit}>
             <circleGeometry args={[0.042, 48]} />
             <meshBasicMaterial color="#0B0C10" transparent opacity={0.62} depthWrite={false} />
           </mesh>
           {playing ? (
             <>
-              <mesh position={[-0.009, 0, 0.001]}>
+              <mesh position={[-0.009, 0, 0.001]} raycast={noHit}>
                 <planeGeometry args={[0.009, 0.032]} />
                 <meshBasicMaterial color="#EEF0F4" toneMapped={false} />
               </mesh>
-              <mesh position={[0.009, 0, 0.001]}>
+              <mesh position={[0.009, 0, 0.001]} raycast={noHit}>
                 <planeGeometry args={[0.009, 0.032]} />
                 <meshBasicMaterial color="#EEF0F4" toneMapped={false} />
               </mesh>
             </>
           ) : (
-            <mesh position={[0.005, 0, 0.001]}>
+            <mesh position={[0, 0, 0.001]} raycast={noHit}>
               <circleGeometry args={[0.02, 3]} />
               <meshBasicMaterial color="#9FE7D2" toneMapped={false} />
             </mesh>
@@ -204,12 +206,12 @@ export default function VideoPanel({ src = SAMPLE, label = "Sintel (trailer)" }:
           <boxGeometry args={[W, 0.02, 0.02]} />
         </mesh>
       </group>
-      <group position={[0, sb - 0.053, 0.002]}>
-        <Container pixelSize={0.002} width={W / 0.002} height={44} flexDirection="row" alignItems="center" gap={10}>
+      <group position={[0, sb - 0.062, 0.002]}>
+        <Container pixelSize={0.002} width={W / 0.002} height={36} flexDirection="row" alignItems="center" gap={10}>
           <Container
             onClick={toggle}
             width={44}
-            height={36}
+            height={32}
             borderRadius={9}
             alignItems="center"
             justifyContent="center"

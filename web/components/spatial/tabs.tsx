@@ -89,7 +89,10 @@ function useSpring(target: number) {
     const d = Math.min(dt, 1 / 30)
     k.v += ((target - k.x) * 170 - k.v * 18) * d
     k.x += k.v * d
-    if (Math.abs(target - k.x) < 0.05 && Math.abs(k.v) < 0.5) (k.x = target), (k.v = 0)
+    if (Math.abs(target - k.x) < 0.05 && Math.abs(k.v) < 0.5) {
+      k.x = target
+      k.v = 0
+    }
     tick((t) => t + 1)
     state.invalidate()
   })

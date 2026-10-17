@@ -9,6 +9,7 @@ import {
 import { useStudio } from "@/lib/studio-store"
 import { findEntry } from "@/lib/registry"
 import type { Item, Vec3 } from "@/lib/layout"
+import { PropControls } from "./prop-controls"
 import { xr } from "./xr-theme"
 
 // Cockpit layout around where the session starts (user at the origin, eyes ≈ 1.6 m):
@@ -79,6 +80,7 @@ function Inspector() {
     update(item.id, { position: p })
   }
   const turn = (d: number) => update(item.id, { rotation: [item.rotation[0], item.rotation[1] + d, item.rotation[2]] })
+  const tilt = (d: number) => update(item.id, { rotation: [item.rotation[0] + d, item.rotation[1], item.rotation[2]] })
   const scale = (d: number) => update(item.id, { scale: Math.max(0.2, Math.round((item.scale + d) * 10) / 10) })
   const anchor = item.anchor ?? "world"
 
@@ -110,6 +112,13 @@ function Inspector() {
           <Tool label="Right" onClick={() => turn(-TURN)} small><RotateCw {...iconSm} /></Tool>
         </Container>
       </Container>
+      <Container flexDirection="row" justifyContent="space-between" alignItems="center">
+        <Text fontSize={13} color={xr.muted}>Tilt</Text>
+        <Container flexDirection="row" gap={6}>
+          <Tool label="Back" onClick={() => tilt(-TURN)} small><RotateCcw {...iconSm} /></Tool>
+          <Tool label="Forward" onClick={() => tilt(TURN)} small><RotateCw {...iconSm} /></Tool>
+        </Container>
+      </Container>
 
       <Container flexDirection="column" gap={6}>
         <Text fontSize={13} color={xr.muted}>Anchor</Text>
@@ -119,6 +128,8 @@ function Inspector() {
           ))}
         </Container>
       </Container>
+      {/* Live property editing (colour, label, size…) from the component's registry `props`. */}
+      <PropControls item={item} />
     </Panel>
   )
 }

@@ -54,6 +54,11 @@ export default function Door({ value, onChange, color = "#E4DED3" }: Props) {
     const st = s.current
     st.v += ((open ? OPEN : 0) - st.a) * 70 * d - st.v * 9 * d
     st.a += st.v * d
+    // The frame stops it shutting past closed: bounce off the stop instead.
+    if (st.a < 0) {
+      st.a = 0
+      st.v = -st.v * 0.3
+    }
     if (leaf.current) leaf.current.rotation.y = st.a
     const lit = Math.min(1, Math.max(0, st.a / OPEN))
     if (spillMat.current) spillMat.current.opacity = lit

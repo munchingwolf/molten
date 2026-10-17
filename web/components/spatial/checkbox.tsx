@@ -19,7 +19,7 @@ type Props = {
 
 const S = 0.044 // 4.4 cm box
 const D = 0.014
-const X = -0.06 // box sits left of centre, label to its right
+const X = -0.07 // box sits left of centre, label to its right
 const OFF = new Color("#1B1E26")
 
 // Disc with a rounded rim, facing +z (lathe profile runs bottom → top so normals face out).
@@ -100,15 +100,15 @@ export default function Checkbox({ value, onChange, label = "Snap to grid", shap
       </group>
       <group position={[X + S / 2 + 0.014, 0, 0]}>
         <Container pixelSize={0.002} anchorX="left" pointerEvents="none">
-          <Text fontSize={12} fontWeight="medium" color="#EEF0F4">
+          <Text fontSize={11} fontWeight="medium" color="#EEF0F4">
             {label}
           </Text>
         </Container>
       </group>
-      {/* Box and label are one 18 cm hit row, like a native checkbox label. */}
+      {/* Box and label are one 20 cm hit row, like a native checkbox label. */}
       <mesh
         visible={false}
-        position={[X - S / 2 + 0.09, 0, 0.002]}
+        position={[X - S / 2 + 0.1, 0, 0.002]}
         onPointerOver={() => (st.current.target = 1)}
         onPointerOut={() => {
           st.current.target = 0
@@ -119,7 +119,7 @@ export default function Checkbox({ value, onChange, label = "Snap to grid", shap
         onPointerCancel={up}
         onClick={toggle}
       >
-        <boxGeometry args={[0.18, S + 0.008, D + 0.004]} />
+        <boxGeometry args={[0.2, S + 0.008, D + 0.004]} />
       </mesh>
     </group>
   )

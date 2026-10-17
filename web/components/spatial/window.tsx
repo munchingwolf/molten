@@ -31,6 +31,7 @@ export default function Window({ title = "Mixdown", children, width = 0.5, heigh
 
   const close = () => {
     if (open === undefined) setInner(false)
+    setHover(false) // no pointerout arrives once it unmounts
     onClose?.()
   }
 
@@ -196,7 +197,10 @@ function useSpring(target: number, from = target) {
     const d = Math.min(dt, 1 / 30)
     k.v += ((target - k.x) * 170 - k.v * 18) * d
     k.x += k.v * d
-    if (Math.abs(target - k.x) < 1e-3 && Math.abs(k.v) < 1e-2) (k.x = target), (k.v = 0)
+    if (Math.abs(target - k.x) < 1e-3 && Math.abs(k.v) < 1e-2) {
+      k.x = target
+      k.v = 0
+    }
     tick((t) => t + 1)
     state.invalidate()
   })

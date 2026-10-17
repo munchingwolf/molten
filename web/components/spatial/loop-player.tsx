@@ -196,7 +196,7 @@ function Pad({ i, x, y, on, playing, geometry, glow, onToggle, skin, halo }: Pad
       {/* Static hit box: the pad sinks on press, the hit surface must not, or a poke would re-trigger. */}
       <mesh
         visible={false}
-        position={[0, 0, 0.012]}
+        position={[0, 0, 0.01]}
         onPointerDown={() => {
           setDown(true)
           onToggle(i)
@@ -209,7 +209,7 @@ function Pad({ i, x, y, on, playing, geometry, glow, onToggle, skin, halo }: Pad
           setDown(false)
         }}
       >
-        <boxGeometry args={[P, P, 0.024]} />
+        <boxGeometry args={[P, P, 0.012]} />
       </mesh>
     </group>
   )

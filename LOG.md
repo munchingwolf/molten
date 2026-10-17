@@ -13,6 +13,13 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 2:15: Evan: **Blender-style live editing in VR**: properties + tilt in Danny's in-headset inspector
+- Goal (Evan): "make the components work and look good… Blender, but editing live in VR": select → gizmo transform → tweak properties live.
+- `web/components/studio/prop-controls.tsx` (new): `<PropControls item={item} />` renders live controls from the component's registry `props` (colour swatches, enum chips, number steppers, on/off). Calls `update(id, { props })`; `bindingProps` passes them to the component.
+- **Danny, heads-up: I edited `vr-workspace.tsx`** (2 small additions in `Inspector()`): a **Tilt** row (rotation X, ±15°) and `<PropControls item={item} />` under Anchor. Restyle freely.
+- Mounted: assistant panel (laptop, right of canvas) + VR assistant, `<VoiceButton />` in the top bar (voice now logs in the assistant), `useGestureKeys()`.
+- ⚠️ Danny: your VR inspector (RIGHT_POS) and the VR assistant are both on the right. The spec will settle positions; for now the assistant can move.
+
 ### 2:09: Evan: DESIGN-PIPELINE.md status updated. **Danny: re-run `/impeccable document` when the HUD rebrand lands**
 - Step 1 (DESIGN.md for night studio) is marked done, thanks. Ship the HUD rebrand and the DESIGN.md update in the same commit, or Claude sessions will pull the site back to night studio. Audit (step 2) after that, on the new look.
 
