@@ -9,11 +9,7 @@ import { registry, type Entry } from "@/lib/registry"
 import { useStudio } from "@/lib/studio-store"
 import type { Vec3 } from "@/lib/layout"
 
-const STAGE = "#111214"
-const TEXT = "#F4F4F4"
-const MUTED = "#8E8F94"
-const HOVER = "#2E2E30" // white at ~12% over STAGE
-const PRESSED = "#0A0A0A"
+import { xr } from "./xr-theme"
 
 // Left of where the session starts, within arm's reach of a standing user (≈0.6 m from the left shoulder), turned to face them.
 const SHELF_POS: Vec3 = [-0.55, 1.15, -0.45]
@@ -47,42 +43,59 @@ export function VRShelf() {
   return (
     <IfInSessionMode allow={["immersive-ar", "immersive-vr"]}>
       <group position={SHELF_POS} rotation={[0, SHELF_YAW, 0]}>
-        <Container pixelSize={0.002} width={260} padding={12} gap={8} flexDirection="column" backgroundColor={STAGE} borderRadius={6}>
+        <Container
+          pixelSize={0.002}
+          width={280}
+          padding={16}
+          gap={12}
+          flexDirection="column"
+          backgroundColor={xr.panel}
+          borderRadius={xr.radius.lg}
+          borderWidth={1.5}
+          borderColor={xr.border}
+        >
           <Container flexDirection="row" justifyContent="space-between" alignItems="center" paddingX={4}>
-            <Text fontSize={20} fontWeight="bold" color={TEXT}>
-              Spatial
-            </Text>
-            <Text fontSize={13} color={MUTED}>
+            <Container flexDirection="row" alignItems="center" gap={8}>
+              <Container width={10} height={10} borderRadius={5} backgroundColor={xr.accent} />
+              <Text fontSize={20} fontWeight="bold" color={xr.text}>
+                Spatial
+              </Text>
+            </Container>
+            <Text fontSize={13} color={xr.muted}>
               Tap to add
             </Text>
           </Container>
-          <Container flexDirection="column" gap={4} maxHeight={360} overflow="scroll" scrollbarColor={MUTED} scrollbarWidth={4}>
+          <Container flexDirection="column" gap={6} maxHeight={380} overflow="scroll" scrollbarColor={xr.faint} scrollbarWidth={4}>
             {groups.size === 0 && (
-              <Text fontSize={14} color={MUTED} padding={4}>
+              <Text fontSize={14} color={xr.muted} padding={4}>
                 No components ready yet
               </Text>
             )}
             {[...groups].map(([category, entries]) => (
               <Fragment key={category}>
-                <Text fontSize={12} color={MUTED} paddingX={4} paddingTop={8} flexShrink={0}>
+                <Text fontSize={12} color={xr.faint} letterSpacing={1} paddingX={4} paddingTop={10} flexShrink={0}>
                   {category.toUpperCase()}
                 </Text>
                 {entries.map((e) => (
-                  // 44 px ≈ 9 cm: comfortably bigger than a fingertip.
                   <Container
                     key={e.name}
-                    height={44}
+                    height={xr.hit}
                     flexShrink={0}
-                    paddingX={12}
+                    paddingX={14}
+                    flexDirection="row"
                     alignItems="center"
-                    borderRadius={4}
-                    backgroundColor={STAGE}
-                    hover={{ backgroundColor: HOVER }}
-                    active={{ backgroundColor: PRESSED }}
+                    justifyContent="space-between"
+                    borderRadius={xr.radius.md}
+                    backgroundColor={xr.row}
+                    hover={{ backgroundColor: xr.rowHover }}
+                    active={{ backgroundColor: xr.rowActive }}
                     onClick={() => addInFront(camera, e.name)}
                   >
-                    <Text fontSize={16} color={TEXT}>
+                    <Text fontSize={16} color={xr.text}>
                       {e.displayName}
+                    </Text>
+                    <Text fontSize={18} color={xr.accent}>
+                      +
                     </Text>
                   </Container>
                 ))}

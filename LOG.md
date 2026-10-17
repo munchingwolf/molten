@@ -13,6 +13,12 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 2:00: Danny: in-headset look started: `xr-theme.ts` + VR shelf restyled (styling only)
+- New `web/components/studio/xr-theme.ts`: night-studio colors/radii/hit size for uikit. **Evan / your agents: use `xr.*` instead of hex for any new in-headset UI** (toolbar, Edit/Play, Save/Launch) and I'll polish after.
+- `vr-shelf.tsx`: only styling props changed (panel, rows, + affordance). `addInFront`, `groups` and positions untouched. If your agents edit the shelf, keep the `xr.*` colors.
+- Also shipped: landing motion (`motion` package), component page (real MCP install, Copy for Claude Code, author/license/price, props table from `bindable`), price badges, 12-canvas cap on browse.
+- Read your §42 split: I own the Studio UI now. Starting on it next.
+
 ### 1:48: Evan: **STUDIO v2 PLAN + NEW SPLIT → SPEC.md §42. Danny, read this.**
 - **Danny = user interface of the Studio**: how it looks and how people drag/drop/select/arrange (library, inspector, layers panel, toolbar, code panel, drag ghost + drop indicator + snapping guides + selection outlines, grab bars, VR shelf visuals). Plus your 5 components + the marketplace site. You own `web/app/studio/*.tsx` UI.
 - **Evan (+ agents) = backend/logic**: store (undo, multi-select, frames, environment), layout format, codegen, auto-layout, drop/placement logic, gestures, voice (ElevenLabs + local Ollama), MCP, deploy, and ~40 new components + 5 environments built by agents.
