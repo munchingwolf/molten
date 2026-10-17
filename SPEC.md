@@ -1,4 +1,4 @@
-> **Current locked plan: [§41](#41-locked-plan-spatial-studio-locked-1245-pm-oct-17).** Sections 1–40 are the original brainstorm. Where they conflict, §41 wins.
+> **Current plan: [§42](#42-studio-v2-plan-build-3d-software-tony-stark-style) (v2), on top of [§41](#41-locked-plan-spatial-studio-locked-1245-pm-oct-17).** Sections 1–40 are the original brainstorm. Where they conflict, §41 wins.
 
 # SPATIAL — MASTER PRODUCT SPEC
 
@@ -1887,3 +1887,42 @@ Full task list with "done when": https://claude.ai/artifact/UDisGbDK9Ffx5c95Dmif
 | Audio timing across components | All audio components use the global `Tone.Transport` |
 | Layout storage on Vercel | Run Studio + launch from the laptop's HTTPS dev server (`next dev --experimental-https`) |
 | One venue Quest | Desktop XR emulator for dev; book one solid headset block |
+
+---
+
+# 42. Studio v2 plan: build 3D software, Tony Stark style (approved 1:48 PM)
+
+> Supersedes the task tables in §41 where they conflict. End goal: **people build 3D software** (2D sites/platforms laid out in space AND immersive experiences like a 3D DAW) from a large component library, editing live with their hands and voice.
+
+## Who owns what (Evan's call)
+
+| | **Danny: user interface** | **Evan (+ Claude agents): backend and logic** |
+|---|---|---|
+| Studio | How the Studio **looks and feels**: overall layout, top bar, library panel, inspector, **layers panel UI**, code panel, toolbar, empty states; **drag-and-drop experience** (drag ghost, drop indicator, snapping guides, selection outlines, grab-bar look, hover states); VR shelf visuals; frame visuals | Data and behaviour: `lib/studio-store.ts` (undo/redo, multi-select, duplicate/copy/paste, frames + `parentId`, environment), `lib/layout.ts` format, `lib/codegen.ts`, `lib/auto-layout.ts`, drop raycast + placement logic, gestures logic, API routes |
+| Components | label, press-button, slider, spring-toggle, glass-card + restyling | ~40 new components via agents (below), registry data + merges |
+| Other | Marketplace site, "Open in Studio" (`/studio?add=<name>`) | Voice (ElevenLabs STT + local Ollama), environments, MCP, deploy (Vercel + Upstash), templates + export formats |
+
+**Interface contract between the two:** Danny builds UI on top of `useStudio` actions and never changes store/format semantics; Evan exposes every behaviour as a store action or hook first (logged in LOG.md with its signature) so Danny can wire it. Shared UI files (`web/app/studio/*.tsx`, `web/components/studio/*-panel.tsx`) are Danny's; logic files are Evan's.
+
+## Features (protect Figma editing; cut order: voice → environments beyond 3 → arc/wrist placements)
+
+- **Large library** (agents): A buttons/inputs (glow, glass, neon, ripple, magnetic, holo, icon, hold-to-confirm, checkbox, stepper, range slider, select, number pad, color picker) · B containers/nav/feedback (tabs, window, dialog, toast, tooltip, flip card, radial menu, dock, wrist menu, progress ring, badge, spinner) · C data/media (3D bar chart, gauge, stat card, sparkline, timeline scrubber, video panel, curved gallery, audio player, model viewer) · D **3D objects with functions** (lamp, TV, speaker, globe, door, clock, whiteboard, plant, desk, chair) · E music/DAW (fader, mixer strip, XY pad, waveform, loop player, synth). Every entry gets **`props` metadata** (name, type, options/min/max, default) so the inspector and voice can change colour, label, size.
+- **5 environments** as copy-pasteable components: studio loft, outer space, forest, concert stage, minimal gallery (+ "your room" = AR passthrough). `Layout.environment`.
+- **Figma editing**: drag from library onto the canvas, undo/redo, multi-select, duplicate/copy/paste, frames with auto-layout (row/column/grid/arc), ⌘G frame selection, layers panel, snap 2.5 cm, spatial placement (world / follow head / wrist / arc wall).
+- **Tony Stark hands**: one-hand pinch = move; **two-hand pinch = scale + rotate**; desktop: scroll = scale, `[` `]` = rotate.
+- **Voice**: push-to-talk → ElevenLabs Scribe → local Ollama (`qwen2.5:7b`/`hermes3:8b`) classifies into ops; **code applies a value only when the user's words corroborate it**; keyword fallback. No Claude credits.
+- **Formats**: templates (Settings screen, Dashboard, Media app, 3D landing page, Music DAW); export TSX / layout JSON / share link / "Copy prompt for Claude"; MCP understands frames + environments.
+
+## Timeline
+| Time | |
+|---|---|
+| ~2:00 | Agents A–H start (library, environments, gestures, voice) |
+| 2:00–3:15 | Evan: store/format core (history, frames, environment, multi-select) → log action signatures for Danny. Danny: Studio UI redesign + drag-and-drop feel |
+| 3:15–3:45 | Merge library + environments + voice + gestures; `/lab` QA page |
+| 3:45–4:30 | Quest round 2 + fixes |
+| 4:30–5:15 | Templates, export menu, MCP update, deploy |
+| 5:15–5:45 | Rehearse demo ×3 |
+| 5:45–6:15 | Record video (<1 min, no slides); submit by 6:30 |
+
+## Demo target
+Quest: pick **concert stage** → pull mixer, drum pads, knob off the shelf → two-hand stretch the mixer → say "make the pads glow blue and add a tempo display" → Launch → play. Laptop: code panel + Claude Code with the Spatial MCP drops it into a fresh project; marketplace shows the library.

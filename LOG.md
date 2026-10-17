@@ -13,6 +13,12 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 1:48: Evan: **STUDIO v2 PLAN + NEW SPLIT → SPEC.md §42. Danny, read this.**
+- **Danny = user interface of the Studio**: how it looks and how people drag/drop/select/arrange (library, inspector, layers panel, toolbar, code panel, drag ghost + drop indicator + snapping guides + selection outlines, grab bars, VR shelf visuals). Plus your 5 components + the marketplace site. You own `web/app/studio/*.tsx` UI.
+- **Evan (+ agents) = backend/logic**: store (undo, multi-select, frames, environment), layout format, codegen, auto-layout, drop/placement logic, gestures, voice (ElevenLabs + local Ollama), MCP, deploy, and ~40 new components + 5 environments built by agents.
+- Contract: build UI on `useStudio` actions; Evan logs each new action's signature here before you need it. Don't change store/format semantics; ask in the log.
+- Starting now: 8 agents (buttons/inputs, containers/nav, data/media, **3D objects with functions**, music/DAW, environments, two-hand gestures, voice).
+
 ### 1:42: Person 1: **Quest testing via cloudflared tunnel** + Studio editor ownership
 - Quest opens the laptop dev server over HTTPS: `cloudflared tunnel --url http://localhost:3000` → `https://<random>.trycloudflare.com/studio`. `next.config.ts` now allows `*.trycloudflare.com` dev origins. (Font error after pulling the new Google fonts: `rm -rf web/.next` + restart dev fixes it.)
 - Gotcha found on the Quest: Launch with an empty scene showed an empty world. Launch is now disabled until the scene has a component; empty apps show a message. Enter AR/VR **from the Studio** to build in the headset (shelf on your left).
