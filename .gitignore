@@ -7,3 +7,6 @@ replica/
 
 # deep-research working notes
 research_notes/
+
+# local layout + asset storage (dev server)
+.data/
