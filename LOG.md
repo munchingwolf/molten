@@ -13,6 +13,12 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 12:55: Person 1: FOCUS CHANGE: general design components first, music later
+- **No audio engine / music app for now.** Product focus = a 21st.dev-style library of general XR UI components.
+- Music/DAW components (incl. a **Kaedim-generated 3D drum pad**, since Kaedim is a sponsor and a judge) = **later phase**.
+- Ready-made building blocks (all MIT): `uikit-default` has 25 shadcn primitives (accordion, alert, dialog, avatar, badge, button, card, checkbox, input, menubar, pagination, progress, radio, slider, switch, tabs, textarea, toggle, tooltip, video…). `uikit-apfel` has a Vision Pro look. `uikit-horizon` has a Meta Quest look.
+- Pending (Person 1 deciding): pitch = "build your XR interface in the air with hands + voice, Claude ships it as code"; headset Studio + MCP `get_layout`.
+
 ### 12:35: Person 1: SHORTCUTS FOUND: don't hand-build the skins
 - **pmndrs/uikit ships 3 ready-made kits (all MIT, verified):** `@react-three/uikit-default` (shadcn look), `@react-three/uikit-apfel` (Vision Pro glass look), `@react-three/uikit-horizon` (Meta Quest / Reality Labs look). Each has panel, slider, toggle, button, etc. **Settings skins = Default / Glass (apfel) / Horizon**, each ~30 min to assemble. A custom "Cyber" skin is optional, 4th.
 - Icons: `@react-three/uikit-lucide`. Hand-grab/drag in VR: `@react-three/handle` (same team as @react-three/xr).
