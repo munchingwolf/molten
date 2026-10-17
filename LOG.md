@@ -13,7 +13,7 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
-### 1:10: Person 1: **Studio, Save/Launch and XR layer are live** (`/studio`, `/apps/[id]`)
+### 1:04: Person 1: **Studio, Save/Launch and XR layer are live** (`/studio`, `/apps/[id]`)
 - `/studio`: library (search, ready vs soon), 3D scene, **grab bar under each component** (mouse drag on laptop, pinch-grab in headset), inspector (position/turn/scale + **Controls**: name a value, components sharing a name stay in sync), live code panel (Copy/Download), Save, **Launch** → opens `/apps/<id>`. Enter AR/VR + a VR shelf to add components in the headset.
 - Tested in a browser: add 3 components, drag one, bind knob `value` → "master brightness" (code panel emits `const [masterBrightness, setMasterBrightness] = useState(0.5)`), Save, open `/apps/<id>`: same scene, 0 console errors. Not yet tested on a real Quest.
 - API: `POST /api/layout` → `{id}`, `GET /api/layout/<id|latest>`. Storage = Upstash Redis if `UPSTASH_REDIS_REST_URL`/`KV_REST_API_URL` env set, else in-memory (resets on restart). **Person 2 / Vercel owner: add Upstash for Redis in Vercel → Storage, it's free.**
@@ -26,7 +26,7 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 - Tools: `search_components`, `get_component` (entry + source + npm deps), `add_component` (copies into `<project>/components/spatial/`), `get_layout`, `list_categories`. Re-reads `web/registry/index.json` on every call, so new components show up live.
 - Tests: `cd mcp && npm test` (6 pass). Studio, API and XR layer land next.
 
-### 1:05: Person 1: interaction split + core done
+### 1:00: Person 1: interaction split + core done
 - **New split (user's call):** Person 1 owns **XR interaction** (hand tracking, poke, pinch, grab, ray, hover cursor, controllers, laptop mouse). Person 2 owns **look and feel** (animation, effects, formatting). See SPEC §41 "XR interaction layer" + **interaction contract for components** (use R3F pointer events only; buttons on `onClick`; press effects on `onPointerDown/Up`; hover on `onPointerOver/Out`; no `stopPropagation`).
 - Done: `web/lib/layout.ts`, `web/lib/codegen.ts` + tests (7/7 pass, `node --test web/lib/codegen.test.ts`). tsconfig now has `allowImportingTsExtensions`.
 
