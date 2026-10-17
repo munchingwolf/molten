@@ -13,6 +13,14 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 3:30: Danny: **Studio library: ★ favorites pinned on top + hover preview**
+- `web/lib/favorites.ts` (`useFavorites`, `toggleFavorite`, per-browser localStorage). Seeded with 23 music-demo picks (transport, drum-pad, step-sequencer, piano-keys, synth, arpeggiator, knob, fader, mixer-strip, xy-pad, tempo-display, vu-meter, audio-visualizer, waveform, loop-player, hardware-synth, studio-monitors, press-button, slider, glass-card, label, acoustic-panels, neon-sign). Edit `DEFAULT_FAVORITES` to change the demo set.
+- `app/studio/studio-app.tsx` Library only: ☆/★ button per row, "★ Favorites" group first, hovering a ready row floats a live `<Preview>` (one extra canvas) with its description beside the panel. Drag/add logic untouched.
+
+### 3:19: Danny: **45 new library components** (uikit default kit, drei visuals/materials, interactive + music)
+- `registry/incoming/kit.json` (12), `interactive.json` (7: audio-visualizer, oscilloscope, arpeggiator, flow-field-particles, particle-emitter, force-graph, poke-button-demo), `visuals.json` (26). Merged, build green (227 pages). Rows at the bottom of COMPONENTS.md.
+- Notes: kit components recolour via refs, not `setTheme`. text-label/billboard-tag fetch drei default font from jsdelivr. glass-orb/mirror-floor/portal-card add a render pass each. tsc + build only, not yet on Quest.
+
 ### 2:52: Evan: **wall/ceiling mounting, Play mode, gizmo off in XR, environments in launched apps**
 - **Mounting** (`lib/snap.ts` `mountOnWall`/`mountOnCeiling`, tested): on release, items tagged `mount:wall` (origin on back face, facing +Z) go flush onto the nearest vertical face of a `wall`-tagged item within 10 cm and turn to face out (inside a room-shell: face into the room); `mount:ceiling` items hang at the room-shell's ceiling or 2.6 m.
 - **Play mode**: `useStudio().playMode` + `togglePlay()`: scene uses `editable={!playMode}`, hides grid + X-ray; components stay live. **Danny/ek-b4: wire the 🔒/Play button to `togglePlay()`.**

@@ -14,6 +14,8 @@ import { AssistantPanel } from "@/components/studio/assistant-panel"
 import { VoiceButton } from "@/components/studio/voice"
 import { useGestureKeys } from "@/components/studio/use-gesture-keys"
 import { ImportModelButton } from "@/components/studio/import-model"
+import { Preview } from "@/components/site/preview"
+import { toggleFavorite, useFavorites } from "@/lib/favorites"
 
 export function StudioApp() {
   useGestureKeys()
@@ -186,13 +188,19 @@ function Library() {
   const add = useStudio((s) => s.add)
   const [ghost, setGhost] = useState<{ label: string; x: number; y: number; over: boolean } | null>(null)
   const dragged = useRef(false)
+  const favorites = useFavorites()
+  // Hovered row: a live 3D preview floats beside the library so you see it before adding.
+  const [peek, setPeek] = useState<{ entry: Entry; top: number } | null>(null)
+  const peekTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
   const groups = useMemo(() => {
     const g = new Map<string, Entry[]>()
     for (const e of registry.filter((e) => e.category !== "environments" && matches(e, query)))
       g.set(e.category, [...(g.get(e.category) ?? []), e])
     // Ready components first within the list; categories with something ready first.
-    return [...g].sort(([, a], [, b]) => +b.some((e) => e.status === "ready") - +a.some((e) => e.status === "ready"))
-  }, [query])
+    const sorted = [...g].sort(([, a], [, b]) => +b.some((e) => e.status === "ready") - +a.some((e) => e.status === "ready"))
+    const favs = favorites.map((n) => registry.find((e) => e.name === n)).filter((e): e is Entry => !!e && matches(e, query))
+    return favs.length ? [["★ Favorites", favs] as [string, Entry[]], ...sorted] : sorted
+  }, [query, favorites])
 
   // Press a row and drag it onto the canvas: a label follows the cursor, a ring shows where it lands, release places it
   // facing you. A plain click still adds it at the next free spot.
@@ -205,6 +213,7 @@ function Library() {
     const move = (e: PointerEvent) => {
       if (!dragged.current && Math.hypot(e.clientX - x0, e.clientY - y0) < 6) return
       dragged.current = true
+      setPeek(null)
       setGhost({ label: entry.displayName, x: e.clientX, y: e.clientY, over: previewDrop(e.clientX, e.clientY, floor) })
     }
     const up = (e: PointerEvent) => {
@@ -237,25 +246,62 @@ function Library() {
       </div>
       {groups.map(([category, entries]) => (
         <section key={category} className="px-3 pb-3">
-          <h3 className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted">{category}</h3>
+          <h3 className={`mb-1 text-xs font-semibold uppercase tracking-wide ${category === "★ Favorites" ? "text-accent" : "text-muted"}`}>{category}</h3>
           <ul>
             {entries.map((e) => (
-              <li key={e.name}>
+              <li
+                key={e.name}
+                className="group relative"
+                onPointerEnter={(ev) => {
+                  const top = ev.currentTarget.getBoundingClientRect().top
+                  clearTimeout(peekTimer.current)
+                  if (e.status === "ready") peekTimer.current = setTimeout(() => setPeek({ entry: e, top }), 180)
+                }}
+                onPointerLeave={() => {
+                  clearTimeout(peekTimer.current)
+                  setPeek(null)
+                }}
+              >
                 <button
                   disabled={e.status !== "ready"}
                   onPointerDown={(ev) => startDrag(ev, e)}
                   onClick={() => (dragged.current ? (dragged.current = false) : add(e.name))}
                   title={e.status === "ready" ? `Add ${e.displayName} (or drag it onto the canvas)` : "Coming soon"}
-                  className="flex w-full cursor-grab select-none items-center justify-between rounded-md px-2 py-1.5 text-left text-sm hover:bg-bg active:cursor-grabbing disabled:cursor-not-allowed disabled:opacity-40"
+                  className="flex w-full cursor-grab select-none items-center justify-between rounded-md py-1.5 pl-2 pr-8 text-left text-sm hover:bg-bg active:cursor-grabbing disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   <span>{e.displayName}</span>
                   {e.status === "ready" ? <span aria-hidden className="text-muted">+</span> : <span className="text-xs">soon</span>}
+                </button>
+                <button
+                  onClick={() => toggleFavorite(e.name)}
+                  aria-pressed={favorites.includes(e.name)}
+                  aria-label={`${favorites.includes(e.name) ? "Unfavorite" : "Favorite"} ${e.displayName}`}
+                  title={favorites.includes(e.name) ? "Remove from favorites" : "Pin to the top"}
+                  className={`absolute right-1 top-1/2 grid size-6 -translate-y-1/2 place-items-center rounded text-sm transition-opacity hover:text-accent ${
+                    favorites.includes(e.name) ? "text-accent" : "text-faint opacity-0 focus-visible:opacity-100 group-hover:opacity-100"
+                  }`}
+                >
+                  {favorites.includes(e.name) ? "★" : "☆"}
                 </button>
               </li>
             ))}
           </ul>
         </section>
       ))}
+      {peek && !ghost && (
+        <div
+          className="pointer-events-none fixed left-[268px] z-[60] w-[260px] overflow-hidden rounded-xl border border-border-2 bg-surface shadow-2xl"
+          style={{ top: Math.min(Math.max(64, peek.top - 80), window.innerHeight - 260) }}
+        >
+          <div className="h-[190px] bg-stage">
+            <Preview name={peek.entry.name} />
+          </div>
+          <div className="border-t border-border px-3 py-2">
+            <p className="text-sm font-semibold">{peek.entry.displayName}</p>
+            <p className="line-clamp-2 text-xs text-muted">{peek.entry.description}</p>
+          </div>
+        </div>
+      )}
       {ghost && (
         <div
           className={`pointer-events-none fixed z-[60] -translate-x-1/2 -translate-y-[130%] rounded-full border px-3 py-1 text-xs font-semibold shadow-lg transition-colors ${
