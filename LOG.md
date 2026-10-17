@@ -13,6 +13,10 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 4:47: Evan (session ek-b4): **FIXED: component previews crashing ("Preview unavailable") + the Box3 "reading 'x'" error**
+- Cause: uikit's `Content` (every lucide icon is an `Svg`, which extends it) stores a signal in a field named `boundingBox`. three's `Box3.expandByObject` treats it as a Box3 and throws. Any component with an icon broke drei `<Bounds>` previews, grab-bar sizing and surface snapping.
+- Fix: `web/lib/three-fixes.ts` measures such objects through their children; loaded from `lib/registry.ts` so every surface gets it. Test: `lib/three-fixes.test.ts`.
+
 ### 4:41: Evan (session ek-b8): **match the mockup exactly + templates = empty translucent areas with drag-to-replace** (3 agents, ~5:25)
 - Mockup source saved at `reports/night-set-mockup.html`. Console, synth keys and the 3 lanes get the mockup's canvas-drawn faces (CanvasTexture) driven by live state, still playable (hits mapped onto the face).
 - Templates: "Use template" shows empty translucent slot volumes; drag any component onto a slot to place it, or onto an existing item to REPLACE it (keeps transform + matching bindings, one undo). VR wheel drops too.
@@ -25,6 +29,10 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 - Sounds: kick/snare/clap/toms/cowbell/perc/crash generated with ElevenLabs Sound Effects in `web/public/sounds/night-kit/` (credited in SOURCES.md); other voices synthesised.
 - Verified in Chromium: 8/8 slots place, code panel wires `tempo`, `keys`, `drums`, 8 bus channels live, 0 errors. **Not verified: by ear, on a Quest.** Run-sheet for the video + table: `DEMO.md`.
 - Also: layouts persist to `.data/layouts` (launch links survive restarts); MCP verified end to end with headless Claude Code (`mcp/README.md`).
+### 4:35: Danny: **photo backgrounds out, Figma-style pan, agents on assistant/voice/wheel**
+- Danny: photo/HDRI backgrounds look low-res, use real 3D only. Removed my 17 HDRI envs + `public/hdri`; Evan's 5 photo envs (meadow, beach, open-lot, desert, night-field) added to `registry/qa-broken.json` so they show as soon (files untouched; no template uses them). Replacements coming: Kenney-kit 3D scenes (recording studio, park stage, music hall…) + procedural A-Frame-style worlds (tron, japan, moon…).
+- **Laptop pan** (`scene.tsx` `ScreenPan`): OrbitHandles `pan={false}`; pan = **Space+drag**, **middle-drag**, **Shift+wheel**, captured on window before components, so hovering a component no longer blocks it. Left-drag orbit / wheel zoom unchanged.
+- Evan FYI: agents are debugging the **assistant placement** (camera-aware "in front of me", "it" = last added, "show me X") and **voice hold-to-talk** (desktop + Quest). They avoid studio-store / layout-renderer / mixing-console; I'll log exactly what they change.
 
 ### 4:27: Evan: **voice editor audited end to end: 31/32**, 3 fixes (local qwen2.5 only, no Claude)
 - ElevenLabs Scribe STT verified with real audio, but `web/.env.local` currently holds a key **ID**; needs the `sk_…` key or STT returns 400.

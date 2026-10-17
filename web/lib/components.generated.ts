@@ -144,11 +144,6 @@ const C_aurora_ribbon = lazy(() => import("@/components/spatial/aurora-ribbon"))
 const C_reveal_card = lazy(() => import("@/components/spatial/reveal-card"))
 const C_liquid_button = lazy(() => import("@/components/spatial/liquid-button"))
 const C_env_light_studio = lazy(() => import("@/components/spatial/env-light-studio"))
-const C_env_meadow = lazy(() => import("@/components/spatial/env-meadow"))
-const C_env_beach = lazy(() => import("@/components/spatial/env-beach"))
-const C_env_open_lot = lazy(() => import("@/components/spatial/env-open-lot"))
-const C_env_desert = lazy(() => import("@/components/spatial/env-desert"))
-const C_env_night_field = lazy(() => import("@/components/spatial/env-night-field"))
 const C_hero_section = lazy(() => import("@/components/spatial/hero-section"))
 const C_feature_trio = lazy(() => import("@/components/spatial/feature-trio"))
 const C_pricing_table = lazy(() => import("@/components/spatial/pricing-table"))
@@ -202,23 +197,6 @@ const C_grand_piano = lazy(() => import("@/components/spatial/grand-piano"))
 const C_pendant_light = lazy(() => import("@/components/spatial/pendant-light"))
 const C_room_shell = lazy(() => import("@/components/spatial/room-shell"))
 const C_string_lights = lazy(() => import("@/components/spatial/string-lights"))
-const C_env_music_hall = lazy(() => import("@/components/spatial/env-music-hall"))
-const C_env_park_music_stage = lazy(() => import("@/components/spatial/env-park-music-stage"))
-const C_env_creative_studio = lazy(() => import("@/components/spatial/env-creative-studio"))
-const C_env_venice_sunset = lazy(() => import("@/components/spatial/env-venice-sunset"))
-const C_env_sunset_forest = lazy(() => import("@/components/spatial/env-sunset-forest"))
-const C_env_nature_reserve = lazy(() => import("@/components/spatial/env-nature-reserve"))
-const C_env_forest_slope = lazy(() => import("@/components/spatial/env-forest-slope"))
-const C_env_rooitou_park = lazy(() => import("@/components/spatial/env-rooitou-park"))
-const C_env_dawn_landscape = lazy(() => import("@/components/spatial/env-dawn-landscape"))
-const C_env_night_landscape = lazy(() => import("@/components/spatial/env-night-landscape"))
-const C_env_empty_warehouse = lazy(() => import("@/components/spatial/env-empty-warehouse"))
-const C_env_apartment = lazy(() => import("@/components/spatial/env-apartment"))
-const C_env_urban_plaza = lazy(() => import("@/components/spatial/env-urban-plaza"))
-const C_env_historic_interior = lazy(() => import("@/components/spatial/env-historic-interior"))
-const C_env_art_studio = lazy(() => import("@/components/spatial/env-art-studio"))
-const C_env_photo_studio = lazy(() => import("@/components/spatial/env-photo-studio"))
-const C_env_white_studio = lazy(() => import("@/components/spatial/env-white-studio"))
 const C_drum_pads = lazy(() => import("@/components/spatial/drum-pads"))
 const C_synth_keys = lazy(() => import("@/components/spatial/synth-keys"))
 const C_tempo_lane = lazy(() => import("@/components/spatial/tempo-lane"))
@@ -368,11 +346,6 @@ export const components: Record<string, ComponentType> = {
   "reveal-card": C_reveal_card as ComponentType,
   "liquid-button": C_liquid_button as ComponentType,
   "env-light-studio": C_env_light_studio as ComponentType,
-  "env-meadow": C_env_meadow as ComponentType,
-  "env-beach": C_env_beach as ComponentType,
-  "env-open-lot": C_env_open_lot as ComponentType,
-  "env-desert": C_env_desert as ComponentType,
-  "env-night-field": C_env_night_field as ComponentType,
   "hero-section": C_hero_section as ComponentType,
   "feature-trio": C_feature_trio as ComponentType,
   "pricing-table": C_pricing_table as ComponentType,
@@ -426,23 +399,6 @@ export const components: Record<string, ComponentType> = {
   "pendant-light": C_pendant_light as ComponentType,
   "room-shell": C_room_shell as ComponentType,
   "string-lights": C_string_lights as ComponentType,
-  "env-music-hall": C_env_music_hall as ComponentType,
-  "env-park-music-stage": C_env_park_music_stage as ComponentType,
-  "env-creative-studio": C_env_creative_studio as ComponentType,
-  "env-venice-sunset": C_env_venice_sunset as ComponentType,
-  "env-sunset-forest": C_env_sunset_forest as ComponentType,
-  "env-nature-reserve": C_env_nature_reserve as ComponentType,
-  "env-forest-slope": C_env_forest_slope as ComponentType,
-  "env-rooitou-park": C_env_rooitou_park as ComponentType,
-  "env-dawn-landscape": C_env_dawn_landscape as ComponentType,
-  "env-night-landscape": C_env_night_landscape as ComponentType,
-  "env-empty-warehouse": C_env_empty_warehouse as ComponentType,
-  "env-apartment": C_env_apartment as ComponentType,
-  "env-urban-plaza": C_env_urban_plaza as ComponentType,
-  "env-historic-interior": C_env_historic_interior as ComponentType,
-  "env-art-studio": C_env_art_studio as ComponentType,
-  "env-photo-studio": C_env_photo_studio as ComponentType,
-  "env-white-studio": C_env_white_studio as ComponentType,
   "drum-pads": C_drum_pads as ComponentType,
   "synth-keys": C_synth_keys as ComponentType,
   "tempo-lane": C_tempo_lane as ComponentType,

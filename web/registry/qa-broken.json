@@ -1,5 +1,10 @@
 [
   "kinetic-title",
   "spotlight-text",
-  "tabs"
+  "tabs",
+  "env-meadow",
+  "env-beach",
+  "env-open-lot",
+  "env-desert",
+  "env-night-field"
 ]
