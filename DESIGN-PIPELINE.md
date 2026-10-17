@@ -17,11 +17,11 @@ For Danny. Evan used this process to get Luminao's site looking good. Here it's 
   Commands are `/design-review`, `/design-shotgun`, `/design-consultation`. On Evan's machine they're prefixed: `/gstack-design-review` and so on.
 - **impeccable** (critique, polish, writes DESIGN.md from shipped code): https://github.com/pbakaus/impeccable, docs at https://impeccable.style/docs/. Run it as `/impeccable <verb> <target>`.
 
-## Where the site stands (Oct 17, 1:30 PM)
+## Where the site stands (Oct 17, 2:10 PM)
 
-- At 1:08 you restyled the site to **night studio**: dark, mint accent `#9FE7D2`, Bricolage Grotesque / Hanken Grotesk / Instrument Serif / JetBrains Mono. The tokens are in `web/app/globals.css`.
-- **DESIGN.md still describes the old "Grey Card Stage" look**: light grey ground, Cabinet Grotesk, chroma green, "don't go dark mode", "no glows or gradients". The code and the contract disagree. Any Claude that reads DESIGN.md will treat the new look as a bug, or quietly pull it back toward grey. Fix this first.
-- Pages in scope: `/` (home), `/components` (browse), `/components/[name]` (live preview + Copy prompt). `/studio` and `/apps/[id]` are Evan's tool screens, so leave them out unless he asks.
+- **Step 1 is done.** At 1:40 you rewrote DESIGN.md for night studio, with Familjen Grotesk as the headline font.
+- **A second rebrand is in progress** (your 2:12 log: holographic HUD palette + mascot). Update DESIGN.md in the same commit the new look lands: run `/impeccable document` again and add a Decisions Log row. Otherwise every Claude session reads night studio and pulls the site back to it. Then run the step 2 audit on the new look.
+- Pages in scope: `/` (home), `/components` (browse), `/components/[name]` (live preview + Copy prompt). The Studio UI is yours now too (SPEC §42); give it its own audit after the site. Leave out `/apps/[id]`.
 
 ## The pipeline, today
 

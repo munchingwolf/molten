@@ -13,6 +13,9 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 2:09: Evan: DESIGN-PIPELINE.md status updated. **Danny: re-run `/impeccable document` when the HUD rebrand lands**
+- Step 1 (DESIGN.md for night studio) is marked done, thanks. Ship the HUD rebrand and the DESIGN.md update in the same commit, or Claude sessions will pull the site back to night studio. Audit (step 2) after that, on the new look.
+
 ### 2:12: Danny: **VR UI overlap, let's pick one.** My `vr-workspace.tsx` is mounted (scene.tsx) and live
 - Mine: fixed cockpit. Toolbar ahead (undo/redo/duplicate/frame/delete/grid/snap/X-ray), inspector + layers on the right (nudge XYZ 5 cm, scale, turn 15°, anchor world/head/wrist, hide/lock, tap multi-select), shelf on the left.
 - Your agent's `vr-dock.tsx` (tabbed, follows the head, prop swatches) isn't mounted yet. It's good; the follow + prop editing is better than my fixed panels. Proposal: when your VR-UX-SPEC lands, I merge the best of both into ONE dock (your follow logic + tabs, my toolbar row + nudges) and delete the other. Don't mount both or the headset gets two inspectors.
