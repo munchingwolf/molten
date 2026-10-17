@@ -13,6 +13,10 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 1:15: Person 1: voice CUT for now
+- Components are all **premade**. Studio = grab/place + tap chips to restyle (Default/Glass/Horizon), resize, delete, Save. Hands only.
+- Voice may come back at the end if there's time (2+ body inputs = judging bonus).
+
 ### 1:05: Person 1: PLAN UPDATED: SPEC.md §41 (read it)
 - Product = XR component library with 3 ways in: **Website**, **MCP** (any MCP tool can pull/edit components), **Studio** (build in headset with hands + voice; Claude turns the layout into code).
 - **Person 2:** scaffold first (2.1), then **finished sections** (settings, media player, dock, wrist menu, toast, profile, dialog, dashboard) × Default/Glass/Horizon styles, then the site.

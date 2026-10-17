@@ -1772,7 +1772,7 @@ One catalog, three ways in:
 |---|---|---|
 | **Website** (laptop) | Browsing | See components live in 3D, copy the code |
 | **MCP** (Claude Code, Cursor, any MCP client) | Building in your own tool (an XR app, a DAW, a site) | The agent searches the catalog, pulls components into the project, and edits them, like 21st.dev's MCP for websites |
-| **Studio** (headset) | Creating | Grab components from a floating catalog and place them (hands). Restyle them by voice. Save the layout. The MCP's `get_layout` lets Claude turn it into code |
+| **Studio** (headset) | Creating | Grab premade components from a floating catalog and place them (hands). Tap to switch style (Default/Glass/Horizon). Save the layout. The MCP's `get_layout` lets Claude turn it into code |
 
 ## Decisions
 
@@ -1781,8 +1781,8 @@ One catalog, three ways in:
 | Platform | **WebXR**: Next.js + Tailwind + React Three Fiber + `@react-three/xr` + `pmndrs/uikit` (MIT). One app = website (`/`) + Studio (`/studio`). |
 | Components | Featured: **finished XR sections** (settings panel, media player, tab bar/dock, wrist menu, toast, profile card, confirm dialog, stats dashboard), 2–3 styles each (Default/shadcn, Glass/apfel, Horizon/Meta). Basics tab: the uikit primitives. |
 | Component = | A React (.tsx) file. "Add" = copy the file into your project (shadcn model). |
-| Demo (judged) | In headset: grab and place components (**hands**), "make it glass" (**voice**), Save. Then Claude Code + Spatial MCP → `get_layout` → code in the project. Navigate track. |
-| Cut for today | Audio engine, music/DAW components, Kaedim drum pad (**later phase**), Unity, Rokoko. |
+| Demo (judged) | In headset: grab and place premade components and tap to restyle them (**hands**), Save. Then Claude Code + Spatial MCP → `get_layout` → code in the project. Navigate track. |
+| Cut for today | Voice (maybe re-add if time: it would earn the 2+ body inputs bonus), audio engine, music/DAW components, Kaedim drum pad (**later phase**), Unity, Rokoko. |
 
 ## Shared contract (lock first, 20 min together)
 
@@ -1804,7 +1804,7 @@ Change these only after logging it in LOG.md.
 | 1.1 | `registry/index.json` + `lib/registry.ts` + 2 stub components so work isn't blocked | Imports work |
 | 1.2 | `/studio`: `<XR>` scene (AR passthrough), hands + controllers | Shows in Quest browser |
 | 1.3 | Floating catalog shelf: live mini-previews. **Tap** to place in front of you (fallback), then **grab** to move (`@react-three/handle`) | Place + move works in headset |
-| 1.4 | Voice (ElevenLabs `useScribe` + `/api/scribe-token`): "make it glass / horizon / default" restyles the selected item; "add a <thing>"; "bigger/smaller"; "save" | Works in headset |
+| 1.4 | Selected item gets floating chips: **Default / Glass / Horizon** (swap to the same category in another style), **bigger / smaller**, **delete**, plus a **Save** button | Restyle by tap works in headset |
 | 1.5 | Layout save: `POST /api/layout`, `GET /api/layout/:id` (shortcut: in-memory/file, needs dev server) | Studio saves, curl reads |
 | 1.6 | MCP server (`mcp/`): `search_components`, `get_component` (returns code), `add_component` (copies .tsx into a project), `get_layout` | Claude Code installs a component + rebuilds a saved layout |
 
@@ -1835,7 +1835,6 @@ Change these only after logging it in LOG.md.
 
 | Risk | Fallback |
 |---|---|
-| ElevenLabs/mic fails in Quest browser | Web Speech API; else voice from laptop mic drives the headset via the same server |
 | Grab is fiddly | Tap-to-place already works |
 | Layout save needs persistence on Vercel | Demo from the laptop's HTTPS dev server (`next dev --experimental-https`) |
 | One venue Quest | Desktop XR emulator for dev; book one solid headset block |
