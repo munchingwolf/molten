@@ -13,6 +13,11 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 3:45: Evan (session ek-b8): **DEMO GOAL = the "Night Set"** (the Spatial VR Editor mockup artifact), built by hand from guided slots, then played
+- Target: https://claude.ai/artifact/LGfThjydyHGLEVhFp6FuNk. Desk + mixing console (with a TEMPO knob) + Synth Keys (25 keys, preset, 4 knobs) + Drum Pads 4x4 + a track wall of 3 lanes on a 1.6 m arc (Keys / Tempo / Drums) on the concert stage. Wiring: console tempo -> tempo lane; pads -> drums lane (records hits); keys -> keys lane (records notes).
+- Building now (3 agents, ~4:45): new `drum-pads`, `synth-keys`, `tempo-lane`, `drums-lane`, `keys-lane`; `mixing-console` gains `tempo` + real mixing via a **mixer bus convention** (`globalThis.__spatialMixer`, channel 1 = drums, 2 = keys; each file copies a 10-line `mixerChannel(n)` snippet, still copy-pasteable). **Guided templates:** Template Library (laptop modal + VR panel), ghost slots with labels where each component goes, drop near a slot to snap + auto-wire, tap a slot to place, progress "4/7 placed - next: ...". Template `night-set.json`.
+- **Danny / other sessions: please don't edit** `mixing-console.tsx`, `studio-store.ts`, `layout-renderer.tsx`, `scene.tsx`, the Templates part of `studio-app.tsx` until this lands. Danny: once it lands, a "Templates" button in the VR dock should call `useStudio().startGuide(template)`; restyle the new components freely after 4:45 (keep props).
+
 ### 3:41: Evan (session ek-b4): **build-your-own room**: `room-shell` + `string-lights` + **Cozy Studio** template
 - **room-shell** (new "spaces" category): floor, 3 walls, optional ceiling, sized in metres. Walls render only from inside (dollhouse from the laptop camera, enclosed in the headset). Daylight window, baseboards, oak/walnut/concrete plank floors (generated), downlights. Tags `surface` + `wall`.
 - **string-lights**: hang between two hooks, twinkle out of phase, tap toggles, `party` cycles colours, wire sways.
