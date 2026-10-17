@@ -134,6 +134,18 @@ const C_neon_sign = lazy(() => import("@/components/spatial/neon-sign"))
 const C_wall_window = lazy(() => import("@/components/spatial/wall-window"))
 const C_floor_lamp = lazy(() => import("@/components/spatial/floor-lamp"))
 const C_wall_art = lazy(() => import("@/components/spatial/wall-art"))
+const C_kinetic_title = lazy(() => import("@/components/spatial/kinetic-title"))
+const C_particle_field = lazy(() => import("@/components/spatial/particle-field"))
+const C_morph_blob = lazy(() => import("@/components/spatial/morph-blob"))
+const C_gradient_orb = lazy(() => import("@/components/spatial/gradient-orb"))
+const C_portal_ring = lazy(() => import("@/components/spatial/portal-ring"))
+const C_marquee_ring = lazy(() => import("@/components/spatial/marquee-ring"))
+const C_floating_cards = lazy(() => import("@/components/spatial/floating-cards"))
+const C_typewriter_panel = lazy(() => import("@/components/spatial/typewriter-panel"))
+const C_aurora_ribbon = lazy(() => import("@/components/spatial/aurora-ribbon"))
+const C_reveal_card = lazy(() => import("@/components/spatial/reveal-card"))
+const C_liquid_button = lazy(() => import("@/components/spatial/liquid-button"))
+const C_spotlight_text = lazy(() => import("@/components/spatial/spotlight-text"))
 
 export const components: Record<string, ComponentType> = {
   "settings-default": C_settings_default as ComponentType,
@@ -268,4 +280,16 @@ export const components: Record<string, ComponentType> = {
   "wall-window": C_wall_window as ComponentType,
   "floor-lamp": C_floor_lamp as ComponentType,
   "wall-art": C_wall_art as ComponentType,
+  "kinetic-title": C_kinetic_title as ComponentType,
+  "particle-field": C_particle_field as ComponentType,
+  "morph-blob": C_morph_blob as ComponentType,
+  "gradient-orb": C_gradient_orb as ComponentType,
+  "portal-ring": C_portal_ring as ComponentType,
+  "marquee-ring": C_marquee_ring as ComponentType,
+  "floating-cards": C_floating_cards as ComponentType,
+  "typewriter-panel": C_typewriter_panel as ComponentType,
+  "aurora-ribbon": C_aurora_ribbon as ComponentType,
+  "reveal-card": C_reveal_card as ComponentType,
+  "liquid-button": C_liquid_button as ComponentType,
+  "spotlight-text": C_spotlight_text as ComponentType,
 }

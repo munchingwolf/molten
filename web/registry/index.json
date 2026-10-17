@@ -7746,5 +7746,1060 @@
         "default": "#1A1A1C"
       }
     ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "motion",
+      "text",
+      "headline",
+      "3d text",
+      "hero",
+      "typography"
+    ],
+    "aliases": [
+      "animated title",
+      "3d headline",
+      "text reveal",
+      "kinetic typography",
+      "hero text"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "kinetic-title",
+    "displayName": "Kinetic Title",
+    "category": "motion",
+    "kind": "basic",
+    "description": "A big extruded 3D headline whose letters flip up one by one with a trailing echo, then breathe and lift toward your pointer.",
+    "file": "components/spatial/kinetic-title.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "text",
+        "type": "string",
+        "default": "SPATIAL"
+      },
+      {
+        "prop": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      }
+    ],
+    "props": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "SPATIAL"
+      },
+      {
+        "name": "primaryColor",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "secondaryColor",
+        "type": "color",
+        "default": "#F2B48A"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "min": 0.1,
+        "max": 0.6,
+        "default": 0.28
+      },
+      {
+        "name": "maxWidth",
+        "type": "number",
+        "min": 0.3,
+        "max": 3,
+        "default": 1.3
+      },
+      {
+        "name": "depth",
+        "type": "number",
+        "min": 1,
+        "max": 24,
+        "default": 14
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "name": "paused",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "motion",
+      "particles",
+      "galaxy",
+      "background",
+      "interactive",
+      "space"
+    ],
+    "aliases": [
+      "particle cloud",
+      "galaxy",
+      "starfield",
+      "particles",
+      "vortex"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "particle-field",
+    "displayName": "Particle Galaxy",
+    "category": "motion",
+    "kind": "basic",
+    "description": "A spiral galaxy of up to 3,000 glowing particles that swirls toward your pointer or fingertip and bursts when tapped.",
+    "file": "components/spatial/particle-field.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "prop": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ],
+    "props": [
+      {
+        "name": "count",
+        "type": "number",
+        "min": 100,
+        "max": 3000,
+        "default": 2400
+      },
+      {
+        "name": "radius",
+        "type": "number",
+        "min": 0.2,
+        "max": 1.2,
+        "default": 0.6
+      },
+      {
+        "name": "arms",
+        "type": "number",
+        "min": 1,
+        "max": 6,
+        "default": 3
+      },
+      {
+        "name": "primaryColor",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "secondaryColor",
+        "type": "color",
+        "default": "#F2B48A"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "name": "paused",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "motion",
+      "shader",
+      "blob",
+      "liquid",
+      "interactive",
+      "hero"
+    ],
+    "aliases": [
+      "blob",
+      "metaball",
+      "liquid sphere",
+      "noise sphere",
+      "jelly"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "morph-blob",
+    "displayName": "Morph Blob",
+    "category": "motion",
+    "kind": "basic",
+    "description": "A glossy noise-displaced blob that morphs on its own and ripples out from wherever you poke it.",
+    "file": "components/spatial/morph-blob.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "prop": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ],
+    "props": [
+      {
+        "name": "radius",
+        "type": "number",
+        "min": 0.1,
+        "max": 0.8,
+        "default": 0.32
+      },
+      {
+        "name": "primaryColor",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "secondaryColor",
+        "type": "color",
+        "default": "#F2B48A"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "name": "paused",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "motion",
+      "shader",
+      "orb",
+      "aurora",
+      "glow",
+      "ai"
+    ],
+    "aliases": [
+      "aurora orb",
+      "glow orb",
+      "ai orb",
+      "voice orb",
+      "gradient sphere"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "gradient-orb",
+    "displayName": "Gradient Orb",
+    "category": "motion",
+    "kind": "basic",
+    "description": "A glowing aurora orb with flowing gradient bands, a soft halo and orbit rings that pulses on hover and sends a shockwave on tap.",
+    "file": "components/spatial/gradient-orb.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "prop": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ],
+    "props": [
+      {
+        "name": "radius",
+        "type": "number",
+        "min": 0.1,
+        "max": 0.6,
+        "default": 0.26
+      },
+      {
+        "name": "primaryColor",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "secondaryColor",
+        "type": "color",
+        "default": "#F2B48A"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "name": "paused",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "motion",
+      "portal",
+      "neon",
+      "shader",
+      "transition",
+      "button"
+    ],
+    "aliases": [
+      "portal",
+      "door",
+      "wormhole",
+      "vortex",
+      "scene switch"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "portal-ring",
+    "displayName": "Portal Ring",
+    "category": "motion",
+    "kind": "basic",
+    "description": "A rotating neon ring around a swirling tunnel with gyroscope rings and sparks; tap it to flash open and switch scenes with onPress.",
+    "file": "components/spatial/portal-ring.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "prop": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ],
+    "props": [
+      {
+        "name": "radius",
+        "type": "number",
+        "min": 0.15,
+        "max": 1,
+        "default": 0.42
+      },
+      {
+        "name": "primaryColor",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "secondaryColor",
+        "type": "color",
+        "default": "#F2B48A"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "name": "paused",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "motion",
+      "text",
+      "marquee",
+      "ring",
+      "loop",
+      "hero"
+    ],
+    "aliases": [
+      "text ring",
+      "orbit text",
+      "circular marquee",
+      "ticker ring",
+      "rotating text"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "marquee-ring",
+    "displayName": "Marquee Ring",
+    "category": "motion",
+    "kind": "basic",
+    "description": "Text looping around two tilted rings that spin in opposite directions around a glowing core; hover speeds it up, tap reverses it.",
+    "file": "components/spatial/marquee-ring.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "text",
+        "type": "string",
+        "default": "SPATIAL MOTION"
+      },
+      {
+        "prop": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      }
+    ],
+    "props": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "SPATIAL MOTION"
+      },
+      {
+        "name": "subtext",
+        "type": "string",
+        "default": "BUILD IN 3D"
+      },
+      {
+        "name": "radius",
+        "type": "number",
+        "min": 0.2,
+        "max": 1,
+        "default": 0.5
+      },
+      {
+        "name": "primaryColor",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "secondaryColor",
+        "type": "color",
+        "default": "#F2B48A"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "name": "paused",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "motion",
+      "cards",
+      "parallax",
+      "carousel",
+      "gallery",
+      "interactive"
+    ],
+    "aliases": [
+      "card fan",
+      "card stack",
+      "parallax cards",
+      "hover cards",
+      "feature cards"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "floating-cards",
+    "displayName": "Floating Cards",
+    "category": "motion",
+    "kind": "basic",
+    "description": "A fan of 3 to 7 glossy cards that drift with parallax; tap one and it springs forward with its 3D icon (pass `items` with title, subtitle and color).",
+    "file": "components/spatial/floating-cards.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [],
+    "props": [
+      {
+        "name": "primaryColor",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "secondaryColor",
+        "type": "color",
+        "default": "#F2B48A"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "name": "paused",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "motion",
+      "text",
+      "typewriter",
+      "panel",
+      "assistant",
+      "chat"
+    ],
+    "aliases": [
+      "typing text",
+      "assistant panel",
+      "chat bubble",
+      "terminal text",
+      "typing effect"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "typewriter-panel",
+    "displayName": "Typewriter Panel",
+    "category": "motion",
+    "kind": "basic",
+    "description": "A glass panel that types its text with a blinking caret, pauses on punctuation, then erases and loops without the layout ever jumping.",
+    "file": "components/spatial/typewriter-panel.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "text",
+        "type": "string",
+        "default": "Hey, I'm Nova. Drop a knob next to the drum pads and I'll wire it to the tempo for you."
+      },
+      {
+        "prop": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      }
+    ],
+    "props": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "Hey, I'm Nova. Drop a knob next to the drum pads and I'll wire it to the tempo for you."
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Assistant"
+      },
+      {
+        "name": "primaryColor",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "secondaryColor",
+        "type": "color",
+        "default": "#F2B48A"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "name": "paused",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "loop",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "motion",
+      "shader",
+      "aurora",
+      "ribbon",
+      "background",
+      "light"
+    ],
+    "aliases": [
+      "aurora",
+      "northern lights",
+      "light ribbon",
+      "flowing ribbon",
+      "wave"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "aurora-ribbon",
+    "displayName": "Aurora Ribbon",
+    "category": "motion",
+    "kind": "basic",
+    "description": "Three twisting ribbons of streaked aurora light that ripple where you hover and carry a surge of light when tapped.",
+    "file": "components/spatial/aurora-ribbon.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "prop": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ],
+    "props": [
+      {
+        "name": "width",
+        "type": "number",
+        "min": 0.4,
+        "max": 2.5,
+        "default": 1.4
+      },
+      {
+        "name": "primaryColor",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "secondaryColor",
+        "type": "color",
+        "default": "#F2B48A"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "name": "paused",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "motion",
+      "card",
+      "reveal",
+      "spring",
+      "border beam",
+      "feature"
+    ],
+    "aliases": [
+      "unfold card",
+      "spring card",
+      "feature card",
+      "animated card",
+      "border beam card"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "reveal-card",
+    "displayName": "Reveal Card",
+    "category": "motion",
+    "kind": "basic",
+    "description": "A card that unfolds toward you with a spring when it enters view, traces its glowing border and fades its text in line by line; tap to replay.",
+    "file": "components/spatial/reveal-card.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "title",
+        "type": "string",
+        "default": "Spatial Motion"
+      }
+    ],
+    "props": [
+      {
+        "name": "eyebrow",
+        "type": "string",
+        "default": "New"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Spatial Motion"
+      },
+      {
+        "name": "body",
+        "type": "string",
+        "default": "Cards that unfold into place the moment they enter your view. Tap to replay the reveal."
+      },
+      {
+        "name": "primaryColor",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "secondaryColor",
+        "type": "color",
+        "default": "#F2B48A"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "name": "paused",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "motion",
+      "button",
+      "liquid",
+      "jelly",
+      "shader",
+      "cta"
+    ],
+    "aliases": [
+      "jelly button",
+      "wobble button",
+      "blob button",
+      "gooey button",
+      "cta"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "liquid-button",
+    "displayName": "Liquid Button",
+    "category": "motion",
+    "kind": "basic",
+    "description": "A glossy liquid pill button whose surface squashes and ripples out from your fingertip on press, then jiggles back.",
+    "file": "components/spatial/liquid-button.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Get started"
+      },
+      {
+        "name": "primaryColor",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "secondaryColor",
+        "type": "color",
+        "default": "#F2B48A"
+      },
+      {
+        "name": "labelColor",
+        "type": "color",
+        "default": "#06221B"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "name": "paused",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": false
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "motion",
+      "text",
+      "spotlight",
+      "reveal",
+      "hero",
+      "interactive"
+    ],
+    "aliases": [
+      "spotlight",
+      "flashlight text",
+      "text reveal",
+      "light reveal",
+      "hover reveal"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "spotlight-text",
+    "displayName": "Spotlight Text",
+    "category": "motion",
+    "kind": "basic",
+    "description": "A dark wall of text lit by a moving spotlight cone that wanders on its own and follows your pointer or fingertip.",
+    "file": "components/spatial/spotlight-text.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "text",
+        "type": "string",
+        "default": "Made for space"
+      },
+      {
+        "prop": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ],
+    "props": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "Made for space"
+      },
+      {
+        "name": "subtext",
+        "type": "string",
+        "default": "MOTION COMPONENTS FOR WEBXR"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "min": 0.5,
+        "max": 2.5,
+        "default": 1.3
+      },
+      {
+        "name": "radius",
+        "type": "number",
+        "min": 0.05,
+        "max": 0.5,
+        "default": 0.17
+      },
+      {
+        "name": "beam",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "primaryColor",
+        "type": "color",
+        "default": "#9FE7D2"
+      },
+      {
+        "name": "secondaryColor",
+        "type": "color",
+        "default": "#F2B48A"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 1
+      },
+      {
+        "name": "paused",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
   }
 ]

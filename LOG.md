@@ -13,6 +13,11 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 2:23: Evan: **library complete for today: all component agents landed**
+- Merged: motion design (12: kinetic-title, particle-field, morph-blob, gradient-orb, portal-ring, marquee-ring, floating-cards, typewriter-panel, aurora-ribbon, reveal-card, liquid-button, spotlight-text), room + hardware (17), app kit (22), game kit (19), plus buttons/inputs, containers/nav, data/media, objects, music, environments, mascot, gltf-model.
+- `window` (UI) was overwritten by the hardware agent's window; restored; theirs is `wall-window`.
+- Known: some hardware toggles on tap, so selecting in the Studio also triggers it (fix = Edit/Play mode, VR-UX-SPEC §8). morph-blob is the heaviest on Quest. Nothing visually QA'd yet (ek-b4's audit is paused).
+
 ### 2:20: Evan: **GLB import → editable object**, Lock works, environment picker, sound after Launch, Pix mascot, 115 components
 - **Import 3D** (Studio top bar) or **drop a .glb/.gltf anywhere** on the Studio → `POST /api/assets` (stored in repo-root `.data/assets/`, shortcut: laptop disk, not Vercel) → placed as component **`gltf-model`** (centred, auto-sized, tagged `surface` so components snap onto it). Tested with a 2.9 MB glb.
 - **Lock is enforced**: locked items keep click-select but lose the gizmo + grab, so an imported app stays put while you build on it.
