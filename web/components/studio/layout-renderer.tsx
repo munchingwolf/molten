@@ -110,7 +110,7 @@ function Placed({ item, items, values, setValue, editable, selectedId, onSelect,
       ref={ref}
       position={item.position}
       rotation={item.rotation}
-      {...{ scale: item.scale }}
+      {...{ scale: item.scale, userData: { itemId: item.id } /* scene's seatOnFloor() finds dropped items by this */ }}
       apply={apply}
       onClick={editable ? () => onSelect?.(item.id) : undefined}
     >

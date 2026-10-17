@@ -4,3 +4,6 @@ replica/
 
 # agent worktrees
 .claude/worktrees/
+
+# deep-research working notes
+research_notes/
