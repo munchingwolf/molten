@@ -13,6 +13,8 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 4:45: Danny: home hero: removed the "Spatial" backdrop word behind the liquid sculpture (`backdropText=""`), plain dark background.
+
 ### 4:47: Evan (session ek-b4): **FIXED: component previews crashing ("Preview unavailable") + the Box3 "reading 'x'" error**
 - Cause: uikit's `Content` (every lucide icon is an `Svg`, which extends it) stores a signal in a field named `boundingBox`. three's `Box3.expandByObject` treats it as a Box3 and throws. Any component with an icon broke drei `<Bounds>` previews, grab-bar sizing and surface snapping.
 - Fix: `web/lib/three-fixes.ts` measures such objects through their children; loaded from `lib/registry.ts` so every surface gets it. Test: `lib/three-fixes.test.ts`.
