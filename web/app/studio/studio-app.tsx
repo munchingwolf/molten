@@ -60,6 +60,7 @@ function TopBar() {
   }
   const name = useStudio((s) => s.name)
   const setName = useStudio((s) => s.setName)
+  const empty = useStudio((s) => s.items.length === 0)
   return (
     <header className="col-span-3 flex items-center gap-4 border-b border-border bg-surface px-4">
       <Link href="/" className="font-display text-lg font-extrabold tracking-tight">Spatial</Link>
@@ -75,7 +76,12 @@ function TopBar() {
       <button onClick={() => save(false)} className="rounded-md border border-border bg-surface px-3 py-1.5 text-sm font-medium">
         Save
       </button>
-      <button onClick={() => save(true)} className="rounded-md bg-accent px-3 py-1.5 text-sm font-medium text-on-accent">
+      <button
+        onClick={() => save(true)}
+        disabled={empty}
+        title={empty ? "Add a component first" : "Open the finished app"}
+        className="rounded-md bg-accent px-3 py-1.5 text-sm font-medium text-on-accent disabled:cursor-not-allowed disabled:opacity-40"
+      >
         Launch
       </button>
     </header>

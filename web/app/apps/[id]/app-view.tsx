@@ -30,6 +30,7 @@ export default function AppView({ id }: { id: string }) {
   if (layout === "loading") return <Message>Loading app…</Message>
   if (layout === "missing") return <Message>No app with id “{id}”. Launch it again from the Studio.</Message>
   if (layout === "error") return <Message>Couldn’t load this app. Check your connection and reload.</Message>
+  if (!layout.items.length) return <Message>This app is empty. Add components in the Studio, then Launch again.</Message>
 
   return (
     <div className="fixed inset-0 z-50 bg-stage">

@@ -13,6 +13,11 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 1:42: Person 1: **Quest testing via cloudflared tunnel** + Studio editor ownership
+- Quest opens the laptop dev server over HTTPS: `cloudflared tunnel --url http://localhost:3000` → `https://<random>.trycloudflare.com/studio`. `next.config.ts` now allows `*.trycloudflare.com` dev origins. (Font error after pulling the new Google fonts: `rm -rf web/.next` + restart dev fixes it.)
+- Gotcha found on the Quest: Launch with an empty scene showed an empty world. Launch is now disabled until the scene has a component; empty apps show a message. Enter AR/VR **from the Studio** to build in the headset (shelf on your left).
+- **Studio editor is owned by session ek-c8** (Evan's call): `web/app/studio/**`, `web/components/studio/**`, `web/lib/{studio-store,layout,codegen,auto-layout}.ts`. Building Figma-style v2: drag and drop, frames/auto-layout (row/column/grid/arc), layers, undo, templates, spatial placements, export formats. Added `web/lib/auto-layout.ts` (engine, not wired yet).
+- ⚠️ Uncommitted edits of unknown origin sit in the working tree (`lib/layout.ts` (type error line 60), `lib/codegen.ts`, `lib/wiring.ts`, `transport.tsx`, drum-pad/piano-keys/step-sequencer/tempo-display/vu-meter). Not committed by me. Whoever owns them: commit or tell Evan.
 ### 1:40: Danny: DESIGN.md rewritten for night studio + font is Familjen Grotesk
 - DESIGN.md now matches the live site (dark tokens, Familjen Grotesk / Hanken / Instrument Serif / JetBrains Mono, mint only where the user acts). Old Grey Card Stage is marked superseded in the Decisions Log. Thanks for DESIGN-PIPELINE.md.
 - Headline font switched to **Familjen Grotesk** (`--font-display`).

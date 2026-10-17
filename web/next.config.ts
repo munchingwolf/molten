@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Lets the Quest load the laptop dev server through a cloudflared HTTPS tunnel (WebXR needs HTTPS).
+  allowedDevOrigins: ["*.trycloudflare.com"],
 };
 
 export default nextConfig;
