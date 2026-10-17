@@ -13,5 +13,6 @@ Licenses were read from the actual LICENSE files. This is not legal advice. Rule
 | [Ultraleap UnityPlugin](https://github.com/ultraleap/UnityPlugin) | Apache-2.0 | Yes (keep NOTICE, mark changes) | Quest hand-tracking compatibility unverified |
 | Meta Horizon OS UI Set | Oculus/MPT SDK License | **No**, reference only | Redistribution unclear, can't go under MIT, revocable. List as a dependency instead |
 | Unity XRI samples | Unity Companion License | **No** | Unity owns derivative works. Install from the package registry instead |
+| [Poly Haven](https://polyhaven.com/hdris) HDRIs | CC0 | **Yes**, no credit required | `web/public/hdri/`: noon_grass, spiaggia_di_mondello, driving_school, goegap, moonless_golf (2k) for the env-* landscapes |
 
 No permissive, good-looking music controls (knob/fader/drum pad) exist. **We build those ourselves.**

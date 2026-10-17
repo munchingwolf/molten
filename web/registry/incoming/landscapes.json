@@ -1,0 +1,77 @@
+[
+  {
+    "name": "env-light-studio",
+    "displayName": "Light Studio",
+    "category": "environments",
+    "kind": "environment",
+    "tags": ["environment", "studio", "light", "neutral", "backdrop", "minimal"],
+    "aliases": ["white studio", "light", "neutral", "photo studio", "clean"],
+    "description": "Bright, seamless photo-studio backdrop: a soft grey floor fading into an off-white wall. Calm, so your components carry the colour.",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      { "name": "intensity", "type": "number", "min": 0, "max": 2, "default": 1 },
+      { "name": "tint", "type": "color", "default": "#F3F4F6" }
+    ]
+  },
+  {
+    "name": "env-meadow",
+    "displayName": "Meadow",
+    "category": "environments",
+    "kind": "environment",
+    "tags": ["environment", "outdoor", "nature", "grass", "flat", "photo", "hdri"],
+    "aliases": ["meadow", "field", "grass", "outdoors", "park"],
+    "description": "Sunny, flat meadow under a clear midday sky. A real photo projected onto level ground, so components stand flat.",
+    "status": "ready",
+    "bindable": [],
+    "props": [{ "name": "intensity", "type": "number", "min": 0, "max": 2, "default": 1 }]
+  },
+  {
+    "name": "env-beach",
+    "displayName": "Beach",
+    "category": "environments",
+    "kind": "environment",
+    "tags": ["environment", "outdoor", "beach", "sand", "sea", "flat", "photo", "hdri"],
+    "aliases": ["beach", "sand", "sea", "ocean", "coast"],
+    "description": "Wide, flat sand beach on a clear morning, sea on the horizon. A real photo projected onto level ground.",
+    "status": "ready",
+    "bindable": [],
+    "props": [{ "name": "intensity", "type": "number", "min": 0, "max": 2, "default": 1 }]
+  },
+  {
+    "name": "env-open-lot",
+    "displayName": "Open Lot",
+    "category": "environments",
+    "kind": "environment",
+    "tags": ["environment", "outdoor", "urban", "asphalt", "flat", "photo", "hdri"],
+    "aliases": ["lot", "parking lot", "plaza", "open space", "urban"],
+    "description": "Empty, flat open lot under a big cloudy sky: lots of room to build. A real photo projected onto level ground.",
+    "status": "ready",
+    "bindable": [],
+    "props": [{ "name": "intensity", "type": "number", "min": 0, "max": 2, "default": 1 }]
+  },
+  {
+    "name": "env-desert",
+    "displayName": "Desert",
+    "category": "environments",
+    "kind": "environment",
+    "tags": ["environment", "outdoor", "desert", "sand", "flat", "photo", "hdri"],
+    "aliases": ["desert", "dunes", "canyon", "outback"],
+    "description": "Flat desert floor ringed by rocky hills, under a deep blue sky. A real photo projected onto level ground.",
+    "status": "ready",
+    "bindable": [],
+    "props": [{ "name": "intensity", "type": "number", "min": 0, "max": 2, "default": 1 }]
+  },
+  {
+    "name": "env-night-field",
+    "displayName": "Night Field",
+    "category": "environments",
+    "kind": "environment",
+    "tags": ["environment", "outdoor", "night", "stars", "flat", "photo", "hdri"],
+    "aliases": ["night", "stars", "starry", "evening"],
+    "description": "Flat field at night: starry sky and town glow on the horizon. A real photo projected onto level ground.",
+    "status": "ready",
+    "bindable": [],
+    "props": [{ "name": "intensity", "type": "number", "min": 0, "max": 2, "default": 1 }]
+  }
+]

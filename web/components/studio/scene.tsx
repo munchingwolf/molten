@@ -13,6 +13,7 @@ import { VRWorkspace } from "./vr-workspace"
 import { XRayOverlay } from "./xray"
 import { VRAssistant } from "./vr-assistant"
 import { xrStore } from "./xr-store"
+import { MeasureGrid } from "./measure-grid"
 
 // Laptop camera orbits the area where components are placed (eye height, ~1.2 m ahead).
 const cameraStore = createScreenCameraStore({ origin: [0, 1.25, -1.2], distance: 2.6, pitch: 0.12, yaw: 0 })
@@ -45,7 +46,7 @@ export function StudioScene() {
             <directionalLight position={[2, 4, 3]} intensity={2} />
           </>
         )}
-        {showGrid && <gridHelper args={[8, 32, xray ? "#3b4252" : "#2a2b2e", xray ? "#232733" : "#1c1d20"]} />}
+        {showGrid && <MeasureGrid xray={xray} />}
         <LayoutRenderer
           items={items}
           values={values}

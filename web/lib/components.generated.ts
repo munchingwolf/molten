@@ -146,6 +146,12 @@ const C_aurora_ribbon = lazy(() => import("@/components/spatial/aurora-ribbon"))
 const C_reveal_card = lazy(() => import("@/components/spatial/reveal-card"))
 const C_liquid_button = lazy(() => import("@/components/spatial/liquid-button"))
 const C_spotlight_text = lazy(() => import("@/components/spatial/spotlight-text"))
+const C_env_light_studio = lazy(() => import("@/components/spatial/env-light-studio"))
+const C_env_meadow = lazy(() => import("@/components/spatial/env-meadow"))
+const C_env_beach = lazy(() => import("@/components/spatial/env-beach"))
+const C_env_open_lot = lazy(() => import("@/components/spatial/env-open-lot"))
+const C_env_desert = lazy(() => import("@/components/spatial/env-desert"))
+const C_env_night_field = lazy(() => import("@/components/spatial/env-night-field"))
 
 export const components: Record<string, ComponentType> = {
   "settings-default": C_settings_default as ComponentType,
@@ -292,4 +298,10 @@ export const components: Record<string, ComponentType> = {
   "reveal-card": C_reveal_card as ComponentType,
   "liquid-button": C_liquid_button as ComponentType,
   "spotlight-text": C_spotlight_text as ComponentType,
+  "env-light-studio": C_env_light_studio as ComponentType,
+  "env-meadow": C_env_meadow as ComponentType,
+  "env-beach": C_env_beach as ComponentType,
+  "env-open-lot": C_env_open_lot as ComponentType,
+  "env-desert": C_env_desert as ComponentType,
+  "env-night-field": C_env_night_field as ComponentType,
 }

@@ -13,6 +13,11 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 2:28: Evan (session ek-b4): **6 new backdrops + measuring grid.** Pitch line from Evan below
+- **Pitch (Evan):** "a virtual Minecraft" where the blocks are very well-made working components, small (knobs, buttons) and complete tools, so people build their own workspaces or any app, in VR and as a web app.
+- **Environments** (laptop landscape dropdown, or by voice): **Light Studio** (bright seamless studio, built in code: the light "natural" option), plus real CC0 Poly Haven photos projected onto a **flat floor at y = 0**: **Meadow, Beach, Open Lot, Desert, Night Field**. 30 MB of .hdr in `web/public/hdri/`. Rays pass through all of them.
+- **Grid:** `scene.tsx` now draws `<MeasureGrid>` (`components/studio/measure-grid.tsx`) instead of gridHelper: 10 cm cells, a mint line every metre, metre labels, a "you" ring at the origin. Same Grid toggle.
+- Danny: `vr-workspace` still has no environment picker (lift vr-dock's WorldTab). Evan also wants the Studio workspace light-themed.
 ### 2:23: Evan: **library complete for today: all component agents landed**
 - Merged: motion design (12: kinetic-title, particle-field, morph-blob, gradient-orb, portal-ring, marquee-ring, floating-cards, typewriter-panel, aurora-ribbon, reveal-card, liquid-button, spotlight-text), room + hardware (17), app kit (22), game kit (19), plus buttons/inputs, containers/nav, data/media, objects, music, environments, mascot, gltf-model.
 - `window` (UI) was overwritten by the hardware agent's window; restored; theirs is `wall-window`.
