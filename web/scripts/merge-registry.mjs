@@ -37,7 +37,7 @@ byName.set("frame", {
   description: "Auto-layout container: lines its children up in a row, column, grid or a curved wall around you.",
   file: "components/spatial/frame.tsx", status: "ready",
   props: [
-    { name: "direction", type: "enum", options: ["row", "column", "grid", "arc"], default: "row" },
+    { name: "direction", type: "enum", options: ["row", "column", "grid", "arc", "free"], default: "row" },
     { name: "gap", type: "number", min: 0, max: 0.5, default: 0.05 },
     { name: "padding", type: "number", min: 0, max: 0.3, default: 0.06 },
     { name: "columns", type: "number", min: 1, max: 8, default: 2 },

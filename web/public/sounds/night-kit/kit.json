@@ -1,0 +1,6 @@
+{
+  "name": "Night Kit",
+  "voices": ["kick", "snare", "clap", "tomlo", "tomhi", "cowbell", "perc", "crash"],
+  "format": "mp3",
+  "credit": "One-shots generated with ElevenLabs Sound Effects (text to sound), 17 Oct 2026, trimmed and peak-normalised to -1 dB. Voices not listed are synthesised in the component."
+}

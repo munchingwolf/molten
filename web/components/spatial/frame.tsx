@@ -7,8 +7,8 @@ import { Box3, Vector3, type Group, type Mesh } from "three"
 type Vec3 = [number, number, number]
 
 export type FrameProps = {
-  /** row / column / grid like Figma auto-layout; arc = a curved wall facing the viewer. */
-  direction?: "row" | "column" | "grid" | "arc"
+  /** row / column / grid like Figma auto-layout; arc = a curved wall facing the viewer; free = children keep their own places. */
+  direction?: "row" | "column" | "grid" | "arc" | "free"
   /** metres between children */
   gap?: number
   /** metres around the children */
@@ -27,9 +27,11 @@ export type FrameProps = {
 // so this file stays copy-pasteable on its own.
 type Size = [number, number]
 type Placement = { position: Vec3; rotation: Vec3 }
-type LayoutProps = { direction: "row" | "column" | "grid" | "arc"; gap: number; padding: number; columns?: number; radius?: number; align?: "start" | "center" | "end" }
+type LayoutProps = { direction: "row" | "column" | "grid" | "arc" | "free"; gap: number; padding: number; columns?: number; radius?: number; align?: "start" | "center" | "end" }
 // LAYOUT-START
 function layoutFrame(p: LayoutProps, sizes: Size[]): { placements: Placement[]; size: Size } {
+  // free: children keep their own transforms (a template wrapped as one movable group); nothing to place, no panel.
+  if (p.direction === "free") return { placements: [], size: [0, 0] }
   const n = sizes.length
   if (!n) return { placements: [], size: [0.4 + 2 * p.padding, 0.25 + 2 * p.padding] }
 
@@ -98,7 +100,7 @@ function measure(slot: Group): Size {
   return [local.max.x - local.min.x, local.max.y - local.min.y]
 }
 
-/** Auto-layout container: lays its children out in a row, column, grid or an arc wall, with gap and padding. */
+/** Auto-layout container: lays its children out in a row, column, grid or an arc wall, with gap and padding; `free` just groups them. */
 export default function Frame({
   direction = "row", gap = 0.05, padding = 0.06, columns = 2, radius = 1.4, align = "center",
   background = true, color = "#15171E", opacity = 0.55, children,
@@ -112,6 +114,12 @@ export default function Frame({
   useFrame(() => {
     if (tick.current++ % 12) return
     const live = slots.current.slice(0, count).filter((g): g is Group => !!g)
+    if (direction === "free") {
+      // Slots stay at the frame origin so each child's own position/rotation (applied inside the slot) holds.
+      for (const g of live) g.position.set(0, 0, 0), g.rotation.set(0, 0, 0)
+      if (bg.current) bg.current.visible = false
+      return
+    }
     const { placements, size } = layoutFrame({ direction, gap, padding, columns, radius, align }, live.map(measure))
     live.forEach((g, i) => {
       g.position.set(...placements[i].position)
