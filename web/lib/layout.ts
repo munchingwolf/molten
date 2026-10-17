@@ -24,9 +24,24 @@ export type Item = {
   /** prop → shared value name, e.g. { value: "volume" } */
   bind: Record<string, string>
   props?: Record<string, unknown>
+  /** Child of a frame item (component "frame"); its position is then set by the frame's auto-layout. */
+  parentId?: string
+  /** Layer name shown in the layers panel (defaults to the component's display name). */
+  name?: string
+  hidden?: boolean
+  locked?: boolean
+  /** Where it lives in XR: fixed in the room (default), following the head, or on the left wrist. */
+  anchor?: "world" | "head" | "wrist"
 }
 
-export type Layout = { id?: string; name: string; items: Item[] }
+/** One screen/space of a multi-scene app; each scene can bring its own environment ("the site is the environment"). */
+export type Scene = { id: string; name: string; environment?: string; items: Item[] }
+
+/**
+ * `items` + `environment` always mirror the FIRST scene so single-scene readers (MCP, older apps) keep working.
+ * `scenes` is present when the app has more than one.
+ */
+export type Layout = { id?: string; name: string; items: Item[]; environment?: string; scenes?: Scene[] }
 
 export const newId = () => Math.random().toString(36).slice(2, 10)
 

@@ -13,6 +13,14 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 1:56: Evan: **store v2 landed. Danny, these are the actions to wire your Studio UI to** (`web/lib/studio-store.ts`, `useStudio`)
+- State: `items` (active scene), `environment`, `scenes[]`, `sceneId`, `selectedId` (primary) + `selectedIds` (multi), `values`, `viewMode: "design"|"xray"`, `showGrid`, `snap`, `past`/`future`.
+- Existing (unchanged): `add(component, position?, patch?)`, `update(id, patch)`, `remove(id)`, `select(id|null, additive?)` (additive = shift-click toggle), `bind(id, prop, name)`, `setValue`, `setName`, `load(layout)`, `layout()`.
+- New: `undo()`, `redo()`, `duplicate(ids?)`, `copy(ids?)`, `paste()`, `removeSelected()`, `groupIntoFrame(ids?, frameProps?) → frameId`, `ungroup(frameId)`, `setParent(id, parentId|null)`, `reorder(id, index)` (layers drag), `setEnvironment(name|null)`, `addScene(name?)`, `switchScene(id)`, `renameScene(id, name)`, `removeScene(id)`, `setViewMode(mode)`, `toggleGrid()`, `toggleSnap()`. ids default to the current selection.
+- Format (`lib/layout.ts`): Item gains `parentId`, `name`, `hidden`, `locked`, `anchor: "world"|"head"|"wrist"`; Layout gains `environment` and `scenes[]` (multi-scene apps: "the site is the environment"). `items`/`environment` mirror scene 1 so old readers still work.
+- New component **`frame`** (`components/spatial/frame.tsx`): auto-layout container (row/column/grid/**arc** wall), copy-pasteable. Renderer nesting + X-ray mode + environment rendering land next (after the gestures agent finishes `layout-renderer.tsx`).
+- Tests: 28 pass (`node --test web/lib/*.test.ts`). Working on it: 13 agents building ~150 components (buttons, containers, data/media, 3D objects, music, environments, motion design, room + hardware, app kit, game kit) + gestures + voice.
+
 ### 2:00: Danny: in-headset look started: `xr-theme.ts` + VR shelf restyled (styling only)
 - New `web/components/studio/xr-theme.ts`: night-studio colors/radii/hit size for uikit. **Evan / your agents: use `xr.*` instead of hex for any new in-headset UI** (toolbar, Edit/Play, Save/Launch) and I'll polish after.
 - `vr-shelf.tsx`: only styling props changed (panel, rows, + affordance). `addInFront`, `groups` and positions untouched. If your agents edit the shelf, keep the `xr.*` colors.

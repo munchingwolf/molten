@@ -21,8 +21,6 @@ export type Placement = { position: Vec3; rotation: Vec3 }
 export function layoutFrame(p: FrameProps, sizes: Size[]): { placements: Placement[]; size: Size } {
   const n = sizes.length
   if (!n) return { placements: [], size: [0.4 + 2 * p.padding, 0.25 + 2 * p.padding] }
-  const align = (extent: number, free: number) =>
-    p.align === "start" ? -free / 2 : p.align === "end" ? free / 2 - extent : -extent / 2
 
   if (p.direction === "row" || p.direction === "column") {
     const main = p.direction === "row" ? 0 : 1
@@ -32,8 +30,8 @@ export function layoutFrame(p: FrameProps, sizes: Size[]): { placements: Placeme
     const placements = sizes.map((sz) => {
       const c = cursor + sz[main] / 2
       cursor += sz[main] + p.gap
-      const off = p.align === "center" || !p.align ? 0 : (p.align === "start" ? -1 : 1) * (cross - sz[1 - main]) / 2
-      // rows run left→right; columns run top→bottom
+      const off = p.align === "center" || !p.align ? 0 : ((p.align === "start" ? -1 : 1) * (cross - sz[1 - main])) / 2
+      // rows run left→right (start = top); columns run top→bottom (start = left)
       const position: Vec3 = main === 0 ? [c, -off, 0] : [off, -c, 0]
       return { position, rotation: [0, 0, 0] as Vec3 }
     })
@@ -53,19 +51,17 @@ export function layoutFrame(p: FrameProps, sizes: Size[]): { placements: Placeme
       const r = Math.floor(i / cols)
       return { position: [-w / 2 + cw / 2 + c * (cw + p.gap), h / 2 - rh / 2 - r * (rh + p.gap), 0] as Vec3, rotation: [0, 0, 0] as Vec3 }
     })
-    void align
     return { placements, size: [w + 2 * p.padding, h + 2 * p.padding] }
   }
 
   // arc: children spread along a circle of `radius` centred on the viewer, each turned to face them.
   const r = p.radius ?? 1.4
-  const widths = sizes.map((s) => s[0])
-  const arc = widths.reduce((a, b) => a + b, 0) + p.gap * (n - 1) // arc length
+  const arc = sizes.reduce((a, s) => a + s[0], 0) + p.gap * (n - 1)
   let cursor = -arc / 2
   const placements = sizes.map((sz) => {
     const theta = (cursor + sz[0] / 2) / r
     cursor += sz[0] + p.gap
-    // frame origin sits on the arc's middle; viewer is at (0, 0, r) in frame space
+    // frame origin sits on the arc's middle; the viewer is at (0, 0, r) in frame space
     return { position: [r * Math.sin(theta), 0, r - r * Math.cos(theta)] as Vec3, rotation: [0, -theta, 0] as Vec3 }
   })
   return { placements, size: [2 * r * Math.sin(Math.min(Math.PI / 2, arc / (2 * r))), Math.max(...sizes.map((s) => s[1])) + 2 * p.padding] }
