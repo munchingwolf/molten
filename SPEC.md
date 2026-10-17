@@ -1764,7 +1764,7 @@ First optimize for a convincing, working hackathon MVP that demonstrates the cor
 
 ## What we're building
 
-**Spatial: a library of 3D UI components for XR (21st.dev / shadcn for spatial apps), usable from anywhere you build.**
+**Spatial: XR UI components that any developer can add to whatever they're building (21st.dev / shadcn for spatial apps).**
 
 One catalog, three ways in:
 
