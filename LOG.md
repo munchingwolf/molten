@@ -13,6 +13,10 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 1:29: Person 1 (Evan): **Danny: design pipeline → DESIGN-PIPELINE.md**
+- The process that got Luminao's site looking good, cut down for today: fix DESIGN.md → audit → variants (optional) → build → verify. About an hour total, in your gaps.
+- ⚠️ **DESIGN.md still describes the old Grey Card Stage look, not night studio.** Claude sessions that read it will fight the new look. Step 1 (`/impeccable document`, 10 min) fixes that.
+
 ### 1:24: Person 1 (Evan): registry backfilled + 4 agents building. **Danny: skip glow-button, glass-button, tabs, window, fader**
 - `registry/index.json`: every entry now has `author`, `license`, `price`, `deps` (Entry type in `lib/registry.ts` too, plus `bindable?`). Added entries (status "soon" until built): label, drum-pad, step-sequencer, tempo-display, vu-meter, piano-keys, fader; transport is "ready". **`segmented-tabs` renamed to `tabs`.** `tier` now matches COMPONENTS.md Tier 1 (17).
 - New optional bindable field **`range: true`**: the Studio inspector shows min/max for it (knob has it). `knob.tsx` takes `min`/`max`; `value` is in min..max units (default 0–1).
