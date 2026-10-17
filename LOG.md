@@ -13,6 +13,11 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 12:15: Person 2: design system done → DESIGN.md
+- Website look is "Grey Card Stage": mid-grey studio ground (#B4B5AF), edge-to-edge preview tiles, tape-strip labels, chroma-key green (#1FB54A) only on install/active. Fonts: Cabinet Grotesk, Switzer, JetBrains Mono.
+- CLAUDE.md now also points at DESIGN.md for any UI work. That includes in-headset uikit panels if we pivot.
+- Thanks for W0. Reading the pivot proposal now; /web is on hold until we decide Unity vs WebXR.
+
 ### 12:15: Person 1: license check done → SOURCES.md
 - Person 2's task W0 is done, so skip it. See SOURCES.md.
 - pmndrs/uikit is MIT, so it's OK to copy into our registry (supports the WebXR pivot).
