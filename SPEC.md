@@ -1865,7 +1865,7 @@ Claude Code + Spatial MCP: search, then see the preview, then `add_component` in
 
 | Risk | Fallback |
 |---|---|
-| Mac → Quest rebuild is slow (Quest Link doesn't run on macOS) | Demo the swap in Meta XR Simulator, or ship all skins in the build and switch at runtime. Record headset footage as backup |
+| Mac → Quest: no Quest Link on macOS, so every in-headset check means building and installing an APK (minutes, not seconds) | Use Meta Quest Developer Hub (Mac) to install builds and mirror the headset to the screen. For the live demo, ship Default/Glass/Cyber in one build and have the MCP swap signal the running app, so there's no rebuild. Record headset footage as backup |
 | Agent install/swap is flaky live | Pre-recorded demo video; MCP tools are simple file ops, so keep them that way |
 | Licenses block redistributing third-party UI | Build skins ourselves from XRI primitives (already the plan) |
 | Glass/Cyber look mediocre | Spend A's time on 2 great skins over 4 okay ones |
