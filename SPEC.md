@@ -1813,24 +1813,45 @@ Layout (Studio ⇄ /api/layout ⇄ /apps/<id> ⇄ MCP):
   { id, name, items: [{ id, component, position, rotation, scale, bind: { value: "tempo" }, props }] }
 ```
 
-## Person 1: Studio + launch + MCP
+## Person 1: Studio + launch + MCP + **XR interaction**
+
+Plan detail: `/Users/ek/.claude/plans/delegated-forging-moth.md` (local). Order: laptop Studio with general components → VR → DAW.
 
 | # | Task | Done when |
 |---|---|---|
-| 1.1 | `registry/index.json` + `lib/registry.ts` (name → component) + 2 stub components | Imports work |
-| 1.2 | Studio layout on laptop: library panel, R3F scene, add-on-click, move with `PivotControls`, select, delete | Build a scene with the mouse |
-| 1.3 | Inspector: transform + "controls:" binding per `bindable` prop; shared values store in Studio | Knob bound to "tempo" changes the sequencer |
-| 1.4 | Live code panel: layout → generated TSX, Copy / Export | Code matches the scene |
-| 1.5 | Layout API (`POST/GET /api/layout`, shortcut: in-memory) + **Launch** → `/apps/[id]` | Built DAW plays at its URL |
-| 1.6 | Headset mode: Enter VR/AR in the Studio, grab items with hands (`@react-three/handle`) | Arrange the DAW in the Quest |
-| 1.7 | MCP: `search_components`, `get_component`, `add_component`, `get_layout` | Claude Code rebuilds the DAW in a fresh project |
+| 1.1 | Core: `lib/layout.ts` (format, bindings), `lib/codegen.ts`, `lib/studio-store.ts`, tests (`node --test web/lib/*.test.ts`) | Tests pass ✅ |
+| 1.2 | Studio on laptop: library panel, R3F scene, click-to-add, **grab bar** to move (`@react-three/handle`, works with mouse and hands), select, delete | Build a scene with the mouse |
+| 1.3 | Inspector: transform + "controls: <name>" per `bindable` prop; shared values | Two components bound to one name stay in sync |
+| 1.4 | Live code panel: layout → generated TSX, Copy / Download | Code matches the scene |
+| 1.5 | Layout API (`POST/GET /api/layout`, Upstash Redis on Vercel, memory fallback locally) + **Launch** → `/apps/[id]` | Launched app renders at its URL |
+| 1.6 | **XR interaction layer** (see below): hands + controllers, poke, pinch, grab, ray, hover cursor, Enter VR/AR, VR shelf to add components | Every interaction works in the Quest |
+| 1.7 | MCP: `search_components`, `get_component`, `add_component`, `get_layout` | Claude Code rebuilds a layout in a fresh project |
+| 1.8 | DAW demo build (with P2's music components) | Build → Launch → play in Quest |
+
+### XR interaction layer (Person 1 owns how the body drives things)
+
+| Input | Gesture | What it does | Built on |
+|---|---|---|---|
+| Hand, near | **Poke** (fingertip touches) | Press buttons, drag sliders, toggle | `@react-three/xr` touch pointer → normal `onClick` / `onPointerDown/Up` |
+| Hand, far | **Ray + pinch** | Click things out of reach | ray pointer, pinch = click |
+| Hand | **Grab** (pinch/fist on a grab bar) | Move a placed component | `@react-three/handle` grab bar |
+| Controller | Trigger = click, grip = grab | Same as hands | ray + grab pointers |
+| Both | **Hover feedback** | Ray/cursor visible; hovered component highlights | `onPointerOver/Out` |
+| Laptop | Mouse click, drag grab bar, orbit camera | Same actions on desktop | `noEvents` + `<PointerEvents/>`, `OrbitHandles` |
+
+**Interaction contract for components (Person 2 follow this, Person 1 guarantees the input side):**
+- Use R3F pointer events only (`onClick`, `onPointerDown/Up`, `onPointerOver/Out`, `onPointerMove`), never DOM events. Hands, controllers and mouse all arrive as these.
+- Buttons fire on `onClick` (poke and pinch both produce it). Press-depth / hold effects use `onPointerDown` / `onPointerUp`. Note: `click` only fires if up happens on the same object within 300 ms.
+- Hover states via `onPointerOver/Out` (fingertip approach + ray hover).
+- Hit targets ≥ 2 cm (≈ 10 uikit px at `pixelSize 0.002`… use ≥ 40 px). Don't `stopPropagation` (the Studio needs selection clicks).
 
 ## Person 2: Components + marketplace website
 
 | # | Task | Done when |
 |---|---|---|
 | 2.1 | Next.js + Tailwind scaffold (**push first**) | `npm run dev` works |
-| 2.2 | **General UI components first, then music** (see COMPONENTS.md), following the contract. The product is for every XR developer; the DAW is only the demo | Each renders with no props + works with value/onChange |
+| 2.2 | **General UI components first, then music** (see COMPONENTS.md), following the contract + the **interaction contract** above. The product is for every XR developer; the DAW is only the demo | Each renders with no props + works with value/onChange |
+| 2.2b | **Look and feel owner:** animation, effects (glow, press depth, ripple, glass), formatting/layout of every component | Components feel great under poke/pinch/hover |
 | 2.3 | Request the **Kaedim** drum pad model early (fallback: rounded box) | Model in `public/models/` |
 | 2.4 | Marketplace home: search, categories, cards with live 3D preview, author/price badges, "Coming soon" cards | Search works |
 | 2.5 | Component page: big live preview, props table, **Copy code**, **Copy for Claude Code** (code + `npm i` line), "Open in Studio" | Paste into Claude Code works |

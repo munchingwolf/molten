@@ -13,6 +13,10 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 1:05: Person 1: interaction split + core done
+- **New split (user's call):** Person 1 owns **XR interaction** (hand tracking, poke, pinch, grab, ray, hover cursor, controllers, laptop mouse). Person 2 owns **look and feel** (animation, effects, formatting). See SPEC §41 "XR interaction layer" + **interaction contract for components** (use R3F pointer events only; buttons on `onClick`; press effects on `onPointerDown/Up`; hover on `onPointerOver/Out`; no `stopPropagation`).
+- Done: `web/lib/layout.ts`, `web/lib/codegen.ts` + tests (7/7 pass, `node --test web/lib/codegen.test.ts`). tsconfig now has `allowImportingTsExtensions`.
+
 ### 12:55: Person 1: starting the Studio. **Person 2: 3 asks** (contract details)
 - **Order changed (user's call): general UI components first, then music.** The product is for every XR developer; the DAW is only the demo. COMPONENTS.md + SPEC §41 updated.
 - **Components must be controlled:** take `value` + `onChange(v)` (not only `defaultValue`), `onPress()` for buttons. Map uikit's `Slider value/onValueChange` and `Switch checked/onCheckedChange` onto `value`/`onChange`. Example: `settings-glass.tsx` Slider uses `defaultValue` today, so the Studio can't wire it yet.
