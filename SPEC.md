@@ -1,3 +1,5 @@
+> **Current locked plan: [§41](#41-locked-plan-spatial-studio-locked-1245-pm-oct-17).** Sections 1–40 are the original brainstorm. Where they conflict, §41 wins.
+
 # SPATIAL — MASTER PRODUCT SPEC
 
 ## 0. Purpose of This Document
@@ -1758,83 +1760,98 @@ First optimize for a convincing, working hackathon MVP that demonstrates the cor
 
 ---
 
-# 41. Hackathon Plan & Work Split (WebXR, updated 1:05 PM Oct 17)
+# 41. LOCKED PLAN: Spatial Studio (locked 12:45 PM Oct 17)
 
-> Supersedes §7 (Unity), §13 (music app) and older plans. Event rules and judging: https://moltenhack.com/agents.md
+> Event rules + judging: https://moltenhack.com/agents.md · Component list + owners: [COMPONENTS.md](COMPONENTS.md) · Status: [LOG.md](LOG.md)
 
-## What we're building
+## One sentence
 
-**Spatial: XR UI components that any developer can add to whatever they're building (21st.dev / shadcn for spatial apps).**
+**Spatial Studio: drag premade 3D components into a scene, on your laptop or in VR, wire them up, and launch a real XR app. We built a working DAW in 3 minutes.**
 
-One catalog, three ways in:
+## What it is
 
-| Way in | For | What happens |
-|---|---|---|
-| **Website** (laptop) | Browsing | See components live in 3D, copy the code |
-| **MCP** (Claude Code, Cursor, any MCP client) | Building in your own tool (an XR app, a DAW, a site) | The agent searches the catalog, pulls components into the project, and edits them, like 21st.dev's MCP for websites |
-| **Studio** (headset) | Creating | Grab premade components from a floating catalog and place them (hands). Tap to switch style (Default/Glass/Horizon). Save the layout. The MCP's `get_layout` lets Claude turn it into code |
+| Part | What it does |
+|---|---|
+| **Studio** (main product) | 3D dev studio. Left: component library. Center: 3D scene (laptop with mouse, or headset with hands). Right: inspector (position, "controls: tempo" bindings). Bottom: **live code panel** (generated TSX, Copy / Export). **Launch** opens the built app at its own URL. |
+| **Marketplace / website** | Shop for components: browse, live 3D preview, author / license / price, **Copy code**, **Copy for Claude Code**. Long-term: anyone uploads, shares or sells components ("GitHub for XR components, consolidated"). **Today: browse + copy only; upload/sell = post-hackathon.** |
+| **MCP** | Claude Code / Cursor / any MCP client: `search_components`, `get_component` (code), `add_component`, `get_layout`. Claude adds logic on top of what you built. |
+
+**Demo use case:** a developer builds a **music DAW** (drum pads, sequencer, tempo knob, faders, VU meter) in the Studio without writing component code, launches it, and plays it in the Quest.
 
 ## Decisions
 
 | Topic | Decision |
 |---|---|
-| Platform | **WebXR**: Next.js + Tailwind + React Three Fiber + `@react-three/xr` + `pmndrs/uikit` (MIT). One app = website (`/`) + Studio (`/studio`). |
-| Components | **59 premade components, full list + owners in [COMPONENTS.md](COMPONENTS.md).** Tier 1 (28) must ship; Tier 2 shows "Coming soon" if unbuilt. Restyle = swap to another variant of the same category. |
-| Component = | A React (.tsx) file. "Add" = copy the file into your project (shadcn model). |
-| Demo (judged) | In headset: grab and place premade components and tap to restyle them (**hands**), Save. Then Claude Code + Spatial MCP → `get_layout` → code in the project. Navigate track. |
-| Cut for today | Voice (maybe re-add if time: it would earn the 2+ body inputs bonus), audio engine, music/DAW components, Kaedim drum pad (**later phase**), Unity, Rokoko. |
+| Platform | **WebXR**: Next.js + Tailwind + React Three Fiber + `@react-three/xr` + `@react-three/drei` + `pmndrs/uikit` (all MIT). |
+| Code in Studio | **Live read-only code panel** + Copy/Export. Real editing = Claude via MCP. No in-Studio editor. |
+| Wiring | Inspector sets "controls: <name>" on a component. Components sharing a name share the value. Generated code = one `useState` per name + positioned components. Claude can add logic on top. |
+| Launch | Save layout → `/apps/<id>` renders it → open on Quest and play. Developer path: MCP `get_layout` → Claude builds it into their own project. |
+| Laptop + headset | **Laptop first** (drei `PivotControls` to move things with the mouse), **then headset** (`@react-three/handle` to grab). Both today. |
+| Catalog | ~21 working components built around the DAW (Tier 1), the rest shown as "Coming soon". |
+| Marketplace | Registry carries `author`, `license`, `price`. Site shows them. Upload/sell later. |
+| Cut today | Voice, Unity, Rokoko, uploads/payments, in-Studio code editing. |
 
-## Shared contract (lock first, 20 min together)
+## Component contract (copy-paste rule, applies to every component)
+
+- **One self-contained `.tsx` file**, default export, **every prop optional** (renders with no props).
+- Imports **only**: `react`, `three`, `@react-three/fiber`, `@react-three/drei`, `@react-three/uikit*`, `@react-three/xr`, `tone` (audio components).
+- Values via plain props: `value` + `onChange(v)` for anything adjustable, `onPress()` for buttons, `playing` / `bpm` for audio ones. **No imports from our own code.**
+- Sound: audio components use Tone.js's global `Tone.Transport` internally, so they sync without shared code.
+
+## Shared formats (change only after logging in LOG.md)
 
 ```
-registry/index.json     pure data, read by website, Studio, voice, MCP:
-  [{ name, displayName, category, tier: 1|2, status: "ready"|"soon", tags, description, file }]
-components/spatial/     one .tsx per component, default export, no required props
-lib/registry.ts         name → React component map (React app only)
-Layout (Studio → server → MCP):
-  { id, items: [{ component, position:[x,y,z], rotation:[x,y,z], scale }] }
+registry/index.json  [{
+  name, displayName, category, tier: 1|2, status: "ready"|"soon",
+  tags, description, file, deps: ["tone", ...],
+  author, license: "MIT", price: "free",
+  bindable: [{ prop: "value", type: "number", min, max, default }]
+}]
+Layout (Studio ⇄ /api/layout ⇄ /apps/<id> ⇄ MCP):
+  { id, name, items: [{ id, component, position, rotation, scale, bind: { value: "tempo" }, props }] }
 ```
 
-Change these only after logging it in LOG.md.
-
-## Person 1: Studio + MCP + server
+## Person 1: Studio + launch + MCP
 
 | # | Task | Done when |
 |---|---|---|
-| 1.1 | `registry/index.json` + `lib/registry.ts` + 2 stub components so work isn't blocked | Imports work |
-| 1.2 | `/studio`: `<XR>` scene (AR passthrough), hands + controllers | Shows in Quest browser |
-| 1.3 | Floating catalog shelf: live mini-previews. **Tap** to place in front of you (fallback), then **grab** to move (`@react-three/handle`) | Place + move works in headset |
-| 1.4 | Selected item gets floating chips: **Default / Glass / Horizon** (swap to the same category in another style), **bigger / smaller**, **delete**, plus a **Save** button | Restyle by tap works in headset |
-| 1.5 | Layout save: `POST /api/layout`, `GET /api/layout/:id` (shortcut: in-memory/file, needs dev server) | Studio saves, curl reads |
-| 1.6 | MCP server (`mcp/`): `search_components`, `get_component` (returns code), `add_component` (copies .tsx into a project), `get_layout` | Claude Code installs a component + rebuilds a saved layout |
+| 1.1 | `registry/index.json` + `lib/registry.ts` (name → component) + 2 stub components | Imports work |
+| 1.2 | Studio layout on laptop: library panel, R3F scene, add-on-click, move with `PivotControls`, select, delete | Build a scene with the mouse |
+| 1.3 | Inspector: transform + "controls:" binding per `bindable` prop; shared values store in Studio | Knob bound to "tempo" changes the sequencer |
+| 1.4 | Live code panel: layout → generated TSX, Copy / Export | Code matches the scene |
+| 1.5 | Layout API (`POST/GET /api/layout`, shortcut: in-memory) + **Launch** → `/apps/[id]` | Built DAW plays at its URL |
+| 1.6 | Headset mode: Enter VR/AR in the Studio, grab items with hands (`@react-three/handle`) | Arrange the DAW in the Quest |
+| 1.7 | MCP: `search_components`, `get_component`, `add_component`, `get_layout` | Claude Code rebuilds the DAW in a fresh project |
 
-## Person 2: Website + components
+## Person 2: Components + marketplace website
 
 | # | Task | Done when |
 |---|---|---|
-| 2.1 | Next.js + Tailwind scaffold (push ASAP, Person 1 builds inside it) | `npm run dev` works |
-| 2.2 | **Finished sections** (list above) in 2–3 styles each, from uikit kits | ~8 sections render |
-| 2.3 | Home: hero, search, category chips, cards with **live 3D previews** | Search filters |
-| 2.4 | Detail page: big live preview, style switcher, **Copy code**, **Copy MCP prompt**, "Open in Studio" | Copy works |
-| 2.5 | Basics tab (uikit primitives) | Listed |
-| 2.6 | Deploy (Vercel) for the public site | URL works |
+| 2.1 | Next.js + Tailwind scaffold (**push first**) | `npm run dev` works |
+| 2.2 | **Music components first** (see COMPONENTS.md), then general ones, following the contract | Each renders with no props + works with value/onChange |
+| 2.3 | Request the **Kaedim** drum pad model early (fallback: rounded box) | Model in `public/models/` |
+| 2.4 | Marketplace home: search, categories, cards with live 3D preview, author/price badges, "Coming soon" cards | Search works |
+| 2.5 | Component page: big live preview, props table, **Copy code**, **Copy for Claude Code** (code + `npm i` line), "Open in Studio" | Paste into Claude Code works |
+| 2.6 | Deploy marketplace to Vercel | Public URL |
 
-## Timeline (submit by 6:30 PM)
+## Timeline (submit 6:30 PM)
 
-| Time | |
-|---|---|
-| 1:05–1:30 | Lock contract; scaffold pushed |
-| 1:30–3:30 | P1: 1.1–1.3 · P2: 2.2–2.3 |
-| ~3:30 | **First headset test** |
-| 3:30–5:15 | P1: 1.4–1.6 · P2: 2.4–2.6 |
-| 5:15–5:45 | Integration: full demo run 3× |
-| 5:45–6:15 | Record video in headset (<1 min, no slides), fill form, credit uikit/R3F/ElevenLabs |
-| 6:30 | Submitted |
+| Time | Person 1 | Person 2 |
+|---|---|---|
+| 12:45–1:15 | Lock formats together, 1.1 | 2.1 scaffold |
+| 1:15–3:00 | 1.2–1.4 Studio on laptop | 2.2 music components, 2.3 |
+| 3:00–4:00 | 1.5 launch, 1.6 headset | 2.2 general, 2.4 |
+| 4:00–4:45 | 1.7 MCP | 2.5, 2.6 |
+| 4:45–5:30 | **Integration: build the DAW in the Studio 3×** | same |
+| 5:30–6:15 | Record video (<1 min, no slides): build DAW → Launch → play in Quest | Fill form, credit libraries |
+| 6:30 | Submitted | |
 
 ## Top risks
 
 | Risk | Fallback |
 |---|---|
-| Grab is fiddly | Tap-to-place already works |
-| Layout save needs persistence on Vercel | Demo from the laptop's HTTPS dev server (`next dev --experimental-https`) |
+| Studio drag/move is fiddly | Click-to-add at a grid spot + inspector number fields |
+| Hand grab in headset is fiddly | Arrange on laptop, headset is for **playing** the launched DAW (still "works in space" + hands) |
+| Audio timing across components | All audio components use the global `Tone.Transport` |
+| Layout storage on Vercel | Run Studio + launch from the laptop's HTTPS dev server (`next dev --experimental-https`) |
 | One venue Quest | Desktop XR emulator for dev; book one solid headset block |

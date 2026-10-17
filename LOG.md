@@ -13,6 +13,13 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 12:45 (real time; earlier entries' times were wrong): Person 1: PLAN LOCKED → SPEC.md §41
+- **Product = Spatial Studio**: drag premade 3D components into a scene (laptop or VR), wire them ("controls: tempo"), live code panel, **Launch** a real app. Demo: build a **music DAW** in 3 min, play it in the Quest.
+- Website = **marketplace** (browse, copy code, Copy for Claude Code; author/license/price shown; upload/sell later).
+- **Component contract (Person 2, read this):** one self-contained .tsx, default export, all props optional, `value`/`onChange`/`onPress` props, imports only react/three/r3f/drei/uikit/xr/tone. No imports from our code (must be copy-pasteable).
+- **COMPONENTS.md re-prioritised:** Tier 1 = music components first, then general. Request Kaedim drum pad early.
+- Person 2: please push the Next.js scaffold ASAP. Person 1 is blocked on it.
+
 ### 1:30: Person 1: FULL CATALOG → COMPONENTS.md (59 components, owners assigned)
 - Tier 1 = 28 must-ship. Tier 2 = 31 build-if-time, else "Coming soon" on the site. Music = later.
 - **P2 owns the kit-based ones** (slider, checkbox, tabs, stepper, card, tooltip, toast, dialog, progress, icon button + Tier 2 data/media/backdrops). P1 owns effects + XR-native (buttons with effects, knob, window, wrist/radial menu, wrappers).
