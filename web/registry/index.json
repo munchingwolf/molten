@@ -6736,5 +6736,1015 @@
         "default": 1
       }
     ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "hardware",
+      "synth",
+      "synthesizer",
+      "keyboard",
+      "keys",
+      "knobs",
+      "music",
+      "daw",
+      "playable"
+    ],
+    "aliases": [
+      "synthesizer",
+      "keyboard",
+      "poly synth",
+      "minilogue",
+      "midi keyboard",
+      "keys"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "hardware-synth",
+    "displayName": "Hardware Synth",
+    "category": "hardware",
+    "kind": "object",
+    "description": "A desktop polysynth: poke its 13 keys to play, and its cutoff, attack, release and volume knobs really shape the sound on an OLED readout.",
+    "file": "components/spatial/hardware-synth.tsx",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "cutoff",
+        "event": "onCutoffChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.62
+      },
+      {
+        "prop": "attack",
+        "event": "onAttackChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.08
+      },
+      {
+        "prop": "release",
+        "event": "onReleaseChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.35
+      },
+      {
+        "prop": "volume",
+        "event": "onVolumeChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.75
+      }
+    ],
+    "props": [
+      {
+        "name": "waveform",
+        "type": "enum",
+        "options": [
+          "sawtooth",
+          "square",
+          "triangle",
+          "sine"
+        ],
+        "default": "sawtooth"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#5BE7C4"
+      },
+      {
+        "name": "cutoff",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.62
+      },
+      {
+        "name": "attack",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.08
+      },
+      {
+        "name": "release",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.35
+      },
+      {
+        "name": "volume",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.75
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "hardware",
+      "drums",
+      "pads",
+      "mpc",
+      "beat",
+      "sequencer",
+      "music",
+      "daw",
+      "playable"
+    ],
+    "aliases": [
+      "mpc",
+      "beat machine",
+      "drum pads",
+      "groovebox",
+      "808",
+      "sampler"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "drum-machine",
+    "displayName": "Drum Machine",
+    "category": "hardware",
+    "kind": "object",
+    "description": "An MPC-style drum machine: 16 light-up pads play kick, snare, hat and clap, and PLAY runs a built-in beat on the shared transport.",
+    "file": "components/spatial/drum-machine.tsx",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "playing",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "playing",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#FF5A36"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "hardware",
+      "speakers",
+      "monitors",
+      "audio",
+      "studio",
+      "meter",
+      "music"
+    ],
+    "aliases": [
+      "speakers",
+      "nearfield monitors",
+      "monitor speakers",
+      "loudspeakers",
+      "hs5"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "studio-monitors",
+    "displayName": "Studio Monitors",
+    "category": "hardware",
+    "kind": "object",
+    "description": "A pair of 5-inch studio monitors whose woofers really pump with whatever is playing; tap the power LED to mute the room.",
+    "file": "components/spatial/studio-monitors.tsx",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "on",
+        "event": "onChange",
+        "type": "boolean",
+        "default": true
+      }
+    ],
+    "props": [
+      {
+        "name": "finish",
+        "type": "enum",
+        "options": [
+          "black",
+          "white"
+        ],
+        "default": "black"
+      },
+      {
+        "name": "spacing",
+        "type": "number",
+        "min": 0.2,
+        "max": 1.5,
+        "default": 0.6
+      },
+      {
+        "name": "on",
+        "type": "boolean",
+        "default": true
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "hardware",
+      "mixer",
+      "faders",
+      "console",
+      "volume",
+      "meter",
+      "music",
+      "daw"
+    ],
+    "aliases": [
+      "mixer",
+      "mixing desk",
+      "soundboard",
+      "faders",
+      "audio mixer"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "mixing-console",
+    "displayName": "Mixing Console",
+    "category": "hardware",
+    "kind": "object",
+    "description": "An 8-channel mixer with draggable faders, mute buttons and scribble strips; the red MAIN fader sets the real master volume, with a live stereo meter.",
+    "file": "components/spatial/mixing-console.tsx",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "values",
+        "event": "onChange",
+        "type": "number[]",
+        "min": 0,
+        "max": 1,
+        "default": [
+          0.8,
+          0.72,
+          0.6,
+          0.65,
+          0.78,
+          0.55,
+          0.7,
+          0.5
+        ]
+      },
+      {
+        "prop": "master",
+        "event": "onMasterChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      }
+    ],
+    "props": [
+      {
+        "name": "labels",
+        "type": "string",
+        "default": "KICK,SNARE,HATS,CLAP,BASS,KEYS,VOX,FX"
+      },
+      {
+        "name": "master",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "hardware",
+      "turntable",
+      "vinyl",
+      "record",
+      "dj",
+      "music",
+      "playable"
+    ],
+    "aliases": [
+      "record player",
+      "deck",
+      "vinyl player",
+      "sl-1200",
+      "dj deck"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "turntable",
+    "displayName": "Turntable",
+    "category": "hardware",
+    "kind": "object",
+    "description": "A direct-drive turntable: press START and the platter spins up, the tonearm swings in and a lo-fi groove plays on the shared transport.",
+    "file": "components/spatial/turntable.tsx",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "playing",
+        "event": "onChange",
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "props": [
+      {
+        "name": "playing",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "finish",
+        "type": "enum",
+        "options": [
+          "silver",
+          "black"
+        ],
+        "default": "silver"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Spatial Sessions"
+      },
+      {
+        "name": "labelColor",
+        "type": "color",
+        "default": "#C8102E"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "hardware",
+      "audio",
+      "interface",
+      "gain",
+      "knobs",
+      "meter",
+      "studio",
+      "music"
+    ],
+    "aliases": [
+      "scarlett",
+      "sound card",
+      "usb interface",
+      "preamp",
+      "2i2"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "audio-interface",
+    "displayName": "Audio Interface",
+    "category": "hardware",
+    "kind": "object",
+    "description": "A 2-input USB audio interface whose gain halos light from the live level, and whose MONITOR knob really sets the speaker volume.",
+    "file": "components/spatial/audio-interface.tsx",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "gain1",
+        "event": "onGain1Change",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.6
+      },
+      {
+        "prop": "gain2",
+        "event": "onGain2Change",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.45
+      },
+      {
+        "prop": "monitor",
+        "event": "onMonitorChange",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      }
+    ],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#B3121F"
+      },
+      {
+        "name": "gain1",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.6
+      },
+      {
+        "name": "gain2",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.45
+      },
+      {
+        "name": "monitor",
+        "type": "number",
+        "min": 0,
+        "max": 1,
+        "default": 0.8
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "hardware",
+      "screen",
+      "display",
+      "daw",
+      "computer",
+      "music",
+      "studio"
+    ],
+    "aliases": [
+      "monitor",
+      "display",
+      "screen",
+      "pc",
+      "imac",
+      "daw screen"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "computer-monitor",
+    "displayName": "Computer Monitor",
+    "category": "hardware",
+    "kind": "object",
+    "description": "A 27-inch display running a live DAW arrangement whose playhead follows the shared transport; tap the power LED to switch it off.",
+    "file": "components/spatial/computer-monitor.tsx",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "on",
+        "event": "onChange",
+        "type": "boolean",
+        "default": true
+      }
+    ],
+    "props": [
+      {
+        "name": "on",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Spatial Session — Arrangement"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "hardware",
+      "headphones",
+      "stand",
+      "decor",
+      "studio",
+      "desk"
+    ],
+    "aliases": [
+      "headphones",
+      "headset",
+      "cans",
+      "headphone hanger"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "headphones-stand",
+    "displayName": "Headphones Stand",
+    "category": "hardware",
+    "kind": "object",
+    "description": "A desk stand with a pair of closed-back studio headphones resting on it.",
+    "file": "components/spatial/headphones-stand.tsx",
+    "status": "ready",
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#1C1D20"
+      },
+      {
+        "name": "standColor",
+        "type": "color",
+        "default": "#A9ACB2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "room",
+      "furniture",
+      "sofa",
+      "seat",
+      "decor",
+      "living room"
+    ],
+    "aliases": [
+      "couch",
+      "settee",
+      "loveseat",
+      "lounge"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "sofa",
+    "displayName": "Sofa",
+    "category": "room",
+    "kind": "object",
+    "description": "A two-metre fabric sofa with loose seat and back cushions on tapered wooden legs.",
+    "file": "components/spatial/sofa.tsx",
+    "status": "ready",
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#4E5D6C"
+      },
+      {
+        "name": "legColor",
+        "type": "color",
+        "default": "#5A3A22"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "room",
+      "furniture",
+      "books",
+      "shelf",
+      "storage",
+      "decor",
+      "surface"
+    ],
+    "aliases": [
+      "bookcase",
+      "shelves",
+      "library",
+      "shelving"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "bookshelf",
+    "displayName": "Bookshelf",
+    "category": "room",
+    "kind": "object",
+    "description": "A 1.8 m wooden bookcase with five shelves of books; its top is a placement surface.",
+    "file": "components/spatial/bookshelf.tsx",
+    "status": "ready",
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#8A5A36"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "room",
+      "furniture",
+      "table",
+      "decor",
+      "surface"
+    ],
+    "aliases": [
+      "end table",
+      "coffee table",
+      "nightstand",
+      "round table"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "side-table",
+    "displayName": "Side Table",
+    "category": "room",
+    "kind": "object",
+    "description": "A round oak side table on three splayed legs; its top is a placement surface.",
+    "file": "components/spatial/side-table.tsx",
+    "status": "ready",
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#B5835A"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "room",
+      "rug",
+      "floor",
+      "carpet",
+      "decor",
+      "surface"
+    ],
+    "aliases": [
+      "carpet",
+      "area rug",
+      "persian rug",
+      "mat"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "rug",
+    "displayName": "Rug",
+    "category": "room",
+    "kind": "object",
+    "description": "A 2 x 1.4 m wool rug with a procedural persian, geometric or striped weave.",
+    "file": "components/spatial/rug.tsx",
+    "status": "ready",
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#8E2F2B"
+      },
+      {
+        "name": "pattern",
+        "type": "enum",
+        "options": [
+          "persian",
+          "geometric",
+          "stripes"
+        ],
+        "default": "persian"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "room",
+      "studio",
+      "wall",
+      "foam",
+      "acoustic",
+      "decor"
+    ],
+    "aliases": [
+      "acoustic foam",
+      "sound panels",
+      "wall foam",
+      "studio foam",
+      "treatment"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "acoustic-panels",
+    "displayName": "Acoustic Panels",
+    "category": "room",
+    "kind": "object",
+    "description": "A wall set of wedge-foam acoustic tiles in a two-colour checkerboard.",
+    "file": "components/spatial/acoustic-panels.tsx",
+    "status": "ready",
+    "props": [
+      {
+        "name": "cols",
+        "type": "number",
+        "min": 1,
+        "max": 8,
+        "default": 3
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "min": 1,
+        "max": 6,
+        "default": 2
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#2A2B2F"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#3E6E8E"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "room",
+      "neon",
+      "sign",
+      "light",
+      "text",
+      "wall",
+      "decor",
+      "glow"
+    ],
+    "aliases": [
+      "neon",
+      "light sign",
+      "on air sign",
+      "led sign",
+      "glow sign"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "neon-sign",
+    "displayName": "Neon Sign",
+    "category": "room",
+    "kind": "object",
+    "description": "A neon sign with your text that flickers to life, hums and casts coloured light; tap to switch it on or off.",
+    "file": "components/spatial/neon-sign.tsx",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "on",
+        "event": "onChange",
+        "type": "boolean",
+        "default": true
+      }
+    ],
+    "props": [
+      {
+        "name": "text",
+        "type": "string",
+        "default": "ON AIR"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#FF2D6F"
+      },
+      {
+        "name": "on",
+        "type": "boolean",
+        "default": true
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "room",
+      "window",
+      "sky",
+      "light",
+      "wall",
+      "blind",
+      "decor"
+    ],
+    "aliases": [
+      "window",
+      "skylight",
+      "daylight",
+      "view",
+      "blinds"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "wall-window",
+    "displayName": "Window",
+    "category": "room",
+    "kind": "object",
+    "description": "A wall window with a deep reveal, a day, sunset or night sky and light spilling into the room; tap it to roll the blind.",
+    "file": "components/spatial/wall-window.tsx",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "open",
+        "event": "onChange",
+        "type": "boolean",
+        "default": true
+      }
+    ],
+    "props": [
+      {
+        "name": "time",
+        "type": "enum",
+        "options": [
+          "day",
+          "sunset",
+          "night"
+        ],
+        "default": "day"
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "frameColor",
+        "type": "color",
+        "default": "#F2F0EB"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "room",
+      "lamp",
+      "light",
+      "furniture",
+      "toggle",
+      "decor"
+    ],
+    "aliases": [
+      "standing lamp",
+      "floor light",
+      "torchiere",
+      "reading lamp"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "floor-lamp",
+    "displayName": "Floor Lamp",
+    "category": "room",
+    "kind": "object",
+    "description": "A 1.6 m brass floor lamp with a linen shade; tap the shade or pull the chain to switch a real light on or off.",
+    "file": "components/spatial/floor-lamp.tsx",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "on",
+        "event": "onChange",
+        "type": "boolean",
+        "default": true
+      }
+    ],
+    "props": [
+      {
+        "name": "on",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#FFD7A1"
+      },
+      {
+        "name": "shadeColor",
+        "type": "color",
+        "default": "#EFE6D6"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "room",
+      "art",
+      "poster",
+      "frame",
+      "print",
+      "wall",
+      "decor"
+    ],
+    "aliases": [
+      "painting",
+      "poster",
+      "framed print",
+      "picture",
+      "artwork"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "wall-art",
+    "displayName": "Wall Art",
+    "category": "room",
+    "kind": "object",
+    "description": "A framed 60 x 80 cm print of a procedural landscape in one of five palettes; change the seed for a new composition.",
+    "file": "components/spatial/wall-art.tsx",
+    "status": "ready",
+    "props": [
+      {
+        "name": "palette",
+        "type": "enum",
+        "options": [
+          "sunset",
+          "ocean",
+          "forest",
+          "dusk",
+          "mono"
+        ],
+        "default": "sunset"
+      },
+      {
+        "name": "seed",
+        "type": "number",
+        "min": 1,
+        "max": 100,
+        "default": 3
+      },
+      {
+        "name": "frameColor",
+        "type": "color",
+        "default": "#1A1A1C"
+      }
+    ]
   }
 ]

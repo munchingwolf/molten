@@ -117,6 +117,23 @@ const C_todo_list = lazy(() => import("@/components/spatial/todo-list"))
 const C_clock_widget = lazy(() => import("@/components/spatial/clock-widget"))
 const C_mascot = lazy(() => import("@/components/spatial/mascot"))
 const C_gltf_model = lazy(() => import("@/components/spatial/gltf-model"))
+const C_hardware_synth = lazy(() => import("@/components/spatial/hardware-synth"))
+const C_drum_machine = lazy(() => import("@/components/spatial/drum-machine"))
+const C_studio_monitors = lazy(() => import("@/components/spatial/studio-monitors"))
+const C_mixing_console = lazy(() => import("@/components/spatial/mixing-console"))
+const C_turntable = lazy(() => import("@/components/spatial/turntable"))
+const C_audio_interface = lazy(() => import("@/components/spatial/audio-interface"))
+const C_computer_monitor = lazy(() => import("@/components/spatial/computer-monitor"))
+const C_headphones_stand = lazy(() => import("@/components/spatial/headphones-stand"))
+const C_sofa = lazy(() => import("@/components/spatial/sofa"))
+const C_bookshelf = lazy(() => import("@/components/spatial/bookshelf"))
+const C_side_table = lazy(() => import("@/components/spatial/side-table"))
+const C_rug = lazy(() => import("@/components/spatial/rug"))
+const C_acoustic_panels = lazy(() => import("@/components/spatial/acoustic-panels"))
+const C_neon_sign = lazy(() => import("@/components/spatial/neon-sign"))
+const C_wall_window = lazy(() => import("@/components/spatial/wall-window"))
+const C_floor_lamp = lazy(() => import("@/components/spatial/floor-lamp"))
+const C_wall_art = lazy(() => import("@/components/spatial/wall-art"))
 
 export const components: Record<string, ComponentType> = {
   "settings-default": C_settings_default as ComponentType,
@@ -234,4 +251,21 @@ export const components: Record<string, ComponentType> = {
   "clock-widget": C_clock_widget as ComponentType,
   "mascot": C_mascot as ComponentType,
   "gltf-model": C_gltf_model as ComponentType,
+  "hardware-synth": C_hardware_synth as ComponentType,
+  "drum-machine": C_drum_machine as ComponentType,
+  "studio-monitors": C_studio_monitors as ComponentType,
+  "mixing-console": C_mixing_console as ComponentType,
+  "turntable": C_turntable as ComponentType,
+  "audio-interface": C_audio_interface as ComponentType,
+  "computer-monitor": C_computer_monitor as ComponentType,
+  "headphones-stand": C_headphones_stand as ComponentType,
+  "sofa": C_sofa as ComponentType,
+  "bookshelf": C_bookshelf as ComponentType,
+  "side-table": C_side_table as ComponentType,
+  "rug": C_rug as ComponentType,
+  "acoustic-panels": C_acoustic_panels as ComponentType,
+  "neon-sign": C_neon_sign as ComponentType,
+  "wall-window": C_wall_window as ComponentType,
+  "floor-lamp": C_floor_lamp as ComponentType,
+  "wall-art": C_wall_art as ComponentType,
 }

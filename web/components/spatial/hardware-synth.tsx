@@ -267,7 +267,7 @@ function Key({ note, x, z, black, mat, onDown, onUp }: KeyProps) {
         onPointerCancel={release}
         onPointerOut={release}
       >
-        <boxGeometry args={[w, h + 0.012, l]} />
+        <boxGeometry args={[black ? 0.019 : w, h + 0.012, l]} />
       </mesh>
       <RoundedBox args={[w, h, l]} radius={0.0015} smoothness={2} position={[0, down ? -0.005 : 0, 0]} rotation={[down ? -0.04 : 0, 0, 0]} material={mat} />
     </group>

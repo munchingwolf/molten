@@ -21,7 +21,7 @@ type Props = {
   onPress?: () => void
 }
 
-const R = 0.045 // capsule radius (button half-height)
+const R = 0.055 // capsule radius (button half-height)
 const DEPTH = 0.55 // the pill is flattened front-to-back
 const SLOTS = 3
 
@@ -37,7 +37,7 @@ export default function LiquidButton({
   disabled = false,
   onPress,
 }: Props) {
-  const len = THREE.MathUtils.clamp(Array.from(label).length * 0.0115, 0.08, 0.4)
+  const len = THREE.MathUtils.clamp(Array.from(label).length * 0.014, 0.1, 0.5)
   const half = len / 2 + R
   const mesh = useRef<THREE.Mesh>(null)
   const body = useRef<THREE.Group>(null)
@@ -123,7 +123,7 @@ export default function LiquidButton({
         </mesh>
         <group position={[0, 0, R * DEPTH + 0.009]}>
           <Container pixelSize={0.001} alignItems="center" justifyContent="center">
-            <Text fontSize={20} fontWeight="semi-bold" color={labelColor}>
+            <Text fontSize={24} fontWeight="semi-bold" color={labelColor}>
               {label}
             </Text>
           </Container>

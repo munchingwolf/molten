@@ -24,7 +24,7 @@ type Props = {
 
 const W = 300
 const H = 200
-const PX = 0.0014
+const PX = 0.0018
 const CARD = new THREE.Vector2(W * PX, H * PX)
 const MARGIN = 0.04
 
