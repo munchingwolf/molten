@@ -1857,6 +1857,15 @@ Plan detail: `/Users/ek/.claude/plans/delegated-forging-moth.md` (local). Order:
 | 2.5 | Component page: big live preview, props table, **Copy code**, **Copy for Claude Code** (code + `npm i` line), "Open in Studio" | Paste into Claude Code works |
 | 2.6 | Deploy marketplace to Vercel | Public URL |
 
+## Split update (1:15 PM): Evan = backend, Danny = frontend
+
+Full task list with "done when": https://claude.ai/artifact/UDisGbDK9Ffx5c95Dmifzn (snapshot; this section is the plan of record).
+
+- **Moves to Person 1 (Evan):** 2.6 Vercel deploy + Upstash; registry data (backfill `author`/`license`/`price`/`deps`, add entries for every Tier 1 component); the **sound side of the music components** (drum-pad, step-sequencer, tempo-display, vu-meter, piano-keys, transport fixes), built working with plain meshes; Studio fixes (knob `min`/`max` so "tempo" can be 60–180 BPM, `/studio?add=<name>`).
+- **Person 2 (Danny) keeps:** general components (label, press-button, slider, spring-toggle, glass-card first; then glow-button, glass-button, tabs, window, fader), look and feel of every component (**restyles the music components 4:00–4:45 without changing props**), marketplace (badges, props table, real MCP install line instead of `npx spatial add`, preview canvas limit), Kaedim, submission form. Install `@react-three/drei` first.
+- **Cut to Tier 2:** xy-pad, mixer-strip, waveform, wrist-menu.
+- **Headset:** the venue's Quest, test both apps as soon as we get it.
+
 ## Timeline (submit 6:30 PM)
 
 | Time | Person 1 | Person 2 |

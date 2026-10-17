@@ -4,11 +4,11 @@ Tick `[x]` when the component renders with no props, works with `value`/`onChang
 
 Build **Tier 1 top to bottom**: **general UI first** (the product is for every XR developer), **then music** (the DAW is only the demo). Anything unbuilt at **4:45 PM** is set to `status: "soon"` and shows as "Coming soon" on the marketplace.
 
-- Owner: **P2** builds components. P1 helps after 4:00 if behind.
+- Owner: **P2** builds the general components. **Music: P1 builds the sound + plain look, P2 restyles 4:00–4:45** (split update 1:15, SPEC §41).
 - `bindable`: the prop the Studio can wire to a shared name (e.g. knob `value` → "tempo")
 - ⭐ = only makes sense in XR
 
-## Tier 1: the DAW + general basics (21)
+## Tier 1: the DAW + general basics (17)
 
 ### General (build first)
 | ✓ | name | Component | bindable / props | Notes |
@@ -22,7 +22,6 @@ Build **Tier 1 top to bottom**: **general UI first** (the product is for every X
 | [ ] | tabs | Segmented Tabs | `value` (index) | uikit |
 | [ ] | glass-card | Glass Card | `title`, children | apfel. Backplate to group a section |
 | [ ] | window | ⭐ Window | `title`, children | Grab bar + close. Wraps a section |
-| [ ] | wrist-menu | ⭐ Wrist Menu | `items`, `onSelect` | Attached to hand (headset) |
 
 ### Music (second: for the DAW demo)
 | ✓ | name | Component | bindable / props | Notes |
@@ -34,13 +33,11 @@ Build **Tier 1 top to bottom**: **general UI first** (the product is for every X
 | [ ] | fader | Fader | `value` (0–1) | Vertical slider |
 | [ ] | vu-meter | VU Meter | `value` (0–1) | Animated level bars |
 | [ ] | tempo-display | Tempo Display | `value` (bpm) | Big BPM readout |
-| [ ] | xy-pad | XY Pad | `x`, `y` | Drag a point; e.g. filter + reverb |
-| [ ] | mixer-strip | Mixer Strip | `volume`, `pan`, `mute` | Fader + knob + mute button + meter |
-| [ ] | waveform | Waveform | — | Live analyser of the master output |
 | [ ] | piano-keys | ⭐ Piano Keys | `onPress(note)` | 1 octave, pokeable keys, Tone synth |
 
-## Tier 2: "Coming soon" unless time (38)
+## Tier 2: "Coming soon" unless time (42)
 
+Cut from Tier 1 at 1:15: xy-pad · mixer-strip · waveform · wrist-menu ⭐
 Buttons: neon-button · ripple-button ⭐ · magnetic-button ⭐ · holo-button ⭐ · icon-button
 Controls: checkbox · stepper · range-slider · select · number-pad · color-picker ⭐ · spatial-keyboard ⭐ · hold-to-confirm ⭐
 Containers: flip-card ⭐ · tooltip · toast · dialog · curved-panel ⭐ · frosted-backplate

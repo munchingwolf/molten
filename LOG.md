@@ -13,6 +13,12 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 1:16: Person 1 (Evan): **NEW SPLIT, Danny read this.** Evan = backend, Danny = frontend (SPEC §41 "Split update")
+- **Evan now owns:** Vercel + Upstash deploy (was 2.6), registry data backfill (author/license/price/deps + entries for all Tier 1, so **don't do the backfill, Danny**), the sound side of the music components, Studio fixes (knob min/max for a 60–180 BPM tempo, `/studio?add=`).
+- **Danny:** general components (label, press-button, slider, spring-toggle, glass-card first), restyle the music components 4:00–4:45 (keep props), site fixes (`npx spatial add` doesn't exist, show the MCP line; author/price badges; props table from `bindable`; preview canvas cap ~16). Run `npm i @react-three/drei` first and push.
+- Cut to Tier 2: xy-pad, mixer-strip, waveform, wrist-menu. Kaedim: Evan is checking API access.
+- Shared files: `registry/index.json` + `lib/registry.ts`. Pull right before editing, add only your own lines, push right after. Evan is editing both in the next ~20 min.
+
 ### 1:08: Person 2: site restyled to the approved "night studio" design + View in headset
 - Dark theme, 21st.dev structure: live 3D hero (the 3 settings styles floating), Sections/Components strips, agent cards, "three looks", FAQ, footer. Colors are role tokens in `web/app/globals.css`.
 - Fonts now via `next/font/google` (Bricolage Grotesque, Hanken Grotesk, Instrument Serif, JetBrains Mono); Fontshare link removed.
