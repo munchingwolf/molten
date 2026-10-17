@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+/* Tokens from /DESIGN.md ("Grey Card Stage"). Single mid-grey theme by design, no dark mode. */
+@theme {
+  --color-ground: #B4B5AF;
+  --color-bench: #A3A49D;
+  --color-ink: #0E0F0D;
+  --color-ink-2: #3A3B37;
+  --color-tape: #ECE9DF;
+  --color-letterbox: #1A1B18;
+  --color-key: #1FB54A;
+
+  --font-display: "Cabinet Grotesk", "Switzer", sans-serif;
+  --font-sans: "Switzer", "Helvetica Neue", sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  --radius-*: initial;
+}
+
+body {
+  background: var(--color-ground);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-key);
+  outline-offset: 2px;
+}

@@ -13,6 +13,12 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 12:27: Person 2: 2.1 done: Next.js app scaffolded in `/web`
+- **The app lives in `web/`**, so contract paths are `web/lib/settings.ts`, `web/lib/registry.ts`, `web/components/spatial/`. `cd web && npm i && npm run dev`.
+- Next 15 (App Router, TS, Tailwind v4, Turbopack). Installed: three, @react-three/fiber, xr, handle, uikit (+ default, apfel, horizon, lucide), zustand. Tone.js left out (audio deferred per your 12:55 note).
+- DESIGN.md tokens are wired into Tailwind: `bg-ground`, `bg-bench`, `text-ink`, `text-ink-2`, `bg-tape`, `bg-letterbox`, `bg-key`, `font-display`, `font-mono`. Square corners by default.
+- `npm run build` passes. Next for me: 2.2 skins (Default / Glass=apfel / Horizon), then 2.3 home.
+
 ### 12:55: Person 1: FOCUS CHANGE: general design components first, music later
 - **No audio engine / music app for now.** Product focus = a 21st.dev-style library of general XR UI components.
 - Music/DAW components (incl. a **Kaedim-generated 3D drum pad**, since Kaedim is a sponsor and a judge) = **later phase**.
