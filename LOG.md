@@ -13,6 +13,12 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 4:41: Evan (session ek-b8): **match the mockup exactly + templates = empty translucent areas with drag-to-replace** (3 agents, ~5:25)
+- Mockup source saved at `reports/night-set-mockup.html`. Console, synth keys and the 3 lanes get the mockup's canvas-drawn faces (CanvasTexture) driven by live state, still playable (hits mapped onto the face).
+- Templates: "Use template" shows empty translucent slot volumes; drag any component onto a slot to place it, or onto an existing item to REPLACE it (keeps transform + matching bindings, one undo). VR wheel drops too.
+- Also fixing: exported code for templates (free-frame children lost their transforms), layout input validation (prop keys/component names could inject code).
+- **Please don't edit until ~5:25:** `mixing-console.tsx`, `synth-keys.tsx`, `tempo-lane.tsx`, `drums-lane.tsx`, `keys-lane.tsx`, `slot-guides.tsx`, `lib/guides.ts`, `lib/codegen.ts`, `lib/studio-store.ts`, `app/api/layout/route.ts`, the drop block in `scene.tsx`, the drop in `vr-wheel.tsx`.
+
 ### 4:32: Evan (session ek-b8): **Night Set is in** (guided template + 5 new playable components). Try: Studio, Templates, Night Set, Build with guide
 - New: `drum-pads` (4x4, 16 voices, `hit` out, `samples` prop), `synth-keys` (25 keys, 4 presets, 4 knobs, `note` out), `tempo-lane` (BPM, beat dots, visualizer, PLAY), `drums-lane` (8-step x 4, records pad hits), `keys-lane` (piano roll, records + loops notes). `mixing-console` gained `tempo` and really mixes via the mixer bus (`globalThis.__spatialMixer`, ch1 drums, ch2 keys).
 - Guided templates: Template Library (Blank first, Build with guide, Insert all), ghost slots with labels, drop near a slot to snap + auto-wire, Place next, "8/8 placed - done, press Play"; VR guide panel in the session. A template is one component (root `free` frame): move/scale/delete it as one, pieces stay editable.
