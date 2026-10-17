@@ -3330,6 +3330,11 @@
         "name": "background",
         "type": "boolean",
         "default": true
+      },
+      {
+        "name": "rails",
+        "type": "boolean",
+        "default": false
       }
     ]
   },
@@ -3559,7 +3564,6 @@
     "tags": [
       "clock",
       "time",
-      "wall",
       "object",
       "mount:wall"
     ],
@@ -7472,7 +7476,6 @@
     "tags": [
       "room",
       "studio",
-      "wall",
       "foam",
       "acoustic",
       "decor",
@@ -7532,7 +7535,6 @@
       "sign",
       "light",
       "text",
-      "wall",
       "decor",
       "glow",
       "mount:wall"
@@ -7589,7 +7591,6 @@
       "window",
       "sky",
       "light",
-      "wall",
       "blind",
       "decor",
       "mount:wall"
@@ -7706,7 +7707,6 @@
       "poster",
       "frame",
       "print",
-      "wall",
       "decor",
       "mount:wall"
     ],
