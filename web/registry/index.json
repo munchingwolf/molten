@@ -12301,18 +12301,19 @@
     "deps": [],
     "tags": [
       "environment",
-      "photo",
-      "hdri",
       "music",
       "concert",
       "hall",
-      "stage",
-      "indoor"
+      "indoor",
+      "3d",
+      "theater"
     ],
     "aliases": [
       "music hall",
-      "music",
-      "concert"
+      "concert hall",
+      "theater",
+      "orchestra hall",
+      "auditorium"
     ],
     "tier": 1,
     "style": "default",
@@ -12320,7 +12321,7 @@
     "displayName": "Music Hall",
     "category": "environments",
     "kind": "environment",
-    "description": "Ornate concert hall with warm stage lights and rows of seats. A real Poly Haven photo projected onto level ground.",
+    "description": "A grand concert hall in real 3D: proscenium stage with red curtains and orchestra chairs under a warm spotlight, raked velvet seating behind you, a gilded balcony, columns, a coffered ceiling and glowing chandeliers.",
     "file": "components/spatial/env-music-hall.tsx",
     "status": "ready",
     "bindable": [],
@@ -14302,6 +14303,85 @@
         "name": "tint",
         "type": "color",
         "default": "#d8ff6a"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "music",
+      "studio",
+      "indoor",
+      "3d",
+      "recording"
+    ],
+    "aliases": [
+      "recording studio",
+      "studio",
+      "music studio",
+      "control room"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-recording-studio",
+    "displayName": "Recording Studio",
+    "category": "environments",
+    "kind": "environment",
+    "description": "A warm recording room built in real 3D: mixing desk with three screens and studio monitors, acoustic panels and bass traps, record shelves, a lounge corner and glowing ceiling strips. The 3 m in front of you stays clear for your build.",
+    "file": "components/spatial/env-recording-studio.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "music",
+      "stage",
+      "outdoor",
+      "park",
+      "nature",
+      "3d"
+    ],
+    "aliases": [
+      "park stage",
+      "band shell",
+      "outdoor stage",
+      "park concert"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-park-stage",
+    "displayName": "Park Stage",
+    "category": "environments",
+    "kind": "environment",
+    "description": "An outdoor concert in a park: band shell and stage 10 m ahead with PA stacks and a light truss, low-poly trees, bushes and flowers all around, log benches, rolling hills and a gradient sky with drifting clouds.",
+    "file": "components/spatial/env-park-stage.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
       }
     ]
   }

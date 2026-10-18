@@ -222,6 +222,8 @@ const C_env_volcano = lazy(() => import("@/components/spatial/env-volcano"))
 const C_env_dream = lazy(() => import("@/components/spatial/env-dream"))
 const C_env_egypt = lazy(() => import("@/components/spatial/env-egypt"))
 const C_env_starry = lazy(() => import("@/components/spatial/env-starry"))
+const C_env_recording_studio = lazy(() => import("@/components/spatial/env-recording-studio"))
+const C_env_park_stage = lazy(() => import("@/components/spatial/env-park-stage"))
 
 export const components: Record<string, ComponentType> = {
   "settings-default": C_settings_default as ComponentType,
@@ -444,4 +446,6 @@ export const components: Record<string, ComponentType> = {
   "env-dream": C_env_dream as ComponentType,
   "env-egypt": C_env_egypt as ComponentType,
   "env-starry": C_env_starry as ComponentType,
+  "env-recording-studio": C_env_recording_studio as ComponentType,
+  "env-park-stage": C_env_park_stage as ComponentType,
 }
