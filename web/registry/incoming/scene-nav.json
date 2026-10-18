@@ -1,0 +1,34 @@
+[
+  {
+    "name": "portal",
+    "displayName": "Portal",
+    "category": "navigation",
+    "kind": "basic",
+    "tags": ["portal", "door", "scene", "navigation", "link", "teleport", "game", "level"],
+    "aliases": ["doorway", "gate", "teleporter", "warp"],
+    "description": "Walk-through doorway to another scene: a swirling energy arch. Tap it and the experience moves to scene `to` (a name, a number, next or back), like a link between pages or levels.",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      { "name": "to", "type": "string", "default": "next" },
+      { "name": "label", "type": "string", "default": "Enter" },
+      { "name": "color", "type": "color", "default": "#7C9CFF" }
+    ]
+  },
+  {
+    "name": "nav-button",
+    "displayName": "Scene Link Button",
+    "category": "navigation",
+    "kind": "basic",
+    "tags": ["link", "button", "scene", "navigation", "page", "site"],
+    "aliases": ["link", "go to", "next page", "menu button"],
+    "description": "A site-style link between scenes: press it and the experience moves to scene `to` (a name, a number, next or back).",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      { "name": "to", "type": "string", "default": "next" },
+      { "name": "label", "type": "string", "default": "Enter" },
+      { "name": "color", "type": "color", "default": "#9FE7D2" }
+    ]
+  }
+]

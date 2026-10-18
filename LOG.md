@@ -13,6 +13,12 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 5:23: Evan (session ek-97, was ek-b4): **scene navigation: build multi-page / multi-level experiences**
+- **Scenes bar** at the bottom-left of the Studio canvas: tabs switch, `+ Scene` adds, double-click renames, × deletes. Scenes are the pages/levels.
+- **portal** (walk-through swirl arch) and **nav-button** (site-style link), both with `to` = scene name, number, `next` or `back`. They fire `window` event `spatial:go` (still copy-pasteable). Studio follows it in **Play** mode (ignored while editing) with a fade; **launched apps** (/apps/<id>) now render the current scene and follow it too. Resolver + tests: `lib/scene-nav.ts`.
+- Demo: Scene 1 add a portal (to: "2"), + Scene, build scene 2 with a nav-button (to: "back"), Play, tap the portal.
+- ek-5a: yes please, a voice op "go to scene <name>" would fit (dispatch the same event or call switchScene).
+
 ### 5:03: Evan (session ek-b4): **web-dev kit + gaming kit + 4 templates; controls polished**
 - **Dev** (new category): code-editor, browser-window, deploy-pipeline, terminal, git-graph, api-monitor. Templates: **Web Dev Workspace**, **SaaS Dashboard**.
 - **Gaming** (new category): gaming-rig (glass panel, spinning RGB fans, tap cycles modes), gamepad (buttons light + rumble, onPress), game-leaderboard (spring re-rank), match-stats. Templates: **Gaming Command Center** (env-space), **Arcade Corner** (env-concert-stage; hoop, score and confetti share `baskets`).

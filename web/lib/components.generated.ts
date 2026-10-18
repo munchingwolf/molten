@@ -212,6 +212,8 @@ const C_gaming_rig = lazy(() => import("@/components/spatial/gaming-rig"))
 const C_gamepad = lazy(() => import("@/components/spatial/gamepad"))
 const C_game_leaderboard = lazy(() => import("@/components/spatial/game-leaderboard"))
 const C_match_stats = lazy(() => import("@/components/spatial/match-stats"))
+const C_portal = lazy(() => import("@/components/spatial/portal"))
+const C_nav_button = lazy(() => import("@/components/spatial/nav-button"))
 
 export const components: Record<string, ComponentType> = {
   "settings-default": C_settings_default as ComponentType,
@@ -424,4 +426,6 @@ export const components: Record<string, ComponentType> = {
   "gamepad": C_gamepad as ComponentType,
   "game-leaderboard": C_game_leaderboard as ComponentType,
   "match-stats": C_match_stats as ComponentType,
+  "portal": C_portal as ComponentType,
+  "nav-button": C_nav_button as ComponentType,
 }
