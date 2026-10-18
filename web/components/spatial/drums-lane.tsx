@@ -1,28 +1,29 @@
 "use client"
 
-import { useEffect, useMemo, useRef, useState } from "react"
-import { useFrame, type ThreeEvent } from "@react-three/fiber"
-import { AdditiveBlending, CanvasTexture, SRGBColorSpace, Shape, ShapeGeometry, type Group, type MeshBasicMaterial, type Path } from "three"
+import { useEffect, useRef, useState } from "react"
+import { useFrame, useThree, type ThreeEvent } from "@react-three/fiber"
+import { CanvasTexture, SRGBColorSpace } from "three"
 import * as Tone from "tone"
 
-const C = { surface: "#15171E", surface2: "#1C1F28", border: "#242833", text: "#EEF0F4", muted: "#9AA0AD", blue: "#3B82F6", head: "#B9D3FF", rec: "#F87171" }
+// The Night Set palette (mockup `K`), plus the playhead tint.
+const K = { bg: "#0B0C10", surface: "#15171E", surface2: "#1C1F28", border: "#242833", text: "#EEF0F4", muted: "#9AA0AD", accent: "#9FE7D2", warm: "#F2B48A", blue: "#3B82F6", head: "#B9D3FF" }
 
 // Panel: 520 x 720 px at 1 mm per px = 0.52 x 0.72 m. Origin = centre, front faces +Z.
 const PX = 0.001
 const W = 520
 const H = 720
-const S = 2 // canvas pixels per panel pixel
-const MONO = '"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace'
-const at = (x: number, y: number, z = 0.001): [number, number, number] => [(x - W / 2) * PX, (H / 2 - y) * PX, z]
-const noHit = () => null // overlays must not swallow pointer events meant for the panel
+const S = 2 // canvas pixels per panel pixel (2x the mockup's 520 x 720 for crisp text); animated repaints are capped at 30 fps
+const MONO = '"JetBrains Mono", ui-monospace, Menlo, monospace'
+const FRAME_MS = 1000 / 30
+const FLASH_MS = 300
 
 // 4 voices x 8 eighth-note steps (1 bar). Cells 52 x 72 px = 5.2 x 7.2 cm.
 const STEPS = 8
 const cellX = (s: number) => 24 + s * 60
 const cellY = (r: number) => 136 + r * 128
-const REC = { x: 290, y: 19, w: 96, h: 48 }
-const CLR = { x: 396, y: 19, w: 102, h: 48 }
-const inside = (b: { x: number; y: number; w: number; h: number }, x: number, y: number) => x >= b.x - 4 && x <= b.x + b.w + 4 && y >= b.y - 4 && y <= b.y + b.h + 4
+
+type Rect = { x: number; y: number; w: number; h: number }
+const inside = (b: Rect | undefined, x: number, y: number, pad = 8) => !!b && x >= b.x - pad && x <= b.x + b.w + pad && y >= b.y - pad && y <= b.y + b.h + pad
 
 const LABELS = ["KICK", "SNARE", "HAT", "CLAP"]
 const VOICES = ["kick", "snare", "hat", "clap"]
@@ -76,9 +77,19 @@ function makeKit(out: Tone.InputNode) {
 
 const copyGrid = (g: boolean[][] | undefined) => [0, 1, 2, 3].map((r) => Array.from({ length: STEPS }, (_, i) => !!g?.[r]?.[i]))
 
-function box(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number, fill?: string, stroke?: string) {
+// Canvas helpers, as in the mockup.
+type G = CanvasRenderingContext2D
+function rr(g: G, x: number, y: number, w: number, h: number, r: number) {
   g.beginPath()
-  g.roundRect(x, y, w, h, r)
+  g.moveTo(x + r, y)
+  g.arcTo(x + w, y, x + w, y + h, r)
+  g.arcTo(x + w, y + h, x, y + h, r)
+  g.arcTo(x, y + h, x, y, r)
+  g.arcTo(x, y, x + w, y, r)
+  g.closePath()
+}
+function box(g: G, x: number, y: number, w: number, h: number, r: number, fill?: string, stroke?: string) {
+  rr(g, x, y, w, h, r)
   if (fill) {
     g.fillStyle = fill
     g.fill()
@@ -89,29 +100,62 @@ function box(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: nu
     g.stroke()
   }
 }
-function txt(g: CanvasRenderingContext2D, s: string, x: number, y: number, font: string, color: string, align: CanvasTextAlign = "left") {
+function txt(g: G, s: string, x: number, y: number, font: string, color: string, align: CanvasTextAlign = "left") {
   g.font = font
   g.fillStyle = color
   g.textAlign = align
   g.textBaseline = "middle"
   g.fillText(s, x, y)
 }
+function dot(g: G, x: number, y: number, r: number, c: string) {
+  g.fillStyle = c
+  g.beginPath()
+  g.arc(x, y, r, 0, Math.PI * 2)
+  g.fill()
+}
+type Chip = { label: string; on?: boolean; rec?: boolean }
+/** Header-right pills in the mockup's `chips` style (active = accent fill), right-aligned to the panel margin. Returns their rects. */
+function chips(g: G, list: Chip[], fm: string): Rect[] {
+  const f = `600 22px ${fm}`
+  const h = 48
+  const y = 19
+  g.font = f
+  let x = W - 22
+  const out: Rect[] = []
+  for (let i = list.length - 1; i >= 0; i--) {
+    const c = list[i]
+    const ic = c.rec ? 22 : 0
+    const w = g.measureText(c.label).width + 36 + ic
+    x -= w
+    box(g, x, y, w, h, h / 2, c.on ? K.accent : K.surface2, c.on ? undefined : K.border)
+    if (c.rec) dot(g, x + 24, y + h / 2, 7, c.on ? K.bg : K.muted)
+    txt(g, c.label, x + 18 + ic, y + h / 2 + 1, f, c.on ? K.bg : K.text)
+    out.unshift({ x, y, w, h })
+    x -= 10
+  }
+  return out
+}
+
 /** The page's JetBrains Mono (next/font sets --font-jetbrains-mono), else any installed mono. */
 function monoFamily() {
   const v = typeof document === "undefined" ? "" : getComputedStyle(document.body).getPropertyValue("--font-jetbrains-mono").trim()
   return v ? `${v}, ${MONO}` : MONO
 }
-/** A canvas-backed texture for the panel face, redrawn when fonts finish loading. */
+/** A transparent canvas texture for the panel face; `fontGen` bumps when the mono font finishes loading. */
 function usePanelCanvas() {
+  const maxAniso = useThree((s) => s.gl.capabilities.getMaxAnisotropy())
   const [p] = useState(() => {
     const canvas = document.createElement("canvas")
     canvas.width = W * S
     canvas.height = H * S
     const tex = new CanvasTexture(canvas)
     tex.colorSpace = SRGBColorSpace
-    tex.anisotropy = 8
     return { canvas, tex, fm: monoFamily() }
   })
+  useEffect(() => {
+    p.tex.anisotropy = maxAniso
+    p.tex.needsUpdate = true
+  }, [p, maxAniso])
   const [fontGen, setFontGen] = useState(0)
   useEffect(() => {
     let live = true
@@ -126,25 +170,45 @@ function usePanelCanvas() {
   useEffect(() => () => p.tex.dispose(), [p])
   return { ...p, fontGen }
 }
-/** Rounded-rect outline (the playhead ring around a cell). */
-function ringGeometry(w: number, h: number, r: number, t: number) {
-  const rect = (s: Path, x: number, y: number, ww: number, hh: number, rad: number) => {
-    s.moveTo(x + rad, y)
-    s.lineTo(x + ww - rad, y)
-    s.quadraticCurveTo(x + ww, y, x + ww, y + rad)
-    s.lineTo(x + ww, y + hh - rad)
-    s.quadraticCurveTo(x + ww, y + hh, x + ww - rad, y + hh)
-    s.lineTo(x + rad, y + hh)
-    s.quadraticCurveTo(x, y + hh, x, y + hh - rad)
-    s.lineTo(x, y + rad)
-    s.quadraticCurveTo(x, y, x + rad, y)
+
+const fade = (fl: { at: number; v: number }[], now: number) => fl.map((f) => f.v * Math.max(0, 1 - (now - f.at) / FLASH_MS))
+
+type Face = { grid: boolean[][]; rec: boolean; step: number; flash: number[] }
+
+/** The mockup's drums lane, drawn from live state. Returns the [REC, CLEAR] chip rects. */
+function paint(g: G, fm: string, f: Face) {
+  g.setTransform(S, 0, 0, S, 0, 0)
+  g.clearRect(0, 0, W, H)
+  box(g, 2, 2, W - 4, H - 4, 24, K.surface, K.border)
+  box(g, 22, 22, 8, 40, 4, K.blue)
+  txt(g, "LANE 3 · DRUMS", 42, 43, `700 26px ${fm}`, K.text)
+  const rects = chips(g, [{ label: "REC", on: f.rec, rec: true }, { label: "CLEAR" }], fm)
+  LABELS.forEach((name, r) => {
+    txt(g, name, 24, 116 + r * 128, `600 18px ${fm}`, K.muted)
+    for (let s = 0; s < STEPS; s++) {
+      const on = !!f.grid[r]?.[s]
+      box(g, cellX(s), cellY(r), 52, 72, 8, on ? K.blue : K.surface2, on ? undefined : K.border)
+    }
+    // A pad hit washes its row in blue, fading over FLASH_MS.
+    if (f.flash[r] > 0) {
+      g.globalCompositeOperation = "lighter"
+      g.globalAlpha = 0.35 * f.flash[r]
+      box(g, 16, cellY(r) - 22, W - 32, 116, 12, K.blue)
+      g.globalAlpha = 1
+      g.globalCompositeOperation = "source-over"
+    }
+  })
+  if (f.step >= 0) {
+    // Playhead: a ring around the current column's cells.
+    g.lineWidth = 3
+    g.strokeStyle = K.head
+    for (let r = 0; r < 4; r++) {
+      rr(g, cellX(f.step) - 3.5, cellY(r) - 3.5, 59, 79, 11)
+      g.stroke()
+    }
   }
-  const outer = new Shape()
-  rect(outer, -w / 2 - t, -h / 2 - t, w + 2 * t, h + 2 * t, r + t)
-  const hole = new Shape()
-  rect(hole, -w / 2, -h / 2, w, h, r)
-  outer.holes.push(hole)
-  return new ShapeGeometry(outer, 6)
+  txt(g, "⇠ drum-pads", W / 2, 664, `500 20px ${fm}`, K.blue, "center")
+  return rects
 }
 
 type Props = {
@@ -169,16 +233,14 @@ export default function DrumsLane({ hit, steps, onStepsChange, channel, samples 
   const flash = useRef([0, 0, 0, 0].map(() => ({ at: -1e9, v: 1 })))
   const skip = useRef([-1, -1, -1, -1]) // absolute 8th just recorded per row: already heard live, so don't double it
   const lastHit = useRef(hit)
-  const head = useRef<Group>(null)
-  const glows = useRef<(MeshBasicMaterial | null)[]>([])
-  const ring = useMemo(() => ringGeometry(52 * PX, 72 * PX, 8 * PX, 3 * PX), [])
+  const painted = useRef({ step: -1, at: 0 })
+  const rects = useRef<Rect[]>([])
   const { canvas, tex, fm, fontGen } = usePanelCanvas()
   const ch = Number.isFinite(channel) ? Math.round(channel as number) : 1
 
   useEffect(() => {
     latest.current = { grid, rec, steps, onStepsChange }
   })
-  useEffect(() => () => ring.dispose(), [ring])
 
   const commit = (next: boolean[][]) => {
     const l = latest.current
@@ -260,44 +322,29 @@ export default function DrumsLane({ hit, steps, onStepsChange, channel, samples 
     commit(next)
   }, [hit])
 
+  // Grid, REC and font changes repaint at once; the playhead and hit flashes repaint from useFrame.
   useEffect(() => {
     const g = canvas.getContext("2d")
     if (!g) return
-    g.setTransform(S, 0, 0, S, 0, 0)
-    g.clearRect(0, 0, W, H)
-    box(g, 2, 2, W - 4, H - 4, 24, C.surface, C.border)
-    box(g, 22, 22, 8, 40, 4, C.blue)
-    txt(g, "LANE 3 - DRUMS", 42, 43, `700 26px ${fm}`, C.text)
-    box(g, REC.x, REC.y, REC.w, REC.h, REC.h / 2, C.surface2, rec ? C.rec : C.border)
-    g.fillStyle = rec ? C.rec : C.muted
-    g.beginPath()
-    g.arc(REC.x + 26, REC.y + REC.h / 2, 7, 0, Math.PI * 2)
-    g.fill()
-    txt(g, "REC", REC.x + 42, REC.y + REC.h / 2 + 1, `600 18px ${fm}`, rec ? C.text : C.muted)
-    box(g, CLR.x, CLR.y, CLR.w, CLR.h, CLR.h / 2, C.surface2, C.border)
-    txt(g, "CLEAR", CLR.x + CLR.w / 2, CLR.y + CLR.h / 2 + 1, `600 18px ${fm}`, C.text, "center")
-    LABELS.forEach((name, r) => {
-      txt(g, name, 24, 116 + r * 128, `600 18px ${fm}`, C.muted)
-      for (let s = 0; s < STEPS; s++) {
-        const on = !!grid[r]?.[s]
-        box(g, cellX(s), cellY(r), 52, 72, 8, on ? C.blue : C.surface2, on ? undefined : C.border)
-      }
-    })
-    txt(g, "<- drum-pads", W / 2, 664, `500 20px ${fm}`, C.blue, "center")
+    const now = performance.now()
+    rects.current = paint(g, fm, { grid, rec, step: step.current, flash: fade(flash.current, now) })
+    painted.current = { step: step.current, at: now }
     tex.needsUpdate = true
   }, [canvas, tex, fm, fontGen, grid, rec])
 
   useFrame(() => {
-    const s = step.current
-    const h = head.current
-    if (h) {
-      h.visible = s >= 0
-      if (s >= 0) h.position.x = (cellX(s) + 26 - W / 2) * PX
-    }
     const now = performance.now()
-    glows.current.forEach((m, r) => {
-      if (m) m.opacity = 0.35 * flash.current[r].v * Math.max(0, 1 - (now - flash.current[r].at) / 300)
-    })
+    const s = step.current
+    const fl = fade(flash.current, now)
+    const fading = flash.current.some((f) => now - f.at < FLASH_MS + 40)
+    if (s === painted.current.step && !fading) return
+    if (s === painted.current.step && now - painted.current.at < FRAME_MS) return
+    const g = canvas.getContext("2d")
+    if (!g) return
+    const l = latest.current
+    rects.current = paint(g, fm, { grid: l.grid, rec: l.rec, step: s, flash: fl })
+    painted.current = { step: s, at: now }
+    tex.needsUpdate = true
   })
 
   const onClick = (e: ThreeEvent<MouseEvent>) => {
@@ -305,8 +352,9 @@ export default function DrumsLane({ hit, steps, onStepsChange, channel, samples 
     const p = e.eventObject.worldToLocal(e.point.clone())
     const x = p.x / PX + W / 2
     const y = H / 2 - p.y / PX
-    if (inside(REC, x, y)) return setRec(!latest.current.rec)
-    if (inside(CLR, x, y)) return commit(copyGrid(undefined))
+    const [recRect, clrRect] = rects.current
+    if (inside(recRect, x, y, 5)) return setRec(!latest.current.rec)
+    if (inside(clrRect, x, y, 5)) return commit(copyGrid(undefined))
     // Cells are 52 x 72 on a 60 x 128 pitch: the gaps count toward the nearest cell, so near-misses still land.
     const s = Math.floor((x - 20) / 60)
     const r = Math.floor((y - 126) / 128)
@@ -317,24 +365,9 @@ export default function DrumsLane({ hit, steps, onStepsChange, channel, samples 
   }
 
   return (
-    <group>
-      <mesh onClick={onClick}>
-        <planeGeometry args={[W * PX, H * PX]} />
-        <meshBasicMaterial map={tex} transparent toneMapped={false} />
-      </mesh>
-      <group ref={head} visible={false}>
-        {LABELS.map((name, r) => (
-          <mesh key={name} raycast={noHit} geometry={ring} position={[0, (H / 2 - cellY(r) - 36) * PX, 0.001]}>
-            <meshBasicMaterial color={C.head} toneMapped={false} />
-          </mesh>
-        ))}
-      </group>
-      {LABELS.map((name, r) => (
-        <mesh key={name} raycast={noHit} position={at(W / 2, cellY(r) + 26, 0.0015)}>
-          <planeGeometry args={[(W - 32) * PX, 116 * PX]} />
-          <meshBasicMaterial ref={(m) => void (glows.current[r] = m)} color={C.blue} transparent opacity={0} blending={AdditiveBlending} depthWrite={false} toneMapped={false} />
-        </mesh>
-      ))}
-    </group>
+    <mesh onClick={onClick}>
+      <planeGeometry args={[W * PX, H * PX]} />
+      <meshBasicMaterial map={tex} transparent toneMapped={false} />
+    </mesh>
   )
 }

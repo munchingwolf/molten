@@ -1,22 +1,22 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { useFrame, type ThreeEvent } from "@react-three/fiber"
-import { AdditiveBlending, CanvasTexture, SRGBColorSpace, type Group, type MeshBasicMaterial } from "three"
+import { useFrame, useThree, type ThreeEvent } from "@react-three/fiber"
+import { CanvasTexture, SRGBColorSpace } from "three"
 import * as Tone from "tone"
 
-const C = { surface: "#15171E", surface2: "#1C1F28", border: "#242833", white: "#2B303B", black: "#111318", text: "#EEF0F4", muted: "#9AA0AD", mint: "#9FE7D2", warm: "#F2B48A", rec: "#F87171" }
+// The Night Set palette (mockup `K`), plus the piano-key fills.
+const K = { bg: "#0B0C10", surface: "#15171E", surface2: "#1C1F28", border: "#242833", text: "#EEF0F4", muted: "#9AA0AD", accent: "#9FE7D2", warm: "#F2B48A", blue: "#3B82F6", white: "#2b303b", black: "#111318" }
 
 // Panel: 520 x 720 px at 1 mm per px = 0.52 x 0.72 m. Origin = centre, front faces +Z.
 const PX = 0.001
 const W = 520
 const H = 720
-const S = 2 // canvas pixels per panel pixel
-const MONO = '"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace'
-const at = (x: number, y: number, z = 0.001): [number, number, number] => [(x - W / 2) * PX, (H / 2 - y) * PX, z]
-const noHit = () => null // overlays must not swallow pointer events meant for the panel
+const S = 2 // canvas pixels per panel pixel (2x the mockup's 520 x 720 for crisp text); animated repaints are capped at 30 fps
+const MONO = '"JetBrains Mono", ui-monospace, Menlo, monospace'
+const FRAME_MS = 1000 / 30
 
-// Piano roll: 12 pitch rows (C at the top, like the mockup) x 8 eighth notes = 1 bar.
+// Piano roll: 12 pitch rows (C at the top, like the mockup) x 8 eighth notes = 1 bar, spanning the mockup's 72-504 px.
 const NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 const BLACK = [1, 3, 6, 8, 10]
 const FLAT: Record<string, string> = { DB: "C#", EB: "D#", GB: "F#", AB: "G#", BB: "A#" }
@@ -24,10 +24,10 @@ const STEPS = 8
 const ROW_Y = 96
 const ROW_H = 44
 const STEP_X = 72
-const STEP_W = 53
-const REC = { x: 290, y: 19, w: 96, h: 48 }
-const CLR = { x: 396, y: 19, w: 102, h: 48 }
-const inside = (b: { x: number; y: number; w: number; h: number }, x: number, y: number) => x >= b.x - 4 && x <= b.x + b.w + 4 && y >= b.y - 4 && y <= b.y + b.h + 4
+const STEP_W = 54
+
+type Rect = { x: number; y: number; w: number; h: number }
+const inside = (b: Rect | undefined, x: number, y: number, pad = 8) => !!b && x >= b.x - pad && x <= b.x + b.w + pad && y >= b.y - pad && y <= b.y + b.h + pad
 
 type Note = { id: number; pc: number; oct: number; start: number; len: number; vel: number }
 
@@ -56,9 +56,19 @@ function parse(msg: string) {
   return { pc, oct: Number(m[3]), on: kind === "on", vel: Number.isFinite(v) && v > 0 ? Math.min(1, v > 1 ? v / 127 : v) : 0.8 }
 }
 
-function box(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number, fill?: string, stroke?: string) {
+// Canvas helpers, as in the mockup.
+type G = CanvasRenderingContext2D
+function rr(g: G, x: number, y: number, w: number, h: number, r: number) {
   g.beginPath()
-  g.roundRect(x, y, w, h, r)
+  g.moveTo(x + r, y)
+  g.arcTo(x + w, y, x + w, y + h, r)
+  g.arcTo(x + w, y + h, x, y + h, r)
+  g.arcTo(x, y + h, x, y, r)
+  g.arcTo(x, y, x + w, y, r)
+  g.closePath()
+}
+function box(g: G, x: number, y: number, w: number, h: number, r: number, fill?: string, stroke?: string) {
+  rr(g, x, y, w, h, r)
   if (fill) {
     g.fillStyle = fill
     g.fill()
@@ -69,29 +79,62 @@ function box(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: nu
     g.stroke()
   }
 }
-function txt(g: CanvasRenderingContext2D, s: string, x: number, y: number, font: string, color: string, align: CanvasTextAlign = "left") {
+function txt(g: G, s: string, x: number, y: number, font: string, color: string, align: CanvasTextAlign = "left") {
   g.font = font
   g.fillStyle = color
   g.textAlign = align
   g.textBaseline = "middle"
   g.fillText(s, x, y)
 }
+function dot(g: G, x: number, y: number, r: number, c: string) {
+  g.fillStyle = c
+  g.beginPath()
+  g.arc(x, y, r, 0, Math.PI * 2)
+  g.fill()
+}
+type Chip = { label: string; on?: boolean; rec?: boolean }
+/** Header-right pills in the mockup's `chips` style (active = accent fill), right-aligned to the panel margin. Returns their rects. */
+function chips(g: G, list: Chip[], fm: string): Rect[] {
+  const f = `600 22px ${fm}`
+  const h = 48
+  const y = 19
+  g.font = f
+  let x = W - 22
+  const out: Rect[] = []
+  for (let i = list.length - 1; i >= 0; i--) {
+    const c = list[i]
+    const ic = c.rec ? 22 : 0
+    const w = g.measureText(c.label).width + 36 + ic
+    x -= w
+    box(g, x, y, w, h, h / 2, c.on ? K.accent : K.surface2, c.on ? undefined : K.border)
+    if (c.rec) dot(g, x + 24, y + h / 2, 7, c.on ? K.bg : K.muted)
+    txt(g, c.label, x + 18 + ic, y + h / 2 + 1, f, c.on ? K.bg : K.text)
+    out.unshift({ x, y, w, h })
+    x -= 10
+  }
+  return out
+}
+
 /** The page's JetBrains Mono (next/font sets --font-jetbrains-mono), else any installed mono. */
 function monoFamily() {
   const v = typeof document === "undefined" ? "" : getComputedStyle(document.body).getPropertyValue("--font-jetbrains-mono").trim()
   return v ? `${v}, ${MONO}` : MONO
 }
-/** A canvas-backed texture for the panel face, redrawn when fonts finish loading. */
+/** A transparent canvas texture for the panel face; `fontGen` bumps when the mono font finishes loading. */
 function usePanelCanvas() {
+  const maxAniso = useThree((s) => s.gl.capabilities.getMaxAnisotropy())
   const [p] = useState(() => {
     const canvas = document.createElement("canvas")
     canvas.width = W * S
     canvas.height = H * S
     const tex = new CanvasTexture(canvas)
     tex.colorSpace = SRGBColorSpace
-    tex.anisotropy = 8
     return { canvas, tex, fm: monoFamily() }
   })
+  useEffect(() => {
+    p.tex.anisotropy = maxAniso
+    p.tex.needsUpdate = true
+  }, [p, maxAniso])
   const [fontGen, setFontGen] = useState(0)
   useEffect(() => {
     let live = true
@@ -105,6 +148,47 @@ function usePanelCanvas() {
   }, [p.fm])
   useEffect(() => () => p.tex.dispose(), [p])
   return { ...p, fontGen }
+}
+
+type Face = { notes: Note[]; rec: boolean; head: number; lit: Float32Array }
+
+/** The mockup's keys lane, drawn from live state. `head` = playhead in steps, or < 0 when stopped. Returns the [REC, CLEAR] chip rects. */
+function paint(g: G, fm: string, f: Face) {
+  g.setTransform(S, 0, 0, S, 0, 0)
+  g.clearRect(0, 0, W, H)
+  box(g, 2, 2, W - 4, H - 4, 24, K.surface, K.border)
+  box(g, 22, 22, 8, 40, 4, K.warm)
+  txt(g, "LANE 1 · KEYS", 42, 43, `700 26px ${fm}`, K.text)
+  const rects = chips(g, [{ label: "REC", on: f.rec, rec: true }, { label: "CLEAR" }], fm)
+  for (let r = 0; r < 12; r++) {
+    const y = ROW_Y + r * ROW_H
+    g.fillStyle = BLACK.includes(r) ? K.black : K.white
+    g.fillRect(22, y, 40, 40)
+    g.fillStyle = K.border
+    g.fillRect(70, y + 42, W - 92, 2)
+  }
+  // Notes at octave 3 and below in accent, higher in warm (the mockup's two note colours).
+  for (const n of f.notes) box(g, STEP_X + n.start * STEP_W, ROW_Y + 2 + n.pc * ROW_H, Math.min(n.len, STEPS - n.start) * STEP_W - 6, 36, 6, n.oct <= 3 ? K.accent : K.warm)
+  // Held / just-played keys glow across their row.
+  g.globalCompositeOperation = "lighter"
+  g.fillStyle = K.warm
+  for (let pc = 0; pc < 12; pc++) {
+    if (f.lit[pc] <= 0) continue
+    g.globalAlpha = 0.32 * f.lit[pc]
+    g.fillRect(20, ROW_Y + pc * ROW_H - 1, W - 40, 42)
+  }
+  g.globalAlpha = 1
+  g.globalCompositeOperation = "source-over"
+  if (f.head >= 0) {
+    const x = STEP_X - 3 + f.head * STEP_W
+    g.fillStyle = K.accent
+    g.globalAlpha = 0.18
+    g.fillRect(x - 7, ROW_Y - 4, 14, 12 * ROW_H + 8)
+    g.globalAlpha = 1
+    g.fillRect(x - 1.5, ROW_Y - 4, 3, 12 * ROW_H + 8)
+  }
+  txt(g, "⇠ synth-keys", W / 2, 664, `500 20px ${fm}`, K.warm, "center")
+  return rects
 }
 
 type Props = {
@@ -125,8 +209,8 @@ export default function KeysLane({ note, channel }: Props) {
   const lit = useRef(new Float32Array(12)) // live glow per pitch row
   const down = useRef(new Uint8Array(12)) // keys currently held per pitch row
   const lastNote = useRef(note)
-  const head = useRef<Group>(null)
-  const glows = useRef<(MeshBasicMaterial | null)[]>([])
+  const painted = useRef({ head: -1, at: 0 })
+  const rects = useRef<Rect[]>([])
   const { canvas, tex, fm, fontGen } = usePanelCanvas()
   const ch = Number.isFinite(channel) ? Math.round(channel as number) : 2
 
@@ -190,50 +274,33 @@ export default function KeysLane({ note, channel }: Props) {
     update([...latest.current.notes.filter((o) => !(o.pc === n.pc && o.oct === n.oct && o.start === start)), n])
   }, [note])
 
+  // Notes, REC and font changes repaint at once; the playhead and key glow repaint from useFrame.
   useEffect(() => {
     const g = canvas.getContext("2d")
     if (!g) return
-    g.setTransform(S, 0, 0, S, 0, 0)
-    g.clearRect(0, 0, W, H)
-    box(g, 2, 2, W - 4, H - 4, 24, C.surface, C.border)
-    box(g, 22, 22, 8, 40, 4, C.warm)
-    txt(g, "LANE 1 - KEYS", 42, 43, `700 26px ${fm}`, C.text)
-    box(g, REC.x, REC.y, REC.w, REC.h, REC.h / 2, C.surface2, rec ? C.rec : C.border)
-    g.fillStyle = rec ? C.rec : C.muted
-    g.beginPath()
-    g.arc(REC.x + 26, REC.y + REC.h / 2, 7, 0, Math.PI * 2)
-    g.fill()
-    txt(g, "REC", REC.x + 42, REC.y + REC.h / 2 + 1, `600 18px ${fm}`, rec ? C.text : C.muted)
-    box(g, CLR.x, CLR.y, CLR.w, CLR.h, CLR.h / 2, C.surface2, C.border)
-    txt(g, "CLEAR", CLR.x + CLR.w / 2, CLR.y + CLR.h / 2 + 1, `600 18px ${fm}`, C.text, "center")
-    for (let r = 0; r < 12; r++) {
-      const y = ROW_Y + r * ROW_H
-      g.fillStyle = BLACK.includes(r) ? C.black : C.white
-      g.fillRect(22, y, 40, 40)
-      g.fillStyle = C.border
-      g.fillRect(70, y + 42, W - 92, 2)
-    }
-    for (const n of notes)
-      box(g, STEP_X + n.start * STEP_W, ROW_Y + 2 + n.pc * ROW_H, Math.min(n.len, STEPS - n.start) * STEP_W - 6, 36, 6, n.oct <= 3 ? C.mint : C.warm)
-    txt(g, "<- synth-keys", W / 2, 664, `500 20px ${fm}`, C.warm, "center")
+    rects.current = paint(g, fm, { notes, rec, head: painted.current.head, lit: lit.current })
     tex.needsUpdate = true
   }, [canvas, tex, fm, fontGen, notes, rec])
 
-  useFrame((_, dt) => {
+  useFrame((_, delta) => {
+    const dt = Math.min(delta, 0.1)
     const t = Tone.getTransport()
-    const g = head.current
-    if (g) {
-      g.visible = t.state === "started"
-      if (g.visible) {
-        const pos = (t.getTicksAtTime(Tone.immediate()) / (t.PPQ / 2)) % STEPS
-        g.position.x = (STEP_X - 3 + pos * STEP_W - W / 2) * PX
-      }
-    }
+    const head = t.state === "started" ? (t.getTicksAtTime(Tone.immediate()) / (t.PPQ / 2)) % STEPS : -1
+    let glowing = false
     for (let pc = 0; pc < 12; pc++) {
-      lit.current[pc] = down.current[pc] ? Math.max(0.6, lit.current[pc] - dt * 1.5) : Math.max(0, lit.current[pc] - dt * 3)
-      const m = glows.current[pc]
-      if (m) m.opacity = 0.32 * lit.current[pc]
+      const v = lit.current[pc]
+      lit.current[pc] = down.current[pc] ? Math.max(0.6, v - dt * 1.5) : Math.max(0, v - dt * 3)
+      if (v > 0) glowing = true
     }
+    const now = performance.now()
+    const moved = head !== painted.current.head
+    if (!(moved || glowing) || now - painted.current.at < FRAME_MS) return
+    const g = canvas.getContext("2d")
+    if (!g) return
+    const l = latest.current
+    rects.current = paint(g, fm, { notes: l.notes, rec: l.rec, head, lit: lit.current })
+    painted.current = { head, at: now }
+    tex.needsUpdate = true
   })
 
   const onClick = (e: ThreeEvent<MouseEvent>) => {
@@ -241,8 +308,9 @@ export default function KeysLane({ note, channel }: Props) {
     const p = e.eventObject.worldToLocal(e.point.clone())
     const x = p.x / PX + W / 2
     const y = H / 2 - p.y / PX
-    if (inside(REC, x, y)) return setRec(!latest.current.rec)
-    if (inside(CLR, x, y)) return held.current.clear(), update([])
+    const [recRect, clrRect] = rects.current
+    if (inside(recRect, x, y, 5)) return setRec(!latest.current.rec)
+    if (inside(clrRect, x, y, 5)) return held.current.clear(), update([])
     const s = Math.floor((x - STEP_X) / STEP_W)
     const pc = Math.floor((y - ROW_Y) / ROW_H)
     if (s < 0 || s >= STEPS || pc < 0 || pc > 11) return
@@ -253,27 +321,9 @@ export default function KeysLane({ note, channel }: Props) {
   }
 
   return (
-    <group>
-      <mesh onClick={onClick}>
-        <planeGeometry args={[W * PX, H * PX]} />
-        <meshBasicMaterial map={tex} transparent toneMapped={false} />
-      </mesh>
-      {NAMES.map((name, pc) => (
-        <mesh key={name} raycast={noHit} position={at(W / 2, ROW_Y + pc * ROW_H + 20, 0.0015)}>
-          <planeGeometry args={[(W - 40) * PX, 42 * PX]} />
-          <meshBasicMaterial ref={(m) => void (glows.current[pc] = m)} color={C.warm} transparent opacity={0} blending={AdditiveBlending} depthWrite={false} toneMapped={false} />
-        </mesh>
-      ))}
-      <group ref={head} visible={false} position={at(STEP_X, ROW_Y + (12 * ROW_H) / 2, 0.002)}>
-        <mesh raycast={noHit}>
-          <planeGeometry args={[3 * PX, (12 * ROW_H + 8) * PX]} />
-          <meshBasicMaterial color={C.mint} toneMapped={false} />
-        </mesh>
-        <mesh raycast={noHit} position={[0, 0, -0.0003]}>
-          <planeGeometry args={[14 * PX, (12 * ROW_H + 8) * PX]} />
-          <meshBasicMaterial color={C.mint} transparent opacity={0.18} blending={AdditiveBlending} depthWrite={false} toneMapped={false} />
-        </mesh>
-      </group>
-    </group>
+    <mesh onClick={onClick}>
+      <planeGeometry args={[W * PX, H * PX]} />
+      <meshBasicMaterial map={tex} transparent toneMapped={false} />
+    </mesh>
   )
 }

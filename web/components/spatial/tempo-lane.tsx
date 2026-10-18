@@ -1,36 +1,44 @@
 "use client"
 
 import { useEffect, useMemo, useRef, useState } from "react"
-import { useFrame, type ThreeEvent } from "@react-three/fiber"
-import { CanvasTexture, SRGBColorSpace, type Mesh, type MeshBasicMaterial } from "three"
+import { useFrame, useThree, type ThreeEvent } from "@react-three/fiber"
+import { CanvasTexture, SRGBColorSpace } from "three"
 import * as Tone from "tone"
 
-const C = { surface: "#15171E", surface2: "#1C1F28", border: "#242833", text: "#EEF0F4", muted: "#9AA0AD", mint: "#9FE7D2", warm: "#F2B48A", ink: "#0B0C10" }
+// The Night Set palette (mockup `K`).
+const K = { bg: "#0B0C10", surface: "#15171E", surface2: "#1C1F28", border: "#242833", text: "#EEF0F4", muted: "#9AA0AD", accent: "#9FE7D2", warm: "#F2B48A", blue: "#3B82F6" }
 
 // Panel: 520 x 720 px at 1 mm per px = 0.52 x 0.72 m. Origin = centre, front faces +Z.
 const PX = 0.001
 const W = 520
 const H = 720
-const S = 2 // canvas pixels per panel pixel
-const MONO = '"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace'
-/** Panel pixel (from the top-left) to local metres, just in front of the face. */
-const at = (x: number, y: number, z = 0.001): [number, number, number] => [(x - W / 2) * PX, (H / 2 - y) * PX, z]
-const noHit = () => null // overlays must not swallow pointer events meant for the panel
+const S = 2 // canvas pixels per panel pixel (2x the mockup's 520 x 720 for crisp text); animated repaints are capped at 30 fps
+const MONO = '"JetBrains Mono", ui-monospace, Menlo, monospace'
+const FRAME_MS = 1000 / 30
 
-const PLAY = { x: 378, y: 19, w: 120, h: 48 } // header-right pill (4.8 cm tall)
-const DOT_Y = 410
 const BARS = 40
-const BAR_Y = 540
 const FFT = 1024
 const TOP_BIN = 300 // ~14 kHz at 48 kHz
+// The mockup's resting waveform, shown while the output is silent.
+const IDLE = Array.from({ length: BARS }, (_, i) => Math.abs(Math.sin(i * 0.7) * Math.cos(i * 0.23)))
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
 
-function rr(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
+type Rect = { x: number; y: number; w: number; h: number }
+const inside = (b: Rect | undefined, x: number, y: number, pad = 8) => !!b && x >= b.x - pad && x <= b.x + b.w + pad && y >= b.y - pad && y <= b.y + b.h + pad
+
+// Canvas helpers, as in the mockup.
+type G = CanvasRenderingContext2D
+function rr(g: G, x: number, y: number, w: number, h: number, r: number) {
   g.beginPath()
-  g.roundRect(x, y, w, h, r)
+  g.moveTo(x + r, y)
+  g.arcTo(x + w, y, x + w, y + h, r)
+  g.arcTo(x + w, y + h, x, y + h, r)
+  g.arcTo(x, y + h, x, y, r)
+  g.arcTo(x, y, x + w, y, r)
+  g.closePath()
 }
-function box(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number, fill?: string, stroke?: string) {
+function box(g: G, x: number, y: number, w: number, h: number, r: number, fill?: string, stroke?: string) {
   rr(g, x, y, w, h, r)
   if (fill) {
     g.fillStyle = fill
@@ -42,12 +50,53 @@ function box(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: nu
     g.stroke()
   }
 }
-function txt(g: CanvasRenderingContext2D, s: string, x: number, y: number, font: string, color: string, align: CanvasTextAlign = "left") {
+function txt(g: G, s: string, x: number, y: number, font: string, color: string, align: CanvasTextAlign = "left") {
   g.font = font
   g.fillStyle = color
   g.textAlign = align
   g.textBaseline = "middle"
   g.fillText(s, x, y)
+}
+function dot(g: G, x: number, y: number, r: number, c: string) {
+  g.fillStyle = c
+  g.beginPath()
+  g.arc(x, y, r, 0, Math.PI * 2)
+  g.fill()
+}
+type Chip = { label: string; on?: boolean; icon?: "play" | "stop" | "rec" }
+/** Header-right pills in the mockup's `chips` style (active = accent fill), right-aligned to the panel margin. Returns their rects. */
+function chips(g: G, list: Chip[], fm: string): Rect[] {
+  const f = `600 22px ${fm}`
+  const h = 48
+  const y = 19
+  g.font = f
+  let x = W - 22
+  const out: Rect[] = []
+  for (let i = list.length - 1; i >= 0; i--) {
+    const c = list[i]
+    const ic = c.icon ? 22 : 0
+    const w = g.measureText(c.label).width + 36 + ic
+    x -= w
+    const fg = c.on ? K.bg : K.text
+    box(g, x, y, w, h, h / 2, c.on ? K.accent : K.surface2, c.on ? undefined : K.border)
+    const ix = x + 18
+    const cy = y + h / 2
+    g.fillStyle = fg
+    if (c.icon === "rec") dot(g, ix + 6, cy, 7, c.on ? K.bg : K.muted)
+    else if (c.icon === "stop") g.fillRect(ix, cy - 6, 12, 12)
+    else if (c.icon === "play") {
+      g.beginPath()
+      g.moveTo(ix, cy - 8)
+      g.lineTo(ix + 13, cy)
+      g.lineTo(ix, cy + 8)
+      g.closePath()
+      g.fill()
+    }
+    txt(g, c.label, ix + ic, cy + 1, f, fg)
+    out.unshift({ x, y, w, h })
+    x -= 10
+  }
+  return out
 }
 
 /** The page's JetBrains Mono (next/font sets --font-jetbrains-mono), else any installed mono. */
@@ -56,17 +105,21 @@ function monoFamily() {
   return v ? `${v}, ${MONO}` : MONO
 }
 
-/** A canvas-backed texture for the panel face, redrawn when fonts finish loading. */
+/** A transparent canvas texture for the panel face; `fontGen` bumps when the mono font finishes loading. */
 function usePanelCanvas() {
+  const maxAniso = useThree((s) => s.gl.capabilities.getMaxAnisotropy())
   const [p] = useState(() => {
     const canvas = document.createElement("canvas")
     canvas.width = W * S
     canvas.height = H * S
     const tex = new CanvasTexture(canvas)
     tex.colorSpace = SRGBColorSpace
-    tex.anisotropy = 8
     return { canvas, tex, fm: monoFamily() }
   })
+  useEffect(() => {
+    p.tex.anisotropy = maxAniso
+    p.tex.needsUpdate = true
+  }, [p, maxAniso])
   const [fontGen, setFontGen] = useState(0)
   useEffect(() => {
     let live = true
@@ -82,6 +135,42 @@ function usePanelCanvas() {
   return { ...p, fontGen }
 }
 
+type Face = { bpm: number; running: boolean; beat: number; beatGlow: number; levels: Float32Array; idle: number }
+
+/** The mockup's tempo lane, drawn from live state. Returns the PLAY/STOP chip rect. */
+function paint(g: G, fm: string, f: Face) {
+  g.setTransform(S, 0, 0, S, 0, 0)
+  g.clearRect(0, 0, W, H)
+  box(g, 2, 2, W - 4, H - 4, 24, K.surface, K.border)
+  box(g, 22, 22, 8, 40, 4, K.accent)
+  txt(g, "LANE 2 · TEMPO", 42, 43, `700 26px ${fm}`, K.text)
+  const [play] = chips(g, [f.running ? { label: "STOP", on: true, icon: "stop" } : { label: "PLAY", icon: "play" }], fm)
+  txt(g, `${f.bpm}`, W / 2, 240, `700 150px ${fm}`, K.text, "center")
+  txt(g, "BPM", W / 2, 340, `600 30px ${fm}`, K.muted, "center")
+  for (let i = 0; i < 4; i++) {
+    const x = W / 2 - 90 + i * 60
+    // Stopped: beat 1 waits in warm, like a count-in. Playing: the current beat lights (1 warm, others accent) and fades a touch.
+    if (!f.running) dot(g, x, 410, 14, i ? K.border : K.warm)
+    else {
+      dot(g, x, 410, 14, K.border)
+      if (i === f.beat) {
+        g.globalAlpha = 0.8 + 0.2 * f.beatGlow
+        dot(g, x, 410, 14, i ? K.accent : K.warm)
+        g.globalAlpha = 1
+      }
+    }
+  }
+  g.globalAlpha = 0.7
+  g.fillStyle = K.accent
+  for (let i = 0; i < BARS; i++) {
+    const h = 16 + (f.levels[i] * (1 - f.idle) + IDLE[i] * f.idle) * 90
+    g.fillRect(40 + i * 11, 540 - h / 2, 6, h)
+  }
+  g.globalAlpha = 1
+  txt(g, "⇠ console.knob.tempo", W / 2, 664, `500 20px ${fm}`, K.warm, "center")
+  return play
+}
+
 type Props = {
   /** Tempo in BPM (60-180). Sets the global transport when it changes; when unset, shows the transport's tempo. */
   bpm?: number
@@ -95,18 +184,19 @@ export default function TempoLane({ bpm, playing, onPlayingChange }: Props) {
   const tempo = typeof bpm === "number" && Number.isFinite(bpm) ? clamp(bpm, 60, 180) : undefined
   const [polled, setPolled] = useState(() => Math.round(Tone.getTransport().bpm.value))
   const [running, setRunning] = useState(() => Tone.getTransport().state === "started")
-  const latest = useRef({ playing, onPlayingChange, running })
+  const shown = Math.round(tempo ?? polled)
+  const latest = useRef({ playing, onPlayingChange, running, shown })
   const beat = useRef({ i: -1, at: 0 })
   const analyser = useRef<Tone.Analyser | null>(null)
-  const dots = useRef<(MeshBasicMaterial | null)[]>([])
-  const bars = useRef<(Mesh | null)[]>([])
   const levels = useMemo(() => new Float32Array(BARS), [])
+  const idle = useRef(1) // 1 = show the resting waveform, 0 = live spectrum
+  const lastPaint = useRef(0)
+  const playRect = useRef<Rect>(undefined)
   const prevPlaying = useRef<boolean | undefined>(false)
   const { canvas, tex, fm, fontGen } = usePanelCanvas()
-  const shown = Math.round(tempo ?? polled)
 
   useEffect(() => {
-    latest.current = { playing, onPlayingChange, running }
+    latest.current = { playing, onPlayingChange, running, shown }
   })
 
   useEffect(() => {
@@ -166,49 +256,27 @@ export default function TempoLane({ bpm, playing, onPlayingChange }: Props) {
     }
   }, [])
 
-  // Static face: only redrawn when the tempo, the play state or the fonts change.
+  const face = (now: number): Face => {
+    const b = beat.current
+    return { bpm: latest.current.shown, running: latest.current.running, beat: b.i, beatGlow: Math.max(0, 1 - (now - b.at) / 200), levels, idle: idle.current }
+  }
+
+  // Tempo, play state and font changes repaint at once; the visualizer repaints from useFrame.
   useEffect(() => {
     const g = canvas.getContext("2d")
     if (!g) return
-    g.setTransform(S, 0, 0, S, 0, 0)
-    g.clearRect(0, 0, W, H)
-    box(g, 2, 2, W - 4, H - 4, 24, C.surface, C.border)
-    box(g, 22, 22, 8, 40, 4, C.mint)
-    txt(g, "LANE 2 - TEMPO", 42, 43, `700 26px ${fm}`, C.text)
-    box(g, PLAY.x, PLAY.y, PLAY.w, PLAY.h, PLAY.h / 2, running ? C.warm : C.mint)
-    g.fillStyle = C.ink
-    if (running) g.fillRect(PLAY.x + 24, PLAY.y + 17, 14, 14)
-    else {
-      g.beginPath()
-      g.moveTo(PLAY.x + 25, PLAY.y + 15)
-      g.lineTo(PLAY.x + 39, PLAY.y + 24)
-      g.lineTo(PLAY.x + 25, PLAY.y + 33)
-      g.closePath()
-      g.fill()
-    }
-    txt(g, running ? "STOP" : "PLAY", PLAY.x + 50, PLAY.y + PLAY.h / 2 + 1, `700 20px ${fm}`, C.ink)
-    txt(g, `${shown}`, W / 2, 240, `700 150px ${fm}`, C.text, "center")
-    txt(g, "BPM", W / 2, 340, `600 30px ${fm}`, C.muted, "center")
-    for (let i = 0; i < 4; i++) {
-      g.fillStyle = C.border
-      g.beginPath()
-      g.arc(W / 2 - 90 + i * 60, DOT_Y, 14, 0, Math.PI * 2)
-      g.fill()
-    }
-    txt(g, "<- console.knob.tempo", W / 2, 664, `500 20px ${fm}`, C.warm, "center")
-    tex.needsUpdate = true
-  }, [canvas, tex, fm, fontGen, shown, running])
-
-  useFrame((_, dt) => {
     const now = performance.now()
     const b = beat.current
-    const on = latest.current.running
-    dots.current.forEach((m, i) => {
-      // Stopped: beat 1 waits in warm, like a count-in. Playing: the current beat lights and fades a touch.
-      if (m) m.opacity = on ? (b.i === i ? 0.8 + 0.2 * Math.max(0, 1 - (now - b.at) / 200) : 0) : i === 0 ? 1 : 0
-    })
+    playRect.current = paint(g, fm, { bpm: shown, running, beat: b.i, beatGlow: Math.max(0, 1 - (now - b.at) / 200), levels, idle: idle.current })
+    tex.needsUpdate = true
+  }, [canvas, tex, fm, fontGen, shown, running, levels])
+
+  useFrame((_, delta) => {
+    const dt = Math.min(delta, 0.1)
     const a = analyser.current
     const data = a ? (a.getValue() as Float32Array) : null
+    let peak = 0
+    let moved = false
     for (let i = 0; i < BARS; i++) {
       let target = 0
       if (data) {
@@ -220,10 +288,24 @@ export default function TempoLane({ bpm, playing, onPlayingChange }: Props) {
         // Tilt up the highs (music falls off ~3-6 dB/octave), so hats and keys show next to the kick.
         target = Number.isFinite(db) ? clamp((db + 24 * (i / BARS) + 88) / 62, 0, 1) : 0
       }
-      levels[i] = Math.max(target, levels[i] - Math.min(dt, 0.1) * 2.2)
-      const m = bars.current[i]
-      if (m) m.scale.y = (12 + levels[i] * 94) * PX
+      const v = Math.max(target, levels[i] - dt * 2.2)
+      if (Math.abs(v - levels[i]) > 0.002) moved = true
+      levels[i] = v
+      peak = Math.max(peak, v)
     }
+    // Silent output eases back to the mockup's resting waveform; sound takes over within ~0.25 s.
+    const want = peak < 0.03 ? 1 : 0
+    const nextIdle = want ? Math.min(1, idle.current + dt * 1.5) : Math.max(0, idle.current - dt * 4)
+    if (nextIdle !== idle.current) moved = true
+    idle.current = nextIdle
+    const now = performance.now()
+    const fading = latest.current.running && now - beat.current.at < 260
+    if (!(moved || fading) || now - lastPaint.current < FRAME_MS) return
+    const g = canvas.getContext("2d")
+    if (!g) return
+    lastPaint.current = now
+    playRect.current = paint(g, fm, face(now))
+    tex.needsUpdate = true
   })
 
   const toggle = async () => {
@@ -240,27 +322,13 @@ export default function TempoLane({ bpm, playing, onPlayingChange }: Props) {
     const p = e.eventObject.worldToLocal(e.point.clone())
     const x = p.x / PX + W / 2
     const y = H / 2 - p.y / PX
-    if (x >= PLAY.x - 8 && x <= PLAY.x + PLAY.w + 8 && y >= PLAY.y - 8 && y <= PLAY.y + PLAY.h + 8) void toggle()
+    if (inside(playRect.current, x, y)) void toggle()
   }
 
   return (
-    <group>
-      <mesh onClick={onClick}>
-        <planeGeometry args={[W * PX, H * PX]} />
-        <meshBasicMaterial map={tex} transparent toneMapped={false} />
-      </mesh>
-      {[0, 1, 2, 3].map((i) => (
-        <mesh key={i} raycast={noHit} position={at(W / 2 - 90 + i * 60, DOT_Y)}>
-          <circleGeometry args={[14 * PX, 32]} />
-          <meshBasicMaterial ref={(m) => void (dots.current[i] = m)} color={i === 0 ? C.warm : C.mint} transparent opacity={0} toneMapped={false} />
-        </mesh>
-      ))}
-      {Array.from({ length: BARS }, (_, i) => (
-        <mesh key={i} raycast={noHit} ref={(m) => void (bars.current[i] = m)} position={at(40 + i * 11 + 3, BAR_Y)} scale={[6 * PX, 12 * PX, 1]}>
-          <planeGeometry args={[1, 1]} />
-          <meshBasicMaterial color={C.mint} transparent opacity={0.7} toneMapped={false} />
-        </mesh>
-      ))}
-    </group>
+    <mesh onClick={onClick}>
+      <planeGeometry args={[W * PX, H * PX]} />
+      <meshBasicMaterial map={tex} transparent toneMapped={false} />
+    </mesh>
   )
 }
