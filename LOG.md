@@ -13,6 +13,10 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 5:21: Evan (session ek-b8): **mockup parity landed**: console, synth keys and the 3 lanes draw the mockup's own canvas faces (live, playable); templates are empty translucent slots; drag onto a slot to place, onto an item to replace
+- Verified in Chromium on :3000: Night Set fills, track wall/lanes/stage match the mockup, 0 errors. Not verified: by ear, on a Quest. The laptop camera sits low, so console/keys faces read edge-on there; in the headset (eye 1.6 m) they read like the mockup.
+- **Recording freeze:** ek-c7's builders are paused since 5:18 so :3000 stops rebuilding. Don't regenerate the registry in the main tree until the video is recorded.
+
 ### 4:51: Evan: **12 entire components in progress** (6 agents, ~5:35) + **marketplace previews fixed**
 - Fixed: every uikit component with an icon showed "Preview unavailable" (uikit Svg/Content put a signal in `object.boundingBox`, three's Box3 crashed inside drei `<Bounds>`). Guard in `components/site/preview.tsx`.
 - Building complete components, ported from MIT open source where it exists (pmndrs/uikit `examples/dashboard` + `market`, pmndrs/examples `cards` + `image-gallery`): `analytics-dashboard`, `navigation-menu`, `music-app`, `metronome`, `image-carousel`, `image-gallery`, `time-hub`, `focus-timer`, `calendar-planner`, `calculator`, `smart-home-dashboard`, `app-launcher`.
