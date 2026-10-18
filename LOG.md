@@ -13,6 +13,12 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 5:03: Evan (session ek-b4): **web-dev kit + gaming kit + 4 templates; controls polished**
+- **Dev** (new category): code-editor, browser-window, deploy-pipeline, terminal, git-graph, api-monitor. Templates: **Web Dev Workspace**, **SaaS Dashboard**.
+- **Gaming** (new category): gaming-rig (glass panel, spinning RGB fans, tap cycles modes), gamepad (buttons light + rumble, onPress), game-leaderboard (spring re-rank), match-stats. Templates: **Gaming Command Center** (env-space), **Arcade Corner** (env-concert-stage; hoop, score and confetti share `baskets`).
+- **Polished:** knob (machined, value arc), press-button, spring-toggle, drum-pad, curved-gallery (tiles were black: fixed). tabs crash fixed (hover={undefined}), still held "soon" by qa-broken.json until someone renders it.
+- Known: code-editor drops spaces between tokens; deploy-pipeline stage labels overlap its log line. Templates are registry-checked (lib/templates.test.ts, 12/12) but not all rendered.
+
 ### 4:51: Evan: **12 entire components in progress** (6 agents, ~5:35) + **marketplace previews fixed**
 - Fixed: every uikit component with an icon showed "Preview unavailable" (uikit Svg/Content put a signal in `object.boundingBox`, three's Box3 crashed inside drei `<Bounds>`). Guard in `components/site/preview.tsx`.
 - Building complete components, ported from MIT open source where it exists (pmndrs/uikit `examples/dashboard` + `market`, pmndrs/examples `cards` + `image-gallery`): `analytics-dashboard`, `navigation-menu`, `music-app`, `metronome`, `image-carousel`, `image-gallery`, `time-hub`, `focus-timer`, `calendar-planner`, `calculator`, `smart-home-dashboard`, `app-launcher`.

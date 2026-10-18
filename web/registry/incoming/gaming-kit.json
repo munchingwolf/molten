@@ -1,0 +1,216 @@
+[
+  {
+    "name": "gaming-rig",
+    "displayName": "Gaming Rig",
+    "category": "gaming",
+    "kind": "basic",
+    "tags": [
+      "gaming",
+      "pc",
+      "computer",
+      "tower",
+      "rgb",
+      "fans",
+      "glass",
+      "hardware",
+      "interactive"
+    ],
+    "aliases": [
+      "gaming pc",
+      "pc tower",
+      "computer case",
+      "desktop pc",
+      "rig"
+    ],
+    "description": "Real-size mid-tower gaming PC: brushed aluminium, a tempered-glass side over a lit GPU, RAM, AIO pump and three spinning RGB fans. Tap to cycle rainbow, pulse and static lighting; the lights flash and the fans spin up.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "mode",
+        "type": "enum",
+        "options": [
+          "rainbow",
+          "pulse",
+          "static"
+        ],
+        "default": "rainbow"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#7C5CFF"
+      }
+    ]
+  },
+  {
+    "name": "gamepad",
+    "displayName": "Gamepad",
+    "category": "gaming",
+    "kind": "basic",
+    "tags": [
+      "gaming",
+      "controller",
+      "gamepad",
+      "joystick",
+      "buttons",
+      "rumble",
+      "interactive",
+      "hardware"
+    ],
+    "aliases": [
+      "controller",
+      "game controller",
+      "joypad",
+      "pad"
+    ],
+    "description": "Premium game controller at real size: sculpted soft-touch grips, knurled thumbsticks, d-pad, ABXY with coloured glyphs, bumpers, triggers and a light bar. Press a button: it dips and lights, the pad rumbles and onPress fires with the button name.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "onPress",
+        "event": "onPress",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#7C9CFF"
+      },
+      {
+        "name": "shell",
+        "type": "color",
+        "default": "#1d1e23"
+      }
+    ]
+  },
+  {
+    "name": "game-leaderboard",
+    "displayName": "Game Leaderboard",
+    "category": "gaming",
+    "kind": "basic",
+    "tags": [
+      "gaming",
+      "leaderboard",
+      "ranking",
+      "scores",
+      "esports",
+      "panel",
+      "ui",
+      "animated"
+    ],
+    "aliases": [
+      "leaderboard",
+      "high scores",
+      "rankings",
+      "scoreboard"
+    ],
+    "description": "Top-8 leaderboard panel with rank medals, avatar initials, names and score bars. Rows slide in one after another; Simulate plays a round and rows glide into their new ranks, flashing with up and down arrows.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "onPress",
+        "event": "onPress",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Leaderboard"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C5CFF"
+      }
+    ]
+  },
+  {
+    "name": "match-stats",
+    "displayName": "Match Stats",
+    "category": "gaming",
+    "kind": "basic",
+    "tags": [
+      "gaming",
+      "stats",
+      "kd",
+      "win rate",
+      "esports",
+      "panel",
+      "ui",
+      "animated",
+      "rings"
+    ],
+    "aliases": [
+      "player stats",
+      "kd ratio",
+      "stats panel",
+      "match summary"
+    ],
+    "description": "Match-stats panel: K/D and win rate as segmented radial rings that sweep in, kills, deaths and assists counting up, and a last-10-matches W/L strip. Tap to replay the entrance.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "onPress",
+        "event": "onPress",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "kills",
+        "type": "number",
+        "min": 0,
+        "max": 99,
+        "default": 18
+      },
+      {
+        "name": "deaths",
+        "type": "number",
+        "min": 0,
+        "max": 99,
+        "default": 7
+      },
+      {
+        "name": "assists",
+        "type": "number",
+        "min": 0,
+        "max": 99,
+        "default": 11
+      },
+      {
+        "name": "winRate",
+        "type": "number",
+        "min": 0,
+        "max": 100,
+        "default": 64
+      },
+      {
+        "name": "results",
+        "type": "string",
+        "default": "WWLWWLWLWW"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C5CFF"
+      }
+    ]
+  }
+]

@@ -202,6 +202,16 @@ const C_synth_keys = lazy(() => import("@/components/spatial/synth-keys"))
 const C_tempo_lane = lazy(() => import("@/components/spatial/tempo-lane"))
 const C_drums_lane = lazy(() => import("@/components/spatial/drums-lane"))
 const C_keys_lane = lazy(() => import("@/components/spatial/keys-lane"))
+const C_code_editor = lazy(() => import("@/components/spatial/code-editor"))
+const C_browser_window = lazy(() => import("@/components/spatial/browser-window"))
+const C_deploy_pipeline = lazy(() => import("@/components/spatial/deploy-pipeline"))
+const C_terminal = lazy(() => import("@/components/spatial/terminal"))
+const C_git_graph = lazy(() => import("@/components/spatial/git-graph"))
+const C_api_monitor = lazy(() => import("@/components/spatial/api-monitor"))
+const C_gaming_rig = lazy(() => import("@/components/spatial/gaming-rig"))
+const C_gamepad = lazy(() => import("@/components/spatial/gamepad"))
+const C_game_leaderboard = lazy(() => import("@/components/spatial/game-leaderboard"))
+const C_match_stats = lazy(() => import("@/components/spatial/match-stats"))
 
 export const components: Record<string, ComponentType> = {
   "settings-default": C_settings_default as ComponentType,
@@ -404,4 +414,14 @@ export const components: Record<string, ComponentType> = {
   "tempo-lane": C_tempo_lane as ComponentType,
   "drums-lane": C_drums_lane as ComponentType,
   "keys-lane": C_keys_lane as ComponentType,
+  "code-editor": C_code_editor as ComponentType,
+  "browser-window": C_browser_window as ComponentType,
+  "deploy-pipeline": C_deploy_pipeline as ComponentType,
+  "terminal": C_terminal as ComponentType,
+  "git-graph": C_git_graph as ComponentType,
+  "api-monitor": C_api_monitor as ComponentType,
+  "gaming-rig": C_gaming_rig as ComponentType,
+  "gamepad": C_gamepad as ComponentType,
+  "game-leaderboard": C_game_leaderboard as ComponentType,
+  "match-stats": C_match_stats as ComponentType,
 }

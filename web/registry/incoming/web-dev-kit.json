@@ -1,0 +1,303 @@
+[
+  {
+    "name": "code-editor",
+    "displayName": "Code Editor",
+    "category": "dev",
+    "kind": "basic",
+    "tags": [
+      "code",
+      "editor",
+      "ide",
+      "vscode",
+      "developer",
+      "syntax",
+      "typing",
+      "web-dev",
+      "panel"
+    ],
+    "aliases": [
+      "ide",
+      "code window",
+      "vs code",
+      "text editor"
+    ],
+    "description": "IDE window on an aluminium slab: traffic lights, file tabs, line numbers, syntax-coloured TSX, a minimap and a blinking caret. The first file types itself out on mount; tap a tab to switch files.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "project",
+        "type": "string",
+        "default": "spatial-app"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      },
+      {
+        "name": "typing",
+        "type": "boolean",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "browser-window",
+    "displayName": "Browser Window",
+    "category": "dev",
+    "kind": "basic",
+    "tags": [
+      "browser",
+      "website",
+      "web",
+      "chrome",
+      "address bar",
+      "landing page",
+      "web-dev",
+      "panel",
+      "preview"
+    ],
+    "aliases": [
+      "browser",
+      "web page",
+      "site preview",
+      "chrome window"
+    ],
+    "description": "Browser frame on an aluminium slab: tab, https address bar with lock, and a mini landing page whose button and cards lift on hover. The reload button spins and replays the page load.",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "url",
+        "type": "string",
+        "default": "spatial.dev"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Spatial - Build in 3D"
+      },
+      {
+        "name": "theme",
+        "type": "enum",
+        "options": [
+          "light",
+          "dark"
+        ],
+        "default": "dark"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      }
+    ]
+  },
+  {
+    "name": "deploy-pipeline",
+    "displayName": "Deploy Pipeline",
+    "category": "dev",
+    "kind": "basic",
+    "tags": [
+      "deploy",
+      "ci",
+      "cd",
+      "pipeline",
+      "build",
+      "release",
+      "progress",
+      "web-dev",
+      "devops",
+      "panel"
+    ],
+    "aliases": [
+      "ci pipeline",
+      "deploy button",
+      "build status",
+      "release pipeline"
+    ],
+    "description": "Install, Build, Test, Deploy stages joined by a progress line. Press Deploy: each stage spins then ticks green, a log line streams underneath and a burst of sparks marks the release.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "default": -1
+      }
+    ],
+    "props": [
+      {
+        "name": "project",
+        "type": "string",
+        "default": "spatial-web"
+      },
+      {
+        "name": "branch",
+        "type": "string",
+        "default": "main"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0.3,
+        "max": 4,
+        "default": 1.2
+      }
+    ]
+  },
+  {
+    "name": "terminal",
+    "displayName": "Terminal",
+    "category": "dev",
+    "kind": "basic",
+    "tags": [
+      "terminal",
+      "shell",
+      "console",
+      "cli",
+      "command line",
+      "npm",
+      "git",
+      "web-dev",
+      "panel"
+    ],
+    "aliases": [
+      "shell",
+      "console",
+      "command line",
+      "cli",
+      "zsh"
+    ],
+    "description": "Terminal panel on an aluminium slab: a prompt types npm run dev and git push while their output streams in under a blinking block cursor. Pass lines to run your own script.",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "zsh - spatial-web"
+      },
+      {
+        "name": "user",
+        "type": "string",
+        "default": "ek@spatial"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      },
+      {
+        "name": "loop",
+        "type": "boolean",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "git-graph",
+    "displayName": "Git Graph",
+    "category": "dev",
+    "kind": "basic",
+    "tags": [
+      "git",
+      "commits",
+      "branches",
+      "merge",
+      "history",
+      "version control",
+      "web-dev",
+      "panel"
+    ],
+    "aliases": [
+      "commit graph",
+      "git history",
+      "branch graph",
+      "git log"
+    ],
+    "description": "Git history on an aluminium slab: branch lanes as 3D tubes, commit dots and merge curves. A new commit slides in every few seconds; hover a commit to read its message.",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "interval",
+        "type": "number",
+        "min": 0,
+        "max": 10,
+        "default": 3
+      },
+      {
+        "name": "repo",
+        "type": "string",
+        "default": "spatial/web"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      }
+    ]
+  },
+  {
+    "name": "api-monitor",
+    "displayName": "API Monitor",
+    "category": "dev",
+    "kind": "basic",
+    "tags": [
+      "api",
+      "monitoring",
+      "latency",
+      "uptime",
+      "status",
+      "endpoints",
+      "dashboard",
+      "saas",
+      "web-dev",
+      "panel"
+    ],
+    "aliases": [
+      "api health",
+      "status page",
+      "endpoint monitor",
+      "latency chart"
+    ],
+    "description": "API health panel on an aluminium slab: endpoints with a live latency sparkline, p50, 200/404/500 status pills and overall uptime. Ticks once a second; tap a row to select it.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "uptime",
+        "type": "number",
+        "min": 90,
+        "max": 100,
+        "default": 99.98
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      }
+    ]
+  }
+]

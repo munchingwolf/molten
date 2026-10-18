@@ -548,15 +548,20 @@
     ]
   },
   {
-    "name": "knob",
-    "displayName": "Knob / Dial",
-    "category": "controls",
-    "kind": "basic",
-    "style": "default",
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
     "tags": [
       "controls"
     ],
     "aliases": [],
+    "tier": 1,
+    "style": "default",
+    "name": "knob",
+    "displayName": "Knob / Dial",
+    "category": "controls",
+    "kind": "basic",
     "description": "Grab and twist (reused for music later)",
     "file": "components/spatial/knob.tsx",
     "status": "ready",
@@ -571,12 +576,29 @@
         "range": true
       }
     ],
-    "tier": 1,
     "xrOnly": true,
-    "author": "Spatial",
-    "license": "MIT",
-    "price": "free",
-    "deps": []
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Knob"
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "default": 0
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "default": 1
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
   },
   {
     "author": "Spatial",
@@ -610,6 +632,11 @@
         "name": "label",
         "type": "string",
         "default": "Toggle"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
       }
     ]
   },
@@ -2608,7 +2635,15 @@
     "status": "ready",
     "xrOnly": true,
     "bindable": [],
-    "props": []
+    "props": [
+      {
+        "name": "count",
+        "type": "number",
+        "min": 1,
+        "max": 12,
+        "default": 5
+      }
+    ]
   },
   {
     "author": "Spatial",
@@ -2820,27 +2855,50 @@
     "tier": 1
   },
   {
-    "kind": "basic",
-    "style": "default",
-    "aliases": [],
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "status": "ready",
-    "name": "drum-pad",
-    "displayName": "Drum Pad",
-    "category": "music",
+    "deps": [
+      "tone"
+    ],
     "tags": [
       "music",
       "drums"
     ],
+    "aliases": [],
+    "tier": 1,
+    "style": "default",
+    "kind": "basic",
+    "status": "ready",
+    "name": "drum-pad",
+    "displayName": "Drum Pad",
+    "category": "music",
     "description": "Hit it to play a kick, snare, hat or clap",
     "file": "components/spatial/drum-pad.tsx",
     "xrOnly": true,
-    "deps": [
-      "tone"
-    ],
-    "tier": 1
+    "props": [
+      {
+        "name": "sound",
+        "type": "enum",
+        "options": [
+          "kick",
+          "snare",
+          "hat",
+          "clap"
+        ],
+        "default": "kick"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
   },
   {
     "kind": "basic",
@@ -13250,5 +13308,590 @@
         "default": 2
       }
     ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "code",
+      "editor",
+      "ide",
+      "vscode",
+      "developer",
+      "syntax",
+      "typing",
+      "web-dev",
+      "panel"
+    ],
+    "aliases": [
+      "ide",
+      "code window",
+      "vs code",
+      "text editor"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "code-editor",
+    "displayName": "Code Editor",
+    "category": "dev",
+    "kind": "basic",
+    "description": "IDE window on an aluminium slab: traffic lights, file tabs, line numbers, syntax-coloured TSX, a minimap and a blinking caret. The first file types itself out on mount; tap a tab to switch files.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "project",
+        "type": "string",
+        "default": "spatial-app"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      },
+      {
+        "name": "typing",
+        "type": "boolean",
+        "default": true
+      }
+    ],
+    "file": "components/spatial/code-editor.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "browser",
+      "website",
+      "web",
+      "chrome",
+      "address bar",
+      "landing page",
+      "web-dev",
+      "panel",
+      "preview"
+    ],
+    "aliases": [
+      "browser",
+      "web page",
+      "site preview",
+      "chrome window"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "browser-window",
+    "displayName": "Browser Window",
+    "category": "dev",
+    "kind": "basic",
+    "description": "Browser frame on an aluminium slab: tab, https address bar with lock, and a mini landing page whose button and cards lift on hover. The reload button spins and replays the page load.",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "url",
+        "type": "string",
+        "default": "spatial.dev"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Spatial - Build in 3D"
+      },
+      {
+        "name": "theme",
+        "type": "enum",
+        "options": [
+          "light",
+          "dark"
+        ],
+        "default": "dark"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      }
+    ],
+    "file": "components/spatial/browser-window.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "deploy",
+      "ci",
+      "cd",
+      "pipeline",
+      "build",
+      "release",
+      "progress",
+      "web-dev",
+      "devops",
+      "panel"
+    ],
+    "aliases": [
+      "ci pipeline",
+      "deploy button",
+      "build status",
+      "release pipeline"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "deploy-pipeline",
+    "displayName": "Deploy Pipeline",
+    "category": "dev",
+    "kind": "basic",
+    "description": "Install, Build, Test, Deploy stages joined by a progress line. Press Deploy: each stage spins then ticks green, a log line streams underneath and a burst of sparks marks the release.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "default": -1
+      }
+    ],
+    "props": [
+      {
+        "name": "project",
+        "type": "string",
+        "default": "spatial-web"
+      },
+      {
+        "name": "branch",
+        "type": "string",
+        "default": "main"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0.3,
+        "max": 4,
+        "default": 1.2
+      }
+    ],
+    "file": "components/spatial/deploy-pipeline.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "terminal",
+      "shell",
+      "console",
+      "cli",
+      "command line",
+      "npm",
+      "git",
+      "web-dev",
+      "panel"
+    ],
+    "aliases": [
+      "shell",
+      "console",
+      "command line",
+      "cli",
+      "zsh"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "terminal",
+    "displayName": "Terminal",
+    "category": "dev",
+    "kind": "basic",
+    "description": "Terminal panel on an aluminium slab: a prompt types npm run dev and git push while their output streams in under a blinking block cursor. Pass lines to run your own script.",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "zsh - spatial-web"
+      },
+      {
+        "name": "user",
+        "type": "string",
+        "default": "ek@spatial"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      },
+      {
+        "name": "loop",
+        "type": "boolean",
+        "default": true
+      }
+    ],
+    "file": "components/spatial/terminal.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "git",
+      "commits",
+      "branches",
+      "merge",
+      "history",
+      "version control",
+      "web-dev",
+      "panel"
+    ],
+    "aliases": [
+      "commit graph",
+      "git history",
+      "branch graph",
+      "git log"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "git-graph",
+    "displayName": "Git Graph",
+    "category": "dev",
+    "kind": "basic",
+    "description": "Git history on an aluminium slab: branch lanes as 3D tubes, commit dots and merge curves. A new commit slides in every few seconds; hover a commit to read its message.",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "interval",
+        "type": "number",
+        "min": 0,
+        "max": 10,
+        "default": 3
+      },
+      {
+        "name": "repo",
+        "type": "string",
+        "default": "spatial/web"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      }
+    ],
+    "file": "components/spatial/git-graph.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "api",
+      "monitoring",
+      "latency",
+      "uptime",
+      "status",
+      "endpoints",
+      "dashboard",
+      "saas",
+      "web-dev",
+      "panel"
+    ],
+    "aliases": [
+      "api health",
+      "status page",
+      "endpoint monitor",
+      "latency chart"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "api-monitor",
+    "displayName": "API Monitor",
+    "category": "dev",
+    "kind": "basic",
+    "description": "API health panel on an aluminium slab: endpoints with a live latency sparkline, p50, 200/404/500 status pills and overall uptime. Ticks once a second; tap a row to select it.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "uptime",
+        "type": "number",
+        "min": 90,
+        "max": 100,
+        "default": 99.98
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      }
+    ],
+    "file": "components/spatial/api-monitor.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "gaming",
+      "pc",
+      "computer",
+      "tower",
+      "rgb",
+      "fans",
+      "glass",
+      "hardware",
+      "interactive"
+    ],
+    "aliases": [
+      "gaming pc",
+      "pc tower",
+      "computer case",
+      "desktop pc",
+      "rig"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "gaming-rig",
+    "displayName": "Gaming Rig",
+    "category": "gaming",
+    "kind": "basic",
+    "description": "Real-size mid-tower gaming PC: brushed aluminium, a tempered-glass side over a lit GPU, RAM, AIO pump and three spinning RGB fans. Tap to cycle rainbow, pulse and static lighting; the lights flash and the fans spin up.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "mode",
+        "type": "enum",
+        "options": [
+          "rainbow",
+          "pulse",
+          "static"
+        ],
+        "default": "rainbow"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#7C5CFF"
+      }
+    ],
+    "file": "components/spatial/gaming-rig.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "gaming",
+      "controller",
+      "gamepad",
+      "joystick",
+      "buttons",
+      "rumble",
+      "interactive",
+      "hardware"
+    ],
+    "aliases": [
+      "controller",
+      "game controller",
+      "joypad",
+      "pad"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "gamepad",
+    "displayName": "Gamepad",
+    "category": "gaming",
+    "kind": "basic",
+    "description": "Premium game controller at real size: sculpted soft-touch grips, knurled thumbsticks, d-pad, ABXY with coloured glyphs, bumpers, triggers and a light bar. Press a button: it dips and lights, the pad rumbles and onPress fires with the button name.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "onPress",
+        "event": "onPress",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#7C9CFF"
+      },
+      {
+        "name": "shell",
+        "type": "color",
+        "default": "#1d1e23"
+      }
+    ],
+    "file": "components/spatial/gamepad.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "gaming",
+      "leaderboard",
+      "ranking",
+      "scores",
+      "esports",
+      "panel",
+      "ui",
+      "animated"
+    ],
+    "aliases": [
+      "leaderboard",
+      "high scores",
+      "rankings",
+      "scoreboard"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "game-leaderboard",
+    "displayName": "Game Leaderboard",
+    "category": "gaming",
+    "kind": "basic",
+    "description": "Top-8 leaderboard panel with rank medals, avatar initials, names and score bars. Rows slide in one after another; Simulate plays a round and rows glide into their new ranks, flashing with up and down arrows.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "onPress",
+        "event": "onPress",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Leaderboard"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C5CFF"
+      }
+    ],
+    "file": "components/spatial/game-leaderboard.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "gaming",
+      "stats",
+      "kd",
+      "win rate",
+      "esports",
+      "panel",
+      "ui",
+      "animated",
+      "rings"
+    ],
+    "aliases": [
+      "player stats",
+      "kd ratio",
+      "stats panel",
+      "match summary"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "match-stats",
+    "displayName": "Match Stats",
+    "category": "gaming",
+    "kind": "basic",
+    "description": "Match-stats panel: K/D and win rate as segmented radial rings that sweep in, kills, deaths and assists counting up, and a last-10-matches W/L strip. Tap to replay the entrance.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "onPress",
+        "event": "onPress",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "kills",
+        "type": "number",
+        "min": 0,
+        "max": 99,
+        "default": 18
+      },
+      {
+        "name": "deaths",
+        "type": "number",
+        "min": 0,
+        "max": 99,
+        "default": 7
+      },
+      {
+        "name": "assists",
+        "type": "number",
+        "min": 0,
+        "max": 99,
+        "default": 11
+      },
+      {
+        "name": "winRate",
+        "type": "number",
+        "min": 0,
+        "max": 100,
+        "default": 64
+      },
+      {
+        "name": "results",
+        "type": "string",
+        "default": "WWLWWLWLWW"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C5CFF"
+      }
+    ],
+    "file": "components/spatial/match-stats.tsx"
   }
 ]

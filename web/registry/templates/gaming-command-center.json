@@ -1,0 +1,209 @@
+{
+  "name": "Gaming Command Center",
+  "slug": "gaming-command-center",
+  "category": "game",
+  "description": "A battlestation under the night sky: a glass-sided RGB gaming tower on the floor, a 27 inch monitor and controller on the desk, a live leaderboard and match stats on either side, HUD widgets and a neon GG sign. Tap the tower to change its lighting, press any pad button to feel it rumble.",
+  "environment": "env-space",
+  "items": [
+    {
+      "id": "desk",
+      "component": "desk",
+      "position": [
+        0,
+        0.375,
+        -1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {},
+      "props": {
+        "color": "#1B1D22"
+      }
+    },
+    {
+      "id": "monitor",
+      "component": "computer-monitor",
+      "position": [
+        0,
+        0.98,
+        -1.13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "rig",
+      "component": "gaming-rig",
+      "position": [
+        0.88,
+        0.235,
+        -0.98
+      ],
+      "rotation": [
+        0,
+        -0.62,
+        0
+      ],
+      "scale": 1,
+      "bind": {},
+      "props": {
+        "mode": "rainbow"
+      }
+    },
+    {
+      "id": "pad",
+      "component": "gamepad",
+      "position": [
+        0.3,
+        0.772,
+        -0.8
+      ],
+      "rotation": [
+        -1.42,
+        0,
+        0.18
+      ],
+      "scale": 1,
+      "bind": {},
+      "props": {
+        "color": "#7C9CFF"
+      }
+    },
+    {
+      "id": "headphones",
+      "component": "headphones-stand",
+      "position": [
+        -0.45,
+        0.908,
+        -1
+      ],
+      "rotation": [
+        0,
+        0.4,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "chair",
+      "component": "chair",
+      "position": [
+        0,
+        0.445,
+        -0.42
+      ],
+      "rotation": [
+        0,
+        3.141592653589793,
+        0
+      ],
+      "scale": 1,
+      "bind": {},
+      "props": {
+        "color": "#2A2D35"
+      }
+    },
+    {
+      "id": "leaderboard",
+      "component": "game-leaderboard",
+      "position": [
+        -1.2,
+        1.5,
+        -1.3
+      ],
+      "rotation": [
+        0,
+        0.55,
+        0
+      ],
+      "scale": 0.85,
+      "bind": {},
+      "props": {
+        "title": "Leaderboard",
+        "accent": "#7C5CFF"
+      }
+    },
+    {
+      "id": "stats",
+      "component": "match-stats",
+      "position": [
+        1.2,
+        1.5,
+        -1.3
+      ],
+      "rotation": [
+        0,
+        -0.55,
+        0
+      ],
+      "scale": 0.85,
+      "bind": {}
+    },
+    {
+      "id": "health",
+      "component": "health-bar",
+      "position": [
+        -0.55,
+        1.32,
+        -1.2
+      ],
+      "rotation": [
+        0,
+        0.2,
+        0
+      ],
+      "scale": 1,
+      "bind": {},
+      "props": {
+        "label": "Shield",
+        "color": "#7C9CFF"
+      }
+    },
+    {
+      "id": "radar",
+      "component": "minimap",
+      "position": [
+        0.58,
+        1.32,
+        -1.2
+      ],
+      "rotation": [
+        0,
+        -0.2,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "sign",
+      "component": "neon-sign",
+      "position": [
+        0,
+        1.78,
+        -1.45
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {},
+      "props": {
+        "text": "GG",
+        "color": "#7C5CFF"
+      }
+    }
+  ]
+}

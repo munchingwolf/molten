@@ -1,0 +1,233 @@
+{
+  "name": "Arcade Corner",
+  "slug": "arcade-corner",
+  "category": "game",
+  "description": "A pocket arcade in an open lot: shoot hoops on a mini basketball hoop while the countdown runs, every basket rolls the score and fires confetti. Grab spinning coins, chase the high-score board, and a real controller waits on the table.",
+  "environment": "env-concert-stage",
+  "items": [
+    {
+      "id": "table",
+      "component": "desk",
+      "position": [
+        0,
+        0.375,
+        -0.9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {},
+      "props": {
+        "color": "#2A1F3D"
+      }
+    },
+    {
+      "id": "hoop",
+      "component": "basketball-hoop",
+      "position": [
+        0,
+        1.32,
+        -1.15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {
+        "value": "baskets"
+      },
+      "props": {
+        "accuracy": 0.75,
+        "color": "#FF5AB4"
+      }
+    },
+    {
+      "id": "score",
+      "component": "score-counter",
+      "position": [
+        0.45,
+        1.56,
+        -1.2
+      ],
+      "rotation": [
+        0,
+        -0.3,
+        0
+      ],
+      "scale": 1,
+      "bind": {
+        "value": "baskets"
+      },
+      "props": {
+        "label": "Baskets",
+        "step": 1,
+        "color": "#FFC94D"
+      }
+    },
+    {
+      "id": "timer",
+      "component": "countdown-timer",
+      "position": [
+        -0.45,
+        1.56,
+        -1.2
+      ],
+      "rotation": [
+        0,
+        0.3,
+        0
+      ],
+      "scale": 1,
+      "bind": {},
+      "props": {
+        "seconds": 60,
+        "color": "#4CE0FF"
+      }
+    },
+    {
+      "id": "confetti",
+      "component": "confetti-burst",
+      "position": [
+        0,
+        1.75,
+        -1.3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {
+        "trigger": "baskets"
+      },
+      "props": {
+        "popper": false
+      }
+    },
+    {
+      "id": "pad",
+      "component": "gamepad",
+      "position": [
+        0.25,
+        0.772,
+        -0.72
+      ],
+      "rotation": [
+        -1.42,
+        0,
+        -0.2
+      ],
+      "scale": 1,
+      "bind": {},
+      "props": {
+        "color": "#FF5AB4"
+      }
+    },
+    {
+      "id": "coin-left",
+      "component": "coin-pickup",
+      "position": [
+        -0.75,
+        1.15,
+        -0.95
+      ],
+      "rotation": [
+        0,
+        0.5,
+        0
+      ],
+      "scale": 1,
+      "bind": {},
+      "props": {
+        "color": "#FFC94D"
+      }
+    },
+    {
+      "id": "coin-right",
+      "component": "coin-pickup",
+      "position": [
+        0.75,
+        1.15,
+        -0.95
+      ],
+      "rotation": [
+        0,
+        -0.5,
+        0
+      ],
+      "scale": 1,
+      "bind": {},
+      "props": {
+        "color": "#FFC94D"
+      }
+    },
+    {
+      "id": "achievement",
+      "component": "achievement-popup",
+      "position": [
+        0,
+        2.05,
+        -1.45
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {},
+      "props": {
+        "title": "Achievement unlocked",
+        "text": "Arcade regular",
+        "icon": "trophy",
+        "color": "#FFC94D"
+      }
+    },
+    {
+      "id": "highscores",
+      "component": "game-leaderboard",
+      "position": [
+        -1.25,
+        1.45,
+        -1.25
+      ],
+      "rotation": [
+        0,
+        0.6,
+        0
+      ],
+      "scale": 0.8,
+      "bind": {},
+      "props": {
+        "title": "High Scores",
+        "accent": "#FF5AB4"
+      }
+    },
+    {
+      "id": "sign",
+      "component": "neon-sign",
+      "position": [
+        0,
+        2.45,
+        -1.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {},
+      "props": {
+        "text": "ARCADE",
+        "color": "#FF2D6F"
+      }
+    }
+  ]
+}
