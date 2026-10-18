@@ -13,6 +13,9 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 6:55: Evan (session ek-c7): **home page shows the Night Set DAW live** (section under the hero, `#daw`)
+- The mockup artifact is served from `web/public/demo/night-set.html` (copy of `reports/night-set-mockup.html` with an iframe-only embed mode that hides its internal header/notes, and the "For Danny/Evan" line removed). `components/site/daw-demo.tsx`: click-to-interact cover so it doesn't trap page scroll. Buttons: Build it in the Studio, Open full screen. WebGL budget on / is now 14 of ~16.
+
 ### 6:45: Evan (session ek-c7): **"Stark, build the Night Set" builds the whole artifact rig by itself** (also "the DAW" / "the demo" / "the mockup")
 - Opens the template, places all 8 slots one after another (you watch it build), turns on Play mode so the instruments answer your hands. Template-level trigger phrases in `night-set.json` `say`; `templateCommand` in `lib/slot-commands.ts` (+test, 8 pass).
 - The laptop assistant box submits on **Send** (Enter didn't submit in my run). Demo video: `~/Desktop/stark-builds-night-set.mp4` (laptop Studio; the emulated-headset recording doesn't refresh the scene after the build, not chased).

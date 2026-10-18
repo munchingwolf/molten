@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ComponentCard } from "@/components/site/card"
+import { DawDemo } from "@/components/site/daw-demo"
 import { Logo } from "@/components/site/header"
 import { DriftRow, ScrollLightText, TerminalLines, TiltCard } from "@/components/site/fx"
 import { Reveal } from "@/components/site/motion"
@@ -8,7 +9,7 @@ import SculptureHero from "@/components/ui/liquid-sculpture-hero"
 import { registry } from "@/lib/registry"
 
 // Browsers keep ~16 live WebGL canvases and silently drop the oldest (the hero). Budget for this page:
-// hero 1 + sections 3 + drift row 3×2 (it renders its cards twice for a seamless loop) + three looks 3 = 13.
+// hero 1 + DAW demo iframe 1 + sections 3 + drift row 3×2 (it renders its cards twice for a seamless loop) + three looks 3 = 14.
 const sections = registry.filter((e) => e.kind === "section" && e.status === "ready").slice(0, 3)
 const looks = registry.filter((e) => e.kind === "section" && e.category === "settings").slice(0, 3)
 const general = registry.filter((e) => e.kind === "basic" && e.status === "ready").slice(0, 3)
@@ -46,6 +47,25 @@ export default function Home() {
         secondaryCta={{ label: "Open Studio in VR", href: "/studio" }}
         backdropText="" // no word behind the sculpture: plain page background
       />
+
+      <section id="daw" className="mx-auto max-w-[1240px] px-5 pb-16 pt-20">
+        <Reveal className="mb-8 flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <p className="mb-3 font-mono text-[13px] text-faint">Built in Spatial · Night Set</p>
+            <H2>A DAW you play with your hands, built by asking.</H2>
+            <p className="mt-3.5 max-w-[56ch] text-[17px] text-muted">
+              Say &ldquo;Stark, build the Night Set&rdquo; in the Studio: the mixer, synth keys, drum pads and a three-lane track wall drop into place, already wired to one tempo. Then play it in your headset.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/studio" className="inline-flex h-[46px] items-center rounded-[11px] bg-accent px-5 font-semibold text-on-accent">Build it in the Studio</Link>
+            <a href="/demo/night-set.html" className="inline-flex h-[46px] items-center rounded-[11px] border border-border-2 bg-surface px-5 font-semibold">Open full screen</a>
+          </div>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <DawDemo />
+        </Reveal>
+      </section>
 
       <section className="relative overflow-hidden border-b border-border bg-[linear-gradient(180deg,#0B0C10_0%,#0E1117_60%,#0B0C10_100%)]">
         <Strip title="Sections" note={`${registry.filter((e) => e.kind === "section").length}`} href="/components?kind=section">
