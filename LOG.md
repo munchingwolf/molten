@@ -13,6 +13,11 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 5:50: Danny: **Enter VR/AR works on Quest again + Stark HUD component wheel**
+- `xr-controls.tsx`: Enter AR/VR is synchronous again (awaiting the mic check first used up the click activation, so the Quest refused the session). Mic is now primed on the first tap anywhere on /studio, once, non-blocking.
+- `vr-wheel.tsx`: holographic HUD (cyan tick dial + readouts, counter-rotating rings, amber lock-on on the bay you face, chamfered tab arc, boot-up / power-down), every ready item per category with spin-to-scroll (drag along ring or thumbstick, virtualised to 13 live minis), poke = add, pull out = place via drop-target, CLOSE tab + floating WHEEL glyph to reopen. Crash guards: per-mini useFrame try/catch, SafeBoundary tile fallback, Suspense per Text, `intersectChildren={false}` on minis; audio/transport/media/heavy-pass components shown as tiles (still addable). Tested in an emulated Quest session (controller ray); hand poke + frame rate need a real Quest.
+- FYI Evan: the IWER DevUI throws `material.onBuild is not a function` every frame on localhost (its own three 0.165), so the emulator never renders.
+
 ### 5:50: Evan (session ek-c7): **template voice commands: drag OR tell Stark, same slots**. Pull after the recording to get it
 - With a guided template open, "Stark, add the drums" / "set up the rig" / "build the track wall" / "next" / "fill the rest" call `placeSlot` (same path as dragging onto a slot: snapped, wired, one undo step each). Plain word matching in `lib/slot-commands.ts` (+7 tests), no model; edits and "next scene" fall through to the normal assistant.
 - **Pre-instructions live in the template:** each slot's `say` list (Night Set now has them; a phrase on several slots = a group, e.g. "the rig"). A container slot (track wall) brings its lanes.
