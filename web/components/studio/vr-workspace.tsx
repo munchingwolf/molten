@@ -221,8 +221,8 @@ function Tool({ children, onClick, active, disabled, small }: {
       borderRadius={xr.radius.md}
       backgroundColor={active ? xr.accent : xr.row}
       opacity={disabled ? 0.35 : 1}
-      hover={disabled ? undefined : { backgroundColor: active ? xr.accent : xr.rowHover }}
-      active={disabled ? undefined : { backgroundColor: xr.rowActive }}
+      hover={disabled ? {} : { backgroundColor: active ? xr.accent : xr.rowHover }}
+      active={disabled ? {} : { backgroundColor: xr.rowActive }}
       onClick={disabled ? undefined : onClick}
       cursor={disabled ? undefined : "pointer"}
     >

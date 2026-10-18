@@ -514,8 +514,8 @@ function Btn({ children, onClick, on, dim, color, ...layout }: BtnProps) {
       borderRadius={xr.radius.md}
       backgroundColor={on ? xr.accent : xr.row}
       color={on ? xr.onAccent : dim ? xr.faint : (color ?? xr.text)}
-      hover={dim || on ? undefined : { backgroundColor: xr.rowHover }}
-      active={dim ? undefined : { backgroundColor: on ? xr.accent : xr.rowActive, transformTranslateZ: -2 }}
+      hover={dim || on ? {} : { backgroundColor: xr.rowHover }}
+      active={dim ? {} : { backgroundColor: on ? xr.accent : xr.rowActive, transformTranslateZ: -2 }}
       onClick={dim ? undefined : onClick}
       {...layout}
     >

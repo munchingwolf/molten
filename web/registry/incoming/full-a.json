@@ -1,0 +1,109 @@
+[
+  {
+    "name": "analytics-dashboard",
+    "displayName": "Analytics Dashboard",
+    "category": "dashboards",
+    "kind": "section",
+    "tags": [
+      "dashboard",
+      "analytics",
+      "kpi",
+      "chart",
+      "sales",
+      "admin"
+    ],
+    "aliases": [
+      "dashboard",
+      "admin panel",
+      "analytics",
+      "kpi dashboard",
+      "sales dashboard",
+      "metrics",
+      "shadcn dashboard"
+    ],
+    "description": "Analytics dashboard with range tabs, four KPI cards, a springy bar chart and recent sales; switch the range to change every number, tap a KPI to chart it and hover a bar to read its value.",
+    "status": "ready",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Dashboard"
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "navigation-menu",
+    "displayName": "Navigation Menu",
+    "category": "navigation",
+    "kind": "section",
+    "tags": [
+      "navigation",
+      "navbar",
+      "header",
+      "menu",
+      "dropdown",
+      "website",
+      "app"
+    ],
+    "aliases": [
+      "navbar",
+      "nav bar",
+      "menu bar",
+      "top bar",
+      "header",
+      "site navigation",
+      "mega menu",
+      "app bar"
+    ],
+    "description": "Website top bar with a team switcher, nav links with a springy active pill, a Products mega menu, search, notifications and a user menu; tap a trigger to open its dropdown and tap again or pick an item to close it.",
+    "status": "ready",
+    "deps": [],
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 0
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  }
+]

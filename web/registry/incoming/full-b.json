@@ -1,0 +1,38 @@
+[
+  {
+    "name": "music-app",
+    "displayName": "Music App",
+    "category": "dashboards",
+    "kind": "section",
+    "tags": ["app", "music", "player", "media", "dashboard", "albums", "podcasts", "library"],
+    "aliases": ["spotify", "apple music", "music player", "music library", "media app", "album browser", "jukebox", "podcast player"],
+    "description": "A full music app panel with a sidebar, Listen Now and Made for You album shelves, a Podcasts tab and a now-playing bar; tap any cover to play it.",
+    "deps": [],
+    "author": "Spatial",
+    "bindable": [{ "prop": "value", "event": "onChange", "type": "number", "min": 0, "max": 14, "default": 0 }],
+    "props": [
+      { "name": "title", "type": "string", "default": "Listen Now" },
+      { "name": "value", "type": "number", "min": 0, "max": 14, "default": 0 },
+      { "name": "playing", "type": "boolean", "default": false },
+      { "name": "accent", "type": "color", "default": "#9FE7D2" }
+    ]
+  },
+  {
+    "name": "metronome",
+    "displayName": "Metronome",
+    "category": "tools",
+    "kind": "section",
+    "tags": ["music", "tool", "tempo", "bpm", "metronome", "rhythm", "practice", "sound", "pendulum"],
+    "aliases": ["click track", "tempo", "bpm counter", "tap tempo", "beat keeper", "time keeper", "pendulum"],
+    "description": "A sample-accurate metronome with an accented downbeat, beat lights and a swinging pendulum, plus tap tempo, a tempo strip and 2/4, 3/4, 4/4 and 6/8.",
+    "deps": ["tone"],
+    "bindable": [{ "prop": "value", "event": "onChange", "type": "number", "min": 40, "max": 240, "default": 120 }],
+    "props": [
+      { "name": "value", "type": "number", "min": 40, "max": 240, "default": 120 },
+      { "name": "playing", "type": "boolean", "default": false },
+      { "name": "timeSignature", "type": "enum", "options": ["2/4", "3/4", "4/4", "6/8"], "default": "4/4" },
+      { "name": "title", "type": "string", "default": "Metronome" },
+      { "name": "accent", "type": "color", "default": "#9FE7D2" }
+    ]
+  }
+]

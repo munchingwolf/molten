@@ -65,7 +65,7 @@ export default function Tabs({ value, onChange, items = ["Overview", "Library", 
           justifyContent="center"
           borderRadius={10}
           color={i === active ? "#06221B" : "#9AA0AD"}
-          hover={i === active ? undefined : { backgroundColor: hoverTint, color: "#EEF0F4" }}
+          hover={i === active ? {} : { backgroundColor: hoverTint, color: "#EEF0F4" }}
           onClick={() => select(i)}
         >
           <Text fontSize={13} fontWeight="semi-bold">

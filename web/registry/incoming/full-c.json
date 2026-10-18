@@ -1,0 +1,41 @@
+[
+  {
+    "name": "image-carousel",
+    "displayName": "Image Carousel",
+    "category": "media",
+    "kind": "section",
+    "tags": ["media", "images", "carousel", "photos", "ring"],
+    "aliases": ["slider", "slideshow", "photo carousel", "image slider", "cover flow", "photo ring"],
+    "description": "A spinning ring of curved photo cards with arrows, dots, drag-to-spin, autoplay and a caption under the front card.",
+    "file": "components/spatial/image-carousel.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "deps": [],
+    "bindable": [{ "prop": "value", "event": "onChange", "type": "number", "default": 0, "min": 0, "max": 7 }],
+    "props": [
+      { "name": "value", "type": "number", "default": 0, "min": 0, "max": 7 },
+      { "name": "autoplay", "type": "boolean", "default": true },
+      { "name": "interval", "type": "number", "default": 4, "min": 1, "max": 12 },
+      { "name": "accent", "type": "color", "default": "#9FE7D2" }
+    ]
+  },
+  {
+    "name": "image-gallery",
+    "displayName": "Image Gallery",
+    "category": "media",
+    "kind": "section",
+    "tags": ["media", "images", "gallery", "art", "frames"],
+    "aliases": ["art gallery", "lightbox", "picture frames", "museum wall", "exhibition", "photo gallery"],
+    "description": "Framed artworks on a reflective floor; tap a frame to bring it forward with its title and artist, tap again to hang it back.",
+    "file": "components/spatial/image-gallery.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "deps": [],
+    "bindable": [{ "prop": "value", "event": "onChange", "type": "number", "default": -1, "min": -1, "max": 4 }],
+    "props": [
+      { "name": "value", "type": "number", "default": -1, "min": -1, "max": 4 },
+      { "name": "reflective", "type": "boolean", "default": true },
+      { "name": "accent", "type": "color", "default": "#9FE7D2" }
+    ]
+  }
+]

@@ -1,0 +1,160 @@
+[
+  {
+    "name": "time-hub",
+    "displayName": "Time Hub",
+    "category": "tools",
+    "kind": "section",
+    "style": "default",
+    "tags": [
+      "tools",
+      "clock",
+      "time",
+      "timer",
+      "stopwatch",
+      "world clock",
+      "app"
+    ],
+    "aliases": [
+      "clock app",
+      "world clock",
+      "stopwatch",
+      "timer",
+      "alarm clock",
+      "analog clock",
+      "time zones",
+      "lap timer"
+    ],
+    "description": "A complete Clock app in one panel: live digital or analog clock, world clocks you can tap to promote, a countdown timer with a draining ring and chime, and a lap stopwatch.",
+    "file": "components/spatial/time-hub.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Clock"
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 0
+      },
+      {
+        "name": "hour12",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "name": "focus-timer",
+    "displayName": "Focus Timer",
+    "category": "tools",
+    "kind": "section",
+    "style": "default",
+    "tags": [
+      "tools",
+      "pomodoro",
+      "focus",
+      "timer",
+      "productivity",
+      "break",
+      "app"
+    ],
+    "aliases": [
+      "pomodoro",
+      "focus",
+      "pomodoro timer",
+      "focus timer",
+      "study timer",
+      "work timer",
+      "tomato timer",
+      "break timer"
+    ],
+    "description": "A complete Pomodoro tool: focus, short and long breaks with editable lengths, a draining tick ring, session dots that trigger the long break, a task line and today's totals, with a soft chime between phases.",
+    "file": "components/spatial/focus-timer.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Focus"
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 0
+      },
+      {
+        "name": "focusMinutes",
+        "type": "number",
+        "min": 1,
+        "max": 90,
+        "default": 25
+      },
+      {
+        "name": "shortMinutes",
+        "type": "number",
+        "min": 1,
+        "max": 30,
+        "default": 5
+      },
+      {
+        "name": "longMinutes",
+        "type": "number",
+        "min": 1,
+        "max": 60,
+        "default": 15
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  }
+]

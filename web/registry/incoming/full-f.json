@@ -1,0 +1,50 @@
+[
+  {
+    "name": "smart-home-dashboard",
+    "displayName": "Smart Home Dashboard",
+    "category": "dashboards",
+    "kind": "section",
+    "style": "default",
+    "tags": ["app", "dashboard", "smart home", "lights", "thermostat", "scenes", "energy"],
+    "aliases": ["home control", "smart home", "iot dashboard", "home app", "home automation", "thermostat panel", "lighting control"],
+    "description": "Complete home control panel: room tabs switch light tiles with a brightness slider, a draggable thermostat dial, a speaker, scenes and a live energy chart.",
+    "file": "components/spatial/smart-home-dashboard.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "xrOnly": false,
+    "bindable": [{ "prop": "value", "event": "onChange", "type": "number", "default": 0 }],
+    "props": [
+      { "name": "title", "type": "string", "default": "Maple House" },
+      { "name": "value", "type": "number", "default": 0, "min": 0, "max": 3 },
+      { "name": "accent", "type": "color", "default": "#9FE7D2" }
+    ]
+  },
+  {
+    "name": "app-launcher",
+    "displayName": "App Launcher",
+    "category": "navigation",
+    "kind": "section",
+    "style": "default",
+    "tags": ["app", "launcher", "home screen", "grid", "dock", "search"],
+    "aliases": ["home screen", "app grid", "launcher", "start menu", "app library", "quest home", "springboard"],
+    "description": "Quest/visionOS-style home launcher with a live status bar, search, category chips, a paged grid of app tiles that open with a toast, and a pinned dock.",
+    "file": "components/spatial/app-launcher.tsx",
+    "status": "ready",
+    "tier": 1,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "xrOnly": false,
+    "bindable": [{ "prop": "value", "event": "onChange", "type": "string", "default": "" }],
+    "props": [
+      { "name": "title", "type": "string", "default": "Home" },
+      { "name": "value", "type": "string", "default": "" },
+      { "name": "accent", "type": "color", "default": "#9FE7D2" }
+    ]
+  }
+]

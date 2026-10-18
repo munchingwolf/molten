@@ -202,6 +202,18 @@ const C_synth_keys = lazy(() => import("@/components/spatial/synth-keys"))
 const C_tempo_lane = lazy(() => import("@/components/spatial/tempo-lane"))
 const C_drums_lane = lazy(() => import("@/components/spatial/drums-lane"))
 const C_keys_lane = lazy(() => import("@/components/spatial/keys-lane"))
+const C_calendar_planner = lazy(() => import("@/components/spatial/calendar-planner"))
+const C_calculator = lazy(() => import("@/components/spatial/calculator"))
+const C_analytics_dashboard = lazy(() => import("@/components/spatial/analytics-dashboard"))
+const C_smart_home_dashboard = lazy(() => import("@/components/spatial/smart-home-dashboard"))
+const C_app_launcher = lazy(() => import("@/components/spatial/app-launcher"))
+const C_image_carousel = lazy(() => import("@/components/spatial/image-carousel"))
+const C_image_gallery = lazy(() => import("@/components/spatial/image-gallery"))
+const C_time_hub = lazy(() => import("@/components/spatial/time-hub"))
+const C_music_app = lazy(() => import("@/components/spatial/music-app"))
+const C_metronome = lazy(() => import("@/components/spatial/metronome"))
+const C_navigation_menu = lazy(() => import("@/components/spatial/navigation-menu"))
+const C_focus_timer = lazy(() => import("@/components/spatial/focus-timer"))
 
 export const components: Record<string, ComponentType> = {
   "settings-default": C_settings_default as ComponentType,
@@ -404,4 +416,16 @@ export const components: Record<string, ComponentType> = {
   "tempo-lane": C_tempo_lane as ComponentType,
   "drums-lane": C_drums_lane as ComponentType,
   "keys-lane": C_keys_lane as ComponentType,
+  "calendar-planner": C_calendar_planner as ComponentType,
+  "calculator": C_calculator as ComponentType,
+  "analytics-dashboard": C_analytics_dashboard as ComponentType,
+  "smart-home-dashboard": C_smart_home_dashboard as ComponentType,
+  "app-launcher": C_app_launcher as ComponentType,
+  "image-carousel": C_image_carousel as ComponentType,
+  "image-gallery": C_image_gallery as ComponentType,
+  "time-hub": C_time_hub as ComponentType,
+  "music-app": C_music_app as ComponentType,
+  "metronome": C_metronome as ComponentType,
+  "navigation-menu": C_navigation_menu as ComponentType,
+  "focus-timer": C_focus_timer as ComponentType,
 }

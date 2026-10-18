@@ -13250,5 +13250,805 @@
         "default": 2
       }
     ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "tools",
+      "app",
+      "calendar",
+      "planner",
+      "schedule",
+      "agenda",
+      "events"
+    ],
+    "aliases": [
+      "calendar app",
+      "planner",
+      "schedule",
+      "agenda",
+      "week view",
+      "month view",
+      "day planner",
+      "events calendar"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "calendar-planner",
+    "displayName": "Calendar Planner",
+    "category": "tools",
+    "kind": "section",
+    "description": "Full calendar app with Month and Week views, coloured events, a day agenda and an Add event button that updates every view live.",
+    "file": "components/spatial/calendar-planner.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Calendar"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "name": "view",
+        "type": "enum",
+        "options": [
+          "month",
+          "week"
+        ],
+        "default": "month"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "tools",
+      "app",
+      "calculator",
+      "math",
+      "keypad"
+    ],
+    "aliases": [
+      "calculator",
+      "calc",
+      "calculator app",
+      "adding machine",
+      "math keypad"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "calculator",
+    "displayName": "Calculator",
+    "category": "tools",
+    "kind": "section",
+    "description": "Full calculator with operator precedence, a live expression line, backspace, Error on divide by zero and a history drawer you can reuse results from.",
+    "file": "components/spatial/calculator.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Calculator"
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "default": 0,
+        "min": -1000000,
+        "max": 1000000
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "dashboard",
+      "analytics",
+      "kpi",
+      "chart",
+      "sales",
+      "admin"
+    ],
+    "aliases": [
+      "dashboard",
+      "admin panel",
+      "analytics",
+      "kpi dashboard",
+      "sales dashboard",
+      "metrics",
+      "shadcn dashboard"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "analytics-dashboard",
+    "displayName": "Analytics Dashboard",
+    "category": "dashboards",
+    "kind": "section",
+    "description": "Analytics dashboard with range tabs, four KPI cards, a springy bar chart and recent sales; switch the range to change every number, tap a KPI to chart it and hover a bar to read its value.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Dashboard"
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ],
+    "file": "components/spatial/analytics-dashboard.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "app",
+      "dashboard",
+      "smart home",
+      "lights",
+      "thermostat",
+      "scenes",
+      "energy"
+    ],
+    "aliases": [
+      "home control",
+      "smart home",
+      "iot dashboard",
+      "home app",
+      "home automation",
+      "thermostat panel",
+      "lighting control"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "smart-home-dashboard",
+    "displayName": "Smart Home Dashboard",
+    "category": "dashboards",
+    "kind": "section",
+    "description": "Complete home control panel: room tabs switch light tiles with a brightness slider, a draggable thermostat dial, a speaker, scenes and a live energy chart.",
+    "file": "components/spatial/smart-home-dashboard.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Maple House"
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "max": 3
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "app",
+      "launcher",
+      "home screen",
+      "grid",
+      "dock",
+      "search"
+    ],
+    "aliases": [
+      "home screen",
+      "app grid",
+      "launcher",
+      "start menu",
+      "app library",
+      "quest home",
+      "springboard"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "app-launcher",
+    "displayName": "App Launcher",
+    "category": "navigation",
+    "kind": "section",
+    "description": "Quest/visionOS-style home launcher with a live status bar, search, category chips, a paged grid of app tiles that open with a toast, and a pinned dock.",
+    "file": "components/spatial/app-launcher.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Home"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "media",
+      "images",
+      "carousel",
+      "photos",
+      "ring"
+    ],
+    "aliases": [
+      "slider",
+      "slideshow",
+      "photo carousel",
+      "image slider",
+      "cover flow",
+      "photo ring"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "image-carousel",
+    "displayName": "Image Carousel",
+    "category": "media",
+    "kind": "section",
+    "description": "A spinning ring of curved photo cards with arrows, dots, drag-to-spin, autoplay and a caption under the front card.",
+    "file": "components/spatial/image-carousel.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "max": 7
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "max": 7
+      },
+      {
+        "name": "autoplay",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "interval",
+        "type": "number",
+        "default": 4,
+        "min": 1,
+        "max": 12
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "media",
+      "images",
+      "gallery",
+      "art",
+      "frames"
+    ],
+    "aliases": [
+      "art gallery",
+      "lightbox",
+      "picture frames",
+      "museum wall",
+      "exhibition",
+      "photo gallery"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "image-gallery",
+    "displayName": "Image Gallery",
+    "category": "media",
+    "kind": "section",
+    "description": "Framed artworks on a reflective floor; tap a frame to bring it forward with its title and artist, tap again to hang it back.",
+    "file": "components/spatial/image-gallery.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "default": -1,
+        "min": -1,
+        "max": 4
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "default": -1,
+        "min": -1,
+        "max": 4
+      },
+      {
+        "name": "reflective",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "tools",
+      "clock",
+      "time",
+      "timer",
+      "stopwatch",
+      "world clock",
+      "app"
+    ],
+    "aliases": [
+      "clock app",
+      "world clock",
+      "stopwatch",
+      "timer",
+      "alarm clock",
+      "analog clock",
+      "time zones",
+      "lap timer"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "time-hub",
+    "displayName": "Time Hub",
+    "category": "tools",
+    "kind": "section",
+    "description": "A complete Clock app in one panel: live digital or analog clock, world clocks you can tap to promote, a countdown timer with a draining ring and chime, and a lap stopwatch.",
+    "file": "components/spatial/time-hub.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Clock"
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 0
+      },
+      {
+        "name": "hour12",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "app",
+      "music",
+      "player",
+      "media",
+      "dashboard",
+      "albums",
+      "podcasts",
+      "library"
+    ],
+    "aliases": [
+      "spotify",
+      "apple music",
+      "music player",
+      "music library",
+      "media app",
+      "album browser",
+      "jukebox",
+      "podcast player"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "music-app",
+    "displayName": "Music App",
+    "category": "dashboards",
+    "kind": "section",
+    "description": "A full music app panel with a sidebar, Listen Now and Made for You album shelves, a Podcasts tab and a now-playing bar; tap any cover to play it.",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 14,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Listen Now"
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 14,
+        "default": 0
+      },
+      {
+        "name": "playing",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ],
+    "file": "components/spatial/music-app.tsx",
+    "status": "ready"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "music",
+      "tool",
+      "tempo",
+      "bpm",
+      "metronome",
+      "rhythm",
+      "practice",
+      "sound",
+      "pendulum"
+    ],
+    "aliases": [
+      "click track",
+      "tempo",
+      "bpm counter",
+      "tap tempo",
+      "beat keeper",
+      "time keeper",
+      "pendulum"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "metronome",
+    "displayName": "Metronome",
+    "category": "tools",
+    "kind": "section",
+    "description": "A sample-accurate metronome with an accented downbeat, beat lights and a swinging pendulum, plus tap tempo, a tempo strip and 2/4, 3/4, 4/4 and 6/8.",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 40,
+        "max": 240,
+        "default": 120
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 40,
+        "max": 240,
+        "default": 120
+      },
+      {
+        "name": "playing",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "timeSignature",
+        "type": "enum",
+        "options": [
+          "2/4",
+          "3/4",
+          "4/4",
+          "6/8"
+        ],
+        "default": "4/4"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Metronome"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ],
+    "file": "components/spatial/metronome.tsx",
+    "status": "ready"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "navigation",
+      "navbar",
+      "header",
+      "menu",
+      "dropdown",
+      "website",
+      "app"
+    ],
+    "aliases": [
+      "navbar",
+      "nav bar",
+      "menu bar",
+      "top bar",
+      "header",
+      "site navigation",
+      "mega menu",
+      "app bar"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "navigation-menu",
+    "displayName": "Navigation Menu",
+    "category": "navigation",
+    "kind": "section",
+    "description": "Website top bar with a team switcher, nav links with a springy active pill, a Products mega menu, search, notifications and a user menu; tap a trigger to open its dropdown and tap again or pick an item to close it.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 3,
+        "default": 0
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ],
+    "file": "components/spatial/navigation-menu.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "tools",
+      "pomodoro",
+      "focus",
+      "timer",
+      "productivity",
+      "break",
+      "app"
+    ],
+    "aliases": [
+      "pomodoro",
+      "focus",
+      "pomodoro timer",
+      "focus timer",
+      "study timer",
+      "work timer",
+      "tomato timer",
+      "break timer"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "focus-timer",
+    "displayName": "Focus Timer",
+    "category": "tools",
+    "kind": "section",
+    "description": "A complete Pomodoro tool: focus, short and long breaks with editable lengths, a draining tick ring, session dots that trigger the long break, a task line and today's totals, with a soft chime between phases.",
+    "file": "components/spatial/focus-timer.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Focus"
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 0
+      },
+      {
+        "name": "focusMinutes",
+        "type": "number",
+        "min": 1,
+        "max": 90,
+        "default": 25
+      },
+      {
+        "name": "shortMinutes",
+        "type": "number",
+        "min": 1,
+        "max": 30,
+        "default": 5
+      },
+      {
+        "name": "longMinutes",
+        "type": "number",
+        "min": 1,
+        "max": 60,
+        "default": 15
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
   }
 ]

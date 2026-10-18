@@ -1,0 +1,51 @@
+[
+  {
+    "name": "calendar-planner",
+    "displayName": "Calendar Planner",
+    "category": "tools",
+    "kind": "section",
+    "style": "default",
+    "tags": ["tools", "app", "calendar", "planner", "schedule", "agenda", "events"],
+    "aliases": ["calendar app", "planner", "schedule", "agenda", "week view", "month view", "day planner", "events calendar"],
+    "description": "Full calendar app with Month and Week views, coloured events, a day agenda and an Add event button that updates every view live.",
+    "file": "components/spatial/calendar-planner.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [{ "prop": "value", "event": "onChange", "type": "string", "default": "" }],
+    "props": [
+      { "name": "title", "type": "string", "default": "Calendar" },
+      { "name": "value", "type": "string", "default": "" },
+      { "name": "view", "type": "enum", "options": ["month", "week"], "default": "month" },
+      { "name": "accent", "type": "color", "default": "#9FE7D2" }
+    ]
+  },
+  {
+    "name": "calculator",
+    "displayName": "Calculator",
+    "category": "tools",
+    "kind": "section",
+    "style": "default",
+    "tags": ["tools", "app", "calculator", "math", "keypad"],
+    "aliases": ["calculator", "calc", "calculator app", "adding machine", "math keypad"],
+    "description": "Full calculator with operator precedence, a live expression line, backspace, Error on divide by zero and a history drawer you can reuse results from.",
+    "file": "components/spatial/calculator.tsx",
+    "status": "ready",
+    "tier": 1,
+    "xrOnly": false,
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "bindable": [{ "prop": "value", "event": "onChange", "type": "number", "default": 0 }],
+    "props": [
+      { "name": "title", "type": "string", "default": "Calculator" },
+      { "name": "value", "type": "number", "default": 0, "min": -1000000, "max": 1000000 },
+      { "name": "accent", "type": "color", "default": "#9FE7D2" }
+    ]
+  }
+]
