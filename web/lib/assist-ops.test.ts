@@ -168,3 +168,33 @@ test("photo backdrops are reachable by voice", () => {
   assert.deepEqual(extractOps("switch to the night field", c), [{ op: "set_environment", value: "night-field" }])
   assert.deepEqual(extractOps("take me to outer space", c), [{ op: "set_environment", value: "space" }])
 })
+
+test("scene navigation: value is the user's words; scene wording beats environment words", () => {
+  const c = ctx([["k1", "knob"]])
+  const go = (s: string) => extractOps(s, c).filter((o) => o.op === "go_scene" || o.op === "set_environment")
+  assert.deepEqual(go("next scene"), [{ op: "go_scene", value: "next" }])
+  assert.deepEqual(go("go to the previous scene"), [{ op: "go_scene", value: "back" }])
+  assert.deepEqual(go("go to scene two"), [{ op: "go_scene", value: "2" }])
+  assert.deepEqual(go("go to scene one"), [{ op: "go_scene", value: "1" }])
+  assert.deepEqual(go("switch to scene called Intro please"), [{ op: "go_scene", value: "intro" }])
+  assert.deepEqual(go("take me to the lobby scene"), [{ op: "go_scene", value: "lobby" }])
+  assert.deepEqual(go("go to the forest scene"), [{ op: "set_environment", value: "forest" }])
+  assert.deepEqual(go("switch to the space environment"), [{ op: "set_environment", value: "space" }])
+  assert.deepEqual(go("dont go to the next scene"), [])
+})
+
+test("go_scene switches the real store's scene; unknown scene does nothing", async () => {
+  const { useStudio } = await import("./studio-store.ts")
+  const S = () => useStudio.getState()
+  S().load({ name: "t", items: [] })
+  S().addScene("Lobby")
+  S().addScene("Stage")
+  const [first, lobby] = S().scenes
+  S().switchScene(first.id)
+  assert.equal(applyOps([{ op: "go_scene", value: "lobby" }], S), 1)
+  assert.equal(S().sceneId, lobby.id)
+  assert.equal(applyOps([{ op: "go_scene", value: "next" }], S), 1)
+  assert.equal(S().scenes.find((s) => s.id === S().sceneId)?.name, "Stage")
+  assert.equal(applyOps([{ op: "go_scene", value: "basement" }], S), 0)
+  assert.equal(S().scenes.find((s) => s.id === S().sceneId)?.name, "Stage")
+})

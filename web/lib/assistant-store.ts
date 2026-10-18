@@ -40,6 +40,7 @@ function label(o: Op) {
     case "set_prop": return `set ${o.prop} = ${String(o.value)} ${name}`
     case "swap_style": return `swap_style ${name} → ${o.component}`
     case "set_environment": return `environment ${String(o.value)}`
+    case "go_scene": return `scene ${String(o.value)}`
     default: return `${o.op} ${name}`
   }
 }

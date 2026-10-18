@@ -1,8 +1,9 @@
 // Voice command → scene ops. The local 8B model only classifies intent; every value here comes from the
 // user's own words (measured rule: gating beats trusting the model). Pure + .ts imports so `node --test` runs it.
 import type { Item, Vec3 } from "./layout.ts"
+import { resolveScene } from "./scene-nav.ts"
 
-export const OP_NAMES = ["add_component", "remove", "scale", "rotate", "move", "set_prop", "swap_style", "set_environment", "select"] as const
+export const OP_NAMES = ["add_component", "remove", "scale", "rotate", "move", "set_prop", "swap_style", "set_environment", "select", "go_scene"] as const
 export type OpName = (typeof OP_NAMES)[number]
 export type Op = { op: OpName; target?: string; component?: string; prop?: string; value?: unknown; amount?: number; direction?: string }
 
@@ -281,6 +282,20 @@ function swapOps(t: string, ctx: Ctx, target: Target, component: string | undefi
   return [{ op: "swap_style", target: target.id, component: name, at: cands[0].i }]
 }
 
+// "next scene", "go to scene 2", "go to the intro scene". The value is the user's words; applyOps resolves it via resolveScene.
+const SCENE_STEP = /\b(next|previous|prev) scene\b/
+const SCENE_GO = /\b(?:go|switch|jump|move|take me|bring me|open|show)(?: me)?(?: back)?(?: to)?(?: the)? scene (?:called |named )?(.+)$/
+const SCENE_NAMED = /\b(?:go|switch|jump|move|take me|bring me)(?: back)? to (?:the )?(.+?) scene\b/
+
+function sceneOps(t: string): Found[] {
+  const step = SCENE_STEP.exec(t)
+  if (step) return [{ op: "go_scene", value: step[1] === "next" ? "next" : "back", at: step.index }]
+  const named = SCENE_NAMED.exec(t)
+  const m = SCENE_GO.exec(t) ?? (named && !envOps(t).length ? named : null) // "go to the forest scene" stays an environment
+  const to = m?.[1].split(/ (?:and|then|please) /)[0].replace(/ please$/, "").trim()
+  return to ? [{ op: "go_scene", value: to === "one" ? "1" : to, at: m!.index }] : []
+}
+
 function envOps(t: string): Found[] {
   if (find(t, ENV_CUE) < 0) return []
   const hit = Object.entries(ENVIRONMENTS).map(([id, ws]) => ({ id, i: at(t, ws) })).filter((h) => h.i >= 0).sort((a, b) => a.i - b.i)[0]
@@ -314,7 +329,9 @@ export function extractOps(text: string, ctx: Ctx, intents?: Op[]): Op[] {
     const selCat = ctx.registry.find((e) => e.name === ctx.items.find((i) => i.id === ctx.selectedId)?.component)?.category
     const tg = resolveTarget(t, ctx, adding, hintsFor("swap_style")?.[0], selCat)
     found.push(...swapOps(t, ctx, tg, compOf(tg), hintsFor("swap_style"))) }
-  if (wants("set_environment")) found.push(...envOps(t))
+  const scene = wants("go_scene") ? sceneOps(t) : []
+  found.push(...scene)
+  if (wants("set_environment") && !scene.length) found.push(...envOps(t))
   if (wants("remove")) {
     const cue = find(t, REMOVE), tg = cue >= 0 ? resolveTarget(t, ctx, [], hintsFor("remove")?.[0]) : null
     if (tg?.id) found.push({ op: "remove", target: tg.id, at: cue })
@@ -345,6 +362,9 @@ export type StudioLike = {
   remove: (id: string) => void
   select: (id: string | null) => void
   setEnvironment?: (name: string | null) => void
+  scenes?: { id: string; name: string }[]
+  sceneId?: string
+  switchScene?: (id: string) => void
 }
 /** Viewer pose (XR head / camera) in world space; omit on the laptop to use the store's default slots. */
 export type Viewer = { position: Vec3; direction: Vec3 }
@@ -378,6 +398,11 @@ export function applyOps(ops: Op[], get: () => StudioLike, viewer?: Viewer) {
         s.setEnvironment(v in ENV ? ENV[v] : v.startsWith("env-") ? v : `env-${v}`)
         n++
       }
+      continue
+    }
+    if (op.op === "go_scene") {
+      const id = typeof op.value === "string" && s.scenes && s.switchScene ? resolveScene(s.scenes, op.value, s.sceneId ?? "") : null
+      if (id) s.switchScene!(id), n++
       continue
     }
     const item = s.items.find((i) => i.id === (op.target ?? s.selectedId))

@@ -42,6 +42,7 @@ import { VoiceButton, XRVoiceButton } from "@/components/studio/voice"
 | "make it glass" / "make it a slider" | swaps to a same-category entry |
 | "switch to the space environment" / "take me to the forest" | `setEnvironment("space")` |
 | "delete it" / "select the knob" | remove / select |
+| "next scene" / "previous scene" / "go to scene 2" / "go to the lobby scene" | `switchScene` via `resolveScene` (works in Edit and Play). "go to the forest scene" stays an environment |
 
 ## Gating (why the 8B model can't break the scene)
 

@@ -13,6 +13,11 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 17:25: Evan: **voice scene navigation** ("next scene", "go to scene 2", "go to the lobby scene"), for ek-97's scene nav
+- New op `go_scene` in `lib/assist-ops.ts`: value is the user's words, resolved at apply time with `resolveScene` from `lib/scene-nav.ts` → `switchScene`. Works while editing, not only in Play. Unknown scene = no change.
+- Scene wording wins over environment words, except "go to the forest scene" (an environment name) stays an environment.
+- Not done (ask if wanted): "add a scene called X", "add a portal to X".
+
 ### 5:23: Evan (session ek-97, was ek-b4): **scene navigation: build multi-page / multi-level experiences**
 - **Scenes bar** at the bottom-left of the Studio canvas: tabs switch, `+ Scene` adds, double-click renames, × deletes. Scenes are the pages/levels.
 - **portal** (walk-through swirl arch) and **nav-button** (site-style link), both with `to` = scene name, number, `next` or `back`. They fire `window` event `spatial:go` (still copy-pasteable). Studio follows it in **Play** mode (ignored while editing) with a fade; **launched apps** (/apps/<id>) now render the current scene and follow it too. Resolver + tests: `lib/scene-nav.ts`.
