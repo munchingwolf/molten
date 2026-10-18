@@ -59,3 +59,17 @@ claude -p "Use the Spatial MCP to rebuild my latest Spatial Studio layout in thi
 ```
 
 Result: 58 s, 14 turns. Claude called `get_layout("latest")`, `get_component` + `add_component` for all 4 components, and wrote a page with one `useState(120)` for `tempo` feeding the knob (min 60, max 180), transport `bpm` and display. The project type-checks with `tsc` (strict). Install line it printed: `npm i tone @react-three/uikit`.
+
+## Live Studio: Claude works inside Spatial (like Claude in Blender)
+
+With the Studio open (laptop or Quest), Claude Code edits the scene live and sees the result:
+
+| Tool | What it does |
+|---|---|
+| `get_scene` | The open Studio's scene: items (id, component, position, rotation, scale, bindings, props), the user's selection, shared values, environment, Play mode. |
+| `edit_scene({ ops })` | Applies edits live (~0.5 s): `add`, `update`, `bind`, `remove`, `select`, `set_value`, `set_environment`, `play`, `insert_template`, `load_layout`. Returns what was applied plus the new scene. Edits are also logged in the Studio's assistant panel ("Claude Code: ..."). |
+| `publish_component` | Writes a NEW component (checked against the copy-paste contract) into the library; then `edit_scene` can place it. |
+
+Try: select the drum pads in the headset, then tell Claude Code "move the selected pads 20 cm left and make them red". Inside the Studio, the local Ollama assistant (voice or text) keeps working on the same scene.
+
+Edits are accepted only from this machine (`/api/live` refuses requests that came through a Cloudflare tunnel); the Studio polls them, so the headset sees them through the tunnel.

@@ -112,3 +112,33 @@ export function usageExample(entry) {
     `}`,
   ].join("\n")
 }
+
+// Packages a published component may import (the copy-paste contract in SPEC.md §41).
+export const ALLOWED_PACKAGES = [
+  "react", "three", "@react-three/fiber", "@react-three/drei", "@react-three/xr", "@react-three/handle",
+  "@react-three/uikit", "@react-three/uikit-default", "@react-three/uikit-lucide", "@react-three/uikit-horizon", "tone",
+]
+export const COMPONENT_NAME = /^[a-z][a-z0-9-]{1,40}$/
+
+/** Contract problems in a component file Claude wants to publish; empty = OK. */
+export function checkComponentSource(source) {
+  const problems = []
+  if (typeof source !== "string" || !source.trim()) return ["source is empty"]
+  if (source.length > 200_000) problems.push("source is over 200 KB")
+  if (!/\bexport\s+default\b/.test(source)) problems.push("needs a default export (the component)")
+  const specs = [...source.matchAll(/\bfrom\s*['"]([^'"]+)['"]/g), ...source.matchAll(/\bimport\s*['"]([^'"]+)['"]/g)].map((m) => m[1])
+  if (specs.some((s) => s.startsWith(".") || s.startsWith("/") || s.startsWith("@/")))
+    problems.push("imports our own code or a relative file; components must be one self-contained file")
+  const bad = importedPackages(source).filter((p) => !ALLOWED_PACKAGES.includes(p))
+  if (bad.length) problems.push(`imports packages outside the contract: ${bad.join(", ")} (allowed: ${ALLOWED_PACKAGES.join(", ")})`)
+  if (/\.stopPropagation\s*\(/.test(source)) problems.push("calls stopPropagation (the Studio needs bubbling clicks to select items)")
+  if (/\baddEventListener\s*\(|\bdocument\./.test(source)) problems.push("uses DOM events; use R3F pointer events so hands, rays and the mouse all work")
+  return problems
+}
+
+/** Insert or replace a registry entry by name (for registry/incoming/*.json arrays). */
+export function upsertEntry(list, entry) {
+  const out = (Array.isArray(list) ? list : []).filter((e) => e?.name !== entry.name)
+  out.push(entry)
+  return out
+}

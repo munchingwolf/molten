@@ -37,3 +37,20 @@ test("deps = entry.deps plus package imports in the source", () => {
   const src = `import { Container } from "@react-three/uikit"\nimport {\n  Slider,\n} from "@react-three/uikit-default/x"\nimport type { Mesh } from "three"\nimport "./local.css"\nimport React from "react"`
   assert.deepEqual(depsFor({ deps: ["tone"] }, src), ["tone", "@react-three/uikit", "@react-three/uikit-default", "three", "react"])
 })
+
+import { checkComponentSource, upsertEntry } from "./lib.mjs"
+
+test("published component source must follow the contract", () => {
+  const good = `"use client"\nimport { useRef } from "react"\nimport * as Tone from "tone"\nexport default function Theremin() { return <mesh onPointerDown={() => {}} /> }`
+  assert.deepEqual(checkComponentSource(good), [])
+  assert.ok(checkComponentSource(`export const X = 1`).some((p) => p.includes("default export")))
+  assert.ok(checkComponentSource(`import a from "@/lib/x"\nexport default function A() {}`).some((p) => p.includes("self-contained")))
+  assert.ok(checkComponentSource(`import _ from "lodash"\nexport default function A() {}`).some((p) => p.includes("lodash")))
+  assert.ok(checkComponentSource(`export default function A() { e.stopPropagation() }`).some((p) => p.includes("stopPropagation")))
+})
+
+test("upsertEntry replaces by name", () => {
+  const l = upsertEntry([{ name: "a", v: 1 }, { name: "b" }], { name: "a", v: 2 })
+  assert.deepEqual(l.map((e) => e.name), ["b", "a"])
+  assert.equal(l[1].v, 2)
+})
