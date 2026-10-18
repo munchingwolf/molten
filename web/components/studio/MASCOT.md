@@ -1,10 +1,10 @@
-# Mascot: Pix
+# Mascot: Stark
 
 A pocket-sized voxel critter that sits by the assistant panel in the headset and on the laptop. It's a mint gumdrop with cat-ish ears, a warm bulb antenna, stubby arms and hovering warm feet. It's our own character: the silhouette is tall and rounded, not a wide block on legs, and it uses the night-studio mint + warm palette.
 
 ## Name ideas
 
-1. **Pix** (default): short, says "pixel", easy to say to a voice assistant.
+1. **Stark** (default): short, says "pixel", easy to say to a voice assistant.
 2. **Mochi**: soft, round and friendly, which fits the gumdrop shape.
 3. **Blip**: a small signal on the radar, sounds like a tiny helper.
 
@@ -12,7 +12,7 @@ A pocket-sized voxel critter that sits by the assistant panel in the headset and
 
 | File | What it is |
 |---|---|
-| `components/spatial/mascot.tsx` | 3D Pix, default export `Mascot({ mood?, color?, size?, onPress? })`. About 13.5 cm tall at `size` 1, with the origin at its visual centre. It has 303 voxels in one `InstancedMesh` and one `meshStandardMaterial`, patched so each voxel can glow in its own colour. No shadows. Copy-pasteable: it imports only react, three and r3f. |
+| `components/spatial/mascot.tsx` | 3D Stark, default export `Mascot({ mood?, color?, size?, onPress? })`. About 13.5 cm tall at `size` 1, with the origin at its visual centre. It has 303 voxels in one `InstancedMesh` and one `meshStandardMaterial`, patched so each voxel can glow in its own colour. No shadows. Copy-pasteable: it imports only react, three and r3f. |
 | `components/studio/mascot-2d.tsx` | `Mascot2D({ mood?, size? })`: the same character as 16×16 pixel-art SVG, animated with CSS keyframes. `prefers-reduced-motion` stops all animation and shows the still pose. Also exports `useAssistantMood()`. |
 | `registry/incoming/P.json` | Registry entry `mascot` (interactive / object), with props `mood`, `color` and `size`. |
 

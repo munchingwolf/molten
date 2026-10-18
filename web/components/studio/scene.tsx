@@ -80,7 +80,7 @@ export function StudioScene() {
   )
 }
 
-/** Pix, the voxel guide, perched on the VR assistant; mood follows the assistant (listening/thinking/talking/happy). */
+/** Stark, the voxel guide, perched on the VR assistant; mood follows the assistant (listening/thinking/talking/happy). */
 function VRPix() {
   return <Mascot mood={useAssistantMood()} size={1} />
 }

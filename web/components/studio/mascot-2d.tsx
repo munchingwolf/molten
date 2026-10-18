@@ -5,7 +5,7 @@ import { useAssistant } from "@/lib/assistant-store"
 
 export type Mascot2DMood = "idle" | "listening" | "thinking" | "talking" | "happy"
 
-// Pix, front view, 16×16. Same pixel map as the voxel model in components/spatial/mascot.tsx.
+// Stark, front view, 16×16. Same pixel map as the voxel model in components/spatial/mascot.tsx.
 // O bulb · A stem · E ear tip · L/B/D body light/base/dark · W eye white · P pupil · H shine · M mouth · C cheek · R arm · F foot
 const ART = [
   "................",
@@ -84,7 +84,7 @@ const CSS = `
 @media (prefers-reduced-motion:reduce){.pix2d *{animation:none!important;transition:none!important}.pix2d-confetti{display:none}}
 `
 
-/** Pix as 16×16 pixel art for the desktop assistant panel and the site. Pure SVG + CSS, no JS animation. */
+/** Stark as 16×16 pixel art for the desktop assistant panel and the site. Pure SVG + CSS, no JS animation. */
 export function Mascot2D({ mood = "idle", size = 40 }: { mood?: Mascot2DMood; size?: number }) {
   const happy = mood === "happy"
   const eye = (left: boolean) => (
@@ -105,7 +105,7 @@ export function Mascot2D({ mood = "idle", size = 40 }: { mood?: Mascot2DMood; si
         viewBox="0 0 16 16"
         shapeRendering="crispEdges"
         role="img"
-        aria-label={`Pix, your assistant (${mood})`}
+        aria-label={`Stark, your assistant (${mood})`}
       >
         {mood === "listening" && rects(RING, "pix2d-ring")}
         <g className="pix2d-hop">
@@ -134,8 +134,8 @@ export function Mascot2D({ mood = "idle", size = 40 }: { mood?: Mascot2DMood; si
 }
 
 /**
- * Pix's mood from the assistant store, for both <Mascot2D> and the 3D <Mascot>: "listening"/"thinking" pass through;
- * after a reply Pix is "happy" for 2.5 s if every edit worked, otherwise "talking" for about as long as the reply takes to read.
+ * Stark's mood from the assistant store, for both <Mascot2D> and the 3D <Mascot>: "listening"/"thinking" pass through;
+ * after a reply Stark is "happy" for 2.5 s if every edit worked, otherwise "talking" for about as long as the reply takes to read.
  */
 export function useAssistantMood(): Mascot2DMood {
   const status = useAssistant((s) => s.status)

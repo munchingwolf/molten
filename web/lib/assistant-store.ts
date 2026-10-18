@@ -1,4 +1,5 @@
 import { create } from "zustand"
+import { stripName } from "./wake"
 import { applyOps, extractOps, type Op, type RegEntry, type Viewer } from "./assist-ops"
 import { registry } from "./registry"
 import { useStudio } from "./studio-store"
@@ -111,14 +112,17 @@ export const useAssistant = create<AssistantState>((set, get) => {
   }
 
   return {
-    messages: [{ role: "assistant", text: "Hi! Ask me to change the scene (“add a knob”, “make it bigger and blue”) or ask how something works.", at: 0 }],
+    messages: [{ role: "assistant", text: "Hi, I'm Stark. Start with my name: \"Stark, add a knob\", \"Stark, make it bigger and blue\", \"Stark, go to the next scene\". Or ask how something works.", at: 0 }],
     status: "idle",
     setStatus: (status) => set({ status }),
 
     send: async (raw, viewer) => {
-      const text = raw.trim().slice(0, 500)
-      if (!text || get().status === "thinking") return
-      say({ role: "user", text })
+      const shown = raw.trim().slice(0, 500)
+      if (!shown || get().status === "thinking") return
+      say({ role: "user", text: shown })
+      // "Stark, add a knob": the name is how you address the assistant, not part of the command.
+      const { said, rest: text } = stripName(shown)
+      if (!text) return void say({ role: "assistant", text: said ? "Yes? Tell me what to build." : "Didn't catch that." })
 
       // Undo/redo are store actions, not model ops (the op grammar deliberately ignores "undo").
       const h = HISTORY.exec(text)?.[1].toLowerCase() as "undo" | "redo" | undefined

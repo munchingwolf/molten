@@ -28,12 +28,12 @@ export function AssistantPanel() {
   }
 
   return (
-    <section aria-label="Assistant" className="flex h-full min-h-0 flex-col bg-bg font-mono text-sm text-text">
+    <section aria-label="Stark, your assistant" className="flex h-full min-h-0 flex-col bg-bg font-mono text-sm text-text">
       <Mascot2D mood={useAssistantMood()} size={32} />
       <header className="flex items-center justify-between border-b border-border px-3 py-2">
         <span className="flex items-center gap-2 font-medium">
           <span aria-hidden className={`size-2 rounded-full ${status === "idle" ? "bg-faint" : "animate-pulse bg-accent"}`} />
-          Assistant
+          Stark
         </span>
         <span className="text-muted">{STATUS[status]}</span>
       </header>
@@ -65,7 +65,7 @@ export function AssistantPanel() {
           aria-label="Ask or tell the assistant"
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
-          placeholder="add a drum pad · how do I tilt?"
+          placeholder="Stark, add a drum pad · how do I tilt?"
           maxLength={500}
           className="h-11 min-w-0 flex-1 rounded-md border border-border-2 bg-surface px-3 text-sm placeholder:text-faint focus:border-accent focus:outline-none"
         />

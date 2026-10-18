@@ -170,7 +170,7 @@ function Panel({ mascot }: { mascot?: ReactNode }) {
         <Container flexDirection="row" alignItems="center" justifyContent="space-between" gap={8} flexShrink={0}>
           <Container flexDirection="row" alignItems="center" gap={6} paddingLeft={4}>
             <Container width={10} height={10} borderRadius={5} backgroundColor={status === "idle" ? xr.faint : xr.accent} />
-            <Text fontSize={14} color={xr.muted}>{status === "idle" ? "Assistant" : status}</Text>
+            <Text fontSize={14} color={xr.muted}>{status === "idle" ? "Stark" : status}</Text>
           </Container>
           <Chip label="What can I do?" grow={false} onClick={() => talk("What can I do?")} />
         </Container>

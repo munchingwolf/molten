@@ -13,6 +13,10 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 5:38: Evan (session ek-97): **the mascot/assistant is now "Stark"**: address it by name
+- "Stark, add a knob" / "hey Stark, next scene" / "OK Stark, make it blue": `lib/wake.ts` strips the name (also Starke/Starks; NOT "start") before parsing, typed or spoken (assistant-store `send`). Just "Stark" replies "Yes?". The transcript still shows what you said.
+- Renamed Pix to Stark in the mascot (2D + voxel), the laptop panel title, the VR panel and the input hint; new greeting tells people to start with the name. Tests: `lib/wake.test.ts`.
+
 ### 5:15: Danny: **7 code-built worlds** (no images, no network): `env-tron` Neon Grid (synthwave sun, neon obelisks), `env-japan` Torii Garden, `env-moon` Moon Base (shader Earth), `env-volcano`, `env-dream` Dreamscape, `env-egypt` Pyramids, `env-starry` Starry Meadow. ~12-20 draw calls each, rays off, flat 4 m around you. Registry: `incoming/procedural-envs.json`. Evan FYI from the agent: envs that wrap `<color attach="background">`/`<fog>` in a `<group>` attach them to the group, not the scene (fog likely not applying in env-forest etc.); these new ones use a fragment root.
 
 ### 17:25: Evan: **voice scene navigation** ("next scene", "go to scene 2", "go to the lobby scene"), for ek-97's scene nav
