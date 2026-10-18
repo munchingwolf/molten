@@ -1,13 +1,19 @@
 #!/usr/bin/env node
 // Spatial MCP server (stdio). stdout belongs to the transport: log with console.error only.
+import { execFile } from "node:child_process"
 import { constants } from "node:fs"
-import { copyFile, mkdir, readFile, stat } from "node:fs/promises"
+import { copyFile, mkdir, readFile, stat, writeFile } from "node:fs/promises"
 import path from "node:path"
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js"
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod"
 import {
+  WEB_DIR,
   bindableSummary,
+  checkComponentSource,
+  COMPONENT_NAME,
+  importedPackages,
+  upsertEntry,
   depsFor,
   loadRegistry,
   resolveEntry,
@@ -201,6 +207,150 @@ server.registerTool(
       counts.set(e.category, c)
     }
     return text([...counts.values()])
+  },
+)
+
+// ---- Live Studio: Claude works inside the open Spatial Studio, like Claude driving Blender. ----
+
+const SPACE_NOTE =
+  "Units are metres, Y up. The viewer stands at the origin facing -Z (eyes ~1.6 m). A desk top is ~0.92 m; " +
+  "arm's reach ~0.4-0.6 m in front (z -0.4..-0.6); a wall of panels ~1.5-2 m away. rotation is radians [x, y, z] " +
+  "(y turns left/right; something at x>0 faces the user with y<0). 'left' = -x, 'right' = +x, 'closer' = +z, 'farther' = -z."
+
+async function readScene() {
+  const res = await fetch(`${SPATIAL_URL}/api/live/scene`, { signal: AbortSignal.timeout(5000) })
+  const data = await res.json()
+  if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`)
+  return data
+}
+
+const round = (v) => (Array.isArray(v) ? v.map((n) => +Number(n).toFixed(3)) : v)
+function sceneSummary(scene) {
+  const items = (scene.items ?? []).map((i) => ({
+    id: i.id, component: i.component, ...(i.name ? { name: i.name } : {}), position: round(i.position), rotation: round(i.rotation), scale: i.scale,
+    ...(i.parentId ? { parentId: i.parentId } : {}), ...(Object.keys(i.bind ?? {}).length ? { bind: i.bind } : {}), ...(i.props && Object.keys(i.props).length ? { props: i.props } : {}),
+  }))
+  return {
+    name: scene.name, environment: scene.environment, playMode: scene.playMode, selectedId: scene.selectedId,
+    selected: items.find((i) => i.id === scene.selectedId) ?? null, values: scene.values, guide: scene.guide,
+    items, updatedSecondsAgo: Math.round((scene.ageMs ?? 0) / 1000),
+  }
+}
+
+server.registerTool(
+  "get_scene",
+  {
+    title: "Get the live Spatial Studio scene",
+    description:
+      "Read what is in the user's OPEN Spatial Studio right now (laptop or Quest headset): every placed item with id, component, position, rotation, scale, " +
+      "parent, bindings and props, plus what the user has SELECTED, the shared values (e.g. tempo), the environment and Play mode. " +
+      "Call it first whenever the user refers to the scene ('the selected one', 'the pads', 'move it left'). " + SPACE_NOTE,
+    inputSchema: {},
+  },
+  async () => {
+    try {
+      return text(sceneSummary(await readScene()))
+    } catch (err) {
+      return fail(`No live scene: ${err.message}. Ask the user to open ${SPATIAL_URL}/studio (Studio must be open in a browser or the headset).`)
+    }
+  },
+)
+
+server.registerTool(
+  "edit_scene",
+  {
+    title: "Edit the live Spatial Studio scene",
+    description:
+      "Apply edits to the user's OPEN Spatial Studio; they appear live (within ~0.5 s) on the laptop and in the headset, and are logged in the Studio's assistant panel. " +
+      "Ops (JSON objects, applied in order): " +
+      '{op:"add", component, position?, rotation?, scale?, props?, bind?:{prop:sharedName}, name?, parentId?} (component = a ready registry name; returns its new id) | ' +
+      '{op:"update", id, position?, rotation?, scale?, props? (merged), name?} | {op:"bind", id, prop, name} (items sharing a name share a value; "" unbinds) | ' +
+      '{op:"remove", id} | {op:"select", id|null} | {op:"set_value", name, value} (e.g. tempo 140) | {op:"set_environment", value:"env-concert-stage"|null} | ' +
+      '{op:"play", on:true|false} | {op:"insert_template", slug, mode:"guide"|"fill"} (guide = empty translucent slots) | {op:"load_layout", id}. ' +
+      "Use get_scene first to get ids and the selection, and search_components/get_component for names, bindable props and props. " + SPACE_NOTE,
+    inputSchema: { ops: z.array(z.record(z.string(), z.any())).min(1).max(50).describe("Edits to apply, in order") },
+  },
+  async ({ ops }) => {
+    let queued
+    try {
+      const res = await fetch(`${SPATIAL_URL}/api/live`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ops }), signal: AbortSignal.timeout(5000) })
+      queued = await res.json()
+      if (!res.ok) return fail(`Rejected: ${queued.error}`)
+    } catch (err) {
+      return fail(`Couldn't reach ${SPATIAL_URL}/api/live: ${err.message}. Is the Spatial dev server running?`)
+    }
+    // Wait for the open Studio to apply them and report back.
+    for (let i = 0; i < 25; i++) {
+      await new Promise((r) => setTimeout(r, 200))
+      try {
+        const scene = await readScene()
+        if ((scene.lastSeq ?? -1) >= queued.last) {
+          const results = (scene.results ?? []).filter((r) => r.seq >= queued.first && r.seq <= queued.last)
+          return text({ applied: results, scene: sceneSummary(scene) })
+        }
+      } catch {
+        // no scene yet
+      }
+    }
+    return fail(`Queued ${ops.length} edit(s), but no open Studio applied them within 5 s. Ask the user to open ${SPATIAL_URL}/studio; the edits apply when it connects.`)
+  },
+)
+
+server.registerTool(
+  "publish_component",
+  {
+    title: "Publish a new component to the Spatial library",
+    description:
+      "Add a NEW component you wrote to the Spatial library, so it shows up in the Studio library (and can be placed with edit_scene add). " +
+      "Contract: one self-contained React Three Fiber .tsx file, default export, every prop optional, imports only react, three, @react-three/fiber, @react-three/drei, " +
+      "@react-three/uikit(-default/-lucide/-horizon), @react-three/xr, @react-three/handle, tone; no imports from the project; R3F pointer events only (onClick, onPointerDown/Up/Over/Out/Move), " +
+      "never stopPropagation or DOM events; hit targets >= 2 cm; values via value + onChange(v) (list them in bindable so the Studio can wire them); sound via Tone.js globals. " +
+      "Read a similar component with get_component first and match its style. The dev server hot-reloads the library in a few seconds.",
+    inputSchema: {
+      name: z.string().describe("kebab-case id, e.g. theremin"),
+      displayName: z.string().max(60),
+      category: z.string().max(40).describe("e.g. music, controls, objects, containers"),
+      description: z.string().max(300),
+      source: z.string().describe("Full .tsx file contents"),
+      tags: z.array(z.string().max(30)).max(12).optional(),
+      bindable: z.array(z.record(z.string(), z.any())).optional().describe('e.g. [{prop:"value", event:"onChange", type:"number", min:0, max:1, default:0.5}]'),
+      props: z.array(z.record(z.string(), z.any())).optional().describe('Inspector props, e.g. [{name:"color", type:"color", default:"#9FE7D2"}]'),
+      overwrite: z.boolean().default(false).describe("Replace a component YOU published earlier with the same name"),
+    },
+  },
+  async ({ name, displayName, category, description, source, tags = [], bindable = [], props = [], overwrite = false }) => {
+    if (!COMPONENT_NAME.test(name)) return fail(`name must be kebab-case (a-z, 0-9, -), got "${name}"`)
+    const problems = checkComponentSource(source)
+    if (problems.length) return fail(`Not published. Fix: \n- ${problems.join("\n- ")}`)
+    const existing = resolveEntry(loadRegistry(), name)
+    const mine = existing?.author === "Claude (via Spatial MCP)"
+    if (existing && !(overwrite && mine)) return fail(`"${name}" already exists${mine ? " (pass overwrite: true to replace it)" : " and isn't yours; pick another name"}.`)
+    const file = `components/spatial/${name}.tsx`
+    const incoming = path.join(WEB_DIR, "registry", "incoming", "zz-mcp-published.json")
+    let list = []
+    try {
+      list = JSON.parse(await readFile(incoming, "utf8"))
+    } catch {
+      // first publish
+    }
+    const entry = {
+      name, displayName, category, kind: "object", style: "default", tags: [...new Set([...tags, category, "claude"])], aliases: [], description, file,
+      status: "ready", tier: 2, xrOnly: false, deps: importedPackages(source).filter((p) => p === "tone"),
+      author: "Claude (via Spatial MCP)", license: "MIT", price: "free", bindable, props,
+    }
+    try {
+      await writeFile(path.join(WEB_DIR, file), source.startsWith('"use client"') ? source : `"use client"\n\n${source}`)
+      await writeFile(incoming, JSON.stringify(upsertEntry(list, entry), null, 2) + "\n")
+      await new Promise((resolve, reject) =>
+        execFile(process.execPath, ["scripts/merge-registry.mjs"], { cwd: WEB_DIR, timeout: 30_000 }, (err) => (err ? reject(err) : resolve())),
+      )
+    } catch (err) {
+      return fail(`Publishing failed: ${err.message}`)
+    }
+    return text(
+      `Published "${displayName}" (${name}) to web/${file}. It appears in the Studio library after the dev server hot-reloads (a few seconds). ` +
+        `Place it live with edit_scene {op:"add", component:"${name}", position:[x,y,z]}. Not type-checked: if the Studio shows an error, fix the file and publish again with overwrite: true.`,
+    )
   },
 )
 
