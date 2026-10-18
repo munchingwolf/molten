@@ -548,15 +548,20 @@
     ]
   },
   {
-    "name": "knob",
-    "displayName": "Knob / Dial",
-    "category": "controls",
-    "kind": "basic",
-    "style": "default",
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
     "tags": [
       "controls"
     ],
     "aliases": [],
+    "tier": 1,
+    "style": "default",
+    "name": "knob",
+    "displayName": "Knob / Dial",
+    "category": "controls",
+    "kind": "basic",
     "description": "Grab and twist (reused for music later)",
     "file": "components/spatial/knob.tsx",
     "status": "ready",
@@ -571,12 +576,29 @@
         "range": true
       }
     ],
-    "tier": 1,
     "xrOnly": true,
-    "author": "Spatial",
-    "license": "MIT",
-    "price": "free",
-    "deps": []
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Knob"
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "default": 0
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "default": 1
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
   },
   {
     "author": "Spatial",
@@ -610,6 +632,11 @@
         "name": "label",
         "type": "string",
         "default": "Toggle"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
       }
     ]
   },
@@ -2608,7 +2635,15 @@
     "status": "ready",
     "xrOnly": true,
     "bindable": [],
-    "props": []
+    "props": [
+      {
+        "name": "count",
+        "type": "number",
+        "min": 1,
+        "max": 12,
+        "default": 5
+      }
+    ]
   },
   {
     "author": "Spatial",
@@ -2820,27 +2855,50 @@
     "tier": 1
   },
   {
-    "kind": "basic",
-    "style": "default",
-    "aliases": [],
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "status": "ready",
-    "name": "drum-pad",
-    "displayName": "Drum Pad",
-    "category": "music",
+    "deps": [
+      "tone"
+    ],
     "tags": [
       "music",
       "drums"
     ],
+    "aliases": [],
+    "tier": 1,
+    "style": "default",
+    "kind": "basic",
+    "status": "ready",
+    "name": "drum-pad",
+    "displayName": "Drum Pad",
+    "category": "music",
     "description": "Hit it to play a kick, snare, hat or clap",
     "file": "components/spatial/drum-pad.tsx",
     "xrOnly": true,
-    "deps": [
-      "tone"
-    ],
-    "tier": 1
+    "props": [
+      {
+        "name": "sound",
+        "type": "enum",
+        "options": [
+          "kick",
+          "snare",
+          "hat",
+          "clap"
+        ],
+        "default": "kick"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
   },
   {
     "kind": "basic",
@@ -12243,18 +12301,19 @@
     "deps": [],
     "tags": [
       "environment",
-      "photo",
-      "hdri",
       "music",
       "concert",
       "hall",
-      "stage",
-      "indoor"
+      "indoor",
+      "3d",
+      "theater"
     ],
     "aliases": [
       "music hall",
-      "music",
-      "concert"
+      "concert hall",
+      "theater",
+      "orchestra hall",
+      "auditorium"
     ],
     "tier": 1,
     "style": "default",
@@ -12262,9 +12321,9 @@
     "displayName": "Music Hall",
     "category": "environments",
     "kind": "environment",
-    "description": "Ornate concert hall with warm stage lights and rows of seats. A real Poly Haven photo projected onto level ground.",
+    "description": "A grand concert hall in real 3D: proscenium stage with red curtains and orchestra chairs under a warm spotlight, raked velvet seating behind you, a gilded balcony, columns, a coffered ceiling and glowing chandeliers.",
     "file": "components/spatial/env-music-hall.tsx",
-    "status": "soon",
+    "status": "ready",
     "bindable": [],
     "props": [
       {
@@ -13257,98 +13316,30 @@
     "price": "free",
     "deps": [],
     "tags": [
-      "tools",
-      "app",
-      "calendar",
-      "planner",
-      "schedule",
-      "agenda",
-      "events"
+      "code",
+      "editor",
+      "ide",
+      "vscode",
+      "developer",
+      "syntax",
+      "typing",
+      "web-dev",
+      "panel"
     ],
     "aliases": [
-      "calendar app",
-      "planner",
-      "schedule",
-      "agenda",
-      "week view",
-      "month view",
-      "day planner",
-      "events calendar"
+      "ide",
+      "code window",
+      "vs code",
+      "text editor"
     ],
     "tier": 1,
     "style": "default",
-    "name": "calendar-planner",
-    "displayName": "Calendar Planner",
-    "category": "tools",
-    "kind": "section",
-    "description": "Full calendar app with Month and Week views, coloured events, a day agenda and an Add event button that updates every view live.",
-    "file": "components/spatial/calendar-planner.tsx",
+    "name": "code-editor",
+    "displayName": "Code Editor",
+    "category": "dev",
+    "kind": "basic",
+    "description": "IDE window on an aluminium slab: traffic lights, file tabs, line numbers, syntax-coloured TSX, a minimap and a blinking caret. The first file types itself out on mount; tap a tab to switch files.",
     "status": "ready",
-    "xrOnly": false,
-    "bindable": [
-      {
-        "prop": "value",
-        "event": "onChange",
-        "type": "string",
-        "default": ""
-      }
-    ],
-    "props": [
-      {
-        "name": "title",
-        "type": "string",
-        "default": "Calendar"
-      },
-      {
-        "name": "value",
-        "type": "string",
-        "default": ""
-      },
-      {
-        "name": "view",
-        "type": "enum",
-        "options": [
-          "month",
-          "week"
-        ],
-        "default": "month"
-      },
-      {
-        "name": "accent",
-        "type": "color",
-        "default": "#9FE7D2"
-      }
-    ]
-  },
-  {
-    "author": "Spatial",
-    "license": "MIT",
-    "price": "free",
-    "deps": [],
-    "tags": [
-      "tools",
-      "app",
-      "calculator",
-      "math",
-      "keypad"
-    ],
-    "aliases": [
-      "calculator",
-      "calc",
-      "calculator app",
-      "adding machine",
-      "math keypad"
-    ],
-    "tier": 1,
-    "style": "default",
-    "name": "calculator",
-    "displayName": "Calculator",
-    "category": "tools",
-    "kind": "section",
-    "description": "Full calculator with operator precedence, a live expression line, backspace, Error on divide by zero and a history drawer you can reuse results from.",
-    "file": "components/spatial/calculator.tsx",
-    "status": "ready",
-    "xrOnly": false,
     "bindable": [
       {
         "prop": "value",
@@ -13359,21 +13350,1038 @@
     ],
     "props": [
       {
-        "name": "title",
+        "name": "project",
         "type": "string",
-        "default": "Calculator"
-      },
-      {
-        "name": "value",
-        "type": "number",
-        "default": 0,
-        "min": -1000000,
-        "max": 1000000
+        "default": "spatial-app"
       },
       {
         "name": "accent",
         "type": "color",
+        "default": "#7C9CFF"
+      },
+      {
+        "name": "typing",
+        "type": "boolean",
+        "default": true
+      }
+    ],
+    "file": "components/spatial/code-editor.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "browser",
+      "website",
+      "web",
+      "chrome",
+      "address bar",
+      "landing page",
+      "web-dev",
+      "panel",
+      "preview"
+    ],
+    "aliases": [
+      "browser",
+      "web page",
+      "site preview",
+      "chrome window"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "browser-window",
+    "displayName": "Browser Window",
+    "category": "dev",
+    "kind": "basic",
+    "description": "Browser frame on an aluminium slab: tab, https address bar with lock, and a mini landing page whose button and cards lift on hover. The reload button spins and replays the page load.",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "url",
+        "type": "string",
+        "default": "spatial.dev"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Spatial - Build in 3D"
+      },
+      {
+        "name": "theme",
+        "type": "enum",
+        "options": [
+          "light",
+          "dark"
+        ],
+        "default": "dark"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      }
+    ],
+    "file": "components/spatial/browser-window.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "deploy",
+      "ci",
+      "cd",
+      "pipeline",
+      "build",
+      "release",
+      "progress",
+      "web-dev",
+      "devops",
+      "panel"
+    ],
+    "aliases": [
+      "ci pipeline",
+      "deploy button",
+      "build status",
+      "release pipeline"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "deploy-pipeline",
+    "displayName": "Deploy Pipeline",
+    "category": "dev",
+    "kind": "basic",
+    "description": "Install, Build, Test, Deploy stages joined by a progress line. Press Deploy: each stage spins then ticks green, a log line streams underneath and a burst of sparks marks the release.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "default": -1
+      }
+    ],
+    "props": [
+      {
+        "name": "project",
+        "type": "string",
+        "default": "spatial-web"
+      },
+      {
+        "name": "branch",
+        "type": "string",
+        "default": "main"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "min": 0.3,
+        "max": 4,
+        "default": 1.2
+      }
+    ],
+    "file": "components/spatial/deploy-pipeline.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "terminal",
+      "shell",
+      "console",
+      "cli",
+      "command line",
+      "npm",
+      "git",
+      "web-dev",
+      "panel"
+    ],
+    "aliases": [
+      "shell",
+      "console",
+      "command line",
+      "cli",
+      "zsh"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "terminal",
+    "displayName": "Terminal",
+    "category": "dev",
+    "kind": "basic",
+    "description": "Terminal panel on an aluminium slab: a prompt types npm run dev and git push while their output streams in under a blinking block cursor. Pass lines to run your own script.",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "zsh - spatial-web"
+      },
+      {
+        "name": "user",
+        "type": "string",
+        "default": "ek@spatial"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      },
+      {
+        "name": "loop",
+        "type": "boolean",
+        "default": true
+      }
+    ],
+    "file": "components/spatial/terminal.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "git",
+      "commits",
+      "branches",
+      "merge",
+      "history",
+      "version control",
+      "web-dev",
+      "panel"
+    ],
+    "aliases": [
+      "commit graph",
+      "git history",
+      "branch graph",
+      "git log"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "git-graph",
+    "displayName": "Git Graph",
+    "category": "dev",
+    "kind": "basic",
+    "description": "Git history on an aluminium slab: branch lanes as 3D tubes, commit dots and merge curves. A new commit slides in every few seconds; hover a commit to read its message.",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "interval",
+        "type": "number",
+        "min": 0,
+        "max": 10,
+        "default": 3
+      },
+      {
+        "name": "repo",
+        "type": "string",
+        "default": "spatial/web"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      }
+    ],
+    "file": "components/spatial/git-graph.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "api",
+      "monitoring",
+      "latency",
+      "uptime",
+      "status",
+      "endpoints",
+      "dashboard",
+      "saas",
+      "web-dev",
+      "panel"
+    ],
+    "aliases": [
+      "api health",
+      "status page",
+      "endpoint monitor",
+      "latency chart"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "api-monitor",
+    "displayName": "API Monitor",
+    "category": "dev",
+    "kind": "basic",
+    "description": "API health panel on an aluminium slab: endpoints with a live latency sparkline, p50, 200/404/500 status pills and overall uptime. Ticks once a second; tap a row to select it.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "uptime",
+        "type": "number",
+        "min": 90,
+        "max": 100,
+        "default": 99.98
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C9CFF"
+      }
+    ],
+    "file": "components/spatial/api-monitor.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "gaming",
+      "pc",
+      "computer",
+      "tower",
+      "rgb",
+      "fans",
+      "glass",
+      "hardware",
+      "interactive"
+    ],
+    "aliases": [
+      "gaming pc",
+      "pc tower",
+      "computer case",
+      "desktop pc",
+      "rig"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "gaming-rig",
+    "displayName": "Gaming Rig",
+    "category": "gaming",
+    "kind": "basic",
+    "description": "Real-size mid-tower gaming PC: brushed aluminium, a tempered-glass side over a lit GPU, RAM, AIO pump and three spinning RGB fans. Tap to cycle rainbow, pulse and static lighting; the lights flash and the fans spin up.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "mode",
+        "type": "enum",
+        "options": [
+          "rainbow",
+          "pulse",
+          "static"
+        ],
+        "default": "rainbow"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#7C5CFF"
+      }
+    ],
+    "file": "components/spatial/gaming-rig.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "gaming",
+      "controller",
+      "gamepad",
+      "joystick",
+      "buttons",
+      "rumble",
+      "interactive",
+      "hardware"
+    ],
+    "aliases": [
+      "controller",
+      "game controller",
+      "joypad",
+      "pad"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "gamepad",
+    "displayName": "Gamepad",
+    "category": "gaming",
+    "kind": "basic",
+    "description": "Premium game controller at real size: sculpted soft-touch grips, knurled thumbsticks, d-pad, ABXY with coloured glyphs, bumpers, triggers and a light bar. Press a button: it dips and lights, the pad rumbles and onPress fires with the button name.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "onPress",
+        "event": "onPress",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#7C9CFF"
+      },
+      {
+        "name": "shell",
+        "type": "color",
+        "default": "#1d1e23"
+      }
+    ],
+    "file": "components/spatial/gamepad.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "gaming",
+      "leaderboard",
+      "ranking",
+      "scores",
+      "esports",
+      "panel",
+      "ui",
+      "animated"
+    ],
+    "aliases": [
+      "leaderboard",
+      "high scores",
+      "rankings",
+      "scoreboard"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "game-leaderboard",
+    "displayName": "Game Leaderboard",
+    "category": "gaming",
+    "kind": "basic",
+    "description": "Top-8 leaderboard panel with rank medals, avatar initials, names and score bars. Rows slide in one after another; Simulate plays a round and rows glide into their new ranks, flashing with up and down arrows.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "onPress",
+        "event": "onPress",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Leaderboard"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C5CFF"
+      }
+    ],
+    "file": "components/spatial/game-leaderboard.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "gaming",
+      "stats",
+      "kd",
+      "win rate",
+      "esports",
+      "panel",
+      "ui",
+      "animated",
+      "rings"
+    ],
+    "aliases": [
+      "player stats",
+      "kd ratio",
+      "stats panel",
+      "match summary"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "match-stats",
+    "displayName": "Match Stats",
+    "category": "gaming",
+    "kind": "basic",
+    "description": "Match-stats panel: K/D and win rate as segmented radial rings that sweep in, kills, deaths and assists counting up, and a last-10-matches W/L strip. Tap to replay the entrance.",
+    "status": "ready",
+    "bindable": [
+      {
+        "prop": "onPress",
+        "event": "onPress",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "kills",
+        "type": "number",
+        "min": 0,
+        "max": 99,
+        "default": 18
+      },
+      {
+        "name": "deaths",
+        "type": "number",
+        "min": 0,
+        "max": 99,
+        "default": 7
+      },
+      {
+        "name": "assists",
+        "type": "number",
+        "min": 0,
+        "max": 99,
+        "default": 11
+      },
+      {
+        "name": "winRate",
+        "type": "number",
+        "min": 0,
+        "max": 100,
+        "default": 64
+      },
+      {
+        "name": "results",
+        "type": "string",
+        "default": "WWLWWLWLWW"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#7C5CFF"
+      }
+    ],
+    "file": "components/spatial/match-stats.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "portal",
+      "door",
+      "scene",
+      "navigation",
+      "link",
+      "teleport",
+      "game",
+      "level"
+    ],
+    "aliases": [
+      "doorway",
+      "gate",
+      "teleporter",
+      "warp"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "portal",
+    "displayName": "Portal",
+    "category": "navigation",
+    "kind": "basic",
+    "description": "Walk-through doorway to another scene: a swirling energy arch. Tap it and the experience moves to scene `to` (a name, a number, next or back), like a link between pages or levels.",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "to",
+        "type": "string",
+        "default": "next"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Enter"
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "default": "#7C9CFF"
+      }
+    ],
+    "file": "components/spatial/portal.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "link",
+      "button",
+      "scene",
+      "navigation",
+      "page",
+      "site"
+    ],
+    "aliases": [
+      "link",
+      "go to",
+      "next page",
+      "menu button"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "nav-button",
+    "displayName": "Scene Link Button",
+    "category": "navigation",
+    "kind": "basic",
+    "description": "A site-style link between scenes: press it and the experience moves to scene `to` (a name, a number, next or back).",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "to",
+        "type": "string",
+        "default": "next"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Enter"
+      },
+      {
+        "name": "color",
+        "type": "color",
         "default": "#9FE7D2"
+      }
+    ],
+    "file": "components/spatial/nav-button.tsx"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "neon",
+      "synthwave",
+      "night",
+      "3d",
+      "procedural"
+    ],
+    "aliases": [
+      "tron",
+      "neon",
+      "synthwave",
+      "retrowave",
+      "outrun"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-tron",
+    "displayName": "Neon Grid",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Synthwave night built in code: glowing neon grid floor, a striped sun setting between wireframe mountains, neon-edged obelisks and stars.",
+    "file": "components/spatial/env-tron.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "tint",
+        "type": "color",
+        "default": "#00e5ff"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "japan",
+      "dusk",
+      "garden",
+      "3d",
+      "procedural"
+    ],
+    "aliases": [
+      "japan",
+      "japanese garden",
+      "torii",
+      "cherry blossom",
+      "sakura",
+      "zen"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-japan",
+    "displayName": "Torii Garden",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Japanese garden at dusk: a red torii gate at the end of a stepping-stone path, glowing stone lanterns, cherry trees, drifting petals and Mt Fuji on the horizon.",
+    "file": "components/spatial/env-japan.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "tint",
+        "type": "color",
+        "default": "#ffb46b"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "moon",
+      "space",
+      "night",
+      "3d",
+      "procedural"
+    ],
+    "aliases": [
+      "moon",
+      "lunar",
+      "moon surface",
+      "earthrise"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-moon",
+    "displayName": "Moon Base",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Lunar surface: grey cratered plain under a harsh low sun, scattered boulders, a parked lander, a dense starfield and the Earth hanging in a black sky.",
+    "file": "components/spatial/env-moon.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "tint",
+        "type": "color",
+        "default": "#fff4e6"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "volcano",
+      "lava",
+      "night",
+      "3d",
+      "procedural"
+    ],
+    "aliases": [
+      "volcano",
+      "lava",
+      "magma",
+      "eruption",
+      "inferno"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-volcano",
+    "displayName": "Volcano",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Volcanic plain at night: an erupting volcano with lava rivulets and an ash plume, glowing pulsing cracks in the basalt, column clusters and rising embers.",
+    "file": "components/spatial/env-volcano.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "tint",
+        "type": "color",
+        "default": "#ff5a14"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "pastel",
+      "dream",
+      "surreal",
+      "3d",
+      "procedural"
+    ],
+    "aliases": [
+      "dream",
+      "pastel",
+      "dreamy",
+      "cotton candy",
+      "surreal"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-dream",
+    "displayName": "Dreamscape",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Pastel dreamscape: cotton-candy sky, soft rolling hills, a ringed planet and slow-turning floating spheres, rings and crystals.",
+    "file": "components/spatial/env-dream.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "tint",
+        "type": "color",
+        "default": "#fff3e8"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "desert",
+      "egypt",
+      "day",
+      "3d",
+      "procedural"
+    ],
+    "aliases": [
+      "egypt",
+      "pyramids",
+      "giza",
+      "dunes",
+      "oasis"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-egypt",
+    "displayName": "Pyramids",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Egyptian desert: golden dunes, three great pyramids on the horizon, an avenue of gold-tipped obelisks, temple ruins and a palm oasis.",
+    "file": "components/spatial/env-egypt.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "tint",
+        "type": "color",
+        "default": "#fff1d6"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "night",
+      "stars",
+      "meadow",
+      "3d",
+      "procedural"
+    ],
+    "aliases": [
+      "starry",
+      "starry night",
+      "milky way",
+      "fireflies",
+      "night meadow"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-starry",
+    "displayName": "Starry Meadow",
+    "category": "environments",
+    "kind": "environment",
+    "description": "Night meadow: Milky Way and twinkling stars, a bright moon, silhouetted trees on rolling hills, grass and drifting fireflies.",
+    "file": "components/spatial/env-starry.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      },
+      {
+        "name": "tint",
+        "type": "color",
+        "default": "#d8ff6a"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "music",
+      "studio",
+      "indoor",
+      "3d",
+      "recording"
+    ],
+    "aliases": [
+      "recording studio",
+      "studio",
+      "music studio",
+      "control room"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-recording-studio",
+    "displayName": "Recording Studio",
+    "category": "environments",
+    "kind": "environment",
+    "description": "A warm recording room built in real 3D: mixing desk with three screens and studio monitors, acoustic panels and bass traps, record shelves, a lounge corner and glowing ceiling strips. The 3 m in front of you stays clear for your build.",
+    "file": "components/spatial/env-recording-studio.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "environment",
+      "music",
+      "stage",
+      "outdoor",
+      "park",
+      "nature",
+      "3d"
+    ],
+    "aliases": [
+      "park stage",
+      "band shell",
+      "outdoor stage",
+      "park concert"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "env-park-stage",
+    "displayName": "Park Stage",
+    "category": "environments",
+    "kind": "environment",
+    "description": "An outdoor concert in a park: band shell and stage 10 m ahead with PA stacks and a light truss, low-poly trees, bushes and flowers all around, log benches, rolling hills and a gradient sky with drifting clouds.",
+    "file": "components/spatial/env-park-stage.tsx",
+    "status": "ready",
+    "bindable": [],
+    "props": [
+      {
+        "name": "intensity",
+        "type": "number",
+        "min": 0,
+        "max": 2,
+        "default": 1
       }
     ]
   },
@@ -13444,60 +14452,57 @@
     "price": "free",
     "deps": [],
     "tags": [
-      "app",
-      "dashboard",
-      "smart home",
-      "lights",
-      "thermostat",
-      "scenes",
-      "energy"
+      "navigation",
+      "navbar",
+      "header",
+      "menu",
+      "dropdown",
+      "website",
+      "app"
     ],
     "aliases": [
-      "home control",
-      "smart home",
-      "iot dashboard",
-      "home app",
-      "home automation",
-      "thermostat panel",
-      "lighting control"
+      "navbar",
+      "nav bar",
+      "menu bar",
+      "top bar",
+      "header",
+      "site navigation",
+      "mega menu",
+      "app bar"
     ],
     "tier": 1,
     "style": "default",
-    "name": "smart-home-dashboard",
-    "displayName": "Smart Home Dashboard",
-    "category": "dashboards",
+    "name": "navigation-menu",
+    "displayName": "Navigation Menu",
+    "category": "navigation",
     "kind": "section",
-    "description": "Complete home control panel: room tabs switch light tiles with a brightness slider, a draggable thermostat dial, a speaker, scenes and a live energy chart.",
-    "file": "components/spatial/smart-home-dashboard.tsx",
+    "description": "Website top bar with a team switcher, nav links with a springy active pill, a Products mega menu, search, notifications and a user menu; tap a trigger to open its dropdown and tap again or pick an item to close it.",
     "status": "ready",
-    "xrOnly": false,
     "bindable": [
       {
         "prop": "value",
         "event": "onChange",
         "type": "number",
+        "min": 0,
+        "max": 3,
         "default": 0
       }
     ],
     "props": [
       {
-        "name": "title",
-        "type": "string",
-        "default": "Maple House"
-      },
-      {
         "name": "value",
         "type": "number",
-        "default": 0,
         "min": 0,
-        "max": 3
+        "max": 3,
+        "default": 0
       },
       {
         "name": "accent",
         "type": "color",
         "default": "#9FE7D2"
       }
-    ]
+    ],
+    "file": "components/spatial/navigation-menu.tsx"
   },
   {
     "author": "Spatial",
@@ -13506,56 +14511,149 @@
     "deps": [],
     "tags": [
       "app",
-      "launcher",
-      "home screen",
-      "grid",
-      "dock",
-      "search"
+      "music",
+      "player",
+      "media",
+      "dashboard",
+      "albums",
+      "podcasts",
+      "library"
     ],
     "aliases": [
-      "home screen",
-      "app grid",
-      "launcher",
-      "start menu",
-      "app library",
-      "quest home",
-      "springboard"
+      "spotify",
+      "apple music",
+      "music player",
+      "music library",
+      "media app",
+      "album browser",
+      "jukebox",
+      "podcast player"
     ],
     "tier": 1,
     "style": "default",
-    "name": "app-launcher",
-    "displayName": "App Launcher",
-    "category": "navigation",
+    "name": "music-app",
+    "displayName": "Music App",
+    "category": "dashboards",
     "kind": "section",
-    "description": "Quest/visionOS-style home launcher with a live status bar, search, category chips, a paged grid of app tiles that open with a toast, and a pinned dock.",
-    "file": "components/spatial/app-launcher.tsx",
-    "status": "ready",
-    "xrOnly": false,
+    "description": "A full music app panel with a sidebar, Listen Now and Made for You album shelves, a Podcasts tab and a now-playing bar; tap any cover to play it.",
     "bindable": [
       {
         "prop": "value",
         "event": "onChange",
-        "type": "string",
-        "default": ""
+        "type": "number",
+        "min": 0,
+        "max": 14,
+        "default": 0
       }
     ],
     "props": [
       {
         "name": "title",
         "type": "string",
-        "default": "Home"
+        "default": "Listen Now"
       },
       {
         "name": "value",
-        "type": "string",
-        "default": ""
+        "type": "number",
+        "min": 0,
+        "max": 14,
+        "default": 0
+      },
+      {
+        "name": "playing",
+        "type": "boolean",
+        "default": false
       },
       {
         "name": "accent",
         "type": "color",
         "default": "#9FE7D2"
       }
-    ]
+    ],
+    "file": "components/spatial/music-app.tsx",
+    "status": "ready"
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [
+      "tone"
+    ],
+    "tags": [
+      "music",
+      "tool",
+      "tempo",
+      "bpm",
+      "metronome",
+      "rhythm",
+      "practice",
+      "sound",
+      "pendulum"
+    ],
+    "aliases": [
+      "click track",
+      "tempo",
+      "bpm counter",
+      "tap tempo",
+      "beat keeper",
+      "time keeper",
+      "pendulum"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "metronome",
+    "displayName": "Metronome",
+    "category": "tools",
+    "kind": "section",
+    "description": "A sample-accurate metronome with an accented downbeat, beat lights and a swinging pendulum, plus tap tempo, a tempo strip and 2/4, 3/4, 4/4 and 6/8.",
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "min": 40,
+        "max": 240,
+        "default": 120
+      }
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "min": 40,
+        "max": 240,
+        "default": 120
+      },
+      {
+        "name": "playing",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "timeSignature",
+        "type": "enum",
+        "options": [
+          "2/4",
+          "3/4",
+          "4/4",
+          "6/8"
+        ],
+        "default": "4/4"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Metronome"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ],
+    "file": "components/spatial/metronome.tsx",
+    "status": "ready"
   },
   {
     "author": "Spatial",
@@ -13759,215 +14857,6 @@
     "author": "Spatial",
     "license": "MIT",
     "price": "free",
-    "deps": [],
-    "tags": [
-      "app",
-      "music",
-      "player",
-      "media",
-      "dashboard",
-      "albums",
-      "podcasts",
-      "library"
-    ],
-    "aliases": [
-      "spotify",
-      "apple music",
-      "music player",
-      "music library",
-      "media app",
-      "album browser",
-      "jukebox",
-      "podcast player"
-    ],
-    "tier": 1,
-    "style": "default",
-    "name": "music-app",
-    "displayName": "Music App",
-    "category": "dashboards",
-    "kind": "section",
-    "description": "A full music app panel with a sidebar, Listen Now and Made for You album shelves, a Podcasts tab and a now-playing bar; tap any cover to play it.",
-    "bindable": [
-      {
-        "prop": "value",
-        "event": "onChange",
-        "type": "number",
-        "min": 0,
-        "max": 14,
-        "default": 0
-      }
-    ],
-    "props": [
-      {
-        "name": "title",
-        "type": "string",
-        "default": "Listen Now"
-      },
-      {
-        "name": "value",
-        "type": "number",
-        "min": 0,
-        "max": 14,
-        "default": 0
-      },
-      {
-        "name": "playing",
-        "type": "boolean",
-        "default": false
-      },
-      {
-        "name": "accent",
-        "type": "color",
-        "default": "#9FE7D2"
-      }
-    ],
-    "file": "components/spatial/music-app.tsx",
-    "status": "ready"
-  },
-  {
-    "author": "Spatial",
-    "license": "MIT",
-    "price": "free",
-    "deps": [
-      "tone"
-    ],
-    "tags": [
-      "music",
-      "tool",
-      "tempo",
-      "bpm",
-      "metronome",
-      "rhythm",
-      "practice",
-      "sound",
-      "pendulum"
-    ],
-    "aliases": [
-      "click track",
-      "tempo",
-      "bpm counter",
-      "tap tempo",
-      "beat keeper",
-      "time keeper",
-      "pendulum"
-    ],
-    "tier": 1,
-    "style": "default",
-    "name": "metronome",
-    "displayName": "Metronome",
-    "category": "tools",
-    "kind": "section",
-    "description": "A sample-accurate metronome with an accented downbeat, beat lights and a swinging pendulum, plus tap tempo, a tempo strip and 2/4, 3/4, 4/4 and 6/8.",
-    "bindable": [
-      {
-        "prop": "value",
-        "event": "onChange",
-        "type": "number",
-        "min": 40,
-        "max": 240,
-        "default": 120
-      }
-    ],
-    "props": [
-      {
-        "name": "value",
-        "type": "number",
-        "min": 40,
-        "max": 240,
-        "default": 120
-      },
-      {
-        "name": "playing",
-        "type": "boolean",
-        "default": false
-      },
-      {
-        "name": "timeSignature",
-        "type": "enum",
-        "options": [
-          "2/4",
-          "3/4",
-          "4/4",
-          "6/8"
-        ],
-        "default": "4/4"
-      },
-      {
-        "name": "title",
-        "type": "string",
-        "default": "Metronome"
-      },
-      {
-        "name": "accent",
-        "type": "color",
-        "default": "#9FE7D2"
-      }
-    ],
-    "file": "components/spatial/metronome.tsx",
-    "status": "ready"
-  },
-  {
-    "author": "Spatial",
-    "license": "MIT",
-    "price": "free",
-    "deps": [],
-    "tags": [
-      "navigation",
-      "navbar",
-      "header",
-      "menu",
-      "dropdown",
-      "website",
-      "app"
-    ],
-    "aliases": [
-      "navbar",
-      "nav bar",
-      "menu bar",
-      "top bar",
-      "header",
-      "site navigation",
-      "mega menu",
-      "app bar"
-    ],
-    "tier": 1,
-    "style": "default",
-    "name": "navigation-menu",
-    "displayName": "Navigation Menu",
-    "category": "navigation",
-    "kind": "section",
-    "description": "Website top bar with a team switcher, nav links with a springy active pill, a Products mega menu, search, notifications and a user menu; tap a trigger to open its dropdown and tap again or pick an item to close it.",
-    "status": "ready",
-    "bindable": [
-      {
-        "prop": "value",
-        "event": "onChange",
-        "type": "number",
-        "min": 0,
-        "max": 3,
-        "default": 0
-      }
-    ],
-    "props": [
-      {
-        "name": "value",
-        "type": "number",
-        "min": 0,
-        "max": 3,
-        "default": 0
-      },
-      {
-        "name": "accent",
-        "type": "color",
-        "default": "#9FE7D2"
-      }
-    ],
-    "file": "components/spatial/navigation-menu.tsx"
-  },
-  {
-    "author": "Spatial",
-    "license": "MIT",
-    "price": "free",
     "deps": [
       "tone"
     ],
@@ -14043,6 +14932,251 @@
         "min": 1,
         "max": 60,
         "default": 15
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "tools",
+      "app",
+      "calendar",
+      "planner",
+      "schedule",
+      "agenda",
+      "events"
+    ],
+    "aliases": [
+      "calendar app",
+      "planner",
+      "schedule",
+      "agenda",
+      "week view",
+      "month view",
+      "day planner",
+      "events calendar"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "calendar-planner",
+    "displayName": "Calendar Planner",
+    "category": "tools",
+    "kind": "section",
+    "description": "Full calendar app with Month and Week views, coloured events, a day agenda and an Add event button that updates every view live.",
+    "file": "components/spatial/calendar-planner.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Calendar"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "name": "view",
+        "type": "enum",
+        "options": [
+          "month",
+          "week"
+        ],
+        "default": "month"
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "tools",
+      "app",
+      "calculator",
+      "math",
+      "keypad"
+    ],
+    "aliases": [
+      "calculator",
+      "calc",
+      "calculator app",
+      "adding machine",
+      "math keypad"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "calculator",
+    "displayName": "Calculator",
+    "category": "tools",
+    "kind": "section",
+    "description": "Full calculator with operator precedence, a live expression line, backspace, Error on divide by zero and a history drawer you can reuse results from.",
+    "file": "components/spatial/calculator.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Calculator"
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "default": 0,
+        "min": -1000000,
+        "max": 1000000
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "app",
+      "dashboard",
+      "smart home",
+      "lights",
+      "thermostat",
+      "scenes",
+      "energy"
+    ],
+    "aliases": [
+      "home control",
+      "smart home",
+      "iot dashboard",
+      "home app",
+      "home automation",
+      "thermostat panel",
+      "lighting control"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "smart-home-dashboard",
+    "displayName": "Smart Home Dashboard",
+    "category": "dashboards",
+    "kind": "section",
+    "description": "Complete home control panel: room tabs switch light tiles with a brightness slider, a draggable thermostat dial, a speaker, scenes and a live energy chart.",
+    "file": "components/spatial/smart-home-dashboard.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "number",
+        "default": 0
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Maple House"
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "default": 0,
+        "min": 0,
+        "max": 3
+      },
+      {
+        "name": "accent",
+        "type": "color",
+        "default": "#9FE7D2"
+      }
+    ]
+  },
+  {
+    "author": "Spatial",
+    "license": "MIT",
+    "price": "free",
+    "deps": [],
+    "tags": [
+      "app",
+      "launcher",
+      "home screen",
+      "grid",
+      "dock",
+      "search"
+    ],
+    "aliases": [
+      "home screen",
+      "app grid",
+      "launcher",
+      "start menu",
+      "app library",
+      "quest home",
+      "springboard"
+    ],
+    "tier": 1,
+    "style": "default",
+    "name": "app-launcher",
+    "displayName": "App Launcher",
+    "category": "navigation",
+    "kind": "section",
+    "description": "Quest/visionOS-style home launcher with a live status bar, search, category chips, a paged grid of app tiles that open with a toast, and a pinned dock.",
+    "file": "components/spatial/app-launcher.tsx",
+    "status": "ready",
+    "xrOnly": false,
+    "bindable": [
+      {
+        "prop": "value",
+        "event": "onChange",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "Home"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "default": ""
       },
       {
         "name": "accent",

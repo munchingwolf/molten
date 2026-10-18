@@ -53,7 +53,7 @@ export default function KineticTitle({
 
   const u = useMemo(
     () => ({
-      uMap: { value: null as THREE.Texture | null },
+      uMap: { value: title.texture as THREE.Texture },
       uTime: { value: 0 },
       uLayers: { value: 1 },
       uDepth: { value: 0.0035 },
@@ -65,6 +65,7 @@ export default function KineticTitle({
       uA: { value: new THREE.Color() },
       uB: { value: new THREE.Color() },
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   )
   const glow = useMemo(() => ({ uA: { value: new THREE.Color() }, uTime: { value: 0 }, uAlpha: { value: 0.3 } }), [])

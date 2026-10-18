@@ -18,13 +18,13 @@ import {
 export type MascotMood = "idle" | "listening" | "thinking" | "talking" | "happy"
 
 type Props = {
-  /** What Pix is doing. The assistant store's `status` ("idle" | "listening" | "thinking") passes straight in. */
+  /** What Stark is doing. The assistant store's `status` ("idle" | "listening" | "thinking") passes straight in. */
   mood?: MascotMood
   /** Body colour. Accents stay warm. */
   color?: string
   /** Scale multiplier. 1 ≈ 13.5 cm tall. */
   size?: number
-  /** Fired when someone pokes, pinches or clicks Pix. */
+  /** Fired when someone pokes, pinches or clicks Stark. */
   onPress?: () => void
 }
 
@@ -123,7 +123,7 @@ const scaled = (m: Matrix4, x: number, y: number, z: number) => m.multiply(tmp.m
 const turned = (m: Matrix4, x: number, y: number, z: number) => m.multiply(tmp.makeRotationFromEuler(e.set(x, y, z)))
 
 /**
- * Pix, a pocket-sized voxel buddy for your assistant. Hovers, blinks, looks at you, perks its ears when listening,
+ * Stark, a pocket-sized voxel buddy for your assistant. Hovers, blinks, looks at you, perks its ears when listening,
  * orbits dots when thinking, chatters when talking, hops with confetti when happy, and giggles when poked.
  * ~300 voxels in one InstancedMesh, no shadows: cheap enough for Quest.
  */
@@ -268,7 +268,7 @@ export default function Mascot({ mood = "idle", color = "#9FE7D2", size = 1, onP
       const v = VOX[i]
       if (v.part < PARTS) out.multiplyMatrices(P[v.part], LOCAL[i])
       else if (v.part === RING) {
-        // Pulsing ring of voxels under Pix while it listens.
+        // Pulsing ring of voxels under Stark while it listens.
         const a = (ri / 16) * Math.PI * 2 + t * 0.6 * mo
         const r = 6.2 + 0.4 * Math.sin(t * 3) * mo
         const sc = s.ring * (0.45 + 0.3 * (0.5 + 0.5 * Math.sin(t * 6 * mo - ri * 0.8)))
@@ -281,7 +281,7 @@ export default function Mascot({ mood = "idle", color = "#9FE7D2", size = 1, onP
         out.compose(v3.set(Math.cos(a) * 5.6, 5.3 + bob + hop + 0.5 * Math.sin(t * 3 + oi) * mo, Math.sin(a) * 5.6), q.setFromEuler(e.set(t, a, 0)), s3.setScalar(sc))
         oi++
       } else {
-        // Six confetti cubes, thrown up when Pix turns happy.
+        // Six confetti cubes, thrown up when Stark turns happy.
         const p = sim.confetti[ci]
         const life = ha < 1.4 && mo ? 1 - MathUtils.smoothstep(ha, 0.9, 1.4) : 0
         out.compose(

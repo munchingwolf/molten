@@ -2,11 +2,13 @@
 
 import { useEffect, useMemo, useRef, useState } from "react"
 import * as Tone from "tone"
+import { CanvasTexture, SRGBColorSpace, type Group, type MeshBasicMaterial } from "three"
+import { useFrame } from "@react-three/fiber"
 import { Container, Text } from "@react-three/uikit"
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js"
 
 type Sound = "kick" | "snare" | "hat" | "clap"
-type Props = { sound?: Sound; onPress?: () => void; label?: string }
+type Props = { sound?: Sound; onPress?: () => void; label?: string; accent?: string }
 
 function makeVoice(sound: Sound): { hit: (time: number) => void; dispose: () => void } {
   if (sound === "snare") {
@@ -31,16 +33,43 @@ function makeVoice(sound: Sound): { hit: (time: number) => void; dispose: () => 
   return { hit: (t) => kick.triggerAttackRelease("C1", "8n", t), dispose: () => kick.dispose() }
 }
 
-/** 12 cm drum pad. Hit it (poke, pinch or click) to play a kick, snare, hat or clap. */
-export default function DrumPad({ sound = "kick", onPress, label }: Props) {
+let rubber: CanvasTexture | undefined
+// Soft-touch rubber matcap: a broad, dull highlight. Shades the same with or without scene lights.
+function getRubber() {
+  if (rubber) return rubber
+  const c = document.createElement("canvas")
+  c.width = c.height = 128
+  const g = c.getContext("2d")!
+  const grad = g.createRadialGradient(56, 44, 4, 64, 64, 84)
+  grad.addColorStop(0, "#c9ccd2")
+  grad.addColorStop(0.5, "#8d929b")
+  grad.addColorStop(1, "#33363c")
+  g.fillStyle = grad
+  g.fillRect(0, 0, 128, 128)
+  rubber = new CanvasTexture(c)
+  rubber.colorSpace = SRGBColorSpace
+  return rubber
+}
+
+/** 12 cm soft-touch drum pad. Hit it (poke, pinch or click) to play a kick, snare, hat or clap: the rubber squashes, glows and springs back. */
+export default function DrumPad({ sound = "kick", onPress, label, accent = "#9FE7D2" }: Props) {
   const [hover, setHover] = useState(false)
   const [down, setDown] = useState(false)
-  const [flash, setFlash] = useState(false)
   const voice = useRef<ReturnType<typeof makeVoice> | null>(null)
-  const timer = useRef<ReturnType<typeof setTimeout>>(undefined)
-  const geometry = useMemo(() => new RoundedBoxGeometry(0.12, 0.12, 0.016, 4, 0.012), [])
+  const geometry = useMemo(() => new RoundedBoxGeometry(0.12, 0.12, 0.016, 5, 0.008), [])
+  const housing = useMemo(() => new RoundedBoxGeometry(0.136, 0.136, 0.012, 4, 0.006), [])
+  const mc = useMemo(getRubber, [])
+  const pad = useRef<Group>(null)
+  const glow = useRef<MeshBasicMaterial>(null)
+  const s = useRef({ z: 0, v: 0, glow: 0 })
 
-  useEffect(() => () => geometry.dispose(), [geometry])
+  useEffect(
+    () => () => {
+      geometry.dispose()
+      housing.dispose()
+    },
+    [geometry, housing],
+  )
   useEffect(() => {
     const v = makeVoice(sound)
     voice.current = v
@@ -50,14 +79,30 @@ export default function DrumPad({ sound = "kick", onPress, label }: Props) {
     }
   }, [sound])
 
+  // Squash spring (z = 0 rest, 1 fully squashed) and a glow that decays after each hit.
+  useFrame((state, delta) => {
+    const g = pad.current
+    if (!g) return
+    const dt = Math.min(delta, 1 / 30)
+    const k = s.current
+    const target = down ? 1 : 0
+    k.v += ((target - k.z) * 700 - k.v * 22) * dt
+    k.z += k.v * dt
+    const q = Math.max(-0.3, Math.min(1.2, k.z))
+    g.scale.set(1 + q * 0.025, 1 + q * 0.025, 1 - q * 0.45)
+    g.position.z = -q * 0.004 + (hover && !down ? 0.0015 : 0)
+    k.glow *= Math.exp(-dt * (down ? 1.5 : 6))
+    if (glow.current) glow.current.opacity = 0.3 + k.glow * 0.7 + (hover ? 0.15 : 0)
+    if (Math.abs(target - k.z) > 1e-4 || Math.abs(k.v) > 1e-3 || k.glow > 1e-3) state.invalidate()
+  })
+
   const hit = () => {
     void Tone.start() // browsers stay silent until a user gesture resumes audio
     voice.current?.hit(Tone.now())
     onPress?.()
     setDown(true)
-    setFlash(true)
-    clearTimeout(timer.current)
-    timer.current = setTimeout(() => setFlash(false), 120)
+    s.current.glow = 1
+    s.current.v += 8 // a sharp strike, not a slow press
   }
   const up = () => setDown(false)
 
@@ -78,13 +123,23 @@ export default function DrumPad({ sound = "kick", onPress, label }: Props) {
       >
         <boxGeometry args={[0.12, 0.12, 0.028]} />
       </mesh>
-      <mesh geometry={geometry} position={[0, 0, down ? -0.005 : 0]}>
-        <meshStandardMaterial color={down || flash ? "#1FB54A" : hover ? "#3A3B35" : "#2A2B26"} roughness={0.6} />
+      <mesh geometry={housing} position={[0, 0, -0.012]}>
+        <meshMatcapMaterial matcap={mc} color="#3E434E" />
       </mesh>
-      <group position={[0, -0.08, 0]}>
-        <Container pixelSize={0.002} flexDirection="column" alignItems="center">
-          <Text fontSize={14} color="#ECE9DF">
-            {label ?? sound}
+      {/* glow halo around the pad edge */}
+      <mesh position={[0, 0, -0.0055]}>
+        <planeGeometry args={[0.13, 0.13]} />
+        <meshBasicMaterial ref={glow} color={accent} transparent opacity={0.3} toneMapped={false} />
+      </mesh>
+      <group ref={pad}>
+        <mesh geometry={geometry}>
+          <meshMatcapMaterial matcap={mc} color={hover ? "#8A909C" : "#737985"} />
+        </mesh>
+      </group>
+      <group position={[0, -0.09, 0]}>
+        <Container pixelSize={0.002} width={110} alignItems="center" justifyContent="center">
+          <Text fontSize={12} fontWeight="semi-bold" color="#EEF0F4">
+            {(label || sound).toUpperCase()}
           </Text>
         </Container>
       </group>

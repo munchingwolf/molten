@@ -7,6 +7,7 @@ const MODEL = process.env.OLLAMA_MODEL ?? "qwen2.5:7b"
 const SYSTEM = `You classify ONE spoken command for a 3D scene editor into edit operations.
 Reply with JSON only: {"ops":[...]}. Each op is an object with "op" set to one of: ${OP_NAMES.join(", ")}.
 Optional fields: "target" (an item id from the layout, or "selected"), "component" (a registry name), "prop", "value", "amount", "direction" (left|right|up|down|closer|farther).
+"show" brings an item in front of the user ("show me the drum pad", "display it"). "it"/"that" means the selected item.
 Only list operations the user explicitly asked for. Never add extra ones. If the command asks for nothing you can do, reply {"ops":[]}.`
 
 const isObj = (v: unknown): v is Record<string, unknown> => !!v && typeof v === "object" && !Array.isArray(v)

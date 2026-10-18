@@ -1,6 +1,10 @@
 import { create } from "zustand"
-import { applyOps, extractOps, type Op, type RegEntry, type Viewer } from "./assist-ops"
+import { stripName } from "./wake"
+import { applyOps, extractOps, ON_FLOOR, type Op, type RegEntry, type Viewer } from "./assist-ops"
+import { liveFilled } from "./guides"
+import { currentViewer } from "./viewer"
 import { registry } from "./registry"
+import { slotCommand } from "./slot-commands"
 import { useStudio } from "./studio-store"
 
 // Assistant panel state (desktop + VR). Edits go to /api/assist (H's voice route) and are applied with
@@ -36,10 +40,12 @@ function label(o: Op) {
     case "add_component": return `add_component ${o.component}`
     case "scale": return `scale ×${o.amount} ${name}`
     case "rotate": return `rotate ${o.amount}° ${name}`
-    case "move": return `move ${o.direction} ${Math.round((o.amount ?? 0.1) * 100)} cm ${name}`
+    case "move": return `move ${o.direction}${o.amount === undefined ? "" : ` ${Math.round(o.amount * 100)} cm`} ${name}`
+    case "show": return `show ${name} in front of you`
     case "set_prop": return `set ${o.prop} = ${String(o.value)} ${name}`
     case "swap_style": return `swap_style ${name} → ${o.component}`
     case "set_environment": return `environment ${String(o.value)}`
+    case "go_scene": return `scene ${String(o.value)}`
     default: return `${o.op} ${name}`
   }
 }
@@ -49,6 +55,12 @@ const REGISTRY: RegEntry[] = registry.map((e) => ({
   name: e.name, displayName: e.displayName, aliases: e.aliases, category: e.category, style: e.style, status: e.status,
   props: (e as { props?: RegEntry["props"] }).props,
 }))
+const namesOf = (component: string) => {
+  const e = REGISTRY.find((r) => r.name === component)
+  return e ? [e.displayName, ...(e.aliases ?? [])] : []
+}
+
+const isFloor = (c: string) => ON_FLOOR.has(REGISTRY.find((e) => e.name === c)?.category ?? "")
 
 /** What the server-side gate needs: the layout, the selection and the registry. */
 function context(text: string) {
@@ -110,14 +122,17 @@ export const useAssistant = create<AssistantState>((set, get) => {
   }
 
   return {
-    messages: [{ role: "assistant", text: "Hi! Ask me to change the scene (“add a knob”, “make it bigger and blue”) or ask how something works.", at: 0 }],
+    messages: [{ role: "assistant", text: "Hi, I'm Stark. Start with my name: \"Stark, add a knob\", \"Stark, make it bigger and blue\", \"Stark, go to the next scene\". Or ask how something works.", at: 0 }],
     status: "idle",
     setStatus: (status) => set({ status }),
 
     send: async (raw, viewer) => {
-      const text = raw.trim().slice(0, 500)
-      if (!text || get().status === "thinking") return
-      say({ role: "user", text })
+      const shown = raw.trim().slice(0, 500)
+      if (!shown || get().status === "thinking") return
+      say({ role: "user", text: shown })
+      // "Stark, add a knob": the name is how you address the assistant, not part of the command.
+      const { said, rest: text } = stripName(shown)
+      if (!text) return void say({ role: "assistant", text: said ? "Yes? Tell me what to build." : "Didn't catch that." })
 
       // Undo/redo are store actions, not model ops (the op grammar deliberately ignores "undo").
       const h = HISTORY.exec(text)?.[1].toLowerCase() as "undo" | "redo" | undefined
@@ -126,6 +141,15 @@ export const useAssistant = create<AssistantState>((set, get) => {
         const ok = (h === "undo" ? past : future).length > 0
         useStudio.getState()[h]()
         say({ role: "assistant", text: ok ? "Done." : `Nothing to ${h}.`, ops: [{ label: h, ok }] })
+        return
+      }
+
+      // With a template open, "add the drums" / "next" / "fill the rest" fill its slots exactly like a drag (snapped, wired).
+      const { guide, items } = useStudio.getState()
+      const fill = guide && slotCommand(text, guide.slots, liveFilled(guide.filled, items), namesOf)
+      if (fill) {
+        const ops = fill.slotIds.map((id) => ({ label: `place ${guide.slots.find((s) => s.id === id)?.name ?? id}`, ok: !!useStudio.getState().placeSlot(id) }))
+        say({ role: "assistant", text: ops.every((o) => o.ok) ? fill.reply : "Couldn't place that. Is the template still open?", ops })
         return
       }
 
@@ -141,9 +165,11 @@ export const useAssistant = create<AssistantState>((set, get) => {
           say({ role: "assistant", text: await ask(text) })
           return
         }
+        // Typed/laptop voice has no pose of its own: use the live camera (orbit camera, or the head in XR).
+        const here = viewer ?? currentViewer()
         const lines = ops.map((op) => {
           const l = label(op)
-          return { label: l, ok: applyOps([op], useStudio.getState, viewer) > 0 }
+          return { label: l, ok: applyOps([op], useStudio.getState, here, isFloor) > 0 }
         })
         const done = lines.filter((l) => l.ok).length
         say({

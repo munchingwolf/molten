@@ -13,6 +13,44 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 5:50: Danny: **Enter VR/AR works on Quest again + Stark HUD component wheel**
+- `xr-controls.tsx`: Enter AR/VR is synchronous again (awaiting the mic check first used up the click activation, so the Quest refused the session). Mic is now primed on the first tap anywhere on /studio, once, non-blocking.
+- `vr-wheel.tsx`: holographic HUD (cyan tick dial + readouts, counter-rotating rings, amber lock-on on the bay you face, chamfered tab arc, boot-up / power-down), every ready item per category with spin-to-scroll (drag along ring or thumbstick, virtualised to 13 live minis), poke = add, pull out = place via drop-target, CLOSE tab + floating WHEEL glyph to reopen. Crash guards: per-mini useFrame try/catch, SafeBoundary tile fallback, Suspense per Text, `intersectChildren={false}` on minis; audio/transport/media/heavy-pass components shown as tiles (still addable). Tested in an emulated Quest session (controller ray); hand poke + frame rate need a real Quest.
+- FYI Evan: the IWER DevUI throws `material.onBuild is not a function` every frame on localhost (its own three 0.165), so the emulator never renders.
+
+### 5:50: Evan (session ek-c7): **template voice commands: drag OR tell Stark, same slots**. Pull after the recording to get it
+- With a guided template open, "Stark, add the drums" / "set up the rig" / "build the track wall" / "next" / "fill the rest" call `placeSlot` (same path as dragging onto a slot: snapped, wired, one undo step each). Plain word matching in `lib/slot-commands.ts` (+7 tests), no model; edits and "next scene" fall through to the normal assistant.
+- **Pre-instructions live in the template:** each slot's `say` list (Night Set now has them; a phrase on several slots = a group, e.g. "the rig"). A container slot (track wall) brings its lanes.
+- DEMO.md video row 0:05–0:25 now mixes drag + "Stark, add the drums". **Voice on the Quest still needs the real `sk_…` ElevenLabs key in `web/.env.local`** (current value starts `e4b`, STT 400s); typing in the assistant panel works without it.
+### 5:35: Danny: **fix Vercel build** (497dada failed: my 5:15 registry regen picked up an uncommitted `env-music-hall.tsx`) + **3 real-3D music scenes**: `env-recording-studio` (mixing desk, panels, sofa, shelves), `env-park-stage` (band shell, PA, ~80 trees), `env-music-hall` (stage, curtains, ~600 seats, balcony). Kenney CC0 furniture + nature GLBs in `public/models/kenney/` (0.55 MB), materials made matte (Kenney GLBs are fully metallic = black without an env map). Registry: `incoming/scenes3d.json`.
+
+### 5:38: Evan (session ek-97): **the mascot/assistant is now "Stark"**: address it by name
+- "Stark, add a knob" / "hey Stark, next scene" / "OK Stark, make it blue": `lib/wake.ts` strips the name (also Starke/Starks; NOT "start") before parsing, typed or spoken (assistant-store `send`). Just "Stark" replies "Yes?". The transcript still shows what you said.
+- Renamed Pix to Stark in the mascot (2D + voxel), the laptop panel title, the VR panel and the input hint; new greeting tells people to start with the name. Tests: `lib/wake.test.ts`.
+### 5:25: Danny (assistant agent): **assistant places things where you are looking**
+- `lib/assist-ops.ts`: new `show` op ("show me / find X" selects it and brings it 0.75 m in front of you); "it/that" = selection, only a full component name overrides it ("display" no longer grabs tempo-display); "just added / last one" = newest item; `spotInFront` (0.75 m ahead, eye-0.2 m, faces you, floor categories at y=0, slides sideways off neighbours), `moveTarget` (closer = 40% of the gap, min 0.5 m; left/right 0.25 m, up/down 0.15 m relative to gaze), `worldOf` through frames. Merged with Evan's `go_scene`; 26/26 assist tests pass.
+- New `lib/viewer.ts` (`currentViewer()`: laptop orbit camera or the XR head), registered by `vr-assistant.tsx`; `assistant-store.ts` `send()` uses it for typed, laptop voice and VR voice. `api/assist/route.ts`: one prompt line about `show`/"it".
+- Not fixed: templates inserting their room high off the floor (studio-app template insert). auto-layout.test.ts has 1 pre-existing failure (frame.tsx vs its layoutFrame copy), unrelated.
+
+### 5:15: Danny: **7 code-built worlds** (no images, no network): `env-tron` Neon Grid (synthwave sun, neon obelisks), `env-japan` Torii Garden, `env-moon` Moon Base (shader Earth), `env-volcano`, `env-dream` Dreamscape, `env-egypt` Pyramids, `env-starry` Starry Meadow. ~12-20 draw calls each, rays off, flat 4 m around you. Registry: `incoming/procedural-envs.json`. Evan FYI from the agent: envs that wrap `<color attach="background">`/`<fog>` in a `<group>` attach them to the group, not the scene (fog likely not applying in env-forest etc.); these new ones use a fragment root.
+
+### 17:25: Evan: **voice scene navigation** ("next scene", "go to scene 2", "go to the lobby scene"), for ek-97's scene nav
+- New op `go_scene` in `lib/assist-ops.ts`: value is the user's words, resolved at apply time with `resolveScene` from `lib/scene-nav.ts` → `switchScene`. Works while editing, not only in Play. Unknown scene = no change.
+- Scene wording wins over environment words, except "go to the forest scene" (an environment name) stays an environment.
+- Not done (ask if wanted): "add a scene called X", "add a portal to X".
+
+### 5:23: Evan (session ek-97, was ek-b4): **scene navigation: build multi-page / multi-level experiences**
+- **Scenes bar** at the bottom-left of the Studio canvas: tabs switch, `+ Scene` adds, double-click renames, × deletes. Scenes are the pages/levels.
+- **portal** (walk-through swirl arch) and **nav-button** (site-style link), both with `to` = scene name, number, `next` or `back`. They fire `window` event `spatial:go` (still copy-pasteable). Studio follows it in **Play** mode (ignored while editing) with a fade; **launched apps** (/apps/<id>) now render the current scene and follow it too. Resolver + tests: `lib/scene-nav.ts`.
+- Demo: Scene 1 add a portal (to: "2"), + Scene, build scene 2 with a nav-button (to: "back"), Play, tap the portal.
+- ek-5a: yes please, a voice op "go to scene <name>" would fit (dispatch the same event or call switchScene).
+### 5:05: Danny: **laptop camera keeps its range when zoomed in** (`scene.tsx` ScreenPan): wheel zoom is ours now (OrbitHandles `zoom={false}`): exponential zoom between 0.6 m and 14 m; at 0.6 m further wheel-in **flies forward** at steady speed instead of crawling. Pan speed floored at 1.2 m distance so it never gets sluggish close up. Orbit unchanged.
+
+### 5:03: Evan (session ek-b4): **web-dev kit + gaming kit + 4 templates; controls polished**
+- **Dev** (new category): code-editor, browser-window, deploy-pipeline, terminal, git-graph, api-monitor. Templates: **Web Dev Workspace**, **SaaS Dashboard**.
+- **Gaming** (new category): gaming-rig (glass panel, spinning RGB fans, tap cycles modes), gamepad (buttons light + rumble, onPress), game-leaderboard (spring re-rank), match-stats. Templates: **Gaming Command Center** (env-space), **Arcade Corner** (env-concert-stage; hoop, score and confetti share `baskets`).
+- **Polished:** knob (machined, value arc), press-button, spring-toggle, drum-pad, curved-gallery (tiles were black: fixed). tabs crash fixed (hover={undefined}), still held "soon" by qa-broken.json until someone renders it.
+- Known: code-editor drops spaces between tokens; deploy-pipeline stage labels overlap its log line. Templates are registry-checked (lib/templates.test.ts, 12/12) but not all rendered.
 ### 5:21: Evan (session ek-b8): **mockup parity landed**: console, synth keys and the 3 lanes draw the mockup's own canvas faces (live, playable); templates are empty translucent slots; drag onto a slot to place, onto an item to replace
 - Verified in Chromium on :3000: Night Set fills, track wall/lanes/stage match the mockup, 0 errors. Not verified: by ear, on a Quest. The laptop camera sits low, so console/keys faces read edge-on there; in the headset (eye 1.6 m) they read like the mockup.
 - **Recording freeze:** ek-c7's builders are paused since 5:18 so :3000 stops rebuilding. Don't regenerate the registry in the main tree until the video is recorded.
@@ -21,6 +59,10 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 - Fixed: every uikit component with an icon showed "Preview unavailable" (uikit Svg/Content put a signal in `object.boundingBox`, three's Box3 crashed inside drei `<Bounds>`). Guard in `components/site/preview.tsx`.
 - Building complete components, ported from MIT open source where it exists (pmndrs/uikit `examples/dashboard` + `market`, pmndrs/examples `cards` + `image-gallery`): `analytics-dashboard`, `navigation-menu`, `music-app`, `metronome`, `image-carousel`, `image-gallery`, `time-hub`, `focus-timer`, `calendar-planner`, `calculator`, `smart-home-dashboard`, `app-launcher`.
 - Standard footprints so drag-to-replace swaps cleanly: apps/dashboards 640x400 px, tools 360x440 px (pixelSize 0.002). New categories: `dashboards`, `tools`. Only new files + `registry/incoming/full-*.json`.
+### 4:55: Danny (voice agent): **voice fixes + the real blocker is the Vercel key**
+- **Prod has no ElevenLabs key**: `/api/stt` GET → `{ready:false}`, POST → 503. Quest Browser has no Web Speech, so **Quest voice needs `ELEVENLABS_API_KEY` (the `sk_…` secret, not the key ID) in Vercel + redeploy**. Evan: you have the account, can you set it?
+- `xr-controls.tsx`: Enter AR/VR asks for the mic first (Quest can't show the prompt inside an immersive session), then enters; if the prompt takes >5 s the first enter fails once, click again.
+- `voice.tsx`: desktop uses browser speech unless the server key is confirmed (fixes the first-press race); Quest error text names the env var. Store/STT route/vr-assistant untouched.
 
 ### 4:45: Danny: home hero: removed the "Spatial" backdrop word behind the liquid sculpture (`backdropText=""`), plain dark background.
 

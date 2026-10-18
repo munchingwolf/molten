@@ -1,0 +1,45 @@
+[
+  {
+    "name": "tabs",
+    "status": "ready",
+    "props": [
+      { "name": "items", "type": "string", "default": "Overview, Library, Settings" },
+      { "name": "accent", "type": "color", "default": "#9FE7D2" },
+      { "name": "width", "type": "number", "min": 0.2, "max": 0.7, "default": 0.42 }
+    ]
+  },
+  {
+    "name": "curved-gallery",
+    "status": "ready",
+    "props": [
+      { "name": "count", "type": "number", "min": 1, "max": 12, "default": 5 }
+    ]
+  },
+  {
+    "name": "knob",
+    "status": "ready",
+    "props": [
+      { "name": "label", "type": "string", "default": "Knob" },
+      { "name": "min", "type": "number", "default": 0 },
+      { "name": "max", "type": "number", "default": 1 },
+      { "name": "accent", "type": "color", "default": "#9FE7D2" }
+    ]
+  },
+  {
+    "name": "spring-toggle",
+    "status": "ready",
+    "props": [
+      { "name": "label", "type": "string", "default": "Toggle" },
+      { "name": "accent", "type": "color", "default": "#9FE7D2" }
+    ]
+  },
+  {
+    "name": "drum-pad",
+    "status": "ready",
+    "props": [
+      { "name": "sound", "type": "enum", "options": ["kick", "snare", "hat", "clap"], "default": "kick" },
+      { "name": "label", "type": "string", "default": "" },
+      { "name": "accent", "type": "color", "default": "#9FE7D2" }
+    ]
+  }
+]

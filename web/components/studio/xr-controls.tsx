@@ -13,9 +13,28 @@ const secondary = "border border-border bg-surface rounded-md px-3 py-1.5 font-m
 const supported = (mode: XRSessionMode) =>
   navigator.xr?.isSessionSupported(mode).catch(() => false) ?? Promise.resolve(false)
 
+const micGranted = () =>
+  navigator.permissions?.query({ name: "microphone" as PermissionName }).then((p) => p.state === "granted", () => false) ?? Promise.resolve(false)
+
+// Enter synchronously inside the click: anything awaited first can use up the click's user activation and the Quest
+// then refuses the session.
 const enter = (mode: XRSessionMode) => {
   unlockAudio() // inside the click: lets instruments play in the headset
   xrStore.enterXR(mode).catch((e) => console.error(`Couldn't start ${mode}`, e))
+}
+
+// The Quest can't show a permission prompt inside an immersive session, so ask for the mic on the first tap anywhere on
+// the page (before Enter VR/AR), once, without blocking anything.
+function useMicPrimer() {
+  useEffect(() => {
+    const prime = () => {
+      micGranted().then((ok) => {
+        if (!ok) navigator.mediaDevices?.getUserMedia({ audio: true }).then((s) => s.getTracks().forEach((t) => t.stop()), () => {})
+      })
+    }
+    window.addEventListener("pointerdown", prime, { once: true, capture: true })
+    return () => window.removeEventListener("pointerdown", prime, { capture: true })
+  }, [])
 }
 
 /** Enter AR / Enter VR / Exit for the HTML top bar. Lives outside the Canvas, so it reads the XR store directly. */
@@ -24,6 +43,7 @@ export function EnterXRButtons({ className }: { className?: string }) {
   // On localhost the emulator is injected asynchronously; re-check support once it lands.
   const emulator = useStore(xrStore, (s) => s.emulator)
   const [support, setSupport] = useState({ ar: false, vr: false })
+  useMicPrimer()
 
   useEffect(() => {
     let live = true

@@ -1,0 +1,187 @@
+{
+  "name": "SaaS Dashboard",
+  "slug": "saas-dashboard",
+  "category": "website",
+  "description": "An analytics wall for a SaaS product: KPI cards across the top, a revenue sparkline, signups by month and a health gauge in the middle, the customer table on the left and live notifications and activity on the right, with live API health on the far left.",
+  "environment": "env-light-studio",
+  "items": [
+    {
+      "id": "kpi-users",
+      "component": "stat-card",
+      "position": [
+        -0.52,
+        1.8,
+        -1.62
+      ],
+      "rotation": [
+        0.0,
+        0.3106,
+        0
+      ],
+      "scale": 1,
+      "bind": {},
+      "props": {
+        "label": "Active users",
+        "value": 12480,
+        "delta": 12.4,
+        "caption": "vs last week"
+      }
+    },
+    {
+      "id": "kpi-mrr",
+      "component": "stat-card",
+      "position": [
+        0,
+        1.8,
+        -1.65
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0
+      ],
+      "scale": 1,
+      "bind": {},
+      "props": {
+        "label": "MRR",
+        "value": "$48.2k",
+        "delta": 8.1,
+        "caption": "vs last month"
+      }
+    },
+    {
+      "id": "kpi-churn",
+      "component": "stat-card",
+      "position": [
+        0.52,
+        1.8,
+        -1.62
+      ],
+      "rotation": [
+        0.0,
+        -0.3106,
+        0
+      ],
+      "scale": 1,
+      "bind": {},
+      "props": {
+        "label": "Churn",
+        "value": "2.1%",
+        "delta": -0.4,
+        "caption": "vs last month"
+      }
+    },
+    {
+      "id": "revenue",
+      "component": "sparkline",
+      "position": [
+        -0.48,
+        1.42,
+        -1.63
+      ],
+      "rotation": [
+        0.0,
+        0.2864,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "health",
+      "component": "gauge",
+      "position": [
+        0.02,
+        1.42,
+        -1.66
+      ],
+      "rotation": [
+        0.0,
+        -0.012,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "signups",
+      "component": "bar-chart-3d",
+      "position": [
+        0.5,
+        1.3,
+        -1.63
+      ],
+      "rotation": [
+        0.0,
+        -0.2976,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "customers",
+      "component": "data-table",
+      "position": [
+        -1.202,
+        1.45,
+        -1.056
+      ],
+      "rotation": [
+        0.0,
+        0.85,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "alerts",
+      "component": "notification-center",
+      "position": [
+        1.125,
+        1.5,
+        -1.137
+      ],
+      "rotation": [
+        0.0,
+        -0.78,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "activity",
+      "component": "activity-timeline",
+      "position": [
+        1.542,
+        1.45,
+        -0.428
+      ],
+      "rotation": [
+        0.0,
+        -1.3,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "api",
+      "component": "api-monitor",
+      "position": [
+        -1.542,
+        1.45,
+        -0.428
+      ],
+      "rotation": [
+        0,
+        1.3,
+        0
+      ],
+      "scale": 0.9,
+      "bind": {}
+    }
+  ]
+}

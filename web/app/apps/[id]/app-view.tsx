@@ -11,6 +11,8 @@ import { OrbitHandles, createScreenCameraStore } from "@react-three/handle"
 import { LayoutRenderer } from "@/components/studio/layout-renderer"
 import { xrStore } from "@/components/studio/xr-store"
 import type { Layout } from "@/lib/layout"
+import { GO_EVENT, resolveScene } from "@/lib/scene-nav"
+import { useSceneFade } from "@/components/studio/scene-bar"
 import { Message } from "./app-loader"
 
 // Same framing as the Studio camera, so the launched app looks like what was built.
@@ -24,6 +26,22 @@ export default function AppView({ id }: { id: string }) {
   }, [])
   const [layout, setLayout] = useState<Layout | "loading" | "missing" | "error">("loading")
   const [values, setValues] = useState<Record<string, unknown>>({})
+  // Multi-scene apps: portals and nav buttons fire "spatial:go"; move to that scene behind a fade.
+  const [sceneId, setSceneId] = useState<string | null>(null)
+  const { fade, overlay } = useSceneFade()
+  const scenes = typeof layout === "object" ? layout.scenes ?? [] : []
+  const current = scenes.find((s) => s.id === sceneId) ?? scenes[0]
+  useEffect(() => {
+    if (scenes.length < 2) return
+    const onGo = (e: Event) => {
+      const to = String((e as CustomEvent<{ to?: string }>).detail?.to ?? "next")
+      const id = resolveScene(scenes, to, current?.id ?? scenes[0].id)
+      if (id && id !== current?.id) fade(() => setSceneId(id))
+    }
+    window.addEventListener(GO_EVENT, onGo)
+    return () => window.removeEventListener(GO_EVENT, onGo)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [layout, current?.id])
 
   useEffect(() => {
     let live = true
@@ -39,8 +57,10 @@ export default function AppView({ id }: { id: string }) {
   if (layout === "loading") return <Message>Loading app…</Message>
   if (layout === "missing") return <Message>No app with id “{id}”. Launch it again from the Studio.</Message>
   if (layout === "error") return <Message>Couldn’t load this app. Check your connection and reload.</Message>
-  if (!layout.items.length) return <Message>This app is empty. Add components in the Studio, then Launch again.</Message>
-  const Env = layout.environment ? (components[layout.environment] as ComponentType | undefined) : undefined
+  const items = current?.items ?? layout.items
+  const environment = current ? current.environment : layout.environment
+  if (!items.length && !scenes.length) return <Message>This app is empty. Add components in the Studio, then Launch again.</Message>
+  const Env = environment ? (components[environment] as ComponentType | undefined) : undefined
 
   return (
     <div className="fixed inset-0 z-50 bg-stage">
@@ -65,14 +85,18 @@ export default function AppView({ id }: { id: string }) {
             </>
           )}
           <LayoutRenderer
-            items={layout.items}
+            items={items}
             values={values}
             setValue={(name, v) => setValues((s) => ({ ...s, [name]: v }))}
             editable={false}
           />
         </XR>
       </Canvas>
-      <h1 className="absolute left-4 top-4 font-display text-xl font-extrabold text-stage-text">{layout.name}</h1>
+      {overlay}
+      <h1 className="absolute left-4 top-4 font-display text-xl font-extrabold text-stage-text">
+        {layout.name}
+        {current && scenes.length > 1 && <span className="ml-2 text-sm font-medium text-stage-text/60">{current.name}</span>}
+      </h1>
       <div className="absolute right-4 top-4 flex gap-2">
         <button
           type="button"

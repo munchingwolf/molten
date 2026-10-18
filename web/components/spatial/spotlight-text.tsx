@@ -52,7 +52,7 @@ export default function SpotlightText({
 
   const u = useMemo(
     () => ({
-      uMap: { value: null as THREE.Texture | null },
+      uMap: { value: texture as THREE.Texture },
       uSpot: { value: new THREE.Vector2() },
       uRadius: { value: 0.17 },
       uSize: { value: new THREE.Vector2(1.3, 0.52) },

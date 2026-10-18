@@ -23,6 +23,12 @@
       "bind": {},
       "order": 1,
       "hint": "Desk",
+      "say": [
+        "desk",
+        "the desk",
+        "table",
+        "the rig"
+      ],
       "size": [
         1.2,
         0.75,
@@ -52,6 +58,14 @@
       },
       "order": 2,
       "hint": "Mixing Console",
+      "say": [
+        "mixer",
+        "console",
+        "mixing console",
+        "the board",
+        "tempo knob",
+        "the rig"
+      ],
       "size": [
         0.46,
         0.12,
@@ -78,6 +92,14 @@
       },
       "order": 3,
       "hint": "Synth Keys",
+      "say": [
+        "keys",
+        "synth",
+        "keyboard",
+        "the synth",
+        "instruments",
+        "the rig"
+      ],
       "size": [
         0.5,
         0.07,
@@ -104,6 +126,15 @@
       },
       "order": 4,
       "hint": "Drum Pads 4x4",
+      "say": [
+        "drums",
+        "drum pads",
+        "pads",
+        "the beat",
+        "beats",
+        "instruments",
+        "the rig"
+      ],
       "size": [
         0.28,
         0.16,
@@ -139,6 +170,13 @@
       },
       "order": 5,
       "hint": "Track Wall",
+      "say": [
+        "track wall",
+        "the wall",
+        "tracks",
+        "lanes",
+        "the lanes"
+      ],
       "size": [
         1.9,
         0.05,
@@ -171,6 +209,11 @@
       },
       "order": 6,
       "hint": "Keys Lane",
+      "say": [
+        "keys lane",
+        "keys track",
+        "melody lane"
+      ],
       "size": [
         0.52,
         0.72,
@@ -198,6 +241,11 @@
       },
       "order": 7,
       "hint": "Tempo Lane",
+      "say": [
+        "tempo lane",
+        "tempo track",
+        "tempo"
+      ],
       "size": [
         0.52,
         0.72,
@@ -225,6 +273,12 @@
       },
       "order": 8,
       "hint": "Drums Lane",
+      "say": [
+        "drums lane",
+        "drum lane",
+        "drum track",
+        "drums track"
+      ],
       "size": [
         0.52,
         0.72,

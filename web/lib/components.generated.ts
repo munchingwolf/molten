@@ -197,23 +197,45 @@ const C_grand_piano = lazy(() => import("@/components/spatial/grand-piano"))
 const C_pendant_light = lazy(() => import("@/components/spatial/pendant-light"))
 const C_room_shell = lazy(() => import("@/components/spatial/room-shell"))
 const C_string_lights = lazy(() => import("@/components/spatial/string-lights"))
+const C_env_music_hall = lazy(() => import("@/components/spatial/env-music-hall"))
 const C_drum_pads = lazy(() => import("@/components/spatial/drum-pads"))
 const C_synth_keys = lazy(() => import("@/components/spatial/synth-keys"))
 const C_tempo_lane = lazy(() => import("@/components/spatial/tempo-lane"))
 const C_drums_lane = lazy(() => import("@/components/spatial/drums-lane"))
 const C_keys_lane = lazy(() => import("@/components/spatial/keys-lane"))
-const C_calendar_planner = lazy(() => import("@/components/spatial/calendar-planner"))
-const C_calculator = lazy(() => import("@/components/spatial/calculator"))
+const C_code_editor = lazy(() => import("@/components/spatial/code-editor"))
+const C_browser_window = lazy(() => import("@/components/spatial/browser-window"))
+const C_deploy_pipeline = lazy(() => import("@/components/spatial/deploy-pipeline"))
+const C_terminal = lazy(() => import("@/components/spatial/terminal"))
+const C_git_graph = lazy(() => import("@/components/spatial/git-graph"))
+const C_api_monitor = lazy(() => import("@/components/spatial/api-monitor"))
+const C_gaming_rig = lazy(() => import("@/components/spatial/gaming-rig"))
+const C_gamepad = lazy(() => import("@/components/spatial/gamepad"))
+const C_game_leaderboard = lazy(() => import("@/components/spatial/game-leaderboard"))
+const C_match_stats = lazy(() => import("@/components/spatial/match-stats"))
+const C_portal = lazy(() => import("@/components/spatial/portal"))
+const C_nav_button = lazy(() => import("@/components/spatial/nav-button"))
+const C_env_tron = lazy(() => import("@/components/spatial/env-tron"))
+const C_env_japan = lazy(() => import("@/components/spatial/env-japan"))
+const C_env_moon = lazy(() => import("@/components/spatial/env-moon"))
+const C_env_volcano = lazy(() => import("@/components/spatial/env-volcano"))
+const C_env_dream = lazy(() => import("@/components/spatial/env-dream"))
+const C_env_egypt = lazy(() => import("@/components/spatial/env-egypt"))
+const C_env_starry = lazy(() => import("@/components/spatial/env-starry"))
+const C_env_recording_studio = lazy(() => import("@/components/spatial/env-recording-studio"))
+const C_env_park_stage = lazy(() => import("@/components/spatial/env-park-stage"))
 const C_analytics_dashboard = lazy(() => import("@/components/spatial/analytics-dashboard"))
-const C_smart_home_dashboard = lazy(() => import("@/components/spatial/smart-home-dashboard"))
-const C_app_launcher = lazy(() => import("@/components/spatial/app-launcher"))
+const C_navigation_menu = lazy(() => import("@/components/spatial/navigation-menu"))
+const C_music_app = lazy(() => import("@/components/spatial/music-app"))
+const C_metronome = lazy(() => import("@/components/spatial/metronome"))
 const C_image_carousel = lazy(() => import("@/components/spatial/image-carousel"))
 const C_image_gallery = lazy(() => import("@/components/spatial/image-gallery"))
 const C_time_hub = lazy(() => import("@/components/spatial/time-hub"))
-const C_music_app = lazy(() => import("@/components/spatial/music-app"))
-const C_metronome = lazy(() => import("@/components/spatial/metronome"))
-const C_navigation_menu = lazy(() => import("@/components/spatial/navigation-menu"))
 const C_focus_timer = lazy(() => import("@/components/spatial/focus-timer"))
+const C_calendar_planner = lazy(() => import("@/components/spatial/calendar-planner"))
+const C_calculator = lazy(() => import("@/components/spatial/calculator"))
+const C_smart_home_dashboard = lazy(() => import("@/components/spatial/smart-home-dashboard"))
+const C_app_launcher = lazy(() => import("@/components/spatial/app-launcher"))
 
 export const components: Record<string, ComponentType> = {
   "settings-default": C_settings_default as ComponentType,
@@ -411,21 +433,43 @@ export const components: Record<string, ComponentType> = {
   "pendant-light": C_pendant_light as ComponentType,
   "room-shell": C_room_shell as ComponentType,
   "string-lights": C_string_lights as ComponentType,
+  "env-music-hall": C_env_music_hall as ComponentType,
   "drum-pads": C_drum_pads as ComponentType,
   "synth-keys": C_synth_keys as ComponentType,
   "tempo-lane": C_tempo_lane as ComponentType,
   "drums-lane": C_drums_lane as ComponentType,
   "keys-lane": C_keys_lane as ComponentType,
-  "calendar-planner": C_calendar_planner as ComponentType,
-  "calculator": C_calculator as ComponentType,
+  "code-editor": C_code_editor as ComponentType,
+  "browser-window": C_browser_window as ComponentType,
+  "deploy-pipeline": C_deploy_pipeline as ComponentType,
+  "terminal": C_terminal as ComponentType,
+  "git-graph": C_git_graph as ComponentType,
+  "api-monitor": C_api_monitor as ComponentType,
+  "gaming-rig": C_gaming_rig as ComponentType,
+  "gamepad": C_gamepad as ComponentType,
+  "game-leaderboard": C_game_leaderboard as ComponentType,
+  "match-stats": C_match_stats as ComponentType,
+  "portal": C_portal as ComponentType,
+  "nav-button": C_nav_button as ComponentType,
+  "env-tron": C_env_tron as ComponentType,
+  "env-japan": C_env_japan as ComponentType,
+  "env-moon": C_env_moon as ComponentType,
+  "env-volcano": C_env_volcano as ComponentType,
+  "env-dream": C_env_dream as ComponentType,
+  "env-egypt": C_env_egypt as ComponentType,
+  "env-starry": C_env_starry as ComponentType,
+  "env-recording-studio": C_env_recording_studio as ComponentType,
+  "env-park-stage": C_env_park_stage as ComponentType,
   "analytics-dashboard": C_analytics_dashboard as ComponentType,
-  "smart-home-dashboard": C_smart_home_dashboard as ComponentType,
-  "app-launcher": C_app_launcher as ComponentType,
+  "navigation-menu": C_navigation_menu as ComponentType,
+  "music-app": C_music_app as ComponentType,
+  "metronome": C_metronome as ComponentType,
   "image-carousel": C_image_carousel as ComponentType,
   "image-gallery": C_image_gallery as ComponentType,
   "time-hub": C_time_hub as ComponentType,
-  "music-app": C_music_app as ComponentType,
-  "metronome": C_metronome as ComponentType,
-  "navigation-menu": C_navigation_menu as ComponentType,
   "focus-timer": C_focus_timer as ComponentType,
+  "calendar-planner": C_calendar_planner as ComponentType,
+  "calculator": C_calculator as ComponentType,
+  "smart-home-dashboard": C_smart_home_dashboard as ComponentType,
+  "app-launcher": C_app_launcher as ComponentType,
 }

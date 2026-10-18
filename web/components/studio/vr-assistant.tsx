@@ -7,6 +7,7 @@ import { Container, Text, type VanillaContainer } from "@react-three/uikit"
 import { Vector3, type Camera, type Group } from "three"
 import { useAssistant, type Message } from "@/lib/assistant-store"
 import type { Viewer } from "@/lib/assist-ops"
+import { viewerCamera } from "@/lib/viewer"
 import type { Vec3 } from "@/lib/layout"
 import { xr } from "./xr-theme"
 
@@ -170,7 +171,7 @@ function Panel({ mascot }: { mascot?: ReactNode }) {
         <Container flexDirection="row" alignItems="center" justifyContent="space-between" gap={8} flexShrink={0}>
           <Container flexDirection="row" alignItems="center" gap={6} paddingLeft={4}>
             <Container width={10} height={10} borderRadius={5} backgroundColor={status === "idle" ? xr.faint : xr.accent} />
-            <Text fontSize={14} color={xr.muted}>{status === "idle" ? "Assistant" : status}</Text>
+            <Text fontSize={14} color={xr.muted}>{status === "idle" ? "Stark" : status}</Text>
           </Container>
           <Chip label="What can I do?" grow={false} onClick={() => talk("What can I do?")} />
         </Container>
@@ -228,6 +229,12 @@ function Panel({ mascot }: { mascot?: ReactNode }) {
 
 /** In-headset Assistant: conversation + op log, push-to-talk and quick chips. Mount inside <XR>; shows only in a session. */
 export function VRAssistant({ mascot }: { mascot?: ReactNode }) {
+  // Also publishes the camera (laptop or headset) so typed/voice commands place things in front of the user.
+  const camera = useThree((s) => s.camera)
+  useEffect(() => {
+    viewerCamera.current = camera
+    return () => void (viewerCamera.current === camera && (viewerCamera.current = null))
+  }, [camera])
   return (
     <IfInSessionMode allow={["immersive-ar", "immersive-vr"]}>
       <Panel mascot={mascot} />

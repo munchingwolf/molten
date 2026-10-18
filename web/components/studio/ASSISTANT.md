@@ -12,6 +12,7 @@ A Claude-Code-style side panel. You type or say a request and it shows the conve
 ## How `send(text)` routes
 
 1. `undo` / `redo` call the store actions directly. The op grammar deliberately ignores "undo".
+1b. With a guided template open, `lib/slot-commands.ts` checks for a slot command first ("add the drums", "set up the rig", "next", "fill the rest") and calls `placeSlot` for each slot, the same path as dragging onto a slot (snapped, wired). Phrases come from each template slot's `say` list (a phrase on several slots = a group), then the slot's name/hint and its component's names. No model is involved; edits and "next scene" fall through.
 2. A question goes to `POST /api/ask`. It counts as a question when it starts with how / what / why / can I / is there / help…, or ends in `?` (but "could you add a knob?" is an edit).
 3. Anything else goes to `POST /api/assist` (H's route: the local model classifies, `assist-ops` gates every value on the user's words). If that route fails, the same `extractOps` keyword grammar runs in the browser. Ops are applied **one at a time** with `applyOps([op], useStudio.getState, viewer)`, so each op gets its own ✓/✗ line.
 4. If no op survives gating, the text is answered as a question instead of guessing.

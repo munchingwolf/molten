@@ -34,9 +34,9 @@ export function StudioScene() {
       <PointerEvents />
       <XR store={xrStore}>
         <NotInXR>
-          {/* Left drag orbits, wheel zooms. Pan is ours (ScreenPan): Space+drag, middle-drag or Shift+wheel, so it also
-              works over components, which swallow left/right clicks. */}
-          <OrbitHandles store={cameraStore} pan={false} />
+          {/* Left drag orbits. Pan and zoom are ours (ScreenPan): Space+drag, middle-drag or Shift+wheel pan; the wheel
+              zooms and, once close, flies forward instead of stalling. Both work over components. */}
+          <OrbitHandles store={cameraStore} pan={false} zoom={false} />
           <ScreenPan />
         </NotInXR>
         {/* An environment brings its own sky/lights; X-ray strips it back to the bare stage. Without one: dark studio on
@@ -80,7 +80,7 @@ export function StudioScene() {
   )
 }
 
-/** Pix, the voxel guide, perched on the VR assistant; mood follows the assistant (listening/thinking/talking/happy). */
+/** Stark, the voxel guide, perched on the VR assistant; mood follows the assistant (listening/thinking/talking/happy). */
 function VRPix() {
   return <Mascot mood={useAssistantMood()} size={1} />
 }
@@ -173,6 +173,10 @@ function DropProbe() {
 }
 
 const right = new Vector3()
+const fwd = new Vector3()
+// Zoom range for the laptop camera (metres to the orbit centre); past MIN_DIST the wheel flies forward instead.
+const MIN_DIST = 0.6
+const MAX_DIST = 14
 const up = new Vector3()
 
 /** Figma-style pan for the laptop camera; captured before components see the pointer, so hovering one never blocks it. */
@@ -188,7 +192,8 @@ function ScreenPan() {
     const pan = (dx: number, dy: number) => {
       const s = cameraStore.getState()
       const fov = "fov" in camera ? ((camera as PerspectiveCamera).fov * Math.PI) / 180 : Math.PI / 4
-      const k = (2 * s.distance * Math.tan(fov / 2)) / canvas.clientHeight
+      // Floor the distance so panning stays usable when zoomed right in.
+      const k = (2 * Math.max(s.distance, MIN_DIST * 2) * Math.tan(fov / 2)) / canvas.clientHeight
       right.setFromMatrixColumn(camera.matrixWorld, 0).multiplyScalar(-dx * k)
       up.setFromMatrixColumn(camera.matrixWorld, 1).multiplyScalar(dy * k)
       const [x, y, z] = s.origin
@@ -225,11 +230,21 @@ function ScreenPan() {
       canvas.style.cursor = space ? "grab" : ""
     }
     const wheel = (e: WheelEvent) => {
-      if (e.target !== canvas || !e.shiftKey) return
+      if (e.target !== canvas) return
       e.preventDefault()
       e.stopImmediatePropagation()
+      const px = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 400 : 1 // lines/pages → pixels
       // Shift turns vertical wheel into horizontal on some systems; use whichever axis moved.
-      pan(-(e.deltaX || e.deltaY), 0)
+      if (e.shiftKey) return pan(-(e.deltaX || e.deltaY) * px, 0)
+      const dy = e.deltaY * px
+      const s = cameraStore.getState()
+      if (dy < 0 && s.distance <= MIN_DIST + 0.01) {
+        // Already close to the orbit centre: fly forward at a steady speed instead of crawling to zero.
+        camera.getWorldDirection(fwd).multiplyScalar(-dy * 0.002)
+        const [x, y, z] = s.origin
+        return s.setOriginPosition(x + fwd.x, y + fwd.y, z + fwd.z, true)
+      }
+      cameraStore.setState({ distance: Math.min(MAX_DIST, Math.max(MIN_DIST, s.distance * Math.exp(dy * 0.0015))) })
     }
     const aux = (e: MouseEvent) => e.button === 1 && e.target === canvas && e.preventDefault() // no autoscroll icon
     const opts = { capture: true }

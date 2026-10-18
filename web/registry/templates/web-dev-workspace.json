@@ -1,0 +1,142 @@
+{
+  "name": "Web Dev Workspace",
+  "slug": "web-dev-workspace",
+  "category": "website",
+  "description": "A curved developer desk: a live code editor at the centre, the site preview in a browser on the left, a terminal running npm run dev and git push on the right, and a one-press deploy pipeline and live git graph on the desk. Ship a website without leaving the room.",
+  "environment": "env-studio-loft",
+  "items": [
+    {
+      "id": "desk",
+      "component": "desk",
+      "position": [
+        0,
+        0.375,
+        -1.0
+      ],
+      "rotation": [
+        0.0,
+        0,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "chair",
+      "component": "chair",
+      "position": [
+        0,
+        0.445,
+        -0.45
+      ],
+      "rotation": [
+        0.0,
+        3.1416,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    },
+    {
+      "id": "editor",
+      "component": "code-editor",
+      "position": [
+        0,
+        1.62,
+        -1.42
+      ],
+      "rotation": [
+        0.0,
+        0,
+        0
+      ],
+      "scale": 0.85,
+      "bind": {}
+    },
+    {
+      "id": "browser",
+      "component": "browser-window",
+      "position": [
+        -1.052,
+        1.58,
+        -0.924
+      ],
+      "rotation": [
+        0.0,
+        0.85,
+        0
+      ],
+      "scale": 0.85,
+      "bind": {},
+      "props": {
+        "url": "spatial.dev",
+        "title": "Spatial - Build in 3D",
+        "theme": "dark"
+      }
+    },
+    {
+      "id": "terminal",
+      "component": "terminal",
+      "position": [
+        1.004,
+        1.56,
+        -0.975
+      ],
+      "rotation": [
+        0.0,
+        -0.8,
+        0
+      ],
+      "scale": 0.85,
+      "bind": {}
+    },
+    {
+      "id": "deploy",
+      "component": "deploy-pipeline",
+      "position": [
+        -0.46,
+        1.02,
+        -1.06
+      ],
+      "rotation": [
+        -0.42,
+        0.4094,
+        0
+      ],
+      "scale": 0.7,
+      "bind": {}
+    },
+    {
+      "id": "git",
+      "component": "git-graph",
+      "position": [
+        0.48,
+        1.04,
+        -1.06
+      ],
+      "rotation": [
+        -0.42,
+        -0.4252,
+        0
+      ],
+      "scale": 0.7,
+      "bind": {}
+    },
+    {
+      "id": "plant",
+      "component": "plant",
+      "position": [
+        0.92,
+        0.25,
+        -1.15
+      ],
+      "rotation": [
+        0.0,
+        -0.6747,
+        0
+      ],
+      "scale": 1,
+      "bind": {}
+    }
+  ]
+}

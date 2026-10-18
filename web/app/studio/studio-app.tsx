@@ -7,6 +7,7 @@ import { registry, matches, findEntry, type Entry } from "@/lib/registry"
 import { useStudio } from "@/lib/studio-store"
 import { bindablesOf } from "@/components/studio/layout-renderer"
 import { StudioScene, dropAt, previewDrop, seatOnFloor } from "@/components/studio/scene"
+import { SceneBar } from "@/components/studio/scene-bar"
 import { aimDrop, aimLabel, dropOnto } from "@/components/studio/drop-target"
 import { propsOf } from "@/components/studio/prop-controls"
 import type { Item } from "@/lib/layout"
@@ -65,6 +66,7 @@ export function StudioApp() {
       <Library />
       <main className="relative min-h-0 bg-stage">
         <StudioScene />
+        <SceneBar />
         <EmptyHint />
         <GuideBar />
         <div className="absolute right-3 top-3 bottom-3 w-[340px] overflow-hidden rounded-lg border border-border">
