@@ -3,7 +3,7 @@
 import type { Item, Vec3 } from "./layout.ts"
 import { resolveScene } from "./scene-nav.ts"
 
-export const OP_NAMES = ["add_component", "remove", "scale", "rotate", "move", "set_prop", "swap_style", "set_environment", "select", "go_scene"] as const
+export const OP_NAMES = ["add_component", "remove", "scale", "rotate", "move", "set_prop", "swap_style", "set_environment", "select", "go_scene", "show"] as const
 export type OpName = (typeof OP_NAMES)[number]
 export type Op = { op: OpName; target?: string; component?: string; prop?: string; value?: unknown; amount?: number; direction?: string }
 
@@ -119,6 +119,10 @@ const NEGATION = /\b(dont|do not|never ?mind|cancel|undo)\b/
 const ADD = /\b(add|create|insert|spawn|give me|i want|i need|bring in|(?:put|place|drop|make(?: me)?) (?:a|an|another|some|one more))\b/
 const REMOVE = /\b(remove|delete|get rid of|trash|destroy|take away|discard|erase)\b/
 const SELECT = /\b(select|pick|choose|focus on)\b/
+const SHOW = /\b(show me|show|display|find)\b/
+// "it" / "that" mean the selection: only a full name may override it ("display it" is not the tempo display).
+const PRONOUN = /\b(it|this|that|them)\b/
+const RECENT = /\b(just added|you added|i added|new one|newest|latest|last one)\b/
 const SCALE_UP = /\b(bigger|larger|grow|enlarge|huge|giant|scale up|increase (?:the |its )?size)\b/
 const SCALE_DOWN = /\b(smaller|shrink|tiny|tinier|scale down|(?:reduce|decrease) (?:the |its )?size)\b/
 const ROTATE = /\b(rotate|rotated|spin|twist|clockwise|counterclockwise|anticlockwise|degrees?)\b|°|\bturn\b.*\b(left|right|around|\d+)\b/
@@ -147,7 +151,7 @@ type Target = { id?: string } | null
 /** Named item in the layout → its id; a named component that isn't there → null (drop); else the selection. */
 function resolveTarget(t: string, ctx: Ctx, adding: string[], hint?: Op, ignoreCategory?: string): Target {
   const inLayout = [...new Set(ctx.items.map((i) => i.component))]
-  const named = mentioned(t, ctx.registry.filter((e) => inLayout.includes(e.name) || adding.includes(e.name)), true)
+  const named = mentioned(t, ctx.registry.filter((e) => inLayout.includes(e.name) || adding.includes(e.name)), adding.length > 0 || !PRONOUN.test(t))
   for (const c of inLayout) if (!ctx.registry.some((e) => e.name === c)) {
     const i = at(t, phrasesOf(c, ctx.registry)) // layout item whose entry wasn't sent
     if (i >= 0) named.push({ name: c, i })
@@ -165,6 +169,7 @@ function resolveTarget(t: string, ctx: Ctx, adding: string[], hint?: Op, ignoreC
   const absent = mentioned(t, ctx.registry.filter((e) => !adding.includes(e.name) && (!ignoreCategory || e.category !== ignoreCategory)), false, skip)
   if (absent.length) return null // "the lamp", but there's no lamp
   if (adding.length) return {}
+  if (RECENT.test(t) && ctx.items.length) return { id: ctx.items.at(-1)!.id } // "the one you just added": items are in add order
   return ctx.selectedId ? { id: ctx.selectedId } : null
 }
 
@@ -208,12 +213,12 @@ function rotateOps(t: string, target: Target): Found[] {
   return [{ op: "rotate", ...tgt(target), amount: round(clamp(d, -360, 360)), at: cue }]
 }
 
-/** Metres from "20 cm" / "1.5 meters" / "half a meter"; plain numbers are centimetres. */
+/** Metres from "20 cm" / "1.5 meters" / "half a meter"; plain numbers are centimetres. None said → undefined (applyOps picks). */
 function distance(s: string) {
   if (/\bhalf a met(?:er|re)\b/.test(s)) return 0.5
   if (/\ba met(?:er|re)\b/.test(s)) return 1
   const m = /(\d+(?:\.\d+)?)\s*(cm|centimet(?:er|re)s?|m|met(?:er|re)s?|feet|foot|ft)?\b/.exec(s)
-  if (!m) return 0.1
+  if (!m) return undefined
   const n = +m[1], u = m[2] ?? "cm"
   return clamp(u.startsWith("c") ? n / 100 : u.startsWith("m") ? n : n * 0.3048, 0.01, 3)
 }
@@ -223,10 +228,10 @@ function moveOps(t: string, target: Target): Found[] {
   if (cue < 0 || !target) return []
   const hits = DIRS.map(([d, re]) => ({ d, i: find(t, re) })).filter((h) => h.i >= 0).sort((a, b) => a.i - b.i)
   if (!hits.length && /\b(raise|lift)\b/.test(t)) hits.push({ d: "up", i: cue })
-  return hits.map((h, k) => ({
-    op: "move", ...tgt(target), direction: h.d,
-    amount: round(distance(hits.length > 1 ? t.slice(h.i, hits[k + 1]?.i) : t)), at: h.i,
-  }))
+  return hits.map((h, k): Found => {
+    const d = distance(hits.length > 1 ? t.slice(h.i, hits[k + 1]?.i) : t)
+    return { op: "move", ...tgt(target), direction: h.d, ...(d === undefined ? {} : { amount: round(d) }), at: h.i }
+  })
 }
 
 function setPropOps(t: string, original: string, ctx: Ctx, target: Target, component: string | undefined, hints?: Op[]): Found[] {
@@ -307,9 +312,13 @@ function envOps(t: string): Found[] {
  * the model's picks break ties; without them this is the pure keyword grammar. Values always come from the words.
  */
 export function extractOps(text: string, ctx: Ctx, intents?: Op[]): Op[] {
-  const t = norm(text)
+  let t = norm(text)
   if (!t || NEGATION.test(t)) return []
-  const wants = (k: OpName) => !intents || intents.some((o) => o.op === k)
+  // The model often files "show me X" as a select or a move.
+  const wants = (k: OpName) => !intents || intents.some((o) => o.op === k || (k === "show" && (o.op === "select" || o.op === "move")))
+  // "show"/"display" is the verb here, not the monitor's alias or a boolean "show" prop: blank it before reading the rest.
+  const show = wants("show") && !/\bscene\b/.test(t) ? find(t, SHOW) : -1 // "show me scene 2" is go_scene
+  if (show >= 0) t = t.replace(SHOW, (m) => " ".repeat(m.length))
   const hintsFor = (k: OpName) => intents?.filter((o) => o.op === k)
   const found: Found[] = []
 
@@ -336,6 +345,10 @@ export function extractOps(text: string, ctx: Ctx, intents?: Op[]): Op[] {
     const cue = find(t, REMOVE), tg = cue >= 0 ? resolveTarget(t, ctx, [], hintsFor("remove")?.[0]) : null
     if (tg?.id) found.push({ op: "remove", target: tg.id, at: cue })
   }
+  if (show >= 0) {
+    const tg = resolveTarget(t, ctx, adding, hintsFor("show")?.[0])
+    if (tg) found.push({ op: "show", ...tgt(tg), at: show })
+  }
   if (wants("select")) {
     const cue = find(t, SELECT), tg = cue >= 0 ? resolveTarget(t, ctx, [], hintsFor("select")?.[0]) : null
     // select needs a name; "select it" is already selected
@@ -357,7 +370,7 @@ export function parseModelOps(raw: unknown): Op[] | null {
 export type StudioLike = {
   items: Item[]
   selectedId: string | null
-  add: (component: string, position?: Vec3) => void
+  add: (component: string, position?: Vec3, patch?: Partial<Item>) => void
   update: (id: string, patch: Partial<Item>) => void
   remove: (id: string) => void
   select: (id: string | null) => void
@@ -366,26 +379,115 @@ export type StudioLike = {
   sceneId?: string
   switchScene?: (id: string) => void
 }
-/** Viewer pose (XR head / camera) in world space; omit on the laptop to use the store's default slots. */
+/** Viewer pose (XR head or laptop camera) in world space; omit to use the store's default slots. */
 export type Viewer = { position: Vec3; direction: Vec3 }
 
-/** Apply gated ops in order. Pass `useStudio.getState` so each op sees the previous one's result. Returns how many applied. */
-export function applyOps(ops: Op[], get: () => StudioLike, viewer?: Viewer) {
-  let n = 0
-  // Viewer-relative axes: forward is gaze flattened to the floor; without a viewer, world -Z.
+/** Categories that stand on the floor (same set as the library drop and the VR wheel). */
+export const ON_FLOOR = new Set(["objects", "room", "hardware", "spaces"])
+
+const UI_REACH = 0.75 // m in front of the eyes: in poke range, fully in view
+const FLOOR_REACH = 1.1 // furniture: far enough that you aren't standing in it
+const EYE_DROP = 0.2 // UI sits a little below eye height
+const NEAREST = 0.5 // "closer" never brings anything nearer than this
+const CLEAR = 0.35 // a new spot must be this far from every other item
+
+/** Gaze flattened to the floor (yaw only); straight down/up or missing → world -Z. */
+function forward(viewer?: Viewer): [number, number] {
   const [dx, , dz] = viewer?.direction ?? [0, 0, -1]
   const len = Math.hypot(dx, dz)
-  const [fx, fz] = len > 1e-6 ? [dx / len, dz / len] : [0, -1]
-  const axis: Record<string, Vec3> = { left: [fz, 0, -fx], right: [-fz, 0, fx], up: [0, 1, 0], down: [0, -1, 0], closer: [-fx, 0, -fz], farther: [fx, 0, fz] }
+  return len > 1e-6 ? [dx / len, dz / len] : [0, -1]
+}
+
+/** Item's parent chain, nearest first (capped, in case of a cycle). */
+function parents(item: Item, items: Item[]) {
+  const out: Item[] = []
+  for (let p = items.find((i) => i.id === item.parentId); p && out.length < 20; p = items.find((i) => i.id === p!.parentId)) out.push(p)
+  return out
+}
+
+/**
+ * World position, yaw and scale of an item, walking up its frame parents.
+ * shortcut: children of row/grid/arc frames are placed by auto-layout, so their stored position is not where they render; right for free frames (templates).
+ */
+export function worldOf(item: Item, items: Item[]): { position: Vec3; yaw: number; scale: number } {
+  let [x, y, z] = item.position
+  let yaw = item.rotation[1], scale = item.scale
+  for (const p of parents(item, items)) {
+    const c = Math.cos(p.rotation[1]), s = Math.sin(p.rotation[1])
+    ;[x, y, z] = [p.position[0] + (x * c + z * s) * p.scale, p.position[1] + y * p.scale, p.position[2] + (-x * s + z * c) * p.scale]
+    yaw += p.rotation[1]
+    scale *= p.scale
+  }
+  return { position: [x, y, z], yaw, scale }
+}
+
+/**
+ * Where a new or summoned item goes: in front of the viewer at UI height (or on the floor), facing them,
+ * slid sideways until it clears the other items. `skip` = the item being moved.
+ */
+export function spotInFront(viewer: Viewer, items: Item[], floor: boolean, skip?: string): { position: Vec3; yaw: number } {
+  const [fx, fz] = forward(viewer)
+  const [hx, hy, hz] = viewer.position
+  const d = floor ? FLOOR_REACH : UI_REACH
+  const y = floor ? 0 : clamp(hy - EYE_DROP, 0.7, 1.9)
+  const others = items.filter((i) => i.id !== skip && i.component !== "frame").map((i) => worldOf(i, items).position)
+  let best: Vec3 = [hx + fx * d, y, hz + fz * d]
+  for (const side of [0, 0.45, -0.45, 0.9, -0.9, 1.35, -1.35]) {
+    const p: Vec3 = [hx + fx * d - fz * side, y, hz + fz * d + fx * side] // right of gaze = (-fz, fx)
+    if (others.every((o) => Math.hypot(o[0] - p[0], o[1] - p[1], o[2] - p[2]) >= CLEAR)) { best = p; break }
+  }
+  return { position: best.map(round) as Vec3, yaw: Math.atan2(-fx, -fz) } // yaw that faces back at the viewer
+}
+
+/**
+ * New world position for a relative move. With a viewer, closer/farther run along the line to the viewer
+ * (default 40% of the gap, never nearer than 0.5 m) and left/right follow their gaze; without one, world axes.
+ */
+export function moveTarget(from: Vec3, direction: string, amount: number | undefined, viewer?: Viewer): Vec3 | null {
+  const [fx, fz] = forward(viewer)
+  if (direction === "up" || direction === "down") {
+    const d = (amount ?? 0.15) * (direction === "up" ? 1 : -1)
+    return [from[0], round(Math.max(0, from[1] + d)), from[2]]
+  }
+  if (direction === "left" || direction === "right") {
+    const d = (amount ?? 0.25) * (direction === "right" ? 1 : -1)
+    return [round(from[0] - fz * d), from[1], round(from[2] + fx * d)]
+  }
+  if (direction !== "closer" && direction !== "farther") return null
+  // toward the viewer along the floor plane; no viewer → toward +Z (the laptop's default side)
+  let tx = -fx, tz = -fz, gap = Infinity
+  if (viewer) {
+    const vx = viewer.position[0] - from[0], vz = viewer.position[2] - from[2]
+    gap = Math.hypot(vx, vz)
+    if (gap > 1e-6) (tx = vx / gap), (tz = vz / gap)
+  }
+  let d = amount ?? (Number.isFinite(gap) ? gap * 0.4 : 0.25)
+  d = direction === "closer" ? Math.min(d, Math.max(0, gap - NEAREST)) : -d
+  return [round(from[0] + tx * d), from[1], round(from[2] + tz * d)]
+}
+
+/**
+ * Apply gated ops in order. Pass `useStudio.getState` so each op sees the previous one's result. Returns how many applied.
+ * With a `viewer`, adds and "show" land in front of it and relative moves are relative to it; `isFloor(component)` seats furniture at y = 0.
+ */
+export function applyOps(ops: Op[], get: () => StudioLike, viewer?: Viewer, isFloor: (component: string) => boolean = () => false) {
+  let n = 0
+  /** Put an item at a world pose; a frame child is lifted out of its frame so the pose is literal. */
+  const place = (item: Item, position: Vec3, yaw: number) => {
+    const w = worldOf(item, get().items)
+    get().update(item.id, {
+      position,
+      rotation: [item.rotation[0], yaw, item.rotation[2]],
+      ...(item.parentId ? { parentId: undefined, scale: round(w.scale) } : {}),
+    })
+  }
 
   for (const op of ops) {
     const s = get()
     if (op.op === "add_component" && op.component) {
       if (viewer) {
-        const [hx, hy, hz] = viewer.position
-        s.add(op.component, [hx + fx * 0.7, hy - 0.15, hz + fz * 0.7])
-        const id = get().selectedId
-        if (id) get().update(id, { rotation: [0, Math.atan2(-fx, -fz), 0] }) // face the viewer
+        const { position, yaw } = spotInFront(viewer, s.items, isFloor(op.component))
+        s.add(op.component, position, { rotation: [0, yaw, 0] })
       } else s.add(op.component)
       n++
       continue
@@ -409,12 +511,20 @@ export function applyOps(ops: Op[], get: () => StudioLike, viewer?: Viewer) {
     if (!item) continue
     if (op.op === "remove") s.remove(item.id)
     else if (op.op === "select") s.select(item.id)
-    else if (op.op === "scale") s.update(item.id, { scale: round(clamp(item.scale * (op.amount ?? 1), 0.05, 20)) })
+    else if (op.op === "show") {
+      s.select(item.id)
+      if (viewer) {
+        const { position, yaw } = spotInFront(viewer, s.items, isFloor(item.component), item.id)
+        place(item, position, yaw)
+      }
+    } else if (op.op === "scale") s.update(item.id, { scale: round(clamp(item.scale * (op.amount ?? 1), 0.05, 20)) })
     else if (op.op === "rotate") s.update(item.id, { rotation: [item.rotation[0], item.rotation[1] + ((op.amount ?? 0) * Math.PI) / 180, item.rotation[2]] })
     else if (op.op === "move") {
-      const a = axis[op.direction ?? ""], d = op.amount ?? 0.1
-      if (!a) continue
-      s.update(item.id, { position: item.position.map((v, k) => round(v + a[k] * d)) as Vec3 })
+      const w = worldOf(item, s.items)
+      const to = moveTarget(w.position, op.direction ?? "", op.amount, viewer)
+      if (!to) continue
+      if (item.parentId) place(item, to, w.yaw)
+      else s.update(item.id, { position: to })
     } else if (op.op === "set_prop" && op.prop) s.update(item.id, { props: { ...item.props, [op.prop]: op.value } })
     else if (op.op === "swap_style" && op.component) s.update(item.id, { component: op.component })
     else continue

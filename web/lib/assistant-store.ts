@@ -1,7 +1,8 @@
 import { create } from "zustand"
 import { stripName } from "./wake"
-import { applyOps, extractOps, type Op, type RegEntry, type Viewer } from "./assist-ops"
+import { applyOps, extractOps, ON_FLOOR, type Op, type RegEntry, type Viewer } from "./assist-ops"
 import { liveFilled } from "./guides"
+import { currentViewer } from "./viewer"
 import { registry } from "./registry"
 import { slotCommand } from "./slot-commands"
 import { useStudio } from "./studio-store"
@@ -39,7 +40,8 @@ function label(o: Op) {
     case "add_component": return `add_component ${o.component}`
     case "scale": return `scale ×${o.amount} ${name}`
     case "rotate": return `rotate ${o.amount}° ${name}`
-    case "move": return `move ${o.direction} ${Math.round((o.amount ?? 0.1) * 100)} cm ${name}`
+    case "move": return `move ${o.direction}${o.amount === undefined ? "" : ` ${Math.round(o.amount * 100)} cm`} ${name}`
+    case "show": return `show ${name} in front of you`
     case "set_prop": return `set ${o.prop} = ${String(o.value)} ${name}`
     case "swap_style": return `swap_style ${name} → ${o.component}`
     case "set_environment": return `environment ${String(o.value)}`
@@ -57,6 +59,8 @@ const namesOf = (component: string) => {
   const e = REGISTRY.find((r) => r.name === component)
   return e ? [e.displayName, ...(e.aliases ?? [])] : []
 }
+
+const isFloor = (c: string) => ON_FLOOR.has(REGISTRY.find((e) => e.name === c)?.category ?? "")
 
 /** What the server-side gate needs: the layout, the selection and the registry. */
 function context(text: string) {
@@ -161,9 +165,11 @@ export const useAssistant = create<AssistantState>((set, get) => {
           say({ role: "assistant", text: await ask(text) })
           return
         }
+        // Typed/laptop voice has no pose of its own: use the live camera (orbit camera, or the head in XR).
+        const here = viewer ?? currentViewer()
         const lines = ops.map((op) => {
           const l = label(op)
-          return { label: l, ok: applyOps([op], useStudio.getState, viewer) > 0 }
+          return { label: l, ok: applyOps([op], useStudio.getState, here, isFloor) > 0 }
         })
         const done = lines.filter((l) => l.ok).length
         say({

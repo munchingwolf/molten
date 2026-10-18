@@ -1,6 +1,6 @@
 import { test } from "node:test"
 import assert from "node:assert/strict"
-import { applyOps, COLORS, extractOps, norm, parseModelOps, type Ctx, type Op, type RegEntry, type StudioLike } from "./assist-ops.ts"
+import { applyOps, COLORS, extractOps, moveTarget, norm, parseModelOps, spotInFront, type Ctx, type Op, type RegEntry, type StudioLike } from "./assist-ops.ts"
 import type { Item } from "./layout.ts"
 
 const REG: RegEntry[] = [
@@ -81,10 +81,10 @@ test("rotate: default 15°, spoken degrees, direction sign", () => {
   assert.deepEqual(extractOps("turn on the lamp", ctx([["l1", "lamp"]])), [{ op: "set_prop", target: "l1", prop: "on", value: true }])
 })
 
-test("move needs a direction word; 10 cm default; units", () => {
+test("move needs a direction word; no number = no amount (applyOps picks); units", () => {
   const c = ctx([["k1", "knob"]])
   assert.deepEqual(extractOps("move it", c), [])
-  assert.deepEqual(extractOps("move it left", c), [{ op: "move", target: "k1", direction: "left", amount: 0.1 }])
+  assert.deepEqual(extractOps("move it left", c), [{ op: "move", target: "k1", direction: "left" }])
   assert.deepEqual(extractOps("move it up half a meter", c), [{ op: "move", target: "k1", direction: "up", amount: 0.5 }])
   assert.deepEqual(extractOps("bring the knob 30 cm closer", c), [{ op: "move", target: "k1", direction: "closer", amount: 0.3 }])
 })
@@ -197,4 +197,56 @@ test("go_scene switches the real store's scene; unknown scene does nothing", asy
   assert.equal(S().scenes.find((s) => s.id === S().sceneId)?.name, "Stage")
   assert.equal(applyOps([{ op: "go_scene", value: "basement" }], S), 0)
   assert.equal(S().scenes.find((s) => s.id === S().sceneId)?.name, "Stage")
+})
+
+// The user's report: "add a drum pad" → "display it and move it closer to me" moved the tempo display.
+const REG2: RegEntry[] = [...REG,
+  { name: "tempo-display", displayName: "Tempo Display", category: "music" },
+  { name: "computer-monitor", displayName: "Computer Monitor", category: "hardware", aliases: ["monitor", "display", "screen"] },
+]
+test("'it' / 'the X you just added' → the selection or newest item, never a name-alike", () => {
+  const c: Ctx = { items: [{ id: "t1", component: "tempo-display" }, { id: "d1", component: "drum-pad" }], selectedId: "d1", registry: REG2 }
+  assert.deepEqual(extractOps("display it and move it closer to me", c), [
+    { op: "show", target: "d1" },
+    { op: "move", target: "d1", direction: "closer" },
+  ])
+  assert.deepEqual(extractOps("show me the drum pad you just adde", { ...c, selectedId: "t1" }), [{ op: "show", target: "d1" }])
+  assert.deepEqual(extractOps("show me the one you just added", { ...c, selectedId: "t1" }), [{ op: "show", target: "d1" }])
+  assert.deepEqual(extractOps("add piano keys right in front of me", c), [{ op: "add_component", component: "piano-keys" }])
+})
+
+test("placement: in front of the viewer at UI height facing them, furniture on the floor, sideways when taken", () => {
+  const viewer = { position: [2, 1.6, 0] as [number, number, number], direction: [1, -0.5, 0] as [number, number, number] } // looking +X, pitched down
+  const a = spotInFront(viewer, [], false)
+  assert.deepEqual(a.position, [2.75, 1.4, 0])
+  assert.ok(Math.abs(a.yaw - Math.atan2(-1, 0)) < 1e-9) // its front (+Z local) points back at -X
+  assert.deepEqual(spotInFront(viewer, [], true).position, [3.1, 0, 0])
+  const taken: Item = { id: "x", component: "knob", position: [2.75, 1.4, 0], rotation: [0, 0, 0], scale: 1, bind: {} }
+  assert.deepEqual(spotInFront(viewer, [taken], false).position, [2.75, 1.4, 0.45]) // nudged to the viewer's right (+Z when facing +X)
+})
+
+test("relative moves: closer = 40% of the gap, never within 0.5 m; left/right follow the gaze", () => {
+  const viewer = { position: [0, 1.6, 0] as [number, number, number], direction: [0, 0, -1] as [number, number, number] }
+  assert.deepEqual(moveTarget([0, 1.4, -2], "closer", undefined, viewer), [0, 1.4, -1.2])
+  assert.deepEqual(moveTarget([0, 1.4, -0.6], "closer", undefined, viewer), [0, 1.4, -0.5])
+  assert.deepEqual(moveTarget([0, 1.4, -2], "farther", undefined, viewer), [0, 1.4, -2.8])
+  assert.deepEqual(moveTarget([0, 1.4, -2], "left", undefined, viewer), [-0.25, 1.4, -2])
+})
+
+test("show + add with a viewer: summoned frame child is lifted out at its world scale", () => {
+  const it = (id: string, component: string, extra: Partial<Item> = {}): Item => ({ id, component, position: [0, 0, 0], rotation: [0, 0, 0], scale: 1, bind: {}, ...extra })
+  let state: StudioLike = {
+    items: [it("root", "frame", { position: [5, 2, 5], scale: 0.5 }), it("d1", "drum-pad", { parentId: "root", position: [1, 0, 0] })],
+    selectedId: null,
+    add: (component, position, patch) => { state = { ...state, items: [...state.items, it("new", component, { position: position!, ...patch })], selectedId: "new" } },
+    update: (id, patch) => { state = { ...state, items: state.items.map((i) => (i.id === id ? { ...i, ...patch } : i)) } },
+    remove: () => {},
+    select: (id) => { state = { ...state, selectedId: id } },
+  }
+  const viewer = { position: [0, 1.6, 0] as [number, number, number], direction: [0, 0, -1] as [number, number, number] }
+  assert.equal(applyOps([{ op: "show", target: "d1" }, { op: "add_component", component: "lamp" }], () => state, viewer, (c) => c === "lamp"), 2)
+  const d = state.items.find((i) => i.id === "d1")!
+  assert.equal(state.selectedId, "new")
+  assert.deepEqual([d.position, d.parentId, d.scale], [[0, 1.4, -0.75], undefined, 0.5])
+  assert.deepEqual(state.items.find((i) => i.id === "new")!.position, [0, 0, -1.1])
 })
