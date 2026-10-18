@@ -11,6 +11,22 @@ The target is the Spatial VR Editor mockup: https://claude.ai/artifact/LGfThjydy
 3. Clear the scene. The environment can be left empty, because the template sets the concert stage.
 4. Turn the Quest volume up. Mute the laptop, or it echoes.
 
+## Stream the headset to the laptop or TV (scrcpy, not Meta casting)
+
+[scrcpy](https://github.com/Genymobile/scrcpy) mirrors the Quest over USB through adb, so there's no Wi-Fi lag and nothing goes through Meta's servers.
+
+1. One-time setup: `brew install scrcpy && brew install --cask android-platform-tools`. Developer Mode must be on for the Quest (Meta Horizon phone app → headset settings).
+2. Plug the Quest into the laptop with a USB-C data cable. In the headset, allow USB debugging and tick "Always allow". `adb devices` should list it.
+3. Run:
+   ```sh
+   scrcpy --crop=5496:8000:0:0 --no-control --max-fps=60 -b 8M -m2560 --record=$HOME/Desktop/quest-demo.mp4
+   ```
+   - `--crop` shows the left eye only. The Quest 3S crops in its 10992×8000 virtual-display coordinates, so a crop based on the 3664×1920 panel looks badly zoomed in.
+   - `--no-control` stops laptop clicks from reaching the headset.
+   - `--record` saves a backup clip; closing the window finishes the file.
+4. TV: there's no direct cable, because the Quest's USB-C port doesn't output video. Plug the laptop into the TV with HDMI and make the scrcpy window fullscreen (`Cmd+F`).
+5. Components at the edge of the view look warped by the lens. Bring what you're showing to the centre of your view.
+
 ## Video (under 60 s, no slides, filmed through the Quest plus a phone on the hands)
 
 | Time | On screen | Body input | Proves |

@@ -13,6 +13,9 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 7:28: Evan: **DEMO.md: how to stream the Quest to the laptop or TV over USB (scrcpy)**
+- Use a left-eye crop of `5496:8000` on the Quest 3S, not the panel size. The TV path is laptop HDMI, because the Quest's USB-C port doesn't output video.
+
 ### 6:55: Evan (session ek-c7): **home page shows the Night Set DAW live** (section under the hero, `#daw`)
 - The mockup artifact is served from `web/public/demo/night-set.html` (copy of `reports/night-set-mockup.html` with an iframe-only embed mode that hides its internal header/notes, and the "For Danny/Evan" line removed). `components/site/daw-demo.tsx`: click-to-interact cover so it doesn't trap page scroll. Buttons: Build it in the Studio, Open full screen. WebGL budget on / is now 14 of ~16.
 
