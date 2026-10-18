@@ -3,6 +3,15 @@
   "slug": "night-set",
   "category": "music",
   "description": "A live-performance rig on the concert stage: a desk with a tilted mixer, synth keys and a 4x4 drum pad, and a track wall of keys, tempo and drums lanes arcing around you. Pre-wired: one tempo, keys and drums buses.",
+  "say": [
+    "night set",
+    "the daw",
+    "a daw",
+    "the demo",
+    "the artifact",
+    "the mockup",
+    "the music rig"
+  ],
   "environment": "env-concert-stage",
   "items": [
     {

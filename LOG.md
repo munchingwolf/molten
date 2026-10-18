@@ -13,6 +13,10 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 6:45: Evan (session ek-c7): **"Stark, build the Night Set" builds the whole artifact rig by itself** (also "the DAW" / "the demo" / "the mockup")
+- Opens the template, places all 8 slots one after another (you watch it build), turns on Play mode so the instruments answer your hands. Template-level trigger phrases in `night-set.json` `say`; `templateCommand` in `lib/slot-commands.ts` (+test, 8 pass).
+- The laptop assistant box submits on **Send** (Enter didn't submit in my run). Demo video: `~/Desktop/stark-builds-night-set.mp4` (laptop Studio; the emulated-headset recording doesn't refresh the scene after the build, not chased).
+
 ### 6:05: Danny: **templates at 70% scale** (Danny: everything too far/big in the headset). New `components/studio/template-scale.ts` (`useTemplateScale`, mounted in StudioScene) sets a new guide root's `scale` to 0.7 when a template starts, so items + slot ghosts shrink toward you (root sits at the origin). Done outside studio-store on purpose; Evan, feel free to move it into `templateRoot` later. `insertAll` path not covered.
 
 ### 5:50: Danny: **Enter VR/AR works on Quest again + Stark HUD component wheel**

@@ -2,7 +2,7 @@ import { test } from "node:test"
 import assert from "node:assert/strict"
 import { readFileSync } from "node:fs"
 import { toSlots } from "./guides.ts"
-import { slotCommand, type SayingSlot } from "./slot-commands.ts"
+import { slotCommand, templateCommand, type SayingSlot } from "./slot-commands.ts"
 
 // The real Night Set template, so the shipped trigger phrases are what's tested.
 const nightSet = JSON.parse(readFileSync(new URL("../registry/templates/night-set.json", import.meta.url), "utf8"))
@@ -57,4 +57,14 @@ test("an already placed slot answers instead of adding a stray copy", () => {
 test("leaves everything else to the normal assistant", () => {
   for (const t of ["make the drums bigger", "next scene", "go to the next scene", "the drums sound great", "dont add the drums", "add a knob", "what is this"])
     assert.equal(run(t), null, t)
+})
+
+test("a build request names a whole template: Night Set by name or its own trigger phrases", () => {
+  const templates = [nightSet, { name: "Music Studio" }, { name: "Smart Home" }]
+  assert.equal(templateCommand("build the night set", templates)?.name, "Night Set")
+  assert.equal(templateCommand("set up the DAW", templates)?.name, "Night Set")
+  assert.equal(templateCommand("make the demo", templates)?.name, "Night Set")
+  assert.equal(templateCommand("build the music studio", templates)?.name, "Music Studio")
+  for (const t of ["the night set", "make it bigger", "build the track wall", "dont build the night set", "add the drums"])
+    assert.equal(templateCommand(t, templates), null, t)
 })

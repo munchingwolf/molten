@@ -81,6 +81,24 @@ export function slotCommand(raw: string, slots: SayingSlot[], filled: Filled, na
   return { slotIds: ids, reply: reply(ids) }
 }
 
+const BUILD = /\b(build|set up|setup|make|create|load|start|open|give me|show me|bring up|put up|do)\b/
+
+/**
+ * "Stark, build the Night Set" / "set up the DAW": the template a build request names (its name, or a phrase in the
+ * template's own `say` list), longest phrase wins. Null when there's no build verb or no template named.
+ */
+export function templateCommand<T extends { name: string; say?: string[] }>(raw: string, templates: T[]): T | null {
+  const t = clean(raw)
+  if (!t || NEGATION.test(t) || !BUILD.test(t)) return null
+  let best: { tpl: T; len: number } | null = null
+  for (const tpl of templates)
+    for (const p of [tpl.name, ...(tpl.say ?? [])]) {
+      const c = clean(p)
+      if (c && ` ${t} `.includes(` ${c} `) && (!best || c.length > best.len)) best = { tpl, len: c.length }
+    }
+  return best?.tpl ?? null
+}
+
 /** A container slot (the track wall) brings its open child slots (the lanes) with it, in build order. */
 function withChildren(chosen: Slot[], open: Slot[]): string[] {
   const ids: string[] = []

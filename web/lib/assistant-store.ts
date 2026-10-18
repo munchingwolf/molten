@@ -1,10 +1,10 @@
 import { create } from "zustand"
 import { stripName } from "./wake"
 import { applyOps, extractOps, ON_FLOOR, type Op, type RegEntry, type Viewer } from "./assist-ops"
-import { liveFilled } from "./guides"
+import { liveFilled, openSlots, type Template } from "./guides"
 import { currentViewer } from "./viewer"
 import { registry } from "./registry"
-import { slotCommand } from "./slot-commands"
+import { slotCommand, templateCommand } from "./slot-commands"
 import { useStudio } from "./studio-store"
 
 // Assistant panel state (desktop + VR). Edits go to /api/assist (H's voice route) and are applied with
@@ -55,6 +55,11 @@ const REGISTRY: RegEntry[] = registry.map((e) => ({
   name: e.name, displayName: e.displayName, aliases: e.aliases, category: e.category, style: e.style, status: e.status,
   props: (e as { props?: RegEntry["props"] }).props,
 }))
+// Templates for "build the Night Set", fetched once; a failed fetch is retried on the next command.
+let templateList: Promise<(Template & { say?: string[] })[]> | null = null
+const templates = () =>
+  (templateList ??= fetch("/api/templates").then((r) => r.json()).catch(() => ((templateList = null), [])))
+
 const namesOf = (component: string) => {
   const e = REGISTRY.find((r) => r.name === component)
   return e ? [e.displayName, ...(e.aliases ?? [])] : []
@@ -141,6 +146,35 @@ export const useAssistant = create<AssistantState>((set, get) => {
         const ok = (h === "undo" ? past : future).length > 0
         useStudio.getState()[h]()
         say({ role: "assistant", text: ok ? "Done." : `Nothing to ${h}.`, ops: [{ label: h, ok }] })
+        return
+      }
+
+      // "Build the Night Set": open that template, place every slot one after another (you watch it build), then
+      // Play mode so the instruments answer your hands straight away.
+      const tpl = templateCommand<Template & { say?: string[] }>(text, await templates())
+      if (tpl) {
+        set({ status: "thinking" })
+        try {
+          useStudio.getState().startGuide(tpl)
+          const slots = openSlots(useStudio.getState().guide?.slots ?? [], {})
+          const ops: OpLine[] = []
+          for (const slot of slots) {
+            ops.push({ label: `place ${slot.name ?? slot.component}`, ok: !!useStudio.getState().placeSlot(slot.id) })
+            await new Promise((r) => setTimeout(r, 220))
+          }
+          if (!useStudio.getState().playMode) useStudio.getState().togglePlay()
+          const wires = [...new Set(slots.flatMap((s) => Object.values(s.bind ?? {})))].filter(Boolean)
+          const ok = ops.filter((o) => o.ok).length
+          say({
+            role: "assistant",
+            text: ok === ops.length
+              ? `${tpl.name} is built: ${ok} pieces${wires.length ? `, wired to ${wires.join(", ")}` : ""}. Play mode is on, go ahead and play.`
+              : `Placed ${ok} of ${ops.length} pieces of ${tpl.name}.`,
+            ops,
+          })
+        } finally {
+          set({ status: "idle" })
+        }
         return
       }
 
