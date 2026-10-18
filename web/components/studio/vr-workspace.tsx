@@ -15,7 +15,7 @@ import { useWheel } from "./vr-wheel"
 
 // Cockpit layout around where the session starts (user at the origin, eyes ≈ 1.6 m):
 // library shelf on the left (vr-shelf.tsx), toolbar ahead above eye line, inspector + layers on the right.
-const TOOLBAR_POS: Vec3 = [0, 1.62, -0.7]
+const TOOLBAR_POS: Vec3 = [0, 1.92, -0.95] // above the eye line (eyes ≈ 1.6 m) so it never blocks the view ahead
 const RIGHT_POS: Vec3 = [0.55, 1.15, -0.45]
 const RIGHT_YAW = Math.atan2(-RIGHT_POS[0], -RIGHT_POS[2])
 const STEP = 0.05 // metres per nudge
@@ -25,7 +25,7 @@ const TURN = Math.PI / 12 // 15° per rotate
 export function VRWorkspace() {
   return (
     <IfInSessionMode allow={["immersive-ar", "immersive-vr"]}>
-      <group position={TOOLBAR_POS} rotation={[0.12, 0, 0]}>
+      <group position={TOOLBAR_POS} rotation={[0.33, 0, 0]}>
         <Toolbar />
       </group>
       <group position={RIGHT_POS} rotation={[0, RIGHT_YAW, 0]}>
