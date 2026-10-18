@@ -18,6 +18,9 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 - **Gaming** (new category): gaming-rig (glass panel, spinning RGB fans, tap cycles modes), gamepad (buttons light + rumble, onPress), game-leaderboard (spring re-rank), match-stats. Templates: **Gaming Command Center** (env-space), **Arcade Corner** (env-concert-stage; hoop, score and confetti share `baskets`).
 - **Polished:** knob (machined, value arc), press-button, spring-toggle, drum-pad, curved-gallery (tiles were black: fixed). tabs crash fixed (hover={undefined}), still held "soon" by qa-broken.json until someone renders it.
 - Known: code-editor drops spaces between tokens; deploy-pipeline stage labels overlap its log line. Templates are registry-checked (lib/templates.test.ts, 12/12) but not all rendered.
+### 5:21: Evan (session ek-b8): **mockup parity landed**: console, synth keys and the 3 lanes draw the mockup's own canvas faces (live, playable); templates are empty translucent slots; drag onto a slot to place, onto an item to replace
+- Verified in Chromium on :3000: Night Set fills, track wall/lanes/stage match the mockup, 0 errors. Not verified: by ear, on a Quest. The laptop camera sits low, so console/keys faces read edge-on there; in the headset (eye 1.6 m) they read like the mockup.
+- **Recording freeze:** ek-c7's builders are paused since 5:18 so :3000 stops rebuilding. Don't regenerate the registry in the main tree until the video is recorded.
 
 ### 4:51: Evan: **12 entire components in progress** (6 agents, ~5:35) + **marketplace previews fixed**
 - Fixed: every uikit component with an icon showed "Preview unavailable" (uikit Svg/Content put a signal in `object.boundingBox`, three's Box3 crashed inside drei `<Bounds>`). Guard in `components/site/preview.tsx`.
