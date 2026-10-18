@@ -197,6 +197,7 @@ const C_grand_piano = lazy(() => import("@/components/spatial/grand-piano"))
 const C_pendant_light = lazy(() => import("@/components/spatial/pendant-light"))
 const C_room_shell = lazy(() => import("@/components/spatial/room-shell"))
 const C_string_lights = lazy(() => import("@/components/spatial/string-lights"))
+const C_env_music_hall = lazy(() => import("@/components/spatial/env-music-hall"))
 const C_drum_pads = lazy(() => import("@/components/spatial/drum-pads"))
 const C_synth_keys = lazy(() => import("@/components/spatial/synth-keys"))
 const C_tempo_lane = lazy(() => import("@/components/spatial/tempo-lane"))
@@ -214,6 +215,13 @@ const C_game_leaderboard = lazy(() => import("@/components/spatial/game-leaderbo
 const C_match_stats = lazy(() => import("@/components/spatial/match-stats"))
 const C_portal = lazy(() => import("@/components/spatial/portal"))
 const C_nav_button = lazy(() => import("@/components/spatial/nav-button"))
+const C_env_tron = lazy(() => import("@/components/spatial/env-tron"))
+const C_env_japan = lazy(() => import("@/components/spatial/env-japan"))
+const C_env_moon = lazy(() => import("@/components/spatial/env-moon"))
+const C_env_volcano = lazy(() => import("@/components/spatial/env-volcano"))
+const C_env_dream = lazy(() => import("@/components/spatial/env-dream"))
+const C_env_egypt = lazy(() => import("@/components/spatial/env-egypt"))
+const C_env_starry = lazy(() => import("@/components/spatial/env-starry"))
 
 export const components: Record<string, ComponentType> = {
   "settings-default": C_settings_default as ComponentType,
@@ -411,6 +419,7 @@ export const components: Record<string, ComponentType> = {
   "pendant-light": C_pendant_light as ComponentType,
   "room-shell": C_room_shell as ComponentType,
   "string-lights": C_string_lights as ComponentType,
+  "env-music-hall": C_env_music_hall as ComponentType,
   "drum-pads": C_drum_pads as ComponentType,
   "synth-keys": C_synth_keys as ComponentType,
   "tempo-lane": C_tempo_lane as ComponentType,
@@ -428,4 +437,11 @@ export const components: Record<string, ComponentType> = {
   "match-stats": C_match_stats as ComponentType,
   "portal": C_portal as ComponentType,
   "nav-button": C_nav_button as ComponentType,
+  "env-tron": C_env_tron as ComponentType,
+  "env-japan": C_env_japan as ComponentType,
+  "env-moon": C_env_moon as ComponentType,
+  "env-volcano": C_env_volcano as ComponentType,
+  "env-dream": C_env_dream as ComponentType,
+  "env-egypt": C_env_egypt as ComponentType,
+  "env-starry": C_env_starry as ComponentType,
 }

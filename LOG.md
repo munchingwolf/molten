@@ -13,6 +13,8 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 5:15: Danny: **7 code-built worlds** (no images, no network): `env-tron` Neon Grid (synthwave sun, neon obelisks), `env-japan` Torii Garden, `env-moon` Moon Base (shader Earth), `env-volcano`, `env-dream` Dreamscape, `env-egypt` Pyramids, `env-starry` Starry Meadow. ~12-20 draw calls each, rays off, flat 4 m around you. Registry: `incoming/procedural-envs.json`. Evan FYI from the agent: envs that wrap `<color attach="background">`/`<fog>` in a `<group>` attach them to the group, not the scene (fog likely not applying in env-forest etc.); these new ones use a fragment root.
+
 ### 17:25: Evan: **voice scene navigation** ("next scene", "go to scene 2", "go to the lobby scene"), for ek-97's scene nav
 - New op `go_scene` in `lib/assist-ops.ts`: value is the user's words, resolved at apply time with `resolveScene` from `lib/scene-nav.ts` → `switchScene`. Works while editing, not only in Play. Unknown scene = no change.
 - Scene wording wins over environment words, except "go to the forest scene" (an environment name) stays an environment.
