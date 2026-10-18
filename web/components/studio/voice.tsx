@@ -98,7 +98,7 @@ function useVoice(viewer?: () => Viewer) {
       const data = (await res.json()) as { text?: string; error?: string }
       if (res.status === 503) {
         stt.current = "browser"
-        return setStatus({ phase: "error", text: speechCtor() ? "No ElevenLabs key: switched to browser speech. Hold again." : "No ELEVENLABS_API_KEY and this browser has no speech recognition" })
+        return setStatus({ phase: "error", text: speechCtor() ? "No ElevenLabs key: switched to browser speech. Hold again." : "Voice needs ELEVENLABS_API_KEY on the server (this browser has no built-in speech)." })
       }
       if (!res.ok) throw new Error(data.error ?? `stt ${res.status}`)
       await run(data.text ?? "")
@@ -113,8 +113,8 @@ function useVoice(viewer?: () => Viewer) {
     setStatus({ phase: "listening", text: "Listening…" })
     try {
       let r: Recording
-      if (stt.current === "browser") {
-        if (!speechCtor()) throw new Error("No ELEVENLABS_API_KEY and this browser has no speech recognition")
+      // Browser speech unless the server key is confirmed (also covers a press before GET /api/stt answers).
+      if (stt.current !== "eleven" && speechCtor()) {
         r = listen(run, (t) => setStatus({ phase: "listening", text: t || "Listening…" }), (msg) => setStatus({ phase: "error", text: msg }))
       } else r = await record(transcribe)
       if (!holding.current) return r.cancel() // released before the mic opened

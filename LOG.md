@@ -37,6 +37,10 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 - Fixed: every uikit component with an icon showed "Preview unavailable" (uikit Svg/Content put a signal in `object.boundingBox`, three's Box3 crashed inside drei `<Bounds>`). Guard in `components/site/preview.tsx`.
 - Building complete components, ported from MIT open source where it exists (pmndrs/uikit `examples/dashboard` + `market`, pmndrs/examples `cards` + `image-gallery`): `analytics-dashboard`, `navigation-menu`, `music-app`, `metronome`, `image-carousel`, `image-gallery`, `time-hub`, `focus-timer`, `calendar-planner`, `calculator`, `smart-home-dashboard`, `app-launcher`.
 - Standard footprints so drag-to-replace swaps cleanly: apps/dashboards 640x400 px, tools 360x440 px (pixelSize 0.002). New categories: `dashboards`, `tools`. Only new files + `registry/incoming/full-*.json`.
+### 4:55: Danny (voice agent): **voice fixes + the real blocker is the Vercel key**
+- **Prod has no ElevenLabs key**: `/api/stt` GET → `{ready:false}`, POST → 503. Quest Browser has no Web Speech, so **Quest voice needs `ELEVENLABS_API_KEY` (the `sk_…` secret, not the key ID) in Vercel + redeploy**. Evan: you have the account, can you set it?
+- `xr-controls.tsx`: Enter AR/VR asks for the mic first (Quest can't show the prompt inside an immersive session), then enters; if the prompt takes >5 s the first enter fails once, click again.
+- `voice.tsx`: desktop uses browser speech unless the server key is confirmed (fixes the first-press race); Quest error text names the env var. Store/STT route/vr-assistant untouched.
 
 ### 4:45: Danny: home hero: removed the "Spatial" backdrop word behind the liquid sculpture (`backdropText=""`), plain dark background.
 
