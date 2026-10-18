@@ -1,7 +1,9 @@
 import { create } from "zustand"
 import { stripName } from "./wake"
 import { applyOps, extractOps, type Op, type RegEntry, type Viewer } from "./assist-ops"
+import { liveFilled } from "./guides"
 import { registry } from "./registry"
+import { slotCommand } from "./slot-commands"
 import { useStudio } from "./studio-store"
 
 // Assistant panel state (desktop + VR). Edits go to /api/assist (H's voice route) and are applied with
@@ -51,6 +53,10 @@ const REGISTRY: RegEntry[] = registry.map((e) => ({
   name: e.name, displayName: e.displayName, aliases: e.aliases, category: e.category, style: e.style, status: e.status,
   props: (e as { props?: RegEntry["props"] }).props,
 }))
+const namesOf = (component: string) => {
+  const e = REGISTRY.find((r) => r.name === component)
+  return e ? [e.displayName, ...(e.aliases ?? [])] : []
+}
 
 /** What the server-side gate needs: the layout, the selection and the registry. */
 function context(text: string) {
@@ -131,6 +137,15 @@ export const useAssistant = create<AssistantState>((set, get) => {
         const ok = (h === "undo" ? past : future).length > 0
         useStudio.getState()[h]()
         say({ role: "assistant", text: ok ? "Done." : `Nothing to ${h}.`, ops: [{ label: h, ok }] })
+        return
+      }
+
+      // With a template open, "add the drums" / "next" / "fill the rest" fill its slots exactly like a drag (snapped, wired).
+      const { guide, items } = useStudio.getState()
+      const fill = guide && slotCommand(text, guide.slots, liveFilled(guide.filled, items), namesOf)
+      if (fill) {
+        const ops = fill.slotIds.map((id) => ({ label: `place ${guide.slots.find((s) => s.id === id)?.name ?? id}`, ok: !!useStudio.getState().placeSlot(id) }))
+        say({ role: "assistant", text: ops.every((o) => o.ok) ? fill.reply : "Couldn't place that. Is the template still open?", ops })
         return
       }
 

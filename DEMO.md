@@ -16,7 +16,7 @@ The target is the Spatial VR Editor mockup: https://claude.ai/artifact/LGfThjydy
 | Time | On screen | Body input | Proves |
 |---|---|---|---|
 | 0:00–0:05 | Headset view. Pinch **Templates**, then **Night Set**, then **Build with guide**. Glowing slots appear on the desk and on the arc wall. | Pinch | It clicks fast |
-| 0:05–0:25 | Pull the **mixing console**, **synth keys** and **drum pads** from the library and drop each near its slot; it snaps in. Then tap the three lane slots to place them. The counter climbs "4/7… 7/7". | Grab, poke | A new way to create |
+| 0:05–0:25 | Pull the **mixing console** and **synth keys** from the library and drop each near its slot; it snaps in. Then say **"Stark, add the drums"** (the pads drop into their slot, wired to drums) and **"Stark, build the track wall"** (the wall and its three lanes). The counter climbs to "8 of 8". | Grab, voice | A new way to create: your hands and the agent fill the same template |
 | 0:25–0:30 | X-ray: cables show tempo knob to tempo lane, pads to drums lane, keys to keys lane, all wired by the slots. | Pinch | It's real software |
 | 0:30–0:50 | **Play.** The drums lane loops. Finger-drum on the pads (the hits record into the lane), play a chord on the keys (it records into the keys lane), turn the TEMPO knob (BPM changes, the beat speeds up), pull the DRUMS fader down. | Poke, both hands | It works in space; made with the body |
 | 0:50–0:58 | Say "make the pads glow blue" (voice; check it works first). Then cut to the laptop: Claude Code with the Spatial MCP pulls this layout into a fresh project (`get_layout`, then `add_component`). | Voice | Worth making with again |
@@ -24,8 +24,9 @@ The target is the Spatial VR Editor mockup: https://claude.ai/artifact/LGfThjydy
 ## At the judging table
 
 1. Hand them the headset with the Night Set guide already started and 2 slots filled. They place the rest, press Play and drum.
-2. If anything stalls, tap **Place next** on the guide panel, which fills the next slot for them.
-3. Say what's stubbed before they ask (list below).
+2. If anything stalls, tap **Place next** on the guide panel (or say "Stark, next"), which fills the next slot for them.
+3. **Template voice commands** (only act when you say them; the template pre-loads the phrases in each slot's `say`): "Stark, add the drums / the keys / the mixer", "Stark, set up the rig" (desk, mixer, keys, pads), "Stark, build the track wall" (wall + 3 lanes), "Stark, next", "Stark, fill the rest". Everything else ("make the pads glow blue", "next scene") goes to the normal assistant.
+4. Say what's stubbed before they ask (list below).
 
 ## What works and what's stubbed (for the submission form; keep it honest)
 

@@ -13,6 +13,11 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 5:50: Evan (session ek-c7): **template voice commands: drag OR tell Stark, same slots**. Pull after the recording to get it
+- With a guided template open, "Stark, add the drums" / "set up the rig" / "build the track wall" / "next" / "fill the rest" call `placeSlot` (same path as dragging onto a slot: snapped, wired, one undo step each). Plain word matching in `lib/slot-commands.ts` (+7 tests), no model; edits and "next scene" fall through to the normal assistant.
+- **Pre-instructions live in the template:** each slot's `say` list (Night Set now has them; a phrase on several slots = a group, e.g. "the rig"). A container slot (track wall) brings its lanes.
+- DEMO.md video row 0:05–0:25 now mixes drag + "Stark, add the drums". **Voice on the Quest still needs the real `sk_…` ElevenLabs key in `web/.env.local`** (current value starts `e4b`, STT 400s); typing in the assistant panel works without it.
+
 ### 5:38: Evan (session ek-97): **the mascot/assistant is now "Stark"**: address it by name
 - "Stark, add a knob" / "hey Stark, next scene" / "OK Stark, make it blue": `lib/wake.ts` strips the name (also Starke/Starks; NOT "start") before parsing, typed or spoken (assistant-store `send`). Just "Stark" replies "Yes?". The transcript still shows what you said.
 - Renamed Pix to Stark in the mascot (2D + voxel), the laptop panel title, the VR panel and the input hint; new greeting tells people to start with the name. Tests: `lib/wake.test.ts`.
