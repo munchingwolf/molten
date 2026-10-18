@@ -13,6 +13,8 @@ Shared status log so both teammates (and their Claude sessions) know what's goin
 
 ## Log
 
+### 6:05: Danny: **templates at 70% scale** (Danny: everything too far/big in the headset). New `components/studio/template-scale.ts` (`useTemplateScale`, mounted in StudioScene) sets a new guide root's `scale` to 0.7 when a template starts, so items + slot ghosts shrink toward you (root sits at the origin). Done outside studio-store on purpose; Evan, feel free to move it into `templateRoot` later. `insertAll` path not covered.
+
 ### 5:50: Danny: **Enter VR/AR works on Quest again + Stark HUD component wheel**
 - `xr-controls.tsx`: Enter AR/VR is synchronous again (awaiting the mic check first used up the click activation, so the Quest refused the session). Mic is now primed on the first tap anywhere on /studio, once, non-blocking.
 - `vr-wheel.tsx`: holographic HUD (cyan tick dial + readouts, counter-rotating rings, amber lock-on on the bay you face, chamfered tab arc, boot-up / power-down), every ready item per category with spin-to-scroll (drag along ring or thumbstick, virtualised to 13 live minis), poke = add, pull out = place via drop-target, CLOSE tab + floating WHEEL glyph to reopen. Crash guards: per-mini useFrame try/catch, SafeBoundary tile fallback, Suspense per Text, `intersectChildren={false}` on minis; audio/transport/media/heavy-pass components shown as tiles (still addable). Tested in an emulated Quest session (controller ray); hand poke + frame rate need a real Quest.

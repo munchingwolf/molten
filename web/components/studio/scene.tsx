@@ -13,6 +13,7 @@ import { LayoutRenderer } from "./layout-renderer"
 import { VRShelf } from "./vr-shelf"
 import { VRWorkspace } from "./vr-workspace"
 import { VRWheel } from "./vr-wheel"
+import { useTemplateScale } from "./template-scale"
 import { XRayOverlay } from "./xray"
 import { VRAssistant } from "./vr-assistant"
 import Mascot from "@/components/spatial/mascot"
@@ -26,6 +27,7 @@ import { VRGuide } from "./vr-guide"
 const cameraStore = createScreenCameraStore({ origin: [0, 1.25, -1.2], distance: 2.6, pitch: 0.12, yaw: 0 })
 
 export function StudioScene() {
+  useTemplateScale()
   const { items, values, selectedId, setValue, select, update, environment, viewMode, showGrid, snap, playMode } = useStudio()
   const xray = viewMode === "xray"
   const Env = environment ? (components[environment] as ComponentType | undefined) : undefined
